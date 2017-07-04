@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="System_Core">
 <head>
 	<title>Inicio</title>
 	<meta charset="utf-8">
@@ -14,10 +14,17 @@
       	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<script src="<?= asset('../assetsm/js/materialize.min.js') ?>"></script>
 	<link href="<?= asset('../assetsm/css/materialize.min.css') ?>" rel="stylesheet">
-		
+	
+	<!--Angular-->
+	<script src="<?= asset('../app/angular/angular.min.js') ?>"></script>
+	<script src="<?= asset('../app/angular/angular-route.min.js') ?>"></script>
+		<!--Aplicacion-->
+	<script src="<?= asset('../app/app/app.js') ?>"></script>
+		<!--Controller-->
+	<script src="<?= asset('../app/app/login/Start.js') ?>"></script>		
 
 </head>
-<body>
+<body ng-controller="Login">
 
   <!-- Start Page Loading -->
   <div id="loader-wrapper">
@@ -34,7 +41,7 @@
         <div class="row">
           <div class="input-field col s12 center">
             <img src="" alt="" class="circle responsive-img valign profile-image-login">
-            <p class="center login-form-text">Company Name</p>
+            <p class="center login-form-text">{{Name_Company}}</p>
           </div>
         </div>
         <div class="row margin">

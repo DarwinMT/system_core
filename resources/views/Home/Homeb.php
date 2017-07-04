@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="System_Core">
 <head>
 	<title>Inicio</title>
 	<meta charset="utf-8">
@@ -13,6 +13,14 @@
     <!--Bootstrap 3-->
 	<script src="<?= asset('../assetsb/js/bootstrap.min.js') ?>"></script>
 	<link href="<?= asset('../assetsb/css/bootstrap.min.css') ?>" rel="stylesheet">
+
+	<!--Angular-->
+	<script src="<?= asset('../app/angular/angular.min.js') ?>"></script>
+	<script src="<?= asset('../app/angular/angular-route.min.js') ?>"></script>
+		<!--Aplicacion-->
+	<script src="<?= asset('../app/app/app.js') ?>"></script>
+		<!--Controller-->
+	<script src="<?= asset('../app/app/login/Start.js') ?>"></script>
 
 	<!--Style  https://bootsnipp.com/snippets/featured/register-page -->
 	<style type="text/css">
@@ -74,12 +82,12 @@
 		}
 	</style>	
 </head>
-<body>
+<body ng-controller="Login">
 		<div class="container">
 			<div class="row main">
 				<div class="panel-heading">
 	               <div class="panel-title text-center">
-	               		<h1 class="title">Company Name</h1>
+	               		<h1 class="title">{{Name_Company}}</h1>
 	               		<hr />
 	               	</div>
 	            </div> 

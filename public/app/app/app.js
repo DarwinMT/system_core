@@ -1,4 +1,7 @@
-var app=angular.module("Ce",["ngRoute"]);
+var app=angular.module("System_Core",["ngRoute"]);
+
+app.constant('API_URL', 'http://127.0.0.1:8000/system_core/public/');
+
 app.config(function($routeProvider){
 	$routeProvider
 	.when("/",{
