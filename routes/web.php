@@ -15,3 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 });*/
 Route::resource('/', 'Start\Start');
+
+Route::resource('Login', 'Start\Start');

@@ -37,7 +37,7 @@
 
  <div id="login-page" class="row">
     <div class="col s12 z-depth-4 card-panel">
-      <form class="login-form">
+      <form class="login-form" name="logi_system" id="logi_system"  novalidate="">
         <div class="row">
           <div class="input-field col s12 center">
             <img src="" alt="" class="circle responsive-img valign profile-image-login">
@@ -47,21 +47,23 @@
         <div class="row margin">
           <div class="input-field col s12">
             <i class="material-icons prefix">account_circle</i>
-            <input id="username" type="text">
+            <input id="username" type="text" name="username" id="username"  ng-model="username" ng-required="true">
             <label for="username" >Username</label>
           </div>
+          <span class="help-block error" ng-show="logi_system.username.$invalid && logi_system.username.$touched">El usuario es requerido</span>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
             <i class="material-icons prefix"> lock_outline </i>
-            <input id="password" type="password">
+            <input id="password" type="password" name="password" id="password" ng-model="password" ng-required="true">
             <label for="password">Password</label>
           </div>
+          <span class="help-block error" ng-show="logi_system.password.$invalid && logi_system.password.$touched">El password es requerido</span>
         </div>
        
         <div class="row">
           <div class="input-field col s12">
-            <a  class="btn waves-effect waves-light col s12 indigo">Login</a>
+            <button type="button" ng-click="start_login();" ng-disabled="logi_system.$invalid" class="btn waves-effect waves-light col s12 indigo" > Login </button>
           </div>
         </div>
         

@@ -92,7 +92,7 @@
 	               	</div>
 	            </div> 
 				<div class="main-login main-center">
-					<form class="form-horizontal" method="post" action="#">
+					<form class="form-horizontal"  name="logi_system" id="logi_system"  novalidate="">
 						
 						
 
@@ -101,8 +101,11 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="glyphicon glyphicon-user" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username"/>
+									<input type="text" class="form-control" name="username" id="username" ng-model="username" ng-required="true"  placeholder="Username"/>
 								</div>
+
+								 <span class="help-block error" ng-show="logi_system.username.$invalid && logi_system.username.$touched">El usuario es requerido</span>
+
 							</div>
 						</div>
 
@@ -111,14 +114,15 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="glyphicon glyphicon-lock" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
+									<input type="password" class="form-control" name="password" id="password" ng-model="password" ng-required="true"  placeholder="Password"/>
 								</div>
+								<span class="help-block error" ng-show="logi_system.password.$invalid && logi_system.password.$touched">El password es requerido</span>
 							</div>
 						</div>
 
 
 						<div class="form-group ">
-							<button type="button" class="btn btn-primary btn-lg btn-block login-button">Login</button>
+							<button type="button" ng-click="start_login();" ng-disabled="logi_system.$invalid" class="btn btn-primary btn-lg btn-block login-button">Login</button>
 						</div>
 					
 					</form>

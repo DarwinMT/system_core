@@ -1,5 +1,21 @@
 app.controller('Login', function($scope, $http, API_URL) {
     $scope.Name_Company="Company Name";
+    $scope.username="";
+    $scope.password="";
+    ///--- Incio de login
+    $scope.start_login=function(){
+        var data_login={
+            User: $scope.username,
+            Password: $scope.password
+        };
+        $http.post(API_URL+'Login',data_login)
+        .success(function (response) {
+            console.log(response);
+        })
+        .error(function(err){
+            console.log(err);
+        });
+    };
 });
 
 

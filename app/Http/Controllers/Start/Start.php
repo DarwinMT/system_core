@@ -79,4 +79,13 @@ class Start extends Controller
 			return 1;
 		}
     }
+    /**
+     *
+     * Funcion para validar por post los datos de incio de session 
+     * 
+     *
+     */
+    public function store(Request $request){
+    	return 1;
+    }
 }
