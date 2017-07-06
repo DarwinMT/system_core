@@ -60,7 +60,18 @@
           </div>
           <span class="help-block error" ng-show="logi_system.password.$invalid && logi_system.password.$touched">El password es requerido</span>
         </div>
-       
+       	
+       	<div class="row margin" ng-hide="Mensaje_Start=='' " ng-show=" Mensaje_Start!='' ">
+       		<div class="col s12">
+       			<div class="card yellow darken-1">
+		            <div class="card-content black-text waves-light center-align ">
+		            	{{Mensaje_Start}}
+		            </div>
+		        </div>
+
+       		</div>
+       	</div>
+
         <div class="row">
           <div class="input-field col s12">
             <button type="button" ng-click="start_login();" ng-disabled="logi_system.$invalid" class="btn waves-effect waves-light col s12 indigo" > Login </button>

@@ -2,6 +2,7 @@ app.controller('Login', function($scope, $http, API_URL) {
     $scope.Name_Company="Company Name";
     $scope.username="";
     $scope.password="";
+    $scope.Mensaje_Start="";
     ///--- Incio de login
     $scope.start_login=function(){
         var data_login={
@@ -10,7 +11,13 @@ app.controller('Login', function($scope, $http, API_URL) {
         };
         $http.post(API_URL+'Login',data_login)
         .success(function (response) {
-            console.log(response);
+            if(response.success==1){ //usuario incorrecto
+                $scope.Mensaje_Start="Usuario Incorrecto";
+            }else if(response.success==2){ // clave incorrecta
+                $scope.Mensaje_Start="Contraseña Incorrecta";
+            }else{
+                $scope.Mensaje_Start="";
+            }
         })
         .error(function(err){
             console.log(err);

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Start;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Usuario\Usuario;
+
 class Start extends Controller
 {
     /**
@@ -86,6 +88,19 @@ class Start extends Controller
      *
      */
     public function store(Request $request){
-    	return 1;
+    	$aux = $request->all();
+    	//return Usuario::all(); //$aux["User"]
+    	$user=Usuario::whereRaw("username='".$aux["User"]."'")->get();
+    	if(count($user)>0){
+    		if($aux["Password"]==$user[0]->password){
+    			//ingreso system
+    		}else{
+    			//contraseña incorrecta
+    			return response()->json(['success' => 2 ]);
+    		}
+    	}else{
+    		//usuario no existe
+    		return response()->json(['success' => 1 ]);
+    	}
     }
 }

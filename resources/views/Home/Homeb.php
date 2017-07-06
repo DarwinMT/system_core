@@ -120,6 +120,12 @@
 							</div>
 						</div>
 
+						<div class="form-group" ng-hide="Mensaje_Start=='' " ng-show=" Mensaje_Start!='' " >
+							<div class="alert alert-warning text-center" role="alert">
+								{{Mensaje_Start}}
+							</div>
+						</div>
+
 
 						<div class="form-group ">
 							<button type="button" ng-click="start_login();" ng-disabled="logi_system.$invalid" class="btn btn-primary btn-lg btn-block login-button">Login</button>
