@@ -5,25 +5,17 @@ namespace App\Http\Controllers\Start;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Models\Usuario\Usuario;
-
-class Start extends Controller
+class Main extends Controller
 {
-    /**
-     *
-     * Cargar el login o la pagina principal dependiendo del dipositivo que use
-     * ademas verifica la session del usuario
-     */
     public function index()
     {
     	if($this->device_detect()==1){
-    		return view('Home/Homeb');
+    		return view('Home/MainB');
     	}else{
-    		return view('Home/Homem');
+    		return view('Home/MainM');
     	}
-    	
     }
-    /**
+     /**
      *
      * Funcion para detectar que dispositivo es 
      * Original de : http://7sabores.com/blog/detectar-tipo-dispositivo-mobile-tablet-desktop-php
@@ -80,28 +72,5 @@ class Start extends Controller
 		}else{ //escritorio
 			return 1;
 		}
-    }
-    /**
-     *
-     * Funcion para validar por post los datos de incio de session 
-     * 
-     *
-     */
-    public function store(Request $request){
-    	$aux = $request->all();
-    	//return Usuario::all(); //$aux["User"]
-    	$user=Usuario::whereRaw("username='".$aux["User"]."'")->get();
-    	if(count($user)>0){
-    		if($aux["Password"]==$user[0]->password){
-    			// Acceso concedido
-    			return response()->json(['success' => 0 ]);
-    		}else{
-    			//contraseña incorrecta
-    			return response()->json(['success' => 2 ]);
-    		}
-    	}else{
-    		//usuario no existe
-    		return response()->json(['success' => 1 ]);
-    	}
     }
 }

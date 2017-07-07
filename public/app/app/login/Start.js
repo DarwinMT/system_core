@@ -15,6 +15,8 @@ app.controller('Login', function($scope, $http, API_URL) {
                 $scope.Mensaje_Start="Usuario Incorrecto";
             }else if(response.success==2){ // clave incorrecta
                 $scope.Mensaje_Start="Contraseña Incorrecta";
+            }else if(response.success==0){ //acceso concedido
+                window.location.href = "/Main";
             }else{
                 $scope.Mensaje_Start="";
             }

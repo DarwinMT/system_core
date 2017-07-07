@@ -17,3 +17,6 @@ Route::get('/', function () {
 Route::resource('/', 'Start\Start');
 
 Route::resource('Login', 'Start\Start');
+
+Route::resource('Main', 'Start\Main');
+
