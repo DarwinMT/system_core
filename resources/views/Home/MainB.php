@@ -39,8 +39,23 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
             <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#contact">Contact </a></li>
           </ul>
+
+          <ul class="nav navbar-nav navbar-right"> 
+          <li id="fat-menu" class="dropdown "> 
+          	<a href="#" class="dropdown-toggle" id="drop3" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> 
+          	 <i class="glyphicon glyphicon-user"></i> <?php echo " ".$data_user[0]->username; ?>
+          	 <span class="caret"></span> 
+          	</a> 
+          		<ul class="dropdown-menu" aria-labelledby="drop3"> 
+	          		<li><a href="">Perfil</a></li> 
+	          		<li role="separator" class="divider"></li> 
+	          		<li><a href="/logout_system">Salir</a></li> 
+          		</ul> 
+          	</li> 
+          	</ul>
+          
         </div>
     </div>
 </nav>

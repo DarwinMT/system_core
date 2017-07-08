@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Start;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+
+
 use App\Models\Usuario\Usuario;
 
 class Start extends Controller
@@ -94,6 +98,7 @@ class Start extends Controller
     	if(count($user)>0){
     		if($aux["Password"]==$user[0]->password){
     			// Acceso concedido
+    			Session::put('user_data', $user);
     			return response()->json(['success' => 0 ]);
     		}else{
     			//contraseña incorrecta
@@ -103,5 +108,16 @@ class Start extends Controller
     		//usuario no existe
     		return response()->json(['success' => 1 ]);
     	}
+    }
+    /**
+     *
+     *
+     * Salir del systema
+     *
+     */
+    public function logout_system_core($value='')
+    {
+    	Session::forget('user_data');
+    	return redirect('/');
     }
 }

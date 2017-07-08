@@ -5,14 +5,23 @@ namespace App\Http\Controllers\Start;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+
 class Main extends Controller
 {
     public function index()
-    {
-    	if($this->device_detect()==1){
-    		return view('Home/MainB');
+    {	
+    	if (Session::has('user_data')){
+    		$data_user=Session::get('user_data');
+    		if($this->device_detect()==1){
+	    		return view('Home/MainB',compact("data_user"));
+	    	}else{
+	    		return view('Home/MainM',compact("data_user"));
+	    	}
     	}else{
-    		return view('Home/MainM');
+    		Session::forget('user_data');
+    		return redirect('/');
     	}
     }
      /**

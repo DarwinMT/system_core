@@ -21,6 +21,7 @@
 		<!--Aplicacion-->
 	<script src="<?= asset('../app/app/app.js') ?>"></script>
 		<!--Controller-->
+    
 	
 <script type="text/javascript">
 $(document).ready(function() {
@@ -38,11 +39,35 @@ $(document).ready(function() {
         <li><a href="sass.html">Home</a></li>
         <li><a href="badges.html">About</a></li>
         <li><a href="collapsible.html">Contact</a></li>
+        <!-- Dropdown Trigger -->
+        <li>
+          <a class="dropdown-button" href="#!" data-activates="dropdown1">
+            <i class="material-icons prefix">account_circle</i> <?php echo " ".$data_user[0]->username; ?> <i class="material-icons right">arrow_drop_down</i> </a>
+            <ul id="dropdown1" class="dropdown-content" >
+              <li><a href="">Perfil</a></li>
+              <li class="divider"></li>
+              <li><a href="logout_system">Salir</a></li>
+            </ul>
+        </li>
+
+
       </ul>
       <ul class="side-nav" id="mobile-demo">
         <li><a href="sass.html">Home</a></li>
         <li><a href="badges.html">About</a></li>
         <li><a href="collapsible.html">Contact</a></li>
+        <!-- Dropdown Trigger -->
+        <li>
+          <a class="dropdown-button" href="#!" data-activates="dropdown1">
+            <i class="material-icons prefix">account_circle</i> <?php echo " ".$data_user[0]->username; ?> <i class="material-icons right">arrow_drop_down</i> </a>
+            <ul id="dropdown1" class="dropdown-content" >
+              <li><a href="">Perfil</a></li>
+              <li class="divider"></li>
+              <li><a href="logout_system">Salir</a></li>
+            </ul>
+        </li>
+
+
       </ul>
   </div>
 </nav>
