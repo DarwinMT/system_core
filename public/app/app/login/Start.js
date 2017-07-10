@@ -11,12 +11,18 @@ app.controller('Login', function($scope, $http, API_URL) {
         };
         $http.post(API_URL+'Login',data_login)
         .success(function (response) {
+            debugger;
+            console.log(response.user);
             if(response.success==1){ //usuario incorrecto
                 $scope.Mensaje_Start="Usuario Incorrecto";
             }else if(response.success==2){ // clave incorrecta
                 $scope.Mensaje_Start="Contraseña Incorrecta";
             }else if(response.success==0){ //acceso concedido
                 window.location.href = "/Main";
+            }else if(response.success==3){ // usuario sin datos
+                $scope.Mensaje_Start="El usuario no tiene datos ";
+            }else if(response.success==4){ // usuario sin empresa asignada
+                $scope.Mensaje_Start="El usuario no tiene acceso a una empresa ";
             }else{
                 $scope.Mensaje_Start="";
             }

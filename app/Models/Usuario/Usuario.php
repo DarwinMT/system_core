@@ -21,4 +21,8 @@ class Usuario extends Model
         'password',
         'estado'
     ];
+    public function persona()
+    {
+        return $this->belongsTo('App\Models\Personas\Persona',"id_pe");
+    }
 }

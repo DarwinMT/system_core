@@ -94,12 +94,23 @@ class Start extends Controller
     public function store(Request $request){
     	$aux = $request->all();
     	//return Usuario::all(); //$aux["User"]
-    	$user=Usuario::whereRaw("username='".$aux["User"]."'")->get();
+    	$user=Usuario::with("persona.personaempresa")
+    				->whereRaw("username='".$aux["User"]."'")->get();
     	if(count($user)>0){
     		if($aux["Password"]==$user[0]->password){
-    			// Acceso concedido
-    			Session::put('user_data', $user);
-    			return response()->json(['success' => 0 ]);
+    			if(isset($user[0]->persona)){
+    				if(isset($user[0]->persona->personaempresa[0]->id_emp)){
+    					// Acceso concedido
+	    				Session::put('user_data', $user);
+	    				return response()->json(['success' => 0, 'user'=>$user ]);
+    				}else{
+    					//usuario sin empresa asignada
+    					return response()->json(['success' => 4 ]);		
+    				}
+    			}else{
+    				//usuario sin datos
+    				return response()->json(['success' => 3 ]);	
+    			}
     		}else{
     			//contraseña incorrecta
     			return response()->json(['success' => 2 ]);
