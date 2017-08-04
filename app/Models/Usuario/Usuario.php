@@ -25,4 +25,8 @@ class Usuario extends Model
     {
         return $this->belongsTo('App\Models\Personas\Persona',"id_pe");
     }
+    public function permisos()
+    {
+        return $this->hasMany('App\Models\Usuario\Permisos',"id_u");
+    }
 }

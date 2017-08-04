@@ -21,6 +21,28 @@
 	<script src="<?= asset('../app/app/app.js') ?>"></script>
 		<!--Controller-->
 
+
+<style>
+  .dropdown-submenu {
+      position: relative;
+  }
+  .dropdown-submenu .dropdown-menu {
+      top: 0;
+      left: 100%;
+      margin-top: -1px;
+  }
+</style>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.dropdown-submenu a.test').on("click", function(e){
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+  });
+});
+</script>
+
 	
 </head>
 <body>
@@ -37,13 +59,87 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
+            
+            <li class="active  dropdown">
+              <a href="#" class="dropdown-toggle" id="drop3" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                Sistema
+                <span class="caret"></span> 
+              </a>
+              <ul class="dropdown-menu" > 
+                <li><a href="#">Empresa</a></li> 
+              </ul>
+            </li>
+
+            <li class="active  dropdown">
+              <a href="#" class="dropdown-toggle" id="drop3" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                Configuracion
+                <span class="caret"></span> 
+              </a>
+              <ul class="dropdown-menu" > 
+                <li><a href="#">Pais</a></li> 
+                <li><a href="#">Provincia</a></li> 
+                <li><a href="#">Ciudad</a></li> 
+              </ul>
+            </li>
+
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" id="drop3" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                Administracion
+                <span class="caret"></span> 
+                <ul class="dropdown-menu" > 
+                  <li class="dropdown-submenu" >
+                    <a href="#" class="test" tabindex="-1" >
+                      Cliente (Paciente) 
+                      <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                      <li><a tabindex="-1" href="#">Registro Cliente (Paciente)</a></li>
+                      <li><a tabindex="-1" href="#">Anamnesis Cliente (Paciente)  </a></li>
+                      <li><a tabindex="-1" href="#">Historial Cliente (Paciente) </a></li>
+                    </ul>
+
+                  </li>
+
+                  <li class="dropdown-submenu">
+                    <a href="#" class="test" tabindex="-1">
+                      Empleado (Personal Medico)
+                      <span class="caret"></span>
+                        <ul class="dropdown-menu">
+                        <li><a tabindex="-1" href="#">Registro Empleado (Personal Medico)</a></li>
+                          <li class="divider"></li>
+                          <li><a tabindex="-1" href="#">Registro Cliente (Paciente)</a></li>
+                          <li><a tabindex="-1" href="#">Anamnesis Cliente (Paciente) </a></li>
+                          <li><a tabindex="-1" href="#">Historial Cliente (Paciente)</a></li>
+                          <li><a tabindex="-1" href="#">Citas (Agenda)</a></li>
+                          <li><a tabindex="-1" href="#">Historial Citas</a></li>
+                        </ul>
+                    </a>
+                  </li> 
+
+
+                  <li class="dropdown-submenu" >
+                    <a href="#" class="test" tabindex="-1" >
+                      Proveedor
+                      <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                      <li><a tabindex="-1" href="#">Registro </a></li>
+                    </ul>
+
+                  </li>
+
+                  
+                </ul>
+              </a>
+            </li>
             <li><a href="#contact">Contact </a></li>
           </ul>
 
           <ul class="nav navbar-nav navbar-right"> 
-          <li id="fat-menu" class="dropdown "> 
+          <li  class="dropdown "> 
           	<a href="#" class="dropdown-toggle" id="drop3" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> 
           	 <i class="glyphicon glyphicon-user"></i> <?php echo " ".$data_user[0]->username; ?>
           	 <span class="caret"></span> 

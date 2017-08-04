@@ -11,7 +11,7 @@ app.controller('Login', function($scope, $http, API_URL) {
         };
         $http.post(API_URL+'Login',data_login)
         .success(function (response) {
-            debugger;
+
             console.log(response.user);
             if(response.success==1){ //usuario incorrecto
                 $scope.Mensaje_Start="Usuario Incorrecto";
@@ -23,6 +23,8 @@ app.controller('Login', function($scope, $http, API_URL) {
                 $scope.Mensaje_Start="El usuario no tiene datos ";
             }else if(response.success==4){ // usuario sin empresa asignada
                 $scope.Mensaje_Start="El usuario no tiene acceso a una empresa ";
+            }else if(response.success==5){ // usuario sin permisos
+                $scope.Mensaje_Start="El usuario no tiene permisos del sistema ";
             }else{
                 $scope.Mensaje_Start="";
             }
