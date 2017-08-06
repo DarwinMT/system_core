@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
+use App\Models\Usuario\Modulo;
+
 class Main extends Controller
 {
     public function index()
@@ -15,9 +17,11 @@ class Main extends Controller
     	if (Session::has('user_data')){
     		$data_user=Session::get('user_data');
     		if($this->device_detect()==1){
-	    		return view('Home/MainB',compact("data_user"));
+    			$acees=$this->access_user_boostrap();
+	    		return view('Home/MainB',compact("data_user","acees"));
 	    	}else{
-	    		return view('Home/MainM',compact("data_user"));
+	    		$acees=$this->access_user_materialize();
+	    		return view('Home/MainM',compact("data_user","acees"));
 	    	}
     	}else{
     		Session::forget('user_data');
@@ -82,4 +86,95 @@ class Main extends Controller
 			return 1;
 		}
     }
+
+     /**
+     *
+     * Crear menu boostrap en base a los permisos del usuario 
+     * 
+     *
+     */
+    public function access_user_boostrap()
+    {
+     	$menupadre=Modulo::whereRaw("ISNULL(id_nodmen);")->get();
+     	$data_user=Session::get('user_data');
+     	$permisos=json_decode($data_user[0]->permisos[0]->acceso);
+     	$nav="<ul class='nav navbar-nav navbar-right'>";
+     	foreach ($menupadre as $m) {
+     		$encontrar=0;
+     		foreach ($permisos as $p) {
+     			if($m["id_men"]==$p->id_nodmen && $encontrar==0){
+
+     				$nav.=" <li class='dropdown'> "; // menu padre
+     				$nav.="  <a href='#' class='dropdown-toggle' id='drop3' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='true'> ";
+     				if($m["id_men"]==15){ // se cambia el titulo por los datos del usuario
+     					$nav.=" ".$data_user[0]->username." <span class='caret'></span>  </a> ";
+     				}else{
+     					$nav.=" ".$m["titulo"]." <span class='caret'></span>  </a> ";	
+     				}
+     				
+     				
+     				$nav.=" <ul class='dropdown-menu' > "; //sub menu nivel 2 
+     				foreach ($permisos as $i) {
+     					if($m["id_men"]==$i->id_nodmen){
+     						$nav.=" <li><a href='".$i->url."'>".$i->titulo."</a></li>  ";
+     					}
+     				}
+     				$nav.="</ul>";
+     				$nav.="</li>";
+
+     				$encontrar=1;
+     			}
+     		}
+     	}
+     	$nav.="</ul>";
+     	return $nav;
+    }
+
+    /**
+     *
+     * Crear menu materialize en base a los permisos del usuario 
+     * 
+     *
+     */
+    public function access_user_materialize()
+    {
+     	$menupadre=Modulo::whereRaw("ISNULL(id_nodmen);")->get();
+     	$data_user=Session::get('user_data');
+     	$permisos=json_decode($data_user[0]->permisos[0]->acceso);
+     	$nav="";
+     	//$nav="<ul class='nav navbar-nav navbar-right'>";
+     	foreach ($menupadre as $m) {
+     		$encontrar=0;
+     		foreach ($permisos as $p) {
+     			if($m["id_men"]==$p->id_nodmen && $encontrar==0){
+
+     				$nav.=" <li > "; // menu padre
+     				$nav.="  <a href='#' class='dropdown-button' href='#!' data-activates='dropdown".$m["id_men"]."'> ";
+     				if($m["id_men"]==15){ // se cambia el titulo por los datos del usuario
+     					$nav.=" <i class='material-icons prefix'>".$m["html"]."</i> ".$data_user[0]->username."";
+     					$nav.=" <i class='material-icons right'>arrow_drop_down</i> </a> ";
+     				}else{
+     					$nav.=" <i class='material-icons prefix'>".$m["html"]."</i> ".$m["titulo"]."";
+     					$nav.=" <i class='material-icons right'>arrow_drop_down</i> </a> ";
+     				}
+     				
+     				
+     				$nav.=" <ul id='dropdown".$m["id_men"]."' class='dropdown-content'  > "; //sub menu nivel 2 
+     				foreach ($permisos as $i) {
+     					if($m["id_men"]==$i->id_nodmen){
+     						$nav.=" <li><a href='".$i->url."'>".$i->titulo."</a></li>  ";
+     					}
+     				}
+     				$nav.="</ul>";
+     				$nav.="</li>";
+     				$nav.=" <li class='divider'></li>";
+
+     				$encontrar=1;
+     			}
+     		}
+     	}
+     	//$nav.="</ul>";
+     	return $nav;
+    }
+
 }

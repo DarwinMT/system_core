@@ -19,7 +19,7 @@
 	<script src="<?= asset('../app/angular/angular.min.js') ?>"></script>
 	<script src="<?= asset('../app/angular/angular-route.min.js') ?>"></script>
 		<!--Aplicacion-->
-	<script src="<?= asset('../app/app/app.js') ?>"></script>
+	<script src="<?= asset('../app/app/appm.js') ?>"></script>
 		<!--Controller-->
     
 
@@ -35,119 +35,24 @@ $(document).ready(function() {
   <div class="nav-wrapper ">
       <a href="#!" class="brand-logo">SystemCore</a>
       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      
       <ul class="right hide-on-med-and-down">
-        
-        <li>
-          <a class="dropdown-button" href="#!" data-activates="dropdown1">
-            <i class="material-icons prefix">domain</i> Sistema <i class="material-icons right">arrow_drop_down</i> </a>
-            <ul id="dropdown1" class="dropdown-content" >
-              <li><a href="">Empresa</a></li>
-            </ul>
-        </li>
-
-        <li class="divider"></li>
-
-        <li>
-          <a class="dropdown-button" href="#!" data-activates="dropdown2">
-            <i class="material-icons prefix">local_offer</i> Configuracion <i class="material-icons right">arrow_drop_down</i> </a>
-            <ul id="dropdown2" class="dropdown-content" >
-              <li><a href="">Pais</a></li>
-              <li><a href="">Provincia</a></li>
-              <li><a href="">Ciudad</a></li>
-            </ul>
-        </li>
-
-
-        <li class="divider"></li>
-
-        
-        <li>
-          <a class="dropdown-button" href="#!" data-activates="dropdown20">
-            <i class="material-icons prefix">assignment</i> Administracion <i class="material-icons right">arrow_drop_down</i> </a>
-            <ul id="dropdown20" class="dropdown-content" >
-            <li><a href="">Registro De Cliente (Paciente)</a></li>
-              <li><a href="">Registro De Empleado (Personal Medico)</a></li>
-              <li><a href="">Registro De Proveedor</a></li>
-              <li><a href="">Anamnesis Cliente (Paciente) </a></li>
-              <li><a href="">Historial Cliente</a></li>
-              <li><a href="">Citas  (Agenda)</a></li>
-              <li><a href="">Historial Citas  (Agenda)</a></li>
-              <li><a href="">Historial Citas  (Agenda)</a></li>
-            </ul>
-        </li>
-        
-
-        
-        <li class="divider"></li>
-
-        <!-- Dropdown Trigger -->
-        <li>
-          <a class="dropdown-button" href="#!" data-activates="dropdown10">
-            <i class="material-icons prefix">account_circle</i> <?php echo " ".$data_user[0]->username; ?> <i class="material-icons right">arrow_drop_down</i> </a>
-            <ul id="dropdown10" class="dropdown-content" >
-              <li><a href="">Perfil</a></li>
-              <li class="divider"></li>
-              <li><a href="logout_system">Salir</a></li>
-            </ul>
-        </li>
-
-
+          <?php  echo $acees; ?>
       </ul>
       <ul class="side-nav" id="mobile-demo">
-        <li>
-          <a class="dropdown-button" href="#!" data-activates="dropdown1">
-            <i class="material-icons prefix">domain</i> Sistema <i class="material-icons right">arrow_drop_down</i> </a>
-            <ul id="dropdown1" class="dropdown-content" >
-              <li><a href="">Empresa</a></li>
-            </ul>
-        </li>
-
-         <li class="divider"></li>
-
-        <li>
-          <a class="dropdown-button" href="#!" data-activates="dropdown2">
-            <i class="material-icons prefix">local_offer</i> Configuracion <i class="material-icons right">arrow_drop_down</i> </a>
-            <ul id="dropdown2" class="dropdown-content" >
-              <li><a href="">Pais</a></li>
-              <li><a href="">Provincia</a></li>
-              <li><a href="">Ciudad</a></li>
-            </ul>
-        </li>
-
-        <li class="divider"></li>
-
-        
-        <li>
-          <a class="dropdown-button" href="#!" data-activates="dropdown20">
-            <i class="material-icons prefix">assignment</i> Administracion <i class="material-icons right">arrow_drop_down</i> </a>
-            <ul id="dropdown20" class="dropdown-content" >
-            <li><a href="">Registro De Cliente (Paciente)</a></li>
-              <li><a href="">Registro De Empleado (Personal Medico)</a></li>
-              <li><a href="">Registro De Proveedor</a></li>
-              <li><a href="">Anamnesis Cliente (Paciente) </a></li>
-              <li><a href="">Historial Cliente</a></li>
-              <li><a href="">Citas  (Agenda)</a></li>
-              <li><a href="">Historial Citas  (Agenda)</a></li>
-              <li><a href="">Historial Citas  (Agenda)</a></li>
-            </ul>
-        </li>
-
-        
-        <li class="divider"></li>        
-        <li>
-          <a class="dropdown-button" href="#!" data-activates="dropdown10">
-            <i class="material-icons prefix">account_circle</i> <?php echo " ".$data_user[0]->username; ?> <i class="material-icons right">arrow_drop_down</i> </a>
-            <ul id="dropdown10" class="dropdown-content" >
-              <li><a href="">Perfil</a></li>
-              <li class="divider"></li>
-              <li><a href="logout_system">Salir</a></li>
-            </ul>
-        </li>
-
-
+        <?php  echo $acees; ?>
       </ul>
   </div>
 </nav>
+
+<div class="container">
+  <div class="row">
+     <div class="col s12 " ng-view>
+     </div>
+  </div>
+</div>
+
+
 
 </body>
 </html>
