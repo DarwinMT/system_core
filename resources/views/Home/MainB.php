@@ -19,6 +19,8 @@
 	<script src="<?= asset('../app/angular/angular-route.min.js') ?>"></script>
 		<!--Aplicacion-->
 	<script src="<?= asset('../app/app/app.js') ?>"></script>
+
+  <script src="<?= asset('../app/app/Usuario/UsuarioController.js') ?>"></script>
 		<!--Controller-->
 
 

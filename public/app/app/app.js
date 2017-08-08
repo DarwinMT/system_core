@@ -10,7 +10,7 @@ app.config(function($routeProvider,API_URL){
 	})*/
 	.when("/RegistroUsuario",{
 		templateUrl : "app/view/bo/Usuario/ViewUsuario.php",
-		controller : "ListaClientes"
+		controller : "LogicaUsuario"
 	})
 	.otherwise({
         template : "<h1>Nada</h1><p>Ejemplo de pagina no encotrada,</p>"
