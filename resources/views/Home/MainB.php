@@ -14,9 +14,20 @@
 	<script src="<?= asset('../assetsb/js/bootstrap.min.js') ?>"></script>
 	<link href="<?= asset('../assetsb/css/bootstrap.min.css') ?>" rel="stylesheet">
 
+  <!--Datetimepicker-->
+  <script src="<?= asset('../js/moment.min.js') ?>"></script>
+  <script src="<?= asset('../js/es.js') ?>"></script>
+  <script src="<?= asset('../js/bootstrap-datetimepicker.min.js') ?>"></script>
+  <link href="<?= asset('css/bootstrap-datetimepicker.min.css') ?>" rel="stylesheet">
+  <!--Datetimepicker-->
+
+  
 	<!--Angular-->
 	<script src="<?= asset('../app/angular/angular.min.js') ?>"></script>
 	<script src="<?= asset('../app/angular/angular-route.min.js') ?>"></script>
+    <!--Paginacion angular-->
+    <script src="<?= asset('../js/dirPagination.js') ?>"></script>
+
 		<!--Aplicacion-->
 	<script src="<?= asset('../app/app/app.js') ?>"></script>
 

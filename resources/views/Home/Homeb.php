@@ -17,6 +17,8 @@
 	<!--Angular-->
 	<script src="<?= asset('../app/angular/angular.min.js') ?>"></script>
 	<script src="<?= asset('../app/angular/angular-route.min.js') ?>"></script>
+		<!--Paginacion angular-->
+    	<script src="<?= asset('../js/dirPagination.js') ?>"></script>
 		<!--Aplicacion-->
 	<script src="<?= asset('../app/app/app.js') ?>"></script>
 		<!--Controller-->

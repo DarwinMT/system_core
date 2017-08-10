@@ -1,6 +1,13 @@
 app.controller('LogicaUsuario', function($scope, $http, API_URL) {
     $scope.Title="Usuario";
+    $('.datepicker').datetimepicker({
+        locale: 'es',
+        //format: 'DD/MM/YYYY',
+        format: 'YYYY-MM-DD',
+        ignoreReadonly: true
+    });
 
+    $scope.newusersin="0";
     ///---
     $scope.list_permisos=[];
     $scope.permisos_user=function () {
@@ -11,11 +18,106 @@ app.controller('LogicaUsuario', function($scope, $http, API_URL) {
         });
     };
 
+    ///---
 
+    $scope.ci=""; 
+    $scope.nombre=""; 
+    $scope.apellido=""; 
+    $scope.avatar=""; 
+    $scope.genero="";
+    $scope.fechan="";
+    $scope.direccion=""; 
+    $scope.email="";
 
+    $scope.username="";
+    $scope.password="";
+
+    $scope.save=function() {
+        var data_persona={
+            ci:$scope.ci, 
+            nombre:$scope.nombre, 
+            apellido:$scope.apellido, 
+            avatar:'', 
+            genero:$scope.genero, 
+            fechan:$("#fechan").val(), 
+            direccion:$scope.direccion, 
+            email:$scope.email
+        };
+
+        var data_user={
+            id_pe:'',
+            username:$scope.username,
+            password:$scope.password
+        };
+
+        var Usuario={
+            Persona:data_persona,
+            User:data_user
+        };
+        $("#progress").modal("show");
+        
+        $http.post(API_URL + 'User',Usuario)
+        .success(function(response){
+            if(response.success==0){
+                $("#progress").modal("hide");
+                sms("btn-success","Se guardo correctamente los datos..!!");
+                $scope.clear();
+                $scope.newusersin="0";
+            }else{
+                $("#progress").modal("hide");
+                sms("btn-danger","Error al guardar los datos..!!");
+                $scope.clear();
+                $scope.newusersin="0";
+            }
+        });
+    };
+
+    ///---
+    $scope.buscartexto="";
+    $scope.estadoanulado="1";
+    $scope.list_usuario=[];
+    $scope.pageChanged = function(newPage) {
+        $scope.initLoad(newPage);
+    };
+    $scope.initLoad = function(pageNumber){
+
+        var filtros = {
+            buscar:$scope.buscartexto,
+            estado: $scope.estadoanulado
+        };
+        $http.get(API_URL + 'User/get_list_usuario?page=' + pageNumber + '&filter=' + JSON.stringify(filtros))
+            .then(function(response){
+                $scope.list_usuario = response.data.data;
+                $scope.totalItems = response.data.total;
+                console.log($scope.list_usuario);
+         });
+    };
+    $scope.initLoad(1);
+    ///---
+
+    ///---
+    $scope.clear=function() {
+        $scope.ci=""; 
+        $scope.nombre=""; 
+        $scope.apellido=""; 
+        $scope.avatar=""; 
+        $scope.genero="";
+        $scope.fechan="";
+        $scope.direccion=""; 
+        $scope.email="";
+
+        $scope.username="";
+        $scope.password="";
+    };
+    ///---
 });
 
-
+function sms(color,mensaje) {
+    head_msm();
+    $("#titulomsm").addClass(color);
+    $("#sms").modal("show");
+    $("#smsb").html(mensaje);
+}
 
 function convertDatetoDB(now, revert){
     if (revert == undefined){
@@ -54,7 +156,7 @@ function completarNumer(valor){
     return completa+valor.toString();
 }
 
-function QuitarClasesMensaje() {
+function head_msm() {
     $("#titulomsm").removeClass("btn-primary");
     $("#titulomsm").removeClass("btn-warning");
     $("#titulomsm").removeClass("btn-success");
@@ -62,9 +164,10 @@ function QuitarClasesMensaje() {
     $("#titulomsm").removeClass("btn-danger");
 }
 $(document).ready(function(){
-    /*$('.datepicker').datetimepicker({
+    $('.datepicker').datetimepicker({
         locale: 'es',
-        format: 'DD/MM/YYYY',
+        //format: 'DD/MM/YYYY',
+        format: 'YYYY-MM-DD',
         ignoreReadonly: true
-    });*/
+    });
 });

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 
-use App\Models\Usuario\Usuario;
+use App\Models\Usuario\User;
 
 class Start extends Controller
 {
@@ -93,11 +93,11 @@ class Start extends Controller
      */
     public function store(Request $request){
     	$aux = $request->all();
-    	//return Usuario::all(); //$aux["User"]
-    	$user=Usuario::with("persona.personaempresa","permisos.rol")
+    	$user=User::with("persona.personaempresa","permisos.rol")
     				->whereRaw("username='".$aux["User"]."'")->get();
     	if(count($user)>0){
-    		if($aux["Password"]==$user[0]->password){
+    		//if($aux["Password"]== $user[0]->password){
+            if( Hash::check( $aux["Password"], $user[0]->password) ){
     			if(isset($user[0]->persona)){
     				if(isset($user[0]->persona->personaempresa[0]->id_emp)){
     					if(isset($user[0]->permisos[0])){

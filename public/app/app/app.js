@@ -1,4 +1,4 @@
-var app=angular.module("System_Core",["ngRoute"]);
+var app=angular.module("System_Core",["ngRoute",'angularUtils.directives.dirPagination']);
 
 //app.constant('API_URL', 'http://127.0.0.1:8000/system_core/public/');
 app.constant('API_URL', 'http://127.0.0.1:8000/');

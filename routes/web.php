@@ -25,5 +25,6 @@ Route::resource('Main', 'Start\Main');
 /*-----------------Main--------------*/
 
 /*-----------------Usuario--------------*/
+Route::get('User/get_list_usuario', 'Usuario\Usuario@get_list_usuario');
 Route::resource('User', 'Usuario\Usuario');
 
