@@ -27,7 +27,10 @@
 	<script src="<?= asset('../app/angular/angular-route.min.js') ?>"></script>
     <!--Paginacion angular-->
     <script src="<?= asset('../js/dirPagination.js') ?>"></script>
-
+    <!--Upfile angular-->
+    <script src="<?= asset('../js/ng-file-upload-shim.min.js') ?>"></script>
+    <script src="<?= asset('../js/ng-file-upload.min.js') ?>"></script>
+    
 		<!--Aplicacion-->
 	<script src="<?= asset('../app/app/app.js') ?>"></script>
 

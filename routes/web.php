@@ -25,6 +25,6 @@ Route::resource('Main', 'Start\Main');
 /*-----------------Main--------------*/
 
 /*-----------------Usuario--------------*/
+Route::post('User/update_user/{id}', 'Usuario\Usuario@update_user');
 Route::get('User/get_list_usuario', 'Usuario\Usuario@get_list_usuario');
 Route::resource('User', 'Usuario\Usuario');
-

@@ -1,4 +1,4 @@
-app.controller('LogicaUsuario', function($scope, $http, API_URL) {
+app.controller('LogicaUsuario', function($scope, $http, API_URL,Upload) {
     $scope.Title="Usuario";
     $('.datepicker').datetimepicker({
         locale: 'es',
@@ -8,6 +8,7 @@ app.controller('LogicaUsuario', function($scope, $http, API_URL) {
     });
 
     $scope.newusersin="0";
+
     ///---
     $scope.list_permisos=[];
     $scope.permisos_user=function () {
@@ -24,6 +25,7 @@ app.controller('LogicaUsuario', function($scope, $http, API_URL) {
     $scope.nombre=""; 
     $scope.apellido=""; 
     $scope.avatar=""; 
+    $scope.file="";
     $scope.genero="";
     $scope.fechan="";
     $scope.direccion=""; 
@@ -52,11 +54,12 @@ app.controller('LogicaUsuario', function($scope, $http, API_URL) {
 
         var Usuario={
             Persona:data_persona,
-            User:data_user
+            User:data_user,
+            file: $scope.file
         };
         $("#progress").modal("show");
         
-        $http.post(API_URL + 'User',Usuario)
+        /*$http.post(API_URL + 'User',Usuario)
         .success(function(response){
             if(response.success==0){
                 $("#progress").modal("hide");
@@ -69,7 +72,26 @@ app.controller('LogicaUsuario', function($scope, $http, API_URL) {
                 $scope.clear();
                 $scope.newusersin="0";
             }
+        });*/
+
+        Upload.upload({
+            url: API_URL + 'User',
+            method: 'POST',
+            data: Usuario
+        }).success(function(data, status, headers, config) {
+           if(data.success==0){
+                $("#progress").modal("hide");
+                sms("btn-success","Se guardo correctamente los datos..!!");
+                $scope.clear();
+                $scope.newusersin="0";
+            }else{
+                $("#progress").modal("hide");
+                sms("btn-danger","Error al guardar los datos..!!");
+                $scope.clear();
+                $scope.newusersin="0";
+            }
         });
+
     };
 
     ///---
@@ -96,6 +118,82 @@ app.controller('LogicaUsuario', function($scope, $http, API_URL) {
     ///---
 
     ///---
+    $scope.aux_edit_user_data={};
+
+    $scope.ci_edit=""; 
+    $scope.nombre_edit=""; 
+    $scope.apellido_edit=""; 
+    $scope.avatar_edit=""; 
+    $scope.genero_edit="";
+    $scope.fechan_edit="";
+    $scope.direccion_edit=""; 
+    $scope.email_edit="";
+    $scope.url_foto="";
+
+        $scope.file_edit="";
+
+    $scope.init_edit=function(item){
+        console.log(item);
+        $scope.aux_edit_user_data=item;
+        $scope.newusersin="2";
+
+        $scope.ci_edit= $scope.aux_edit_user_data.persona.ci; 
+        $scope.nombre_edit= $scope.aux_edit_user_data.persona.nombre;
+        $scope.apellido_edit= $scope.aux_edit_user_data.persona.apellido;
+        $scope.avatar_edit= ''; 
+        $scope.genero_edit= $scope.aux_edit_user_data.persona.genero;
+        $("#fechan_edit").val($scope.aux_edit_user_data.persona.fechan);
+        $scope.direccion_edit= $scope.aux_edit_user_data.persona.direccion; 
+        $scope.email_edit= $scope.aux_edit_user_data.persona.email; 
+
+        $scope.file_edit= '';
+        $scope.url_foto=$scope.aux_edit_user_data.persona.avatar;
+
+    };
+    $scope.edit=function(){
+        
+        
+        var data_persona={
+            id_pe: $scope.aux_edit_user_data.persona.id_pe,
+            ci:$scope.ci_edit, 
+            nombre:$scope.nombre_edit, 
+            apellido:$scope.apellido_edit, 
+            avatar: $scope.aux_edit_user_data.persona.avatar, 
+            genero:$scope.genero_edit, 
+            fechan:$("#fechan_edit").val(), 
+            direccion:$scope.direccion_edit, 
+            email:$scope.email_edit,
+            estado:$scope.aux_edit_user_data.persona.estado
+        };
+
+        var Usuario={
+            Persona: data_persona,
+            file: $scope.file_edit
+        };
+        $("#progress").modal("show");
+        
+        Upload.upload({
+            url: API_URL + "User/update_user/" + $scope.aux_edit_user_data.persona.id_pe,
+            method: 'POST',
+            data: Usuario
+        }).success(function(data, status, headers, config) {
+           if(data.success==0){
+                $("#progress").modal("hide");
+                sms("btn-success","Se guardo correctamente los datos..!!");
+                $scope.clear();
+                $scope.newusersin="0";
+            }else{
+                $("#progress").modal("hide");
+                sms("btn-danger","Error al guardar los datos..!!");
+                $scope.clear();
+                $scope.newusersin="0";
+            }
+        });
+
+    };
+    ///---
+
+    ///---
     $scope.clear=function() {
         $scope.ci=""; 
         $scope.nombre=""; 
@@ -108,6 +206,25 @@ app.controller('LogicaUsuario', function($scope, $http, API_URL) {
 
         $scope.username="";
         $scope.password="";
+
+        $scope.file="";
+
+        ///--edit
+
+        $scope.ci_edit=""; 
+        $scope.nombre_edit=""; 
+        $scope.apellido_edit=""; 
+        $scope.avatar_edit=""; 
+        $scope.genero_edit="";
+        $scope.fechan_edit="";
+        $scope.direccion_edit=""; 
+        $scope.email_edit="";
+
+
+        $scope.file_edit="";
+
+        $scope.url_foto="";
+
     };
     ///---
 });

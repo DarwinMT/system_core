@@ -75,7 +75,7 @@
 							<td>{{u.persona.apellido+" "+u.persona.nombre}}</td>
 							<td>
 								<div class="btn-group" role="group" >
-									<button ng-disabled=" list_permisos.access_edit==0 " type="button" title="Editar" class="btn btn-sm btn-info">
+									<button ng-disabled=" list_permisos.access_edit==0 " ng-click="init_edit(u);" type="button" title="Editar" class="btn btn-sm btn-info">
 										<i class="glyphicon glyphicon-edit"></i>
 									</button>
 									<button ng-disabled=" list_permisos.access_delete==0 " type="button" title="Activar/Inactivar" class="btn btn-sm btn-danger">
@@ -168,7 +168,7 @@
 		</div>
 
 		<div class="row" style="padding-top: 1%;">
-			<div class="col-md-6 col-xs-6">
+			<div class="col-md-6 col-xs-6" >
 				<div class="input-group">
 					<span class="input-group-addon" id="basic-addon1">Usuario: </span>
 					<input type="text" class="form-control input-sm" name="username" id="username" ng-model="username" required />
@@ -178,7 +178,54 @@
 			<div class="col-md-6 col-xs-6">
 				<div class="input-group">
 					<span class="input-group-addon" id="basic-addon1">Avatar: </span>
-					<input type="text" class="form-control input-sm" name="" id="" />
+					<input class="form-control" type="file" ngf-select ng-model="file" name="file" id="file" accept="image/*" ngf-max-size="2MB"  ng-required="false" ngf-pattern="image/*">
+				</div>
+				<span class="help-block error" ng-show="user_system.file.$error.pattern">El archivo debe ser Imagen</span>
+				<span class="help-block error" ng-show="user_system.file.$error.maxSize">El tamaño máximo es de 2 MB </span>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6 col-xs-6" >
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Clave: </span>
+					<input type="password" class="form-control input-sm" name="password" id="password" ng-model="password" required />
+				</div>
+				<span class="help-block error" ng-show="user_system.password.$invalid && user_system.password.$touched">La clave es requerida</span>
+			</div>
+			<div class="col-md-6 col-xs-6">
+				<div class="col-xs-6 text-center" style="margin-top: 5px;">
+                    <img class="img-thumbnail" ngf-src="file || url_foto"  alt="" style="width: 50%;">
+                </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12 col-xs-12 text-center">
+				<div class="btn-group" role="group" aria-label="...">
+					<button ng-hide=" newusersin!='1' "  ng-show=" newusersin=='1' "  ng-disabled=" list_permisos.access_save==0 || user_system.$invalid" type="button" class="btn btn-sm btn-success" ng-click=" save(); ">
+						<i class="glyphicon glyphicon-floppy-saved"></i> Guardar
+					</button>
+
+					<button type="button" class="btn btn-sm btn-primary" ng-click=" newusersin='0'; ">
+						<i class="glyphicon glyphicon-list"></i> Registro
+					</button>
+				</div>
+			</div>
+		</div>
+	</form>
+	</div>
+	<!--Nuevo Usuario Sin datos-->
+
+	<!--Editar Usuario Sin datos-->
+
+	<div ng-hide=" newusersin!='2' "  ng-show=" newusersin=='2' ">
+	<form class="form-horizontal"  name="user_system_edit" id="user_system_edit"  novalidate="">
+		<div class="row">
+			<div class="col-md-6 col-xs-6">
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">DNI: </span>
+					<input type="text" class="form-control input-sm" name="ci_edit" id="ci_edit" ng-model="ci_edit" />
 				</div>
 			</div>
 		</div>
@@ -186,31 +233,90 @@
 		<div class="row">
 			<div class="col-md-6 col-xs-6">
 				<div class="input-group">
-					<span class="input-group-addon" id="basic-addon1">Clave: </span>
-					<input type="password" class="form-control input-sm" name="password" id="password" ng-model="password" required />
+					<span class="input-group-addon" id="basic-addon1">Nombre: </span>
+					<input type="text" class="form-control input-sm" name="nombre_edit" id="nombre_edit" ng-model="nombre_edit" required />
 				</div>
-				<span class="help-block error" ng-show="user_system.password.$invalid && user_system.password.$touched">La clave es requerida</span>
+				<span class="help-block error" ng-show="user_system_edit.nombre_edit.$invalid && user_system_edit.nombre_edit.$touched">El nombre es requerido</span>
+			</div>
+			<div class="col-md-6 col-xs-6">
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Apellido: </span>
+					<input type="text" class="form-control input-sm" name="apellido_edit" id="apellido_edit" ng-model="apellido_edit" required />
+				</div>
+				<span class="help-block error" ng-show="user_system_edit.apellido_edit.$invalid && user_system_edit.apellido_edit.$touched">El apellido es requerido</span>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6 col-xs-6">
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Genero: </span>
+					<select class="form-control input-sm" name="genero_edit" id="genero_edit" ng-model="genero_edit">
+						<option value="">Seleccione</option>
+						<option value="M">Masculino</option>
+						<option value="F">Femenino</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-md-6 col-xs-6">
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Fecha N.: </span>
+					<input type="text" class="form-control input-sm datepicker" name="fechan_edit" id="fechan_edit" ng-model="fechan_edit" />
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6 col-xs-6">
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Dirección: </span>
+					<input type="text" class="form-control input-sm" name="direccion_edit" id="direccion_edit" ng-model="direccion_edit" />
+				</div>
+			</div>
+			<div class="col-md-6 col-xs-6">
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Email: </span>
+					<input type="text" class="form-control input-sm" name="email_edit" id="email_edit" ng-model="email_edit" />
+				</div>
+			</div>
+		</div>
+
+		<div class="row" style="padding-top: 1%;">
+			<div class="col-md-6 col-xs-6">
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Avatar: </span>
+					<input class="form-control" type="file" ngf-select ng-model="file_edit" name="file_edit" id="file_edit" accept="image/*" ngf-max-size="2MB"  ng-required="false" ngf-pattern="image/*">
+				</div>
+				<span class="help-block error" ng-show="user_system_edit.file_edit.$error.pattern">El archivo debe ser Imagen</span>
+				<span class="help-block error" ng-show="user_system_edit.file_edit.$error.maxSize">El tamaño máximo es de 2 MB </span>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6 col-xs-6">
+				<div class="col-xs-6 text-center" style="margin-top: 5px;">
+                    <img class="img-thumbnail" ngf-src="file_edit || url_foto "  alt="" style="width: 50%;">
+                </div>
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="col-md-12 col-xs-12 text-center">
-				<button ng-hide=" newusersin!='1' "  ng-show=" newusersin=='1' "  ng-disabled=" list_permisos.access_save==0 || user_system.$invalid" type="button" class="btn btn-sm btn-success" ng-click=" save(); ">
-					<i class="glyphicon glyphicon-floppy-saved"></i> Guardar
-				</button>
-				
-				<button ng-hide=" newusersin!='2' "  ng-show=" newusersin=='2' " ng-disabled=" list_permisos.access_edit==0 || user_system.$invalid" type="button" class="btn btn-sm btn-info">
-					<i class="glyphicon glyphicon-floppy-saved"></i> Guardar
-				</button>
+				<div class="btn-group" role="group" >
+					<button ng-click="edit();" ng-hide=" newusersin!='2' "  ng-show=" newusersin=='2' " ng-disabled=" list_permisos.access_edit==0 || user_system_edit.$invalid" type="button" class="btn btn-sm btn-info">
+						<i class="glyphicon glyphicon-floppy-saved"></i> Guardar
+					</button>
 
-				<button type="button" class="btn btn-sm btn-primary" ng-click=" newusersin='0'; ">
-					<i class="glyphicon glyphicon-list"></i> Registro
-				</button>
+					<button type="button" class="btn btn-sm btn-primary" ng-click=" newusersin='0'; ">
+						<i class="glyphicon glyphicon-list"></i> Registro
+					</button>
+				</div>
 			</div>
 		</div>
 	</form>
 	</div>
-	<!--Nuevo Usuario Sin datos-->
+
+	<!--Editar Usuario Sin datos-->
 	
 
 

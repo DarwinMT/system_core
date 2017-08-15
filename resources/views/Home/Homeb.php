@@ -19,6 +19,9 @@
 	<script src="<?= asset('../app/angular/angular-route.min.js') ?>"></script>
 		<!--Paginacion angular-->
     	<script src="<?= asset('../js/dirPagination.js') ?>"></script>
+    	<!--Upload angular-->
+    	<script src="<?= asset('../js/ng-file-upload-shim.min.js') ?>"></script>
+    	<script src="<?= asset('../js/ng-file-upload.min.js') ?>"></script>
 		<!--Aplicacion-->
 	<script src="<?= asset('../app/app/app.js') ?>"></script>
 		<!--Controller-->
@@ -84,7 +87,7 @@
 		}
 	</style>	
 </head>
-<body ng-controller="Login">
+<body ng-controller="Login" ng-cloak>
 		<div class="container">
 			<div class="row main">
 				<div class="panel-heading">

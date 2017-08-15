@@ -64,6 +64,21 @@ class Usuario extends Controller
 
     		if($persoemp->save()){
     			if($aux_user->id_u>0){
+
+    				if ($request->hasFile('file')) {
+		                $image = $request->file('file');
+		                $destinationPath = public_path() . '/upload/persona/'.$aux_persona->id_pe;
+		                if(!file_exists($destinationPath)) mkdir($destinationPath, 0777);
+		                $destinationPath.='/avatar';
+		                if(!file_exists($destinationPath)) mkdir($destinationPath, 0777);
+		                $name = rand(0, 9999) . '_' . $image->getClientOriginalName();
+		                if($image->move($destinationPath, $name)) {
+		                    $aux_persona_avatar=Persona::find($aux_persona->id_pe);
+		                    $aux_persona_avatar->avatar='/upload/persona/'.$aux_persona->id_pe.'/avatar/'.$name;
+		                    $aux_persona_avatar->save();
+		                }
+		            }
+
 	    			return response()->json(['success' => 0]); //ok
 	    		}else{
 	    			return response()->json(['success' => 3]); //error user
@@ -99,5 +114,39 @@ class Usuario extends Controller
         			->whereRaw(" usuario.estado='".$filter->estado."' ".$sql)
                     ->orderBy("usuario.username","ASC");
         return $data->paginate(5);
+    }
+    /**
+     *
+     *
+     * Actualizar datos princiaples del usuario
+     *
+     */
+    public function update_user(Request $request, $id)
+    {
+    	$data = $request->all();
+    	$aux_persona= (array) $data["Persona"];
+    	$respuesta=Persona::whereRaw(" id_pe='".$id."' ")
+    						->update( $aux_persona);
+    	
+    	if ($request->hasFile('file')) {
+            $image = $request->file('file');
+            $destinationPath = public_path() . '/upload/persona/'.$aux_persona["id_pe"];
+            if(!file_exists($destinationPath)) mkdir($destinationPath, 0777);
+            $destinationPath.='/avatar';
+            if(!file_exists($destinationPath)) mkdir($destinationPath, 0777);
+            $name = rand(0, 9999) . '_' . $image->getClientOriginalName();
+            if($image->move($destinationPath, $name)) {
+                $aux_persona_avatar=Persona::find($aux_persona["id_pe"]);
+                $aux_persona_avatar->avatar='/upload/persona/'.$aux_persona["id_pe"].'/avatar/'.$name;
+                $aux_persona_avatar->save();
+                return response()->json(['success' => 0]); //ok
+            }
+        }
+
+    	if($respuesta==1){
+    		return response()->json(['success' => 0]); //ok
+    	}else{
+    		return response()->json(['success' => 1]); //error al modificar los datos
+    	}
     }
 }
