@@ -149,4 +149,21 @@ class Usuario extends Controller
     		return response()->json(['success' => 1]); //error al modificar los datos
     	}
     }
+    /**
+     *
+     *
+     * cambiar estado del usuario
+     *
+     */
+    public function modify_estado($texto)
+    {
+    	$datos = json_decode($texto);
+    	$aux_user=User::find($datos->id_u);
+    	$aux_user->estado=$datos->estado;
+    	if($aux_user->save()){
+    		return response()->json(['success' => 0]); //ok
+    	}else{
+    		return response()->json(['success' => 1]); //error al modificar el estado
+    	}
+    }
 }

@@ -78,10 +78,13 @@
 									<button ng-disabled=" list_permisos.access_edit==0 " ng-click="init_edit(u);" type="button" title="Editar" class="btn btn-sm btn-info">
 										<i class="glyphicon glyphicon-edit"></i>
 									</button>
-									<button ng-disabled=" list_permisos.access_delete==0 " type="button" title="Activar/Inactivar" class="btn btn-sm btn-danger">
+									<button ng-disabled=" list_permisos.access_delete==0 " ng-click="int_estado(u);" type="button" title="Activar/Inactivar" class="btn btn-sm btn-danger">
 										<i class="glyphicon glyphicon-trash"></i>
 									</button>
-									<button ng-disabled=" list_permisos.access_ready==0 " type="button" title="Permisos" class="btn btn-sm btn-warning">
+									<button ng-disabled=" list_permisos.access_ready==0 " ng-click="init_permisos();" type="button" title="Permisos" class="btn btn-sm btn-warning">
+										<i class="glyphicon glyphicon-cog"></i>
+									</button>
+									<button ng-disabled=" list_permisos.access_ready==0 " type="button" title="Cambio De Clave" class="btn btn-sm btn-primary">
 										<i class="glyphicon glyphicon-lock"></i>
 									</button>
 								</div>
@@ -319,9 +322,6 @@
 	<!--Editar Usuario Sin datos-->
 	
 
-
-
-
 <div class="modal fade" id="sms" style="z-index: 5000;" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -340,6 +340,24 @@
 </div>
 
 
+<div class="modal fade" id="modalestado" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Confirmación</h4>
+      </div>
+      <div class="modal-body">
+        	<strong>{{Msm_estado}}</strong>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-ban-circle"></i> Cancelar</button>
+        <button type="button" class="btn btn-primary" ng-click="update_estado();" ><i class="glyphicon glyphicon-ok"></i> Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <div class="modal fade" id="progress" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
@@ -353,6 +371,7 @@
       </div>
   </div>
 </div>
+
 
 
 

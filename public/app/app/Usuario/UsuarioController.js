@@ -81,12 +81,12 @@ app.controller('LogicaUsuario', function($scope, $http, API_URL,Upload) {
         }).success(function(data, status, headers, config) {
            if(data.success==0){
                 $("#progress").modal("hide");
-                sms("btn-success","Se guardo correctamente los datos..!!");
+                sms("btn-success","Se guardo correctamente la transacción..!!");
                 $scope.clear();
                 $scope.newusersin="0";
             }else{
                 $("#progress").modal("hide");
-                sms("btn-danger","Error al guardar los datos..!!");
+                sms("btn-danger","Error al guardar la transacción..!!");
                 $scope.clear();
                 $scope.newusersin="0";
             }
@@ -179,12 +179,12 @@ app.controller('LogicaUsuario', function($scope, $http, API_URL,Upload) {
         }).success(function(data, status, headers, config) {
            if(data.success==0){
                 $("#progress").modal("hide");
-                sms("btn-success","Se guardo correctamente los datos..!!");
+                sms("btn-success","Se guardo correctamente la transacción..!!");
                 $scope.clear();
                 $scope.newusersin="0";
             }else{
                 $("#progress").modal("hide");
-                sms("btn-danger","Error al guardar los datos..!!");
+                sms("btn-danger","Error al guardar la transacción..!!");
                 $scope.clear();
                 $scope.newusersin="0";
             }
@@ -192,6 +192,47 @@ app.controller('LogicaUsuario', function($scope, $http, API_URL,Upload) {
 
     };
     ///---
+
+
+    ///---
+    $scope.Msm_estado="";
+    $scope.aux_estado_user={};
+    $scope.int_estado=function(item){
+        $scope.aux_estado_user=item;
+        if($scope.aux_estado_user.estado.toString()=="1"){
+            $scope.Msm_estado=" Esta seguro de inactivar el usuario";
+        }else{
+            $scope.Msm_estado=" Esta seguro de activar el usuario";
+        }
+        $("#modalestado").modal("show");
+    };
+    $scope.update_estado=function(){
+      $("#modalestado").modal("hide");
+      $("#progress").modal("show");
+      var aux_estado=($scope.aux_estado_user.estado.toString()=="1")?"0":"1";
+
+      var Usuario={
+        id_u:$scope.aux_estado_user.id_u,
+        estado:aux_estado
+      };
+      $http.get(API_URL + 'User/estado/' + JSON.stringify(Usuario))
+        .success(function(data){
+            if(data.success==0){
+                $("#progress").modal("hide");
+                sms("btn-success","Se guardo correctamente la transacción..!!");
+                $scope.clear();
+                $scope.newusersin="0";
+            }else{
+                $("#progress").modal("hide");
+                sms("btn-danger","Error al guardar la transacción..!!");
+                $scope.clear();
+                $scope.newusersin="0";
+            }
+        });
+    };
+    ///---
+
+
 
     ///---
     $scope.clear=function() {
@@ -224,6 +265,9 @@ app.controller('LogicaUsuario', function($scope, $http, API_URL,Upload) {
         $scope.file_edit="";
 
         $scope.url_foto="";
+
+        //reload datos de lista 
+        $scope.initLoad(1);
 
     };
     ///---
