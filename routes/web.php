@@ -29,3 +29,9 @@ Route::get('User/estado/{texto}', 'Usuario\Usuario@modify_estado');
 Route::post('User/update_user/{id}', 'Usuario\Usuario@update_user');
 Route::get('User/get_list_usuario', 'Usuario\Usuario@get_list_usuario');
 Route::resource('User', 'Usuario\Usuario');
+	/*-----------------Permisos de Usuario--------------*/
+	Route::get('Access/get_list_menu', 'Usuario\PermisosController@get_list_menu');
+	Route::resource('Access', 'Usuario\PermisosController');
+	/*-----------------Permisos de Usuario--------------*/
+
+/*-----------------Usuario--------------*/

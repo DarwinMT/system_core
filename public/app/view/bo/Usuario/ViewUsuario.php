@@ -81,7 +81,7 @@
 									<button ng-disabled=" list_permisos.access_delete==0 " ng-click="int_estado(u);" type="button" title="Activar/Inactivar" class="btn btn-sm btn-danger">
 										<i class="glyphicon glyphicon-trash"></i>
 									</button>
-									<button ng-disabled=" list_permisos.access_ready==0 " ng-click="init_permisos();" type="button" title="Permisos" class="btn btn-sm btn-warning">
+									<button ng-disabled=" list_permisos.access_ready==0 " ng-click="init_permisos(u);" type="button" title="Permisos" class="btn btn-sm btn-warning">
 										<i class="glyphicon glyphicon-cog"></i>
 									</button>
 									<button ng-disabled=" list_permisos.access_ready==0 " type="button" title="Cambio De Clave" class="btn btn-sm btn-primary">
@@ -321,6 +321,27 @@
 
 	<!--Editar Usuario Sin datos-->
 	
+	<!--Permisos-->
+	<div>
+		<div class="row">
+			<div class="col-md-12 col-xs-12 table-responsive">
+				<table ng-repeat=" np in menu " class="table table-bordered table-condensend">
+					<thead class="bg-primary">
+						<tr>
+							<th colspan="10">{{np.Nodo.titulo}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat=" ni in np.Nodos ">
+							<td>{{$index+1}}</td>
+							<td>{{ni.titulo}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<!--Permisos-->
 
 <div class="modal fade" id="sms" style="z-index: 5000;" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">

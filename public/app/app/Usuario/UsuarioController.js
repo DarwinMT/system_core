@@ -271,6 +271,19 @@ app.controller('LogicaUsuario', function($scope, $http, API_URL,Upload) {
 
     };
     ///---
+
+    ///---
+    $scope.menu=[];
+
+    $scope.init_permisos=function(item) {
+        console.log(item);
+        $http.get(API_URL + 'Access/get_list_menu')
+        .success(function(response){
+            console.log(response);
+            $scope.menu=response;
+        });
+    };
+    ///---
 });
 
 function sms(color,mensaje) {
