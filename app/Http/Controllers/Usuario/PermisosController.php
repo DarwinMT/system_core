@@ -26,7 +26,11 @@ class PermisosController extends Controller
     		return redirect('/');
     	}
     }
-
+    /**
+     *
+     * Menu sistema
+     * 
+     */
     public function get_list_menu()
     {
     	$aux_menu=array();

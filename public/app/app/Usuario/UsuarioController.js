@@ -280,7 +280,39 @@ app.controller('LogicaUsuario', function($scope, $http, API_URL,Upload) {
         $http.get(API_URL + 'Access/get_list_menu')
         .success(function(response){
             console.log(response);
-            $scope.menu=response;
+            var nodo=response;
+            $scope.menu=[];
+            nodo.forEach(function(n){
+                var nodos=n.Nodos;
+                var aux_nodos=[];
+                nodos.forEach(function (i) {
+                                    
+                    var hijo={
+                        id_men :i.id_men,
+                        id_nodmen : i.id_nodmen,
+                        titulo: i.titulo,
+                        url: i.url,
+                        html :i.html,
+                        estado :i.estado,
+
+                        access_ready:false,
+                        access_save:false,
+                        access_edit:false,
+                        access_delete:false,
+                        access_print:false,
+                        access_excell: false
+                    };
+                    aux_nodos.push(hijo);
+
+                });
+                var aux_nodo={
+                    Nodo:n,
+                    Nodos: aux_nodos
+                };
+                $scope.menu.push(aux_nodo);
+            });
+            //$scope.menu=response;
+            console.log($scope.menu);
         });
     };
     ///---

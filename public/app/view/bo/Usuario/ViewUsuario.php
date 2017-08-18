@@ -324,22 +324,73 @@
 	<!--Permisos-->
 	<div>
 		<div class="row">
+			<div class="col-md-6 col-xs-6">
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Rol: </span>
+					<select class="form-control input-sm" name="id_r" id="id_r" ng-model="id_r">
+						<option value="">Seleccione </option>
+					</select>
+				</div>
+			</div>
+
+			<div class="col-md-6 col-xs-6">
+				<div class="btn-group" role="group" aria-label="...">
+					<button ng-hide="  "  ng-show="  "  ng-disabled=" list_permisos.access_save==0 || user_system.$invalid" type="button" class="btn btn-sm btn-success" ng-click=" save_permisos(); ">
+						<i class="glyphicon glyphicon-floppy-saved"></i> Guardar
+					</button>
+
+					<button type="button" class="btn btn-sm btn-primary" ng-click=" newusersin='0'; ">
+						<i class="glyphicon glyphicon-list"></i> Registro
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
 			<div class="col-md-12 col-xs-12 table-responsive">
 				<table ng-repeat=" np in menu " class="table table-bordered table-condensend">
 					<thead class="bg-primary">
 						<tr>
-							<th colspan="10">{{np.Nodo.titulo}}</th>
+							<th></th>
+							<th >{{np.Nodo.titulo}}</th>
+							<th>Leer</th>
+							<th>Guardar</th>
+							<th>Editar</th>
+							<th>Delete</th>
+							<th>Imprimir</th>
+							<th>Excell</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat=" ni in np.Nodos ">
 							<td>{{$index+1}}</td>
 							<td>{{ni.titulo}}</td>
+							<td> <input type="checkbox" name="" ng-model="ni.access_ready" ></td>
+							<td> <input type="checkbox" name="" ng-model="ni.access_save" ></td>
+							<td> <input type="checkbox" name="" ng-model="ni.access_edit" ></td>
+							<td> <input type="checkbox" name="" ng-model="ni.access_delete" ></td>
+							<td> <input type="checkbox" name="" ng-model="ni.access_print" ></td>
+							<td> <input type="checkbox" name="" ng-model="ni.access_excell" ></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
+
+		<div class="row">
+			<div class="col-md-12 col-xs-12 text-center">
+				<div class="btn-group" role="group" aria-label="...">
+					<button ng-hide="  "  ng-show="  "  ng-disabled=" list_permisos.access_save==0 || user_system.$invalid" type="button" class="btn btn-sm btn-success" ng-click=" save_permisos(); ">
+						<i class="glyphicon glyphicon-floppy-saved"></i> Guardar
+					</button>
+
+					<button type="button" class="btn btn-sm btn-primary" ng-click=" newusersin='0'; ">
+						<i class="glyphicon glyphicon-list"></i> Registro
+					</button>
+				</div>
+			</div>
+		</div>
+
 	</div>
 	<!--Permisos-->
 
