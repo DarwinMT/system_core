@@ -94,7 +94,7 @@ class Start extends Controller
     public function store(Request $request){
     	$aux = $request->all();
     	$user=User::with("persona.personaempresa","permisos.rol")
-    				->whereRaw("username='".$aux["User"]."'")->get();
+    				->whereRaw("username='".$aux["User"]."' AND estado=1 ")->get();
     	if(count($user)>0){
     		//if($aux["Password"]== $user[0]->password){
             if( Hash::check( $aux["Password"], $user[0]->password) ){

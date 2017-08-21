@@ -266,6 +266,16 @@ app.controller('LogicaUsuario', function($scope, $http, API_URL,Upload) {
 
         $scope.url_foto="";
 
+        $scope.id_r="";
+
+        $scope.aux_user_access={};
+
+        $scope.aux_edit_user={};
+        $scope.aux_username="";
+        $scope.aux_password="";
+
+        $scope.result_valida_user=0;
+
         //reload datos de lista 
         $scope.initLoad(1);
 
@@ -274,12 +284,16 @@ app.controller('LogicaUsuario', function($scope, $http, API_URL,Upload) {
 
     ///---
     $scope.menu=[];
-
+    $scope.aux_user_access={};
     $scope.init_permisos=function(item) {
         console.log(item);
+        $scope.newusersin='3';
+
+        $scope.id_r="";
+        $scope.aux_user_access=item;
         $http.get(API_URL + 'Access/get_list_menu')
         .success(function(response){
-            console.log(response);
+            ///console.log(response);
             var nodo=response;
             $scope.menu=[];
             nodo.forEach(function(n){
@@ -306,14 +320,174 @@ app.controller('LogicaUsuario', function($scope, $http, API_URL,Upload) {
 
                 });
                 var aux_nodo={
-                    Nodo:n,
+                    Nodo:n.Nodo,
                     Nodos: aux_nodos
                 };
                 $scope.menu.push(aux_nodo);
             });
-            //$scope.menu=response;
             console.log($scope.menu);
+
+            if(item.permisos.length) { //tiene permisos
+                $scope.id_r= String(item.permisos[0].id_r);
+                var permisos_sys=JSON.parse(item.permisos[0].acceso);
+                console.log(permisos_sys);
+
+                permisos_sys.forEach(function(a){
+                    $scope.menu.forEach(function (x) {
+                       x.Nodos.forEach(function(y){
+                        if(a.id_men==y.id_men){
+                            if(a.access_ready==1){
+                                y.access_ready=true;
+                            }else{
+                                y.access_ready=false;
+                            }
+
+                            if(a.access_save==1){
+                                y.access_save=true;
+                            }else{
+                                y.access_save=false;
+                            }
+
+                            if(a.access_edit==1){
+                                y.access_edit=true;
+                            }else{
+                                y.access_edit=false;
+                            }
+
+
+                            if(a.access_delete==1){
+                                y.access_delete=true;
+                            }else{
+                                y.access_delete=false;
+                            }
+
+                            if(a.access_print==1){
+                                y.access_print=true;
+                            }else{
+                                y.access_print=false;
+                            }
+
+                            if(a.access_excell==1){
+                                y.access_excell=true;
+                            }else{
+                                y.access_excell=false;
+                            }
+                        }
+
+                       }); 
+                    });
+                });
+            }
         });
+    };
+
+    $scope.id_r="";
+    $scope.list_rol=[];
+    $scope.rol=function(){
+        $http.get(API_URL + 'Access/get_list_rol')
+        .success(function(response){
+            console.log(response);
+            $scope.list_rol=response;
+        });
+    };
+
+    $scope.save_permisos=function(){
+        if ($scope.id_r!="") {
+            $("#progress").modal("show");
+            console.log($scope.menu)
+            var acceso_sys=[];
+            $scope.menu.forEach(function(x){
+                x.Nodos.forEach(function(y){
+                    if(y.access_ready==true){
+                        var item={
+                            id_men :y.id_men,
+                            id_nodmen : y.id_nodmen,
+                            titulo: y.titulo,
+                            url: y.url,
+                            html :y.html,
+                            estado :y.estado,
+
+                            access_ready: ((y.access_ready==true)?1:0) ,
+                            access_save:  ((y.access_save==true)?1:0),
+                            access_edit:  ((y.access_edit==true)?1:0),
+                            access_delete:((y.access_delete==true)?1:0),
+                            access_print: ((y.access_print==true)?1:0),
+                            access_excell:((y.access_excell==true)?1:0)
+                        };
+                        acceso_sys.push(item);
+                    }
+                });
+            });
+            var permisos={
+                id_u : $scope.aux_user_access.id_u,
+                id_r:  $scope.id_r, 
+                acceso:acceso_sys, 
+                estado: 1
+            };
+
+            $http.post(API_URL + 'Access',permisos)
+            .success(function(response){
+                console.log(response);
+                if(response.success==0){
+                    $("#progress").modal("hide");
+                    sms("btn-success","Se guardo correctamente los datos..!!");
+                    $scope.clear();
+                    $scope.newusersin="0";
+                }else{
+                    $("#progress").modal("hide");
+                    sms("btn-danger","Error al guardar los datos..!!");
+                    $scope.clear();
+                    $scope.newusersin="0";
+                }
+            });
+
+        }else{
+            sms("btn-info","Seleccione un rol..!!");
+        }
+    };
+
+    ///---
+
+    ///---
+
+    $scope.aux_edit_user={};
+    $scope.aux_username="";
+    $scope.aux_password="";
+    $scope.result_valida_user=0;
+    $scope.init_chage_user=function(item){
+        $scope.aux_edit_user=item;
+        $scope.aux_username=$scope.aux_edit_user.username;
+        $("#vista_user_edit").removeClass("has-success");
+        $("#vista_user_edit").removeClass("has-error");
+        $("#modal_userpass").modal("show");
+    };
+
+    $scope.valida_user_edit=function(){
+
+        var usuario={
+            id: $scope.aux_edit_user.id_u,
+            username:$scope.aux_username.trim()
+        };
+
+        $http.get(API_URL + 'User/valida_user/'+JSON.stringify(usuario))
+        .success(function(response){
+            $scope.result_valida_user=parseInt(response);
+            $("#vista_user_edit").removeClass("has-success");
+            $("#vista_user_edit").removeClass("has-error");
+            if(parseInt($scope.result_valida_user)==0){
+                $("#vista_user_edit").addClass("has-success");
+            }else{
+                $("#vista_user_edit").addClass("has-error");
+            }
+        });  
+    };
+
+    $scope.edit_userpass=function(){
+        if($scope.result_valida_user==0 && $scope.aux_username!="" && $scope.aux_password!=""){
+
+        }else{
+            sms("btn-warning","Ingrese todos los datos para guardar la transacción");
+        }
     };
     ///---
 });

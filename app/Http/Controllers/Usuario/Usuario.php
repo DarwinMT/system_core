@@ -166,4 +166,22 @@ class Usuario extends Controller
     		return response()->json(['success' => 1]); //error al modificar el estado
     	}
     }
+    /**
+     *
+     *
+     * validar el usuario existente
+     *
+     */
+    public function valida_user($filtro)
+    {
+    	$datos = json_decode($filtro);
+
+    	if($datos->id!=""){
+    		$aux_user_existente=User::whereRaw(" id_u!='".$datos->id."'  AND username LIKE '%".$datos->username."%' ")->get();;
+    		return count($aux_user_existente);
+    	}else{
+    		$aux_user_nuevo=User::whereRaw("  username LIKE '%".$datos->username."%' ")->get();;
+    		return count($aux_user_nuevo);
+    	}
+    }
 }

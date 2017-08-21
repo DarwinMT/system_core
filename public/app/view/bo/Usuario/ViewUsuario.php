@@ -1,4 +1,4 @@
-<div class="row" ng-init="permisos_user();" ng-cloak>
+<div class="row" ng-init="permisos_user(); rol();" ng-cloak>
 	
 	<div class="row">
 		<div class="col-md-12 col-xs-12">
@@ -84,7 +84,7 @@
 									<button ng-disabled=" list_permisos.access_ready==0 " ng-click="init_permisos(u);" type="button" title="Permisos" class="btn btn-sm btn-warning">
 										<i class="glyphicon glyphicon-cog"></i>
 									</button>
-									<button ng-disabled=" list_permisos.access_ready==0 " type="button" title="Cambio De Clave" class="btn btn-sm btn-primary">
+									<button ng-disabled=" list_permisos.access_ready==0 " ng-click="init_chage_user(u);" type="button" title="Cambio De Clave" class="btn btn-sm btn-primary">
 										<i class="glyphicon glyphicon-lock"></i>
 									</button>
 								</div>
@@ -322,20 +322,27 @@
 	<!--Editar Usuario Sin datos-->
 	
 	<!--Permisos-->
-	<div>
+	<div ng-hide=" newusersin!='3' "  ng-show=" newusersin=='3' " >
+		<div class="row">
+			<div class="col-md-6 col-xs-6">
+				<strong>Seleccione los permisos para el usuario: {{aux_user_access.username}}</strong>
+				<hr>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-md-6 col-xs-6">
 				<div class="input-group">
 					<span class="input-group-addon" id="basic-addon1">Rol: </span>
 					<select class="form-control input-sm" name="id_r" id="id_r" ng-model="id_r">
 						<option value="">Seleccione </option>
+						<option ng-repeat=" r in list_rol "  value="{{r.id_r}}">{{r.descripcion}}</option>
 					</select>
 				</div>
 			</div>
 
 			<div class="col-md-6 col-xs-6">
 				<div class="btn-group" role="group" aria-label="...">
-					<button ng-hide="  "  ng-show="  "  ng-disabled=" list_permisos.access_save==0 || user_system.$invalid" type="button" class="btn btn-sm btn-success" ng-click=" save_permisos(); ">
+					<button ng-hide="  "  ng-show="  "  ng-disabled=" list_permisos.access_save==0 " type="button" class="btn btn-sm btn-success" ng-click=" save_permisos(); ">
 						<i class="glyphicon glyphicon-floppy-saved"></i> Guardar
 					</button>
 
@@ -380,7 +387,7 @@
 		<div class="row">
 			<div class="col-md-12 col-xs-12 text-center">
 				<div class="btn-group" role="group" aria-label="...">
-					<button ng-hide="  "  ng-show="  "  ng-disabled=" list_permisos.access_save==0 || user_system.$invalid" type="button" class="btn btn-sm btn-success" ng-click=" save_permisos(); ">
+					<button ng-hide="  "  ng-show="  "  ng-disabled=" list_permisos.access_save==0 " type="button" class="btn btn-sm btn-success" ng-click=" save_permisos(); ">
 						<i class="glyphicon glyphicon-floppy-saved"></i> Guardar
 					</button>
 
@@ -393,6 +400,39 @@
 
 	</div>
 	<!--Permisos-->
+
+<div class="modal fade" id="modal_userpass" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Editar Usuario Y Contraseña</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        	<div class="col-md-12 col-xs-12">
+        		<div class="input-group" id="vista_user_edit">
+				  <span class="input-group-addon" id="basic-addon1">Usuario</span>
+				  <input type="text" class="form-control input-sm" name="aux_username" id="aux_username" ng-model="aux_username" ng-keyup="valida_user_edit()" >
+				</div>
+        	</div>
+        	<div class="col-md-12 col-xs-12">
+        		<div class="input-group">
+				  <span class="input-group-addon" id="basic-addon1">Clave</span>
+				  <input type="password" class="form-control input-sm" name="aux_password" id="aux_password" ng-model="aux_password">
+				</div>
+        	</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-ban-circle"></i> Cancelar</button>
+        <button ng-click="edit_userpass();" ng-disabled=" list_permisos.access_edit==0 || result_valida_user!=0 " type="button" class="btn btn-sm btn-info">
+			<i class="glyphicon glyphicon-floppy-saved"></i> Guardar
+		</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="modal fade" id="sms" style="z-index: 5000;" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
