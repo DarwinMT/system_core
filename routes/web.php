@@ -25,6 +25,8 @@ Route::resource('Main', 'Start\Main');
 /*-----------------Main--------------*/
 
 /*-----------------Usuario--------------*/
+Route::get('User/valida_dni/{texto}', 'Usuario\Usuario@valida_dni');
+Route::get('User/save_chage_user/{texto}', 'Usuario\Usuario@save_chage_user');
 Route::get('User/valida_user/{texto}', 'Usuario\Usuario@valida_user');
 Route::get('User/estado/{texto}', 'Usuario\Usuario@modify_estado');
 Route::post('User/update_user/{id}', 'Usuario\Usuario@update_user');

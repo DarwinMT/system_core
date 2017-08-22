@@ -112,10 +112,11 @@
 	<form class="form-horizontal"  name="user_system" id="user_system"  novalidate="">
 		<div class="row">
 			<div class="col-md-6 col-xs-6">
-				<div class="input-group">
+				<div class="input-group" id="vista_dni_new">
 					<span class="input-group-addon" id="basic-addon1">DNI: </span>
-					<input type="text" class="form-control input-sm" name="ci" id="ci" ng-model="ci" />
+					<input type="text" class="form-control input-sm" name="ci" id="ci" ng-model="ci" ng-keyup="valida_user_dni();" />
 				</div>
+				<span class="help-block error" ng-show=" valida_dninew!=0 ">Este Dni ya existe</span>
 			</div>
 		</div>
 
@@ -165,18 +166,19 @@
 			<div class="col-md-6 col-xs-6">
 				<div class="input-group">
 					<span class="input-group-addon" id="basic-addon1">Email: </span>
-					<input type="text" class="form-control input-sm" name="email" id="email" ng-model="email" />
+					<input type="email" class="form-control input-sm" name="email" id="email" ng-model="email" />
 				</div>
 			</div>
 		</div>
 
 		<div class="row" style="padding-top: 1%;">
 			<div class="col-md-6 col-xs-6" >
-				<div class="input-group">
+				<div class="input-group" id="vista_user_new">
 					<span class="input-group-addon" id="basic-addon1">Usuario: </span>
-					<input type="text" class="form-control input-sm" name="username" id="username" ng-model="username" required />
+					<input type="text" class="form-control input-sm" name="username" id="username" ng-model="username" ng-keyup="valida_user_new()" required />
 				</div>
 				<span class="help-block error" ng-show="user_system.username.$invalid && user_system.username.$touched">El usuario es requerido</span>
+				<span class="help-block error" ng-show=" valida_usernew!=0 ">El usuario ya existe</span>
 			</div>
 			<div class="col-md-6 col-xs-6">
 				<div class="input-group">
@@ -206,11 +208,11 @@
 		<div class="row">
 			<div class="col-md-12 col-xs-12 text-center">
 				<div class="btn-group" role="group" aria-label="...">
-					<button ng-hide=" newusersin!='1' "  ng-show=" newusersin=='1' "  ng-disabled=" list_permisos.access_save==0 || user_system.$invalid" type="button" class="btn btn-sm btn-success" ng-click=" save(); ">
+					<button ng-hide=" newusersin!='1' "  ng-show=" newusersin=='1' "  ng-disabled=" list_permisos.access_save==0 || user_system.$invalid || valida_usernew!=0 || valida_dninew!=0 " type="button" class="btn btn-sm btn-success" ng-click=" save(); ">
 						<i class="glyphicon glyphicon-floppy-saved"></i> Guardar
 					</button>
 
-					<button type="button" class="btn btn-sm btn-primary" ng-click=" newusersin='0'; ">
+					<button type="button" class="btn btn-sm btn-primary" ng-click=" newusersin='0'; clear();">
 						<i class="glyphicon glyphicon-list"></i> Registro
 					</button>
 				</div>
@@ -226,10 +228,11 @@
 	<form class="form-horizontal"  name="user_system_edit" id="user_system_edit"  novalidate="">
 		<div class="row">
 			<div class="col-md-6 col-xs-6">
-				<div class="input-group">
+				<div class="input-group" id="vista_dni_edit">
 					<span class="input-group-addon" id="basic-addon1">DNI: </span>
-					<input type="text" class="form-control input-sm" name="ci_edit" id="ci_edit" ng-model="ci_edit" />
+					<input type="text" class="form-control input-sm" name="ci_edit" id="ci_edit" ng-model="ci_edit" ng-keyup="valida_user_dni_edit()" />
 				</div>
+				<span class="help-block error" ng-show=" valida_dniedit!=0 ">Este Dni ya existe</span>
 			</div>
 		</div>
 
@@ -306,7 +309,7 @@
 		<div class="row">
 			<div class="col-md-12 col-xs-12 text-center">
 				<div class="btn-group" role="group" >
-					<button ng-click="edit();" ng-hide=" newusersin!='2' "  ng-show=" newusersin=='2' " ng-disabled=" list_permisos.access_edit==0 || user_system_edit.$invalid" type="button" class="btn btn-sm btn-info">
+					<button ng-click="edit();" ng-hide=" newusersin!='2' "  ng-show=" newusersin=='2' " ng-disabled=" list_permisos.access_edit==0 || user_system_edit.$invalid || valida_dniedit!=0" type="button" class="btn btn-sm btn-info">
 						<i class="glyphicon glyphicon-floppy-saved"></i> Guardar
 					</button>
 

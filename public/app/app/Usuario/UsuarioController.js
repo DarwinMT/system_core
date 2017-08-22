@@ -275,9 +275,17 @@ app.controller('LogicaUsuario', function($scope, $http, API_URL,Upload) {
         $scope.aux_password="";
 
         $scope.result_valida_user=0;
+        $scope.valida_usernew=0;
+        $scope.valida_dninew=0;
+        $scope.valida_dniedit=0;
 
         //reload datos de lista 
         $scope.initLoad(1);
+
+        $("#vista_user_new").removeClass("has-success");
+        $("#vista_user_new").removeClass("has-error");
+        $("#vista_dni_new").removeClass("has-success");
+        $("#vista_dni_new").removeClass("has-error");
 
     };
     ///---
@@ -484,11 +492,92 @@ app.controller('LogicaUsuario', function($scope, $http, API_URL,Upload) {
 
     $scope.edit_userpass=function(){
         if($scope.result_valida_user==0 && $scope.aux_username!="" && $scope.aux_password!=""){
-
+            $("#progress").modal("show");
+            var usuario={
+                id_u: $scope.aux_edit_user.id_u,
+                username:$scope.aux_username.trim(),
+                password: $scope.aux_password.trim()
+            };
+            $http.get(API_URL + 'User/save_chage_user/'+JSON.stringify(usuario))
+            .success(function(response){
+              console.log(response);
+                if(response.success==0){
+                    $("#modal_userpass").modal("hide");
+                    $("#progress").modal("hide");
+                    sms("btn-success","Se guardo correctamente los datos..!!");
+                    $scope.clear();
+                    $scope.newusersin="0";
+                }else{
+                    $("#progress").modal("hide");
+                    sms("btn-danger","Error al guardar los datos..!!");
+                    $scope.clear();
+                    $scope.newusersin="0";
+                }  
+            });
         }else{
             sms("btn-warning","Ingrese todos los datos para guardar la transacción");
         }
     };
+    ///---
+
+    ///---
+    $scope.valida_usernew=0;
+    $scope.valida_user_new=function(){
+        var usuario={
+            id: '',
+            username:$scope.username.trim()
+        };
+        $http.get(API_URL + 'User/valida_user/'+JSON.stringify(usuario))
+        .success(function(response){
+            $scope.valida_usernew=parseInt(response);
+            $("#vista_user_new").removeClass("has-success");
+            $("#vista_user_new").removeClass("has-error");
+            if(parseInt($scope.valida_usernew)==0){
+                $("#vista_user_new").addClass("has-success");
+            }else{
+                $("#vista_user_new").addClass("has-error");
+            }
+        });  
+    };
+
+    $scope.valida_dninew=0;
+    $scope.valida_user_dni=function(){
+        var usuario={
+            id: '',
+            ci:$scope.ci.trim()
+        };
+        $http.get(API_URL + 'User/valida_dni/'+JSON.stringify(usuario))
+        .success(function(response){
+            $scope.valida_dninew=parseInt(response);
+            $("#vista_dni_new").removeClass("has-success");
+            $("#vista_dni_new").removeClass("has-error");
+            if(parseInt($scope.valida_dninew)==0){
+                $("#vista_dni_new").addClass("has-success");
+            }else{
+                $("#vista_dni_new").addClass("has-error");
+            }
+        });  
+    };
+
+    $scope.valida_dniedit=0;
+    $scope.valida_user_dni_edit=function(){
+        var usuario={
+            id: $scope.aux_edit_user_data.persona.id_pe,
+            ci:$scope.ci_edit.trim()
+        };
+        $http.get(API_URL + 'User/valida_dni/'+JSON.stringify(usuario))
+        .success(function(response){
+            $scope.valida_dniedit=parseInt(response);
+            $("#vista_dni_edit").removeClass("has-success");
+            $("#vista_dni_edit").removeClass("has-error");
+            if(parseInt($scope.valida_dniedit)==0){
+                $("#vista_dni_edit").addClass("has-success");
+            }else{
+                $("#vista_dni_edit").addClass("has-error");
+            }
+        });  
+    };
+
     ///---
 });
 

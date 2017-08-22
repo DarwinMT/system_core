@@ -184,4 +184,40 @@ class Usuario extends Controller
     		return count($aux_user_nuevo);
     	}
     }
+    /**
+     *
+     *
+     * cambiar clave y usuario
+     *
+     */
+    public function save_chage_user($filtro)
+    {
+    	$datos = json_decode($filtro);
+    	$aux_user=User::find($datos->id_u);
+    	$aux_user->username=$datos->username;
+    	$aux_user->password=Hash::make($datos->password);
+    	if($aux_user->save()){
+    		return response()->json(['success' => 0]); //ok
+    	}else{
+    		return response()->json(['success' => 1]); //error al modificar el user y password	
+    	}
+    }
+     /**
+     *
+     *
+     * validar el dni o ci existente en las personas para poder crear un persona a traves del usuario
+     *
+     */
+    public function valida_dni($filtro)
+    {
+    	$datos = json_decode($filtro);
+
+    	if($datos->id!=""){
+    		$aux_persona_existente=Persona::whereRaw(" id_pe!='".$datos->id."'  AND ci='".$datos->ci."' ")->get();;
+    		return count($aux_persona_existente);
+    	}else{
+    		$aux_persona_nuevo=Persona::whereRaw("  ci='".$datos->ci."'  ")->get();;
+    		return count($aux_persona_nuevo);
+    	}
+    }
 }
