@@ -21,6 +21,10 @@
   <link href="<?= asset('css/bootstrap-datetimepicker.min.css') ?>" rel="stylesheet">
   <!--Datetimepicker-->
 
+  <!--Excell -->
+  <script src="<?= asset('../js/jquery.table2excel.js') ?>"></script>
+  <!--Excell -->
+
   
 	<!--Angular-->
 	<script src="<?= asset('../app/angular/angular.min.js') ?>"></script>

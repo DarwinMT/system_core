@@ -220,4 +220,29 @@ class Usuario extends Controller
     		return count($aux_persona_nuevo);
     	}
     }
+    /**
+     *
+     *
+     * cambiar clave y usuario
+     *
+     */
+    public function get_list_usuario_excell($filtro)
+    {	
+    	$filter = json_decode($filtro);
+
+    	$data_user=Session::get('user_data');
+    	$id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
+
+    	$sql="";
+        if($filter->buscar!=""){
+            $sql=" AND usuario.username LIKE '%".$filter->buscar."%' ";
+        }
+
+    	return User::with(["persona.personaempresa"=>function($query) use ($id_emp){
+        					$query->whereRaw(" personaempresa.id_emp='".$id_emp."'");
+        				},"permisos.rol"])
+        			->whereRaw(" usuario.estado='".$filter->estado."' ".$sql)
+                    ->orderBy("usuario.username","ASC")
+                    ->get();
+    }
 }

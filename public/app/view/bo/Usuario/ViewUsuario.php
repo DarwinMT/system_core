@@ -17,7 +17,7 @@
 				    Acciones <span class="caret"></span>
 				  </button>
 				  <ul class="dropdown-menu">
-				    <li ng-hide=" list_permisos.access_excell==0 " ><a href="#"><i class="glyphicon glyphicon-th"></i> Excell</a></li>
+				    <li ng-hide=" list_permisos.access_excell==0 " ng-click="excell_user();" ><a href=""><i class="glyphicon glyphicon-th"></i> Excell</a></li>
 				    <li role="separator" class="divider"></li>
 				    <li ng-hide=" list_permisos.access_print==0 " ><a href="#"><i class="glyphicon glyphicon-print"></i> Imprimir</a></li>
 				  </ul>
@@ -57,7 +57,7 @@
 
 		<div class="row">
 			<div class="col-md-12 col-xs-12 table-responsive">
-				<table class="table table-bordered table-condensend">
+				<table class="table table-bordered table-condensend" >
 					<thead class="bg-primary">
 						<tr>
 							<th></th>
@@ -106,6 +106,41 @@
 
 	</div>
 	<!--Registro-->
+
+	<!--Registro Excell-->
+	<div style="display: none;">
+		<table id="list_user">
+			<thead>
+				<tr class="bg-primary">
+					<th></th>
+					<th>Rol</th>
+					<th>Usuario</th>
+					<th>CI</th>
+					<th>Apellido</th>
+					<th>Nombre</th>
+					<th>Direccion</th>
+					<th>Correo</th>
+					<th>Fecha N.</th>
+					<th>Genero</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="e in list_user_excell">
+					<td>{{$index+1}}</td>
+					<td>{{ (e.permisos[0].rol!=undefined)? e.permisos[0].rol.descripcion:"No Asignado"; }}</td>
+					<td>{{e.username}}</td>
+					<td>{{e.persona.ci}}</td>
+					<td>{{e.persona.apellido}}</td>
+					<td>{{e.persona.nombre}}</td>
+					<td>{{e.persona.direccion}}</td>
+					<td>{{e.persona.email}}</td>
+					<td>{{e.persona.fechan}}</td>
+					<td>{{e.persona.genero}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!--Registro Excell-->
 
 	<!--Nuevo  Usuario Sin datos-->
 	<div ng-hide=" newusersin!='1' "  ng-show=" newusersin=='1' ">

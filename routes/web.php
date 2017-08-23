@@ -25,6 +25,7 @@ Route::resource('Main', 'Start\Main');
 /*-----------------Main--------------*/
 
 /*-----------------Usuario--------------*/
+Route::get('User/get_list_usuario_excell/{texto}', 'Usuario\Usuario@get_list_usuario_excell');
 Route::get('User/valida_dni/{texto}', 'Usuario\Usuario@valida_dni');
 Route::get('User/save_chage_user/{texto}', 'Usuario\Usuario@save_chage_user');
 Route::get('User/valida_user/{texto}', 'Usuario\Usuario@valida_user');

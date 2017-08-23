@@ -286,6 +286,8 @@ app.controller('LogicaUsuario', function($scope, $http, API_URL,Upload) {
         $("#vista_user_new").removeClass("has-error");
         $("#vista_dni_new").removeClass("has-success");
         $("#vista_dni_new").removeClass("has-error");
+        $("#vista_dni_edit").removeClass("has-success");
+        $("#vista_dni_edit").removeClass("has-error");
 
     };
     ///---
@@ -578,6 +580,33 @@ app.controller('LogicaUsuario', function($scope, $http, API_URL,Upload) {
         });  
     };
 
+    ///---
+
+    ///---
+    $scope.list_user_excell=[];
+    $scope.excell_user=function(){
+        $("#progress").modal("show");
+        var filtros = {
+            buscar:$scope.buscartexto,
+            estado: $scope.estadoanulado
+        };
+        $scope.list_user_excell=[];
+        $http.get(API_URL + 'User/get_list_usuario_excell/' + JSON.stringify(filtros))
+            .then(function(response){
+                $scope.list_user_excell = response.data;
+                console.log($scope.list_user_excell);
+
+                setTimeout(function(){
+                    $("#list_user").table2excel({
+                        exclude: ".noExl",
+                        name: "Lista De Usuarios",
+                        filename: "Lista De Usuarios" 
+                    });
+                    $("#progress").modal("hide");
+                },1000);
+         });
+
+    };
     ///---
 });
 
