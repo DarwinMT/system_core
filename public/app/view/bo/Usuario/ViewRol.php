@@ -118,7 +118,7 @@
 	<!--Registro Excell-->
 
 	<!--Nuevo  Usuario Sin datos-->
-	<div ng-hide=" neweditrol!='1' "  ng-show=" neweditrol=='1' ">
+	<div ng-hide=" neweditrol!='1' ||  neweditrol!='2' "  ng-show=" neweditrol=='1' ||  neweditrol=='2' ">
 	<form class="form-horizontal"  name="rol_system" id="rol_system"  novalidate="">
 	
 		<div class="row">

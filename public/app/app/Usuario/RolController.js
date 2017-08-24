@@ -73,8 +73,97 @@ app.controller('LogicaRol', function($scope, $http, API_URL,Upload) {
     ///---
 
     ///---
+    $scope.clear=function(){
+        $scope.neweditrol="0";
+        $scope.descripcion="";
+
+        $scope.initLoad(1);
+    };
+    ///---
 
     ///---
+    $scope.save=function() {
+        $("#progress").modal("show");
+        var rol_data={
+            descripcion: $scope.descripcion.trim(),
+            estado: '1'
+        };
+        $http.post(API_URL + 'Roles',rol_data)
+        .success(function(response){
+            console.log(response);
+            $("#progress").modal("hide");
+                if(response.success==0){
+                    sms("btn-success","Se guardo correctamente los datos..!!");
+                    $scope.clear();
+                }else{
+                    sms("btn-danger","Error al guardar los datos..!!");
+                    $scope.clear();
+                }
+        });
+    };
+    ///---
+
+    ///---
+    $scope.aux_rol={};
+    $scope.init_edit=function(item){
+        $scope.aux_rol=item;
+        $scope.neweditrol="2";
+        $scope.descripcion=$scope.aux_rol.descripcion;
+    };
+    $scope.edit=function(){
+        $scope.aux_rol.descripcion=$scope.descripcion;
+        $http.put(API_URL + 'Roles/'+$scope.aux_rol.id_r,$scope.aux_rol)
+        .success(function(response){
+            console.log(response);
+            $("#progress").modal("hide");
+                if(response.success==0){
+                    sms("btn-success","Se guardo correctamente los datos..!!");
+                    $scope.clear();
+                }else{
+                    sms("btn-danger","Error al guardar los datos..!!");
+                    $scope.clear();
+                }
+        });
+    };
+    ///---
+
+    ///---
+    $scope.aux_estado_rol={};
+    $scope.int_estado=function(item){
+        $scope.aux_estado_rol=item;
+        if($scope.aux_estado_rol.estado.toString()=="1"){
+            $scope.Msm_estado=" Esta seguro de inactivar el rol";
+        }else{
+            $scope.Msm_estado=" Esta seguro de activar el rol";
+        }
+        $("#modalestado").modal("show");
+    };
+    $scope.update_estado=function(){
+      $("#modalestado").modal("hide");
+      $("#progress").modal("show");
+      var aux_estado=($scope.aux_estado_rol.estado.toString()=="1")?"0":"1";
+
+      var Rol={
+        id_r:$scope.aux_estado_rol.id_r,
+        estado:aux_estado
+      };
+      $http.get(API_URL + 'Roles/estado/' + JSON.stringify(Rol))
+        .success(function(data){
+            if(data.success==0){
+                $("#progress").modal("hide");
+                sms("btn-success","Se guardo correctamente la transacción..!!");
+                $scope.clear();
+                $scope.newusersin="0";
+            }else{
+                $("#progress").modal("hide");
+                sms("btn-danger","Error al guardar la transacción..!!");
+                $scope.clear();
+                $scope.newusersin="0";
+            }
+        });
+    };
+    ///---
+
 
 });
 
