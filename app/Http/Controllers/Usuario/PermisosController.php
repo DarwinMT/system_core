@@ -36,9 +36,9 @@ class PermisosController extends Controller
     public function get_list_menu()
     {
     	$aux_menu=array();
-    	$nodop=Modulo::whereRaw(" ISNULL(id_nodmen) ")->get();
+    	$nodop=Modulo::whereRaw(" ISNULL(id_nodmen)  AND estado=1 ")->get();
     	foreach ($nodop as $n) {
-    		$nodos=Modulo::whereRaw(" id_nodmen=".$n->id_men."")->get();
+    		$nodos=Modulo::whereRaw(" id_nodmen=".$n->id_men." AND estado=1")->get();
     		$aux_nodo=array(
     			'Nodo' => $n,
     			'Nodos' => $nodos

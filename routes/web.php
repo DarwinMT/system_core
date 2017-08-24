@@ -40,3 +40,9 @@ Route::resource('User', 'Usuario\Usuario');
 	/*-----------------Permisos de Usuario--------------*/
 
 /*-----------------Usuario--------------*/
+
+/*-----------------Roles Usuario--------------*/
+Route::get('Roles/get_list_roles_excell/{texto}', 'Usuario\RolController@get_list_roles_excell');
+Route::get('Roles/get_list_roles', 'Usuario\RolController@get_list_roles');
+Route::resource('Roles', 'Usuario\RolController');
+/*-----------------Roles Usuario--------------*/
