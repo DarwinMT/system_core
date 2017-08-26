@@ -13,6 +13,10 @@ app.config(function($routeProvider,API_URL){
 		templateUrl : "app/view/bo/Usuario/ViewRol.php",
 		controller : "LogicaRol"
 	})
+	.when("/RegistroProveedor",{
+		templateUrl : "app/view/bo/Personas/ViewProveedor.php",
+		controller : "LogicaProveedor"
+	})
 	.otherwise({
         template : "<h1>Nada</h1><p>Ejemplo de pagina no encotrada,</p>"
     });

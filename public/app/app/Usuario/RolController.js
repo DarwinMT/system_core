@@ -16,8 +16,12 @@ app.controller('LogicaRol', function($scope, $http, API_URL,Upload) {
     $scope.permisos_user=function () {
         $http.get(API_URL + 'Roles')
         .success(function(response){
-            console.log(response);
-            $scope.list_permisos=response[0];
+            console.log(response[0].id_men);
+            if(response[0].id_men!= undefined  ){ // no tiene session activa
+                $scope.list_permisos=response[0];
+            }else{
+                location.reload();
+            }
         });
     };
     ///---

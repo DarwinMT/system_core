@@ -40,6 +40,7 @@
 
   <script src="<?= asset('../app/app/Usuario/UsuarioController.js') ?>"></script>
   <script src="<?= asset('../app/app/Usuario/RolController.js') ?>"></script>
+  <script src="<?= asset('../app/app/Personas/ProveedorController.js') ?>"></script>
 		<!--Controller-->
 
 
