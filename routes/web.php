@@ -47,3 +47,8 @@ Route::get('Roles/get_list_roles_excell/{texto}', 'Usuario\RolController@get_lis
 Route::get('Roles/get_list_roles', 'Usuario\RolController@get_list_roles');
 Route::resource('Roles', 'Usuario\RolController');
 /*-----------------Roles Usuario--------------*/
+
+/*-----------------Proveedor--------------*/
+Route::get('Proveedor/get_list_proveedor', 'Personas\ProveedorController@get_list_proveedor');
+Route::resource('Proveedor', 'Personas\ProveedorController');
+/*-----------------Proveedor--------------*/
