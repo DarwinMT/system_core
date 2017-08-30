@@ -102,4 +102,60 @@ class ProveedorController extends Controller
         			->whereRaw(" proveedor.estado='".$filter->estado."' ");
         return $data->paginate(5);
     }
+     /**
+     *
+     *
+     * Actualizar datos del proveedor
+     *
+     */
+    public function update_proveedor(Request $request, $id)
+    {
+    	$data = $request->all();
+    	$aux_persona= (array) $data["Persona"];
+    	$respuesta=Persona::whereRaw(" id_pe='".$id."' ")
+    						->update($aux_persona);
+
+		$aux_proveedor=(array) $data["Proveedor"];
+		$aux_respusta_proveedor=Proveedor::whereRaw( " id_pe='".$id."' " )
+											->update($aux_proveedor);
+    	
+    	if ($request->hasFile('file')) {
+            $image = $request->file('file');
+            $destinationPath = public_path() . '/upload/persona/'.$aux_persona["id_pe"];
+            if(!file_exists($destinationPath)) mkdir($destinationPath, 0777);
+            $destinationPath.='/avatar';
+            if(!file_exists($destinationPath)) mkdir($destinationPath, 0777);
+            $name = rand(0, 9999) . '_' . $image->getClientOriginalName();
+            if($image->move($destinationPath, $name)) {
+                $aux_persona_avatar=Persona::find($aux_persona["id_pe"]);
+                $aux_persona_avatar->avatar='/upload/persona/'.$aux_persona["id_pe"].'/avatar/'.$name;
+                $aux_persona_avatar->save();
+                return response()->json(['success' => 0]); //ok
+            }
+        }
+
+    	if($respuesta==1 || $aux_respusta_proveedor==1){
+    		return response()->json(['success' => 0]); //ok
+    	}else{
+    		return response()->json(['success' => 1]); //error al modificar los datos
+    	}
+    }
+
+     /**
+     *
+     *
+     * cambiar estado del proveedor
+     *
+     */
+    public function modify_estado($texto)
+    {
+    	$datos = json_decode($texto);
+    	$aux_user=Proveedor::find($datos->id_prov);
+    	$aux_user->estado=$datos->estado;
+    	if($aux_user->save()){
+    		return response()->json(['success' => 0]); //ok
+    	}else{
+    		return response()->json(['success' => 1]); //error al modificar el estado
+    	}
+    }
 }

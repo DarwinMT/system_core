@@ -107,6 +107,14 @@ app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
         $scope.razonsocial="";
 
         $scope.newedit="0";
+
+        $scope.aux_provider={};
+
+        $("#fechan").val("");
+
+        $scope.initLoad(1);
+
+        $scope.aux_estado_provider={};
     };
     ///---
 
@@ -128,6 +136,30 @@ app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
                 $("#vista_dni_new").addClass("has-error");
             }
         });  
+    };
+    $scope.valida_user_dni_edit=function(){
+        var usuario={
+            id: $scope.aux_provider.persona.id_pe,
+            ci:$scope.ci.trim()
+        };
+        $http.get(API_URL + 'User/valida_dni/'+JSON.stringify(usuario))
+        .success(function(response){
+            $scope.valida_dninew=parseInt(response);
+            $("#vista_dni_new").removeClass("has-success");
+            $("#vista_dni_new").removeClass("has-error");
+            if(parseInt($scope.valida_dninew)==0){
+                $("#vista_dni_new").addClass("has-success");
+            }else{
+                $("#vista_dni_new").addClass("has-error");
+            }
+        });   
+    };
+    $scope.valida_dni=function(){
+        if($scope.aux_provider.persona.id_pe!=null || $scope.aux_provider.persona.id_pe!=undefined){
+            $scope.valida_user_dni_edit();
+        }else{
+            $scope.valida_user_dni();
+        }
     };
     ///---
 
@@ -153,6 +185,119 @@ app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
          });
     };
     $scope.initLoad(1);
+    ///---
+
+    ///---
+    $scope.aux_provider={};
+    $scope.init_edit=function(item){
+
+        $scope.aux_provider=item;
+
+        console.log($scope.aux_provider);
+
+        $scope.newedit="2";
+
+        $scope.ci= $scope.aux_provider.persona.ci; 
+        $scope.nombre= $scope.aux_provider.persona.nombre;
+        $scope.apellido= $scope.aux_provider.persona.apellido;
+        $scope.avatar= ''; 
+        $scope.genero= $scope.aux_provider.persona.genero;
+        $("#fechan").val($scope.aux_provider.persona.fechan);
+        $scope.direccion= $scope.aux_provider.persona.direccion; 
+        $scope.email= $scope.aux_provider.persona.email; 
+
+        $scope.razonsocial=$scope.aux_provider.razonsocial;
+        $scope.telefonoprincipal=$scope.aux_provider.telefonoprincipal;
+
+        $scope.file= '';
+        $scope.url=$scope.aux_provider.persona.avatar;
+    };
+        $scope.edit=function(){
+        
+        
+        var data_persona={
+            id_pe: $scope.aux_provider.persona.id_pe,
+            ci:$scope.ci, 
+            nombre:$scope.nombre, 
+            apellido:$scope.apellido, 
+            avatar: $scope.aux_provider.persona.avatar, 
+            genero:$scope.genero, 
+            fechan:$("#fechan").val(), 
+            direccion:$scope.direccion, 
+            email:$scope.email,
+            estado:$scope.aux_provider.persona.estado
+        };
+
+        var data_proveedor={
+            id_prov: $scope.aux_provider.id_prov,
+            id_pe: $scope.aux_provider.persona.id_pe,
+            fechaingreso:$scope.aux_provider.persona.fechaingreso,
+            telefonoprincipal:$scope.telefonoprincipal,
+            razonsocial: $scope.razonsocial,
+            estado:'1'
+        };
+
+        var data_provider={
+            Persona: data_persona,
+            Proveedor: data_proveedor,
+            file: $scope.file_edit
+        };
+        $("#progress").modal("show");
+        
+        Upload.upload({
+            url: API_URL + "Proveedor/update_proveedor/" + $scope.aux_provider.persona.id_pe,
+            method: 'POST',
+            data: data_provider
+        }).success(function(data, status, headers, config) {
+           if(data.success==0){
+                $("#progress").modal("hide");
+                sms("btn-success","Se guardo correctamente la transacción..!!");
+                $scope.clear();
+            }else{
+                $("#progress").modal("hide");
+                sms("btn-danger","Error al guardar la transacción..!!");
+                $scope.clear();
+            }
+        });
+
+    };
+    ///---
+
+
+        ///---
+    $scope.Msm_estado="";
+    $scope.aux_estado_provider={};
+    $scope.int_estado=function(item){
+        $scope.aux_estado_provider=item;
+        if($scope.aux_estado_provider.estado.toString()=="1"){
+            $scope.Msm_estado=" Esta seguro de inactivar el proveedor";
+        }else{
+            $scope.Msm_estado=" Esta seguro de activar el proveedor";
+        }
+        $("#modalestado").modal("show");
+    };
+    $scope.update_estado=function(){
+      $("#modalestado").modal("hide");
+      $("#progress").modal("show");
+      var aux_estado=($scope.aux_estado_provider.estado.toString()=="1")?"0":"1";
+
+      var Proveedor={
+        id_prov:$scope.aux_estado_provider.id_prov,
+        estado:aux_estado
+      };
+      $http.get(API_URL + 'Proveedor/estado/' + JSON.stringify(Proveedor))
+        .success(function(data){
+            if(data.success==0){
+                $("#progress").modal("hide");
+                sms("btn-success","Se guardo correctamente la transacción..!!");
+                $scope.clear();
+            }else{
+                $("#progress").modal("hide");
+                sms("btn-danger","Error al guardar la transacción..!!");
+                $scope.clear();
+            }
+        });
+    };
     ///---
 
     

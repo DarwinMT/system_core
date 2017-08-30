@@ -49,6 +49,8 @@ Route::resource('Roles', 'Usuario\RolController');
 /*-----------------Roles Usuario--------------*/
 
 /*-----------------Proveedor--------------*/
+Route::get('Proveedor/estado/{texto}', 'Personas\ProveedorController@modify_estado');
+Route::post('Proveedor/update_proveedor/{id}', 'Personas\ProveedorController@update_proveedor');
 Route::get('Proveedor/get_list_proveedor', 'Personas\ProveedorController@get_list_proveedor');
 Route::resource('Proveedor', 'Personas\ProveedorController');
 /*-----------------Proveedor--------------*/
