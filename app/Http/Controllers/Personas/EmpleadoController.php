@@ -9,15 +9,15 @@ use Illuminate\Support\Facades\Session;
 
 use App\Models\Usuario\User;
 use App\Models\Personas\Persona;
-use App\Models\Personas\Proveedor;
+use App\Models\Personas\Empleado;
 use App\Models\Personas\PersonaEmpresa;
 
 
-class ProveedorController extends Controller
+class EmpleadoController extends Controller
 {
     /**
      *
-     * Cargar los permisos de proveedor
+     * Cargar los permisos de empleado
      * 
      */
     public function index()
@@ -25,10 +25,10 @@ class ProveedorController extends Controller
     	if(Session::has('user_data')){
     		$data_user=Session::get('user_data');
      		$permisos=json_decode($data_user[0]->permisos[0]->acceso);
-     		//id_men =10 = registro de proveedores
+     		//id_men =9 = registro de empleados
      		$aux_permiso=array();
      		foreach ($permisos as $p) {
-     			if($p->id_men==10){
+     			if($p->id_men==9){
      				array_push($aux_permiso, $p);
      			}
      		}
@@ -45,7 +45,28 @@ class ProveedorController extends Controller
     }
      /**
      *
-     * Crear Proveedor
+     *
+     * Lista de Empleados
+     *
+     */
+    public function get_list_empleado(Request $request)
+    {
+        $filter = json_decode($request->get('filter'));
+        $estado=$filter->estado;
+        $sql="";
+        if($filter->buscar!=""){
+            $sql=" AND CONCAT(persona.apellido,' ',persona.nombre) LIKE '%".$filter->buscar."%' ";
+        }
+        $data=Empleado::with(["persona"=>function($query) use ($sql, $estado){
+        				$query->whereRaw(" persona.estado='1' ".$sql)
+        				->orderBy( "persona.apellido","ASC");
+        			}])
+        			->whereRaw(" empleado.estado='".$filter->estado."' ");
+        return $data->paginate(5);
+    }
+	/**
+     *
+     * Crear Empleado
      * 
      */
     public function store(Request $request)
@@ -53,10 +74,10 @@ class ProveedorController extends Controller
     	$data = $request->all();
     	$aux_persona=Persona::create($data["Persona"]);
     	if($aux_persona->id_pe>0){
-    		$data["Proveedor"]["id_pe"]=$aux_persona->id_pe;
-    		$aux_proveedor=Proveedor::create($data["Proveedor"]);
+    		$data["Empleado"]["id_pe"]=$aux_persona->id_pe;
+    		$aux_empleado=Empleado::create($data["Empleado"]);
 
-    		if($aux_proveedor->id_prov>0){
+    		if($aux_empleado->id_emp>0){
     			if ($request->hasFile('file')) {
 	                $image = $request->file('file');
 	                $destinationPath = public_path() . '/upload/persona/'.$aux_persona->id_pe;
@@ -74,7 +95,7 @@ class ProveedorController extends Controller
 	    		return response()->json(['success' => 0]); //ok
 	    		
     		}else{
-    			return response()->json(['success' => 2]); //error proveedor
+    			return response()->json(['success' => 2]); //error empleado
     		}
 
     	}else{
@@ -84,40 +105,19 @@ class ProveedorController extends Controller
      /**
      *
      *
-     * Lista de proveedores
+     * Actualizar datos del empleado
      *
      */
-    public function get_list_proveedor(Request $request)
-    {
-        $filter = json_decode($request->get('filter'));
-        $estado=$filter->estado;
-        $sql="";
-        if($filter->buscar!=""){
-            $sql=" AND CONCAT(persona.apellido,' ',persona.nombre) LIKE '%".$filter->buscar."%' ";
-        }
-        $data=Proveedor::with(["persona"=>function($query) use ($sql, $estado){
-        				$query->whereRaw(" persona.estado='1' ".$sql)
-        				->orderBy( "persona.apellido","ASC");
-        			}])
-        			->whereRaw(" proveedor.estado='".$filter->estado."' ");
-        return $data->paginate(5);
-    }
-     /**
-     *
-     *
-     * Actualizar datos del proveedor
-     *
-     */
-    public function update_proveedor(Request $request, $id)
+    public function update_empleado(Request $request, $id)
     {
     	$data = $request->all();
     	$aux_persona= (array) $data["Persona"];
     	$respuesta=Persona::whereRaw(" id_pe='".$id."' ")
     						->update($aux_persona);
 
-		$aux_proveedor=(array) $data["Proveedor"];
-		$aux_respusta_proveedor=Proveedor::whereRaw( " id_pe='".$id."' " )
-											->update($aux_proveedor);
+		$aux_empleado=(array) $data["Empleado"];
+		$aux_respusta_empleado=Empleado::whereRaw( " id_pe='".$id."' " )
+											->update($aux_empleado);
     	
     	if ($request->hasFile('file')) {
             $image = $request->file('file');
@@ -134,23 +134,22 @@ class ProveedorController extends Controller
             }
         }
 
-    	if($respuesta==1 || $aux_respusta_proveedor==1){
+    	if($respuesta==1 || $aux_respusta_empleado==1){
     		return response()->json(['success' => 0]); //ok
     	}else{
     		return response()->json(['success' => 1]); //error al modificar los datos
     	}
     }
-
      /**
      *
      *
-     * cambiar estado del proveedor
+     * cambiar estado del empleado
      *
      */
     public function modify_estado($texto)
     {
     	$datos = json_decode($texto);
-    	$aux_user=Proveedor::find($datos->id_prov);
+    	$aux_user=Empleado::find($datos->id_emp);
     	$aux_user->estado=$datos->estado;
     	if($aux_user->save()){
     		return response()->json(['success' => 0]); //ok
@@ -161,10 +160,10 @@ class ProveedorController extends Controller
     /**
      *
      *
-     * Lista de proveedores
+     * Lista de empleados
      *
      */
-    public function get_list_proveedor_excell($texto)
+    public function get_list_empleado_excell($texto)
     {
         $filter = json_decode($texto);
         $estado=$filter->estado;
@@ -172,12 +171,12 @@ class ProveedorController extends Controller
         if($filter->buscar!=""){
             $sql=" AND CONCAT(persona.apellido,' ',persona.nombre) LIKE '%".$filter->buscar."%' ";
         }
-        return Proveedor::with(["persona"=>function($query) use ($sql, $estado){
+        return Empleado::with(["persona"=>function($query) use ($sql, $estado){
         				$query->whereRaw(" persona.estado='1' ".$sql)
         				->orderBy( "persona.apellido","ASC");
         			}])
-        			->whereRaw(" proveedor.estado='".$filter->estado."' ")
+        			->whereRaw(" empleado.estado='".$filter->estado."' ")
         			->get();
 
-    }
+    }    
 }

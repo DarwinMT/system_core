@@ -1,5 +1,5 @@
-app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
-    $scope.Title="Proveedores";
+app.controller('LogicaEmpleado', function($scope, $http, API_URL,Upload) {
+    $scope.Title="Empleados";
     $('.datepicker').datetimepicker({
         locale: 'es',
         //format: 'DD/MM/YYYY',
@@ -13,7 +13,7 @@ app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
     ///---
     $scope.list_permisos=[];
     $scope.permisos_user=function () {
-        $http.get(API_URL + 'Proveedor')
+        $http.get(API_URL + 'Empleado')
         .success(function(response){
             console.log(response[0].id_men);
             if(response[0].id_men!= undefined  ){ // no tiene session activa
@@ -36,9 +36,7 @@ app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
     $scope.fechan="";
     $scope.direccion=""; 
     $scope.email="";
-    $scope.telefonoprincipal="";
-
-    $scope.razonsocial="";
+    
 
    
        $scope.save=function() {
@@ -54,26 +52,24 @@ app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
         };
         var f =new Date();
         var today=f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate();
-        var data_proveedor={
+        var data_empleado={
             id_pe:'',
             fechaingreso:today,
-            telefonoprincipal:$scope.telefonoprincipal,
-            razonsocial: $scope.razonsocial,
             estado:'1'
         };
 
-        var DataProveedor={
+        var DataEmpleado={
             Persona:data_persona,
-            Proveedor:data_proveedor,
+            Empleado:data_empleado,
             file: $scope.file
         };
         $("#progress").modal("show");
         
 
         Upload.upload({
-            url: API_URL + 'Proveedor',
+            url: API_URL + 'Empleado',
             method: 'POST',
-            data: DataProveedor
+            data: DataEmpleado
         }).success(function(data, status, headers, config) {
            if(data.success==0){
                 $("#progress").modal("hide");
@@ -102,13 +98,11 @@ app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
         $scope.fechan="";
         $scope.direccion=""; 
         $scope.email="";
-        $scope.telefonoprincipal="";
-
-        $scope.razonsocial="";
+        
 
         $scope.newedit="0";
 
-        $scope.aux_provider={};
+        $scope.aux_empleado={};
 
         $("#fechan").val("");
 
@@ -139,7 +133,7 @@ app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
     };
     $scope.valida_user_dni_edit=function(){
         var usuario={
-            id: $scope.aux_provider.persona.id_pe,
+            id: $scope.aux_empleado.persona.id_pe,
             ci:$scope.ci.trim()
         };
         $http.get(API_URL + 'User/valida_dni/'+JSON.stringify(usuario))
@@ -155,8 +149,12 @@ app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
         });   
     };
     $scope.valida_dni=function(){
-        if($scope.aux_provider.persona.id_pe!=null || $scope.aux_provider.persona.id_pe!=undefined){
-            $scope.valida_user_dni_edit();
+        if($scope.aux_empleado.persona!=null || $scope.aux_empleado.persona!=undefined){
+            if($scope.aux_empleado.persona.id_pe!=null || $scope.aux_empleado.persona.id_pe!=undefined){
+                $scope.valida_user_dni_edit();
+            }else{
+                $scope.valida_user_dni();
+            }
         }else{
             $scope.valida_user_dni();
         }
@@ -167,7 +165,7 @@ app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
     ///---
     $scope.buscartexto="";
     $scope.estadoanulado="1";
-    $scope.list_proveedor=[];
+    $scope.list_empleados=[];
     $scope.pageChanged = function(newPage) {
         $scope.initLoad(newPage);
     };
@@ -177,77 +175,77 @@ app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
             buscar:$scope.buscartexto,
             estado: $scope.estadoanulado
         };
-        $http.get(API_URL + 'Proveedor/get_list_proveedor?page=' + pageNumber + '&filter=' + JSON.stringify(filtros))
+        $http.get(API_URL + 'Empleado/get_list_empleado?page=' + pageNumber + '&filter=' + JSON.stringify(filtros))
             .then(function(response){
-                $scope.list_proveedor = response.data.data;
+                $scope.list_empleados = response.data.data;
                 $scope.totalItems = response.data.total;
-                console.log($scope.list_proveedor);
+                console.log($scope.list_empleados);
          });
     };
     $scope.initLoad(1);
     ///---
 
     ///---
-    $scope.aux_provider={};
+    $scope.aux_empleado={};
     $scope.init_edit=function(item){
 
-        $scope.aux_provider=item;
+        $scope.aux_empleado=item;
 
-        console.log($scope.aux_provider);
+        console.log($scope.aux_empleado);
 
         $scope.newedit="2";
 
-        $scope.ci= $scope.aux_provider.persona.ci; 
-        $scope.nombre= $scope.aux_provider.persona.nombre;
-        $scope.apellido= $scope.aux_provider.persona.apellido;
+        $scope.ci= $scope.aux_empleado.persona.ci; 
+        $scope.nombre= $scope.aux_empleado.persona.nombre;
+        $scope.apellido= $scope.aux_empleado.persona.apellido;
         $scope.avatar= ''; 
-        $scope.genero= $scope.aux_provider.persona.genero;
-        $("#fechan").val($scope.aux_provider.persona.fechan);
-        $scope.direccion= $scope.aux_provider.persona.direccion; 
-        $scope.email= $scope.aux_provider.persona.email; 
+        $scope.genero= $scope.aux_empleado.persona.genero;
+        $("#fechan").val($scope.aux_empleado.persona.fechan);
+        $scope.direccion= $scope.aux_empleado.persona.direccion; 
+        $scope.email= $scope.aux_empleado.persona.email; 
 
-        $scope.razonsocial=$scope.aux_provider.razonsocial;
-        $scope.telefonoprincipal=$scope.aux_provider.telefonoprincipal;
+        $scope.razonsocial=$scope.aux_empleado.razonsocial;
+        $scope.telefonoprincipal=$scope.aux_empleado.telefonoprincipal;
 
         $scope.file= '';
-        $scope.url_foto=$scope.aux_provider.persona.avatar;
+        $scope.url_foto=$scope.aux_empleado.persona.avatar;
     };
         $scope.edit=function(){
         
         
         var data_persona={
-            id_pe: $scope.aux_provider.persona.id_pe,
+            id_pe: $scope.aux_empleado.persona.id_pe,
             ci:$scope.ci, 
             nombre:$scope.nombre, 
             apellido:$scope.apellido, 
-            avatar: $scope.aux_provider.persona.avatar, 
+            avatar: $scope.aux_empleado.persona.avatar, 
             genero:$scope.genero, 
             fechan:$("#fechan").val(), 
             direccion:$scope.direccion, 
             email:$scope.email,
-            estado:$scope.aux_provider.persona.estado
+            estado:$scope.aux_empleado.persona.estado
         };
 
-        var data_proveedor={
-            id_prov: $scope.aux_provider.id_prov,
-            id_pe: $scope.aux_provider.persona.id_pe,
-            fechaingreso:$scope.aux_provider.persona.fechaingreso,
+        var data_pempleado={
+            id_emp: $scope.aux_empleado.id_emp,
+            id_pe: $scope.aux_empleado.persona.id_pe,
+            fechaingreso:$scope.aux_empleado.persona.fechaingreso,
             telefonoprincipal:$scope.telefonoprincipal,
             razonsocial: $scope.razonsocial,
             estado:'1'
         };
 
-        var data_provider={
+        var data_empleado={
             Persona: data_persona,
-            Proveedor: data_proveedor,
+            Empleado: data_pempleado,
             file: $scope.file
         };
         $("#progress").modal("show");
         
         Upload.upload({
-            url: API_URL + "Proveedor/update_proveedor/" + $scope.aux_provider.persona.id_pe,
+            url: API_URL + "Empleado/update_empleado/" + $scope.aux_empleado.persona.id_pe,
             method: 'POST',
-            data: data_provider
+            data: data_empleado
         }).success(function(data, status, headers, config) {
            if(data.success==0){
                 $("#progress").modal("hide");
@@ -266,26 +264,26 @@ app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
 
         ///---
     $scope.Msm_estado="";
-    $scope.aux_estado_provider={};
+    $scope.aux_estado_empleado={};
     $scope.int_estado=function(item){
-        $scope.aux_estado_provider=item;
-        if($scope.aux_estado_provider.estado.toString()=="1"){
-            $scope.Msm_estado=" Esta seguro de inactivar el proveedor";
+        $scope.aux_estado_empleado=item;
+        if($scope.aux_estado_empleado.estado.toString()=="1"){
+            $scope.Msm_estado=" Esta seguro de inactivar el empleado";
         }else{
-            $scope.Msm_estado=" Esta seguro de activar el proveedor";
+            $scope.Msm_estado=" Esta seguro de activar el empleado";
         }
         $("#modalestado").modal("show");
     };
     $scope.update_estado=function(){
       $("#modalestado").modal("hide");
       $("#progress").modal("show");
-      var aux_estado=($scope.aux_estado_provider.estado.toString()=="1")?"0":"1";
+      var aux_estado=($scope.aux_estado_empleado.estado.toString()=="1")?"0":"1";
 
-      var Proveedor={
-        id_prov:$scope.aux_estado_provider.id_prov,
+      var Empleado={
+        id_emp:$scope.aux_estado_empleado.id_emp,
         estado:aux_estado
       };
-      $http.get(API_URL + 'Proveedor/estado/' + JSON.stringify(Proveedor))
+      $http.get(API_URL + 'Empleado/estado/' + JSON.stringify(Empleado))
         .success(function(data){
             if(data.success==0){
                 $("#progress").modal("hide");
@@ -300,32 +298,32 @@ app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
     };
     ///---
 
-    ///---
-    $scope.list_proveedor_excell=[];
-    $scope.excell_proveedor=function(){
+
+    ///--- 
+    $scope.list_empleado_excell=[];
+    $scope.excell_empleado=function(){
         $("#progress").modal("show");
         var filtros = {
             buscar:$scope.buscartexto,
             estado: $scope.estadoanulado
         };
-        $scope.list_proveedor_excell=[];
-        $http.get(API_URL + 'Proveedor/get_list_proveedor_excell/' + JSON.stringify(filtros))
+        $scope.list_empleado_excell=[];
+        $http.get(API_URL + 'Empleado/get_list_empleado_excell/' + JSON.stringify(filtros))
             .then(function(response){
-                $scope.list_proveedor_excell = response.data;
-                console.log($scope.list_proveedor_excell);
+                $scope.list_empleado_excell = response.data;
+                console.log($scope.list_empleado_excell);
 
                 setTimeout(function(){
                     $("#list_excell").table2excel({
                         exclude: ".noExl",
-                        name: "Lista De Proveedores",
-                        filename: "Lista De Proveedores" 
+                        name: "Lista De Empleado",
+                        filename: "Lista De Empleado" 
                     });
                     $("#progress").modal("hide");
                 },1000);
          });
     };
     ///---
-
     
 });
 

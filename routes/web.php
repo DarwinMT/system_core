@@ -49,8 +49,17 @@ Route::resource('Roles', 'Usuario\RolController');
 /*-----------------Roles Usuario--------------*/
 
 /*-----------------Proveedor--------------*/
+Route::get('Proveedor/get_list_proveedor_excell/{texto}', 'Personas\ProveedorController@get_list_proveedor_excell');
 Route::get('Proveedor/estado/{texto}', 'Personas\ProveedorController@modify_estado');
 Route::post('Proveedor/update_proveedor/{id}', 'Personas\ProveedorController@update_proveedor');
 Route::get('Proveedor/get_list_proveedor', 'Personas\ProveedorController@get_list_proveedor');
 Route::resource('Proveedor', 'Personas\ProveedorController');
 /*-----------------Proveedor--------------*/
+
+/*-----------------Empleado--------------*/
+Route::get('Empleado/get_list_empleado_excell/{texto}', 'Personas\EmpleadoController@get_list_empleado_excell');
+Route::get('Empleado/estado/{texto}', 'Personas\EmpleadoController@modify_estado');
+Route::post('Empleado/update_empleado/{id}', 'Personas\EmpleadoController@update_empleado');
+Route::get('Empleado/get_list_empleado', 'Personas\EmpleadoController@get_list_empleado');
+Route::resource('Empleado', 'Personas\EmpleadoController');
+/*-----------------Empleado--------------*/
