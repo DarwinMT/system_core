@@ -1,5 +1,5 @@
-app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
-    $scope.Title="Proveedores";
+app.controller('LogicaCliente', function($scope, $http, API_URL,Upload) {
+    $scope.Title="Clientes";
     $('.datepicker').datetimepicker({
         locale: 'es',
         //format: 'DD/MM/YYYY',
@@ -13,7 +13,7 @@ app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
     ///---
     $scope.list_permisos=[];
     $scope.permisos_user=function () {
-        $http.get(API_URL + 'Proveedor')
+        $http.get(API_URL + 'Cliente')
         .success(function(response){
             console.log(response[0].id_men);
             if(response[0].id_men!= undefined  ){ // no tiene session activa
@@ -36,9 +36,12 @@ app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
     $scope.fechan="";
     $scope.direccion=""; 
     $scope.email="";
-    $scope.telefonoprincipal="";
 
-    $scope.razonsocial="";
+    $scope.direcciontrabajo="";
+    $scope.telefonotrabajo="";
+    $scope.telefonodomicilio="";
+
+    
 
    
        $scope.save=function() {
@@ -54,27 +57,30 @@ app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
         };
         var f =new Date();
         var today=f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate();
-        var data_proveedor={
+        var data_cliente={
             id_pe:'',
-            fechaingreso:today,
-            telefonoprincipal:$scope.telefonoprincipal,
-            razonsocial: $scope.razonsocial,
+            numerohistoria:'',
+            fecharegistro:today,
+            direcciontrabajo: $scope.direcciontrabajo,
+            telefonotrabajo:$scope.telefonotrabajo,
+            telefonodomicilio: $scope.telefonodomicilio,
             estado:'1'
         };
 
-        var DataProveedor={
+        var DataCliente={
             Persona:data_persona,
-            Proveedor:data_proveedor,
+            Cliente:data_cliente,
             file: $scope.file
         };
         $("#progress").modal("show");
         
 
         Upload.upload({
-            url: API_URL + 'Proveedor',
+            url: API_URL + 'Cliente',
             method: 'POST',
-            data: DataProveedor
+            data: DataCliente
         }).success(function(data, status, headers, config) {
+            console.log(data.success)
            if(data.success==0){
                 $("#progress").modal("hide");
                 sms("btn-success","Se guardo correctamente la transacción..!!");
@@ -102,19 +108,20 @@ app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
         $scope.fechan="";
         $scope.direccion=""; 
         $scope.email="";
-        $scope.telefonoprincipal="";
+        $scope.telefonotrabajo="";
 
-        $scope.razonsocial="";
+        $scope.direcciontrabajo="";
+        $scope.telefonodomicilio="";
 
         $scope.newedit="0";
 
-        $scope.aux_provider={};
+        $scope.aux_client={};
 
         $("#fechan").val("");
 
         $scope.initLoad(1);
 
-        $scope.aux_estado_provider={};
+        $scope.aux_estado_client={};
     };
     ///---
 
@@ -139,7 +146,7 @@ app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
     };
     $scope.valida_user_dni_edit=function(){
         var usuario={
-            id: $scope.aux_provider.persona.id_pe,
+            id: $scope.aux_client.persona.id_pe,
             ci:$scope.ci.trim()
         };
         $http.get(API_URL + 'User/valida_dni/'+JSON.stringify(usuario))
@@ -155,8 +162,8 @@ app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
         });   
     };
     $scope.valida_dni=function(){
-        if($scope.aux_provider.persona!=null || $scope.aux_provider.persona!=undefined){
-            if($scope.aux_provider.persona.id_pe!=null || $scope.aux_provider.persona.id_pe!=undefined){
+        if($scope.aux_client.persona!=null || $scope.aux_client.persona!=undefined){
+            if($scope.aux_client.persona.id_pe!=null || $scope.aux_client.persona.id_pe!=undefined){
                 $scope.valida_user_dni_edit();
             }else{
                 $scope.valida_user_dni();
@@ -171,7 +178,7 @@ app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
     ///---
     $scope.buscartexto="";
     $scope.estadoanulado="1";
-    $scope.list_proveedor=[];
+    $scope.list_cliente=[];
     $scope.pageChanged = function(newPage) {
         $scope.initLoad(newPage);
     };
@@ -181,77 +188,80 @@ app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
             buscar:$scope.buscartexto,
             estado: $scope.estadoanulado
         };
-        $http.get(API_URL + 'Proveedor/get_list_proveedor?page=' + pageNumber + '&filter=' + JSON.stringify(filtros))
+        $http.get(API_URL + 'Cliente/get_list_cliente?page=' + pageNumber + '&filter=' + JSON.stringify(filtros))
             .then(function(response){
-                $scope.list_proveedor = response.data.data;
+                $scope.list_cliente = response.data.data;
                 $scope.totalItems = response.data.total;
-                console.log($scope.list_proveedor);
+                console.log($scope.list_cliente);
          });
     };
     $scope.initLoad(1);
     ///---
 
     ///---
-    $scope.aux_provider={};
+    $scope.aux_client={};
     $scope.init_edit=function(item){
 
-        $scope.aux_provider=item;
+        $scope.aux_client=item;
 
-        console.log($scope.aux_provider);
+        console.log($scope.aux_client);
 
         $scope.newedit="2";
 
-        $scope.ci= $scope.aux_provider.persona.ci; 
-        $scope.nombre= $scope.aux_provider.persona.nombre;
-        $scope.apellido= $scope.aux_provider.persona.apellido;
+        $scope.ci= $scope.aux_client.persona.ci; 
+        $scope.nombre= $scope.aux_client.persona.nombre;
+        $scope.apellido= $scope.aux_client.persona.apellido;
         $scope.avatar= ''; 
-        $scope.genero= $scope.aux_provider.persona.genero;
-        $("#fechan").val($scope.aux_provider.persona.fechan);
-        $scope.direccion= $scope.aux_provider.persona.direccion; 
-        $scope.email= $scope.aux_provider.persona.email; 
+        $scope.genero= $scope.aux_client.persona.genero;
+        $("#fechan").val($scope.aux_client.persona.fechan);
+        $scope.direccion= $scope.aux_client.persona.direccion; 
+        $scope.email= $scope.aux_client.persona.email; 
 
-        $scope.razonsocial=$scope.aux_provider.razonsocial;
-        $scope.telefonoprincipal=$scope.aux_provider.telefonoprincipal;
+        $scope.direcciontrabajo=$scope.aux_client.direcciontrabajo;
+        $scope.telefonotrabajo=$scope.aux_client.telefonotrabajo;
+        $scope.telefonodomicilio=$scope.aux_client.telefonodomicilio;
 
         $scope.file= '';
-        $scope.url_foto=$scope.aux_provider.persona.avatar;
+        $scope.url_foto=$scope.aux_client.persona.avatar;
     };
         $scope.edit=function(){
         
         
         var data_persona={
-            id_pe: $scope.aux_provider.persona.id_pe,
+            id_pe: $scope.aux_client.persona.id_pe,
             ci:$scope.ci, 
             nombre:$scope.nombre, 
             apellido:$scope.apellido, 
-            avatar: $scope.aux_provider.persona.avatar, 
+            avatar: $scope.aux_client.persona.avatar, 
             genero:$scope.genero, 
             fechan:$("#fechan").val(), 
             direccion:$scope.direccion, 
             email:$scope.email,
-            estado:$scope.aux_provider.persona.estado
+            estado:$scope.aux_client.persona.estado
         };
 
-        var data_proveedor={
-            id_prov: $scope.aux_provider.id_prov,
-            id_pe: $scope.aux_provider.persona.id_pe,
-            fechaingreso:$scope.aux_provider.persona.fechaingreso,
-            telefonoprincipal:$scope.telefonoprincipal,
-            razonsocial: $scope.razonsocial,
+        var data_cliente={
+            id_cli: $scope.aux_client.id_cli,
+            id_pe: $scope.aux_client.persona.id_pe,
+            numerohistoria:$scope.aux_client.numerohistoria,
+            fecharegistro:$scope.aux_client.persona.fecharegistro,
+            direcciontrabajo: $scope.direcciontrabajo,
+            telefonotrabajo:$scope.telefonotrabajo,
+            telefonodomicilio:$scope.telefonodomicilio,
             estado:'1'
         };
 
-        var data_provider={
+        var data_client={
             Persona: data_persona,
-            Proveedor: data_proveedor,
+            Cliente: data_cliente,
             file: $scope.file
         };
         $("#progress").modal("show");
         
         Upload.upload({
-            url: API_URL + "Proveedor/update_proveedor/" + $scope.aux_provider.persona.id_pe,
+            url: API_URL + "Cliente/update_cliente/" + $scope.aux_client.persona.id_pe,
             method: 'POST',
-            data: data_provider
+            data: data_client
         }).success(function(data, status, headers, config) {
            if(data.success==0){
                 $("#progress").modal("hide");
@@ -270,26 +280,26 @@ app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
 
         ///---
     $scope.Msm_estado="";
-    $scope.aux_estado_provider={};
+    $scope.aux_estado_client={};
     $scope.int_estado=function(item){
-        $scope.aux_estado_provider=item;
-        if($scope.aux_estado_provider.estado.toString()=="1"){
-            $scope.Msm_estado=" Esta seguro de inactivar el proveedor";
+        $scope.aux_estado_client=item;
+        if($scope.aux_estado_client.estado.toString()=="1"){
+            $scope.Msm_estado=" Esta seguro de inactivar el cliente";
         }else{
-            $scope.Msm_estado=" Esta seguro de activar el proveedor";
+            $scope.Msm_estado=" Esta seguro de activar el cliente";
         }
         $("#modalestado").modal("show");
     };
     $scope.update_estado=function(){
       $("#modalestado").modal("hide");
       $("#progress").modal("show");
-      var aux_estado=($scope.aux_estado_provider.estado.toString()=="1")?"0":"1";
+      var aux_estado=($scope.aux_estado_client.estado.toString()=="1")?"0":"1";
 
-      var Proveedor={
-        id_prov:$scope.aux_estado_provider.id_prov,
+      var Cliente={
+        id_cli:$scope.aux_estado_client.id_cli,
         estado:aux_estado
       };
-      $http.get(API_URL + 'Proveedor/estado/' + JSON.stringify(Proveedor))
+      $http.get(API_URL + 'Cliente/estado/' + JSON.stringify(Cliente))
         .success(function(data){
             if(data.success==0){
                 $("#progress").modal("hide");
@@ -305,24 +315,24 @@ app.controller('LogicaProveedor', function($scope, $http, API_URL,Upload) {
     ///---
 
     ///---
-    $scope.list_proveedor_excell=[];
-    $scope.excell_proveedor=function(){
+    $scope.list_client_excell=[];
+    $scope.excell_cliente=function(){
         $("#progress").modal("show");
         var filtros = {
             buscar:$scope.buscartexto,
             estado: $scope.estadoanulado
         };
-        $scope.list_proveedor_excell=[];
-        $http.get(API_URL + 'Proveedor/get_list_proveedor_excell/' + JSON.stringify(filtros))
+        $scope.list_client_excell=[];
+        $http.get(API_URL + 'Cliente/get_list_client_excell/' + JSON.stringify(filtros))
             .then(function(response){
-                $scope.list_proveedor_excell = response.data;
-                console.log($scope.list_proveedor_excell);
+                $scope.list_client_excell = response.data;
+                console.log($scope.list_client_excell);
 
                 setTimeout(function(){
                     $("#list_excell").table2excel({
                         exclude: ".noExl",
-                        name: "Lista De Proveedores",
-                        filename: "Lista De Proveedores" 
+                        name: "Lista De Clientes",
+                        filename: "Lista De Clientes" 
                     });
                     $("#progress").modal("hide");
                 },1000);

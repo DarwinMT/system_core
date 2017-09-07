@@ -63,3 +63,11 @@ Route::post('Empleado/update_empleado/{id}', 'Personas\EmpleadoController@update
 Route::get('Empleado/get_list_empleado', 'Personas\EmpleadoController@get_list_empleado');
 Route::resource('Empleado', 'Personas\EmpleadoController');
 /*-----------------Empleado--------------*/
+
+/*-----------------Cliente--------------*/
+Route::get('Cliente/get_list_client_excell/{texto}', 'Personas\ClienteController@get_list_client_excell');
+Route::get('Cliente/estado/{texto}', 'Personas\ClienteController@modify_estado');
+Route::post('Cliente/update_cliente/{id}', 'Personas\ClienteController@update_cliente');
+Route::get('Cliente/get_list_cliente', 'Personas\ClienteController@get_list_cliente');
+Route::resource('Cliente', 'Personas\ClienteController');
+/*-----------------Cliente--------------*/

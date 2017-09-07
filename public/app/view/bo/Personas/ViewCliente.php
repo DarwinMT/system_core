@@ -17,7 +17,7 @@
 				    Acciones <span class="caret"></span>
 				  </button>
 				  <ul class="dropdown-menu">
-				    <li ng-hide=" list_permisos.access_excell==0 " ng-click="excell_proveedor();" ><a href=""><i class="glyphicon glyphicon-th"></i> Excell</a></li>
+				    <li ng-hide=" list_permisos.access_excell==0 " ng-click="excell_cliente();" ><a href=""><i class="glyphicon glyphicon-th"></i> Excell</a></li>
 				    <li role="separator" class="divider"></li>
 				    <li ng-hide=" list_permisos.access_print==0 " ><a href="#"><i class="glyphicon glyphicon-print"></i> Imprimir</a></li>
 				  </ul>
@@ -26,7 +26,7 @@
 
 			<div class="col-md-4 col-xs-6">
 				<div class="form-group has-feedback">
-				    <input type="text" class="form-control input-sm" id="buscartexto" name="buscartexto" ng-model="buscartexto" ng-keyup="initLoad(1)" placeholder="Buscar Proveedor">
+				    <input type="text" class="form-control input-sm" id="buscartexto" name="buscartexto" ng-model="buscartexto" ng-keyup="initLoad(1)" placeholder="Buscar Cliente  ">
 				    <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
 				</div>
 			</div>
@@ -62,21 +62,25 @@
 						<tr>
 							<th></th>
 							<th>Dni</th>
-							<th>Proveedor</th>
-							<th>Razón Social</th>
+							<th># Historia</th>
+							<th>Cliente</th>
+							<th>Edad</th>
 							<th>Dirección</th>
 							<th>Telefono</th>
+							<th>Correo</th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr dir-paginate="u in list_proveedor | orderBy:sortKey:reverse |filter:buscartexto| itemsPerPage:5" total-items="totalItems" ng-cloak">
+						<tr dir-paginate="u in list_cliente | orderBy:sortKey:reverse |filter:buscartexto| itemsPerPage:5" total-items="totalItems" ng-cloak">
 							<td>{{$index+1}}</td>
 							<td>{{u.persona.ci}}</td>
+							<td>{{u.numerohistoria}}</td>
 							<td>{{u.persona.apellido+" "+u.persona.nombre}}</td>
-							<td>{{u.razonsocial}}</td>
+							<td>{{u.persona.edad}}</td>
 							<td>{{u.persona.direccion}}</td>
-							<td>{{u.telefonoprincipal}}</td>
+							<td>{{u.telefonodomicilio}}</td>
+							<td>{{u.persona.email}}</td>
 							<td>
 								<div class="btn-group" role="group" >
 									<button ng-disabled=" list_permisos.access_edit==0 " ng-click="init_edit(u);" type="button" title="Editar" class="btn btn-sm btn-info">
@@ -112,21 +116,24 @@
 				<tr class="bg-primary">
 					<th></th>
 					<th>Dni</th>
-					<th>Proveedor</th>
-					<th>Razón Social</th>
+					<th># Historia</th>
+					<th>Cliente</th>
+					<th>Edad</th>
 					<th>Dirección</th>
 					<th>Telefono</th>
-					<th></th>
+					<th>Correo</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="e in list_proveedor_excell">
+				<tr ng-repeat="e in list_client_excell">
 					<td>{{$index+1}}</td>
 					<td>{{e.persona.ci}}</td>
+					<td>{{e.numerohistoria}}</td>
 					<td>{{e.persona.apellido+" "+e.persona.nombre}}</td>
-					<td>{{e.razonsocial}}</td>
+					<td>{{e.persona.edad}}</td>
 					<td>{{e.persona.direccion}}</td>
-					<td>{{e.telefonoprincipal}}</td>
+					<td>{{e.telefonodomicilio}}</td>
+					<td>{{e.persona.email}}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -135,7 +142,7 @@
 
 	<!--Nuevo  Usuario Sin datos-->
 	<div ng-hide=" newedit!='1' ||  newedit!='2' "  ng-show=" newedit=='1' ||  newedit=='2' ">
-	<form class="form-horizontal"  name="proveedor_system" id="proveedor_system"  novalidate="">
+	<form class="form-horizontal"  name="cliente_system" id="cliente_system"  novalidate="">
 		<div class="row">
 			<div class="col-md-6 col-xs-6">
 				<div class="input-group" id="vista_dni_new">
@@ -145,13 +152,7 @@
 				<span class="help-block error" ng-show=" valida_dninew!=0 ">Este Dni ya existe</span>
 			</div>
 
-			<div class="col-md-6 col-xs-6">
-				<div class="input-group" id="vista_dni_new">
-					<span class="input-group-addon" id="basic-addon1">Razon Social: </span>
-					<input type="text" class="form-control input-sm" name="razonsocial" id="razonsocial" ng-model="razonsocial" ng-keyup="" />
-				</div>
-				
-			</div>
+			
 
 
 		</div>
@@ -162,14 +163,14 @@
 					<span class="input-group-addon" id="basic-addon1">Nombre: </span>
 					<input type="text" class="form-control input-sm" name="nombre" id="nombre" ng-model="nombre" required />
 				</div>
-				<span class="help-block error" ng-show="proveedor_system.nombre.$invalid && proveedor_system.nombre.$touched">El nombre es requerido</span>
+				<span class="help-block error" ng-show="cliente_system.nombre.$invalid && cliente_system.nombre.$touched">El nombre es requerido</span>
 			</div>
 			<div class="col-md-6 col-xs-6">
 				<div class="input-group">
 					<span class="input-group-addon" id="basic-addon1">Apellido: </span>
 					<input type="text" class="form-control input-sm" name="apellido" id="apellido" ng-model="apellido" required />
 				</div>
-				<span class="help-block error" ng-show="proveedor_system.apellido.$invalid && proveedor_system.apellido.$touched">El apellido es requerido</span>
+				<span class="help-block error" ng-show="cliente_system.apellido.$invalid && cliente_system.apellido.$touched">El apellido es requerido</span>
 			</div>
 		</div>
 
@@ -207,11 +208,28 @@
 			</div>
 		</div>
 
+		<div class="row">
+			<div class="col-md-6 col-xs-6">
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Dir. Trabajo : </span>
+					<input type="text" class="form-control input-sm" name="direcciontrabajo" id="direcciontrabajo" ng-model="direcciontrabajo" />
+				</div>
+			</div>
+
+			<div class="col-md-6 col-xs-6">
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Tel. Trabajo : </span>
+					<input type="text" class="form-control input-sm" name="telefonotrabajo" id="telefonotrabajo" ng-model="telefonotrabajo" />
+				</div>
+			</div>
+
+		</div>
+
 		<div class="row" style="padding-top: 1%;">
 			<div class="col-md-6 col-xs-6">
 				<div class="input-group">
-					<span class="input-group-addon" id="basic-addon1">Telefono : </span>
-					<input type="text" class="form-control input-sm" name="telefonoprincipal" id="telefonoprincipal" ng-model="telefonoprincipal" />
+					<span class="input-group-addon" id="basic-addon1">Tel. Domicilio : </span>
+					<input type="text" class="form-control input-sm" name="telefonodomicilio" id="telefonodomicilio" ng-model="telefonodomicilio" />
 				</div>
 			</div>
 
@@ -220,8 +238,8 @@
 					<span class="input-group-addon" id="basic-addon1">Avatar: </span>
 					<input class="form-control" type="file" ngf-select ng-model="file" name="file" id="file" accept="image/*" ngf-max-size="2MB"  ng-required="false" ngf-pattern="image/*">
 				</div>
-				<span class="help-block error" ng-show="proveedor_system.file.$error.pattern">El archivo debe ser Imagen</span>
-				<span class="help-block error" ng-show="proveedor_system.file.$error.maxSize">El tamaño máximo es de 2 MB </span>
+				<span class="help-block error" ng-show="cliente_system.file.$error.pattern">El archivo debe ser Imagen</span>
+				<span class="help-block error" ng-show="cliente_system.file.$error.maxSize">El tamaño máximo es de 2 MB </span>
 			</div>
 		</div>
 
@@ -237,11 +255,11 @@
 		<div class="row">
 			<div class="col-md-12 col-xs-12 text-center">
 				<div class="btn-group" role="group" aria-label="...">
-					<button ng-hide=" newedit!='1' "  ng-show=" newedit=='1' "  ng-disabled=" list_permisos.access_save==0 || proveedor_system.$invalid ||  valida_dninew!=0 " type="button" class="btn btn-sm btn-success" ng-click=" save(); ">
+					<button ng-hide=" newedit!='1' "  ng-show=" newedit=='1' "  ng-disabled=" list_permisos.access_save==0 || cliente_system.$invalid ||  valida_dninew!=0 " type="button" class="btn btn-sm btn-success" ng-click=" save(); ">
 						<i class="glyphicon glyphicon-floppy-saved"></i> Guardar
 					</button>
 
-					<button ng-click="edit();" ng-hide=" newedit!='2' "  ng-show=" newedit=='2' " ng-disabled=" list_permisos.access_edit==0 || proveedor_system.$invalid || valida_dninew!=0" type="button" class="btn btn-sm btn-info">
+					<button ng-click="edit();" ng-hide=" newedit!='2' "  ng-show=" newedit=='2' " ng-disabled=" list_permisos.access_edit==0 || cliente_system.$invalid || valida_dninew!=0" type="button" class="btn btn-sm btn-info">
 						<i class="glyphicon glyphicon-floppy-saved"></i> Guardar
 					</button>
 
@@ -258,7 +276,6 @@
 
 
 	
-
 
 
 <div class="modal fade" id="sms" style="z-index: 5000;" tabindex="-1" role="dialog">
