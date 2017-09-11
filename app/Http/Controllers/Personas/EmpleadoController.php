@@ -51,6 +51,9 @@ class EmpleadoController extends Controller
      */
     public function get_list_empleado(Request $request)
     {
+        $data_user=Session::get('user_data');
+        $id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
+
         $filter = json_decode($request->get('filter'));
         $estado=$filter->estado;
         $sql="";
@@ -60,7 +63,9 @@ class EmpleadoController extends Controller
         $data=Empleado::with(["persona"=>function($query) use ($sql, $estado){
         				$query->whereRaw(" persona.estado='1' ".$sql)
         				->orderBy( "persona.apellido","ASC");
-        			}])
+        			},"persona.personaempresa"=>function($query) use ($id_emp){
+                        $query->whereRaw(" personaempresa.id_emp='".$id_emp."'");
+                    }])
         			->whereRaw(" empleado.estado='".$filter->estado."' ");
         return $data->paginate(5);
     }
@@ -78,6 +83,15 @@ class EmpleadoController extends Controller
     		$aux_empleado=Empleado::create($data["Empleado"]);
 
     		if($aux_empleado->id_emp>0){
+
+                $data_user=Session::get('user_data');
+                $id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
+                $persoemp=new PersonaEmpresa;
+                $persoemp->id_pe=$aux_persona->id_pe;
+                $persoemp->id_emp=$id_emp;
+                $persoemp->save(); //empleado guardando a la empresa que pertence
+
+
     			if ($request->hasFile('file')) {
 	                $image = $request->file('file');
 	                $destinationPath = public_path() . '/upload/persona/'.$aux_persona->id_pe;
