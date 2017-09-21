@@ -60,13 +60,22 @@ class EmpleadoController extends Controller
         if($filter->buscar!=""){
             $sql=" AND CONCAT(persona.apellido,' ',persona.nombre) LIKE '%".$filter->buscar."%' ";
         }
-        $data=Empleado::with(["persona"=>function($query) use ($sql, $estado){
+        /*$data=Empleado::with(["persona"=>function($query) use ($sql, $estado){
         				$query->whereRaw(" persona.estado='1' ".$sql)
         				->orderBy( "persona.apellido","ASC");
         			},"persona.personaempresa"=>function($query) use ($id_emp){
                         $query->whereRaw(" personaempresa.id_emp='".$id_emp."'");
                     }])
-        			->whereRaw(" empleado.estado='".$filter->estado."' ");
+        			->whereRaw(" empleado.estado='".$filter->estado."' ");*/
+        $data=Empleado::with(["persona"=>function($query) use ($sql, $id_emp){
+                        $query->whereRaw(" persona.estado='1' ".$sql)
+                        ->join("personaempresa", "persona.id_pe","=", "personaempresa.id_pe")
+                        ->whereRaw(" personaempresa.id_emp='".$id_emp."' ")
+                        ->orderBy( "persona.apellido","ASC");
+                    }])
+                    ->whereRaw(" empleado.estado='".$filter->estado."' AND empleado.id_pe IN (SELECT personaempresa.id_pe  FROM personaempresa WHERE  personaempresa.id_emp='".$id_emp."'  ) ");
+
+
         return $data->paginate(5);
     }
 	/**
@@ -148,7 +157,7 @@ class EmpleadoController extends Controller
             }
         }
 
-    	if($respuesta==1 || $aux_respusta_empleado==1){
+    	if($respuesta==1 || $aux_respusta_empleado==1  ||  $respuesta==0 || $aux_respusta_empleado==0){
     		return response()->json(['success' => 0]); //ok
     	}else{
     		return response()->json(['success' => 1]); //error al modificar los datos

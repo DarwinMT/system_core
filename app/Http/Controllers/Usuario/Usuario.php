@@ -111,7 +111,7 @@ class Usuario extends Controller
         $data=User::with(["persona.personaempresa"=>function($query) use ($id_emp){
         					$query->whereRaw(" personaempresa.id_emp='".$id_emp."'");
         				},"permisos.rol"])
-        			->whereRaw(" usuario.estado='".$filter->estado."' ".$sql)
+        			->whereRaw(" usuario.estado='".$filter->estado."' ".$sql."  AND usuario.id_pe IN (SELECT personaempresa.id_pe  FROM personaempresa WHERE  personaempresa.id_emp='".$id_emp."'  )")
                     ->orderBy("usuario.username","ASC");
         return $data->paginate(5);
     }

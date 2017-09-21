@@ -210,7 +210,7 @@ app.controller('LogicaEmpleado', function($scope, $http, API_URL,Upload) {
         $scope.file= '';
         $scope.url_foto=$scope.aux_empleado.persona.avatar;
     };
-        $scope.edit=function(){
+    $scope.edit=function(){
         
         
         var data_persona={
@@ -240,6 +240,7 @@ app.controller('LogicaEmpleado', function($scope, $http, API_URL,Upload) {
             Empleado: data_pempleado,
             file: $scope.file
         };
+        console.log(data_empleado);
         $("#progress").modal("show");
         
         Upload.upload({
