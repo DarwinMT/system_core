@@ -43,6 +43,7 @@
   <script src="<?= asset('../app/app/Personas/ProveedorController.js') ?>"></script>
   <script src="<?= asset('../app/app/Personas/EmpleadoController.js') ?>"></script>
   <script src="<?= asset('../app/app/Personas/ClienteController.js') ?>"></script>
+  <script src="<?= asset('../app/app/Personas/CargoController.js') ?>"></script>
 		<!--Controller-->
 
 

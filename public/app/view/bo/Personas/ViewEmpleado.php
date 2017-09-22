@@ -1,4 +1,4 @@
-<div class="row" ng-init="permisos_user(); rol();" ng-cloak>
+<div class="row" ng-init="permisos_user(); rol(); list_cargo();" ng-cloak>
 	
 	<div class="row">
 		<div class="col-md-12 col-xs-12">
@@ -63,6 +63,7 @@
 							<th></th>
 							<th>Dni</th>
 							<th>Empleado</th>
+							<th>Cargo</th>
 							<th>Dirección</th>
 							<th></th>
 						</tr>
@@ -72,6 +73,7 @@
 							<td>{{$index+1}}</td>
 							<td>{{u.persona.ci}}</td>
 							<td>{{u.persona.apellido+" "+u.persona.nombre}}</td>
+							<td>{{(u.cargo.id_carg!==null || u.cargo.id_carg!==undefined)? u.cargo.descripcion:'SIN CARGO';}}</td>
 							<td>{{u.persona.direccion}}</td>
 							<td>
 								<div class="btn-group" role="group" >
@@ -110,6 +112,7 @@
 					<th>Dni</th>
 					<th>Apellido</th>
 					<th>Nombre</th>
+					<th>Cargo</th>
 					<th>Dirección</th>
 					<th>Email</th>
 					<th>Fecha N.</th>
@@ -122,6 +125,7 @@
 					<td>{{e.persona.ci}}</td>
 					<td>{{e.persona.apellido}}</td>
 					<td>{{e.persona.nombre}}</td>
+					<td>{{(e.cargo.id_carg!==null || e.cargo.id_carg!==undefined)? e.cargo.descripcion:'SIN CARGO';}}</td>
 					<td>{{e.persona.direccion}}</td>
 					<td>{{e.persona.email}}</td>
 					<td>{{e.persona.fechan}}</td>
@@ -142,6 +146,17 @@
 					<input type="text" class="form-control input-sm" name="ci" id="ci" ng-model="ci" ng-keyup="valida_dni();" />
 				</div>
 				<span class="help-block error" ng-show=" valida_dninew!=0 ">Este Dni ya existe</span>
+			</div>
+
+
+			<div class="col-md-6 col-xs-6">
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Cargo: </span>
+					<select class="form-control input-sm" name="cargo" id="cargo" ng-model="cargo">
+						<option value="">Seleccione</option>
+						<option ng-repeat="cg in list_cargos" value="{{cg.id_carg}}">{{cg.descripcion}}</option>
+					</select>
+				</div>
 			</div>
 
 			

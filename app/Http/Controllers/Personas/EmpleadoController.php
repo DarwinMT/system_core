@@ -72,7 +72,7 @@ class EmpleadoController extends Controller
                         ->join("personaempresa", "persona.id_pe","=", "personaempresa.id_pe")
                         ->whereRaw(" personaempresa.id_emp='".$id_emp."' ")
                         ->orderBy( "persona.apellido","ASC");
-                    }])
+                    },"cargo"])
                     ->whereRaw(" empleado.estado='".$filter->estado."' AND empleado.id_pe IN (SELECT personaempresa.id_pe  FROM personaempresa WHERE  personaempresa.id_emp='".$id_emp."'  ) ");
 
 
@@ -188,18 +188,30 @@ class EmpleadoController extends Controller
      */
     public function get_list_empleado_excell($texto)
     {
+        $data_user=Session::get('user_data');
+        $id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
+
         $filter = json_decode($texto);
         $estado=$filter->estado;
         $sql="";
         if($filter->buscar!=""){
             $sql=" AND CONCAT(persona.apellido,' ',persona.nombre) LIKE '%".$filter->buscar."%' ";
         }
-        return Empleado::with(["persona"=>function($query) use ($sql, $estado){
+        /*return Empleado::with(["persona"=>function($query) use ($sql, $estado){
         				$query->whereRaw(" persona.estado='1' ".$sql)
         				->orderBy( "persona.apellido","ASC");
-        			}])
+        			},"cargo"])
         			->whereRaw(" empleado.estado='".$filter->estado."' ")
-        			->get();
+        			->get();*/
+
+         return Empleado::with(["persona"=>function($query) use ($sql, $id_emp){
+                        $query->whereRaw(" persona.estado='1' ".$sql)
+                        ->join("personaempresa", "persona.id_pe","=", "personaempresa.id_pe")
+                        ->whereRaw(" personaempresa.id_emp='".$id_emp."' ")
+                        ->orderBy( "persona.apellido","ASC");
+                    },"cargo"])
+                    ->whereRaw(" empleado.estado='".$filter->estado."' AND empleado.id_pe IN (SELECT personaempresa.id_pe  FROM personaempresa WHERE  personaempresa.id_emp='".$id_emp."'  ) ")
+                    ->get();
 
     }    
 }

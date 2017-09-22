@@ -71,3 +71,10 @@ Route::post('Cliente/update_cliente/{id}', 'Personas\ClienteController@update_cl
 Route::get('Cliente/get_list_cliente', 'Personas\ClienteController@get_list_cliente');
 Route::resource('Cliente', 'Personas\ClienteController');
 /*-----------------Cliente--------------*/
+
+/*-----------------Cargo empleado--------------*/
+Route::get('CargoE/estado/{texto}', 'Personas\CargoController@modify_estado');
+Route::get('CargoE/get_list_cargos_excell/{texto}', 'Personas\CargoController@get_list_cargos_excell');
+Route::get('CargoE/get_list_cargos', 'Personas\CargoController@get_list_cargos');
+Route::resource('CargoE', 'Personas\CargoController');
+/*-----------------Cargo empleado--------------*/

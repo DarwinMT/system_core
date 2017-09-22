@@ -17,6 +17,7 @@ class Empleado extends Model
     protected $fillable = [
         'id_emp',
         'id_pe',
+        'id_carg',
         'fechaingreso',
         'estado'
     ];
@@ -24,4 +25,10 @@ class Empleado extends Model
     {
         return $this->belongsTo('App\Models\Personas\Persona',"id_pe");
     }
+
+    public function cargo()
+    {
+        return $this->belongsTo('App\Models\Basico\Cargo',"id_carg");
+    }
+
 }

@@ -9,6 +9,7 @@ app.controller('LogicaEmpleado', function($scope, $http, API_URL,Upload) {
 
     $scope.newedit="0";
     $scope.valida_dninew=0;
+    $scope.cargo="";
 
     ///---
     $scope.list_permisos=[];
@@ -23,6 +24,21 @@ app.controller('LogicaEmpleado', function($scope, $http, API_URL,Upload) {
             }
         });
     };
+
+    $scope.list_cargos=[];
+    $scope.list_cargo=function(){
+        var filtros = {
+            buscar:$scope.buscartexto,
+            estado: $scope.estadoanulado
+        };
+        $scope.list_cargos=[];
+        $http.get(API_URL + 'CargoE/get_list_cargos_excell/' + JSON.stringify(filtros))
+            .then(function(response){
+                $scope.list_cargos = response.data;
+         });
+
+    };
+
 
     ///---
 
@@ -54,6 +70,7 @@ app.controller('LogicaEmpleado', function($scope, $http, API_URL,Upload) {
         var today=f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate();
         var data_empleado={
             id_pe:'',
+            id_carg:$scope.cargo,
             fechaingreso:today,
             estado:'1'
         };
@@ -109,6 +126,8 @@ app.controller('LogicaEmpleado', function($scope, $http, API_URL,Upload) {
         $scope.initLoad(1);
 
         $scope.aux_estado_provider={};
+
+        $scope.cargo="";
     };
     ///---
 
@@ -207,6 +226,8 @@ app.controller('LogicaEmpleado', function($scope, $http, API_URL,Upload) {
         $scope.razonsocial=$scope.aux_empleado.razonsocial;
         $scope.telefonoprincipal=$scope.aux_empleado.telefonoprincipal;
 
+        $scope.cargo= ($scope.aux_empleado.cargo.id_carg!=undefined || $scope.aux_empleado.cargo.id_carg!=null)? $scope.aux_empleado.cargo.id_carg.toString():"";
+
         $scope.file= '';
         $scope.url_foto=$scope.aux_empleado.persona.avatar;
     };
@@ -229,6 +250,7 @@ app.controller('LogicaEmpleado', function($scope, $http, API_URL,Upload) {
         var data_pempleado={
             id_emp: $scope.aux_empleado.id_emp,
             id_pe: $scope.aux_empleado.persona.id_pe,
+            id_carg:$scope.cargo,
             fechaingreso:$scope.aux_empleado.persona.fechaingreso,
             telefonoprincipal:$scope.telefonoprincipal,
             razonsocial: $scope.razonsocial,
