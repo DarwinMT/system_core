@@ -67,15 +67,25 @@
 				<table class="table table-bordered table-condensend">
 					<thead>
 						<tr class="bg-primary">
+							<th>Domingo</th>
 							<th>Lunes</th>
 							<th>Martes</th>
 							<th>Miercoles</th>
 							<th>Jueves</th>
 							<th>Viernes</th>
 							<th>Sabado</th>
-							<th>Domingo</th>
 						</tr>
 					</thead>
+					<tbody>
+						<tr ng-repeat="m in mes">
+							<td ng-repeat="d in m.Dias">
+								
+								<button ng-repeat="c in d.Citas" class="btn btn-default btn-sm ">{{c.Id}} {{c.Descripcion}}  {{c.Hora}} </button>
+								  
+								
+							</td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
 		</div>
