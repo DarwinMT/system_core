@@ -78,11 +78,15 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="m in mes">
-							<td ng-repeat="d in m.Dias">
-								
-								<button ng-repeat="c in d.Citas" class="btn btn-default btn-sm ">{{c.Id}} {{c.Descripcion}}  {{c.Hora}} </button>
-								  
-								
+							<td ng-repeat="d in m">
+								<div class="row">
+									<div class="col-xs-6">
+										<button onclick="$('#citas').modal('show');" class="btn btn-sm btn-success"><span class="badge" >{{d.Numero_Citas}}</span></button>
+									</div>
+									<div class="col-xs-6 text-right" >
+										{{d.Numero_dia}}
+									</div>
+								</div>
 							</td>
 						</tr>
 					</tbody>
@@ -91,5 +95,34 @@
 		</div>
 
 	</div>
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="citas" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 
 </div>
