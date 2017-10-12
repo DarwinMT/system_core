@@ -271,6 +271,125 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
     $scope.titulo_fecha();
 
 
+    ///--- Init crear agenda 
+
+    $scope.nombreempleado="";
+    $scope.aux_empleado={};
+
+    $scope.nombrecliente="";
+    $scope.aux_cliente={};
+
+
+        ///--- buscar medico
+            $scope.buscar_empleado=function(){
+
+                $("#md_medico").modal("show");
+                $scope.buscar_employed(1);
+            };
+
+
+            ///--- lista de empleados
+            $scope.buscartexto_empleado="";
+            $scope.estadoanulado="1";
+            $scope.list_empleados=[];
+
+            $scope.pageChanged_empleado = function(newPage) {
+                $scope.buscar_employed(newPage);
+            };
+            $scope.buscar_employed = function(pageNumber){
+
+                var filtros = {
+                    buscar:$scope.buscartexto_empleado,
+                    estado: $scope.estadoanulado
+                };
+                $http.get(API_URL + 'Empleado/get_list_empleado?page=' + pageNumber + '&filter=' + JSON.stringify(filtros))
+                    .then(function(response){
+                        $scope.list_empleados = response.data.data;
+                        $scope.totalItems = response.data.total;
+                        console.log($scope.list_empleados);
+                 });
+            };    
+            ///--- lista de empleados
+
+            ///--- seleccionar empleado
+            $scope.select_empleado=function(item){
+                
+                $scope.nombreempleado="";
+                $scope.aux_empleado={};
+
+
+                $scope.aux_empleado=item;
+                $scope.nombreempleado=item.persona.apellido+" "+item.persona.nombre;
+                
+                $("#md_medico").modal("hide");
+            };
+
+            ///--- buscar medico
+
+
+            ///--- seleccionar empleado
+
+
+            ///--- lista de cliente 
+            $scope.buscartexto_cliente="";
+        
+            $scope.list_cliente=[];
+            $scope.pageChanged_cliente = function(newPage) {
+                $scope.initLoad_cliente(newPage);
+            };
+            $scope.initLoad_cliente = function(pageNumber){
+
+                var filtros = {
+                    buscar:$scope.buscartexto_cliente,
+                    estado: "1"
+                };
+                $http.get(API_URL + 'Cliente/get_list_cliente?page=' + pageNumber + '&filter=' + JSON.stringify(filtros))
+                    .then(function(response){
+                        $scope.list_cliente = response.data.data;
+                        $scope.totalItems = response.data.total;
+                        console.log($scope.list_cliente);
+                 });
+            };
+            ///--- lista de cliente 
+
+            ///--- modal cliente
+            $scope.buscar_cliente=function(){
+                $("#md_cliente").modal("show");
+
+                $scope.pageChanged_cliente(1);
+            };
+            ///--- modal cliente
+
+            ///--- seleccione cliente
+            $scope.select_cliente=function(item){
+                $scope.nombrecliente="";
+                $scope.aux_cliente={}; 
+
+                
+                $scope.aux_cliente=item;
+                $scope.nombrecliente=item.persona.apellido+" "+item.persona.nombre;
+
+                $("#md_cliente").modal("hide");
+
+            };
+            ///--- seleccione cliente
+
+
+            ///--- configuracion empresa 
+            $scope.get_config_all=function () {
+                $http.get(API_URL + 'Agenda/Configuracion')
+                .success(function(response){
+                    console.log(response);
+                });
+            };
+            $scope.get_config_all();
+            ///--- configuracion empresa 
+
+
+        
+    ///--- end crear agenda 
+
+
 });
 
 function sms(color,mensaje) {

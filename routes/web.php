@@ -78,3 +78,9 @@ Route::get('CargoE/get_list_cargos_excell/{texto}', 'Personas\CargoController@ge
 Route::get('CargoE/get_list_cargos', 'Personas\CargoController@get_list_cargos');
 Route::resource('CargoE', 'Personas\CargoController');
 /*-----------------Cargo empleado--------------*/
+
+
+/*-----------------Logica agenda --------------*/
+Route::get('Agenda/Configuracion', 'LSysMedico\Agenda\AgendaController@get_config');
+Route::resource('Agenda', 'LSysMedico\Agenda\AgendaController');
+/*-----------------Logica agenda --------------*/
