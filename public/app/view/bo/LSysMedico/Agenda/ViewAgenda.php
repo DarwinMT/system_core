@@ -143,6 +143,8 @@
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon1"> <i class="glyphicon glyphicon-time"></i> Hora Cita: </span>
 						<select class="form-control" name="hora" id="hora" ng-model="hora">
+							<option value="">Seleccione</option>
+							<option ng-repeat=" t in horas_general" value="{{t}}">{{t}}</option>
 						</select>
 					</div>
 				</div>

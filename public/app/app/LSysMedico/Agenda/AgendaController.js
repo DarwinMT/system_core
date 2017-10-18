@@ -376,10 +376,14 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
 
 
             ///--- configuracion empresa 
+            $scope.config_all=[];
+
             $scope.get_config_all=function () {
                 $http.get(API_URL + 'Agenda/Configuracion')
                 .success(function(response){
-                    console.log(response);
+                    $scope.config_all=response;
+                    console.log($scope.config_all);
+                    $scope.make_time();
                 });
             };
             $scope.get_config_all();
@@ -388,6 +392,49 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
 
         
     ///--- end crear agenda 
+
+    ///--- generar horas
+    $scope.horas_general=[];
+    $scope.make_time=function() {
+        var hora_init="";
+        var hora_end="";
+        var intervalo="";
+
+        $scope.config_all.forEach(function(t){
+            switch(t.identificador){
+                case "RG_HORA_INICIO_AGENDA":
+                    hora_init=t.valor;
+                break;
+                case "RG_HORA_FIN_AGENDA":
+                    hora_end=t.valor;
+                break;
+                case "RG_INTERVALO_AGENDA":
+                    intervalo=t.valor;
+                break;
+            }
+        });
+
+        var aux_hora_init=hora_init.split(":");
+        var aux_hora_end=hora_end.split(":");
+
+        var aux_interval=intervalo.split(":");
+
+        console.log(aux_interval[0])
+
+        for(var i=parseInt(aux_hora_init[0]); i<=parseInt(aux_hora_end[0]); i++ ){
+            for(var j=0; j<60; j+=parseInt(aux_interval[0]) ){
+
+                var hora1=(i.toString().length==1)? "0"+i: i;
+                var minuto1=(j.toString().length==1)? "0"+j: j;
+                var time =hora1+":"+minuto1;
+
+                $scope.horas_general.push(time);
+            }
+        }
+
+        
+    };
+    ///--- generar horas
 
 
 });
