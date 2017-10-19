@@ -1,6 +1,24 @@
 
 <div class="row" ng-init="permisos_user();" ng-cloak>
 
+<div class="modal fade" id="sms" style="z-index: 5000;" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div id="titulomsm" class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <!--<h4 class="modal-title">Modal title</h4>-->
+      </div>
+      <div class="modal-body">
+        <h5><strong id="smsb"></strong></h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="glyphicon glyphicon-ok"></i> Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 	<div class="row">
 		<div class="col-md-12 col-xs-12">
 			<h3><strong>{{Title}}</strong></h3>
@@ -114,18 +132,28 @@
 				<div class=" col-md-6 col-xs-12">
 					<div class="input-group ">
 						<span class="btn btn-sm input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-user "></i> Empleado </span>
-						<input type="text" class="form-control input-sm" name="nombreempleado" id="nombreempleado" ng-model="nombreempleado" required />
+						<input type="text" class="form-control input-sm" readonly name="nombreempleado" id="nombreempleado" ng-model="nombreempleado" required />
 						<span class="input-group-btn">
-				        	<button class="btn btn-default btn-sm" type="button" ng-click="buscar_empleado()"><i class="glyphicon glyphicon-search"></i></button>
+				        	<button class="btn btn-danger btn-sm" type="button" ng-click="limpiar_empleado();">
+				        		<i class="glyphicon glyphicon-trash"></i>
+				        	</button>
+				        	<button class="btn btn-default btn-sm" type="button" ng-click="buscar_empleado()">
+				        		<i class="glyphicon glyphicon-search"></i>
+				        	</button>
 				      	</span>
 					</div>
 				</div>
 				<div class=" col-md-6 col-xs-12">
 					<div class="input-group ">
 						<span class="btn btn-sm input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-user "></i> Cliente </span>
-						<input type="text" class="form-control input-sm" name="nombrecliente" id="nombrecliente" ng-model="nombrecliente" required />
+						<input type="text" class="form-control input-sm" readonly name="nombrecliente" id="nombrecliente" ng-model="nombrecliente" required />
 						<span class="input-group-btn">
-				        	<button class="btn btn-default btn-sm" type="button" ng-click="buscar_cliente();"><i class="glyphicon glyphicon-search"></i></button>
+				        	<button class="btn btn-danger btn-sm" type="button" ng-click="limpiar_cliente();">
+				        		<i class="glyphicon glyphicon-trash"></i>
+				        	</button>
+				        	<button class="btn btn-default btn-sm" type="button" ng-click="buscar_cliente();">
+				        		<i class="glyphicon glyphicon-search"></i>
+				        	</button>
 				      	</span>
 					</div>
 				</div>
@@ -136,13 +164,13 @@
 				<div class="col-md-6 col-xs-12">
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon1"> <i class="glyphicon glyphicon-calendar"></i> Fecha Cita: </span>
-						<input type="text" class="form-control input-sm datepicker ng-pristine ng-valid ng-empty ng-touched" name="fechan" id="fechan" ng-model="fechan">
+						<input type="text" class="form-control input-sm datepicker ng-pristine ng-valid ng-empty ng-touched" name="fechacita" id="fechacita" ng-model="fechacita">
 					</div>
 				</div>
 				<div class="col-md-6 col-xs-12">
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon1"> <i class="glyphicon glyphicon-time"></i> Hora Cita: </span>
-						<select class="form-control" name="hora" id="hora" ng-model="hora">
+						<select class="form-control"  name="hora" id="hora" ng-model="hora">
 							<option value="">Seleccione</option>
 							<option ng-repeat=" t in horas_general" value="{{t}}">{{t}}</option>
 						</select>
@@ -345,6 +373,7 @@
     </div>
   </div>
 </div>
+
 
 
 

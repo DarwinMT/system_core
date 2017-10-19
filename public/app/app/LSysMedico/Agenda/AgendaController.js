@@ -274,10 +274,10 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
     ///--- Init crear agenda 
 
     $scope.nombreempleado="";
-    $scope.aux_empleado={};
+    $scope.aux_empleado=null;
 
     $scope.nombrecliente="";
-    $scope.aux_cliente={};
+    $scope.aux_cliente=null;
 
 
         ///--- buscar medico
@@ -315,7 +315,7 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
             $scope.select_empleado=function(item){
                 
                 $scope.nombreempleado="";
-                $scope.aux_empleado={};
+                $scope.aux_empleado=null;
 
 
                 $scope.aux_empleado=item;
@@ -363,7 +363,7 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
             ///--- seleccione cliente
             $scope.select_cliente=function(item){
                 $scope.nombrecliente="";
-                $scope.aux_cliente={}; 
+                $scope.aux_cliente=null; 
 
                 
                 $scope.aux_cliente=item;
@@ -435,6 +435,54 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
         
     };
     ///--- generar horas
+
+    ///--- buscar horas disponibles 
+    $('#fechacita').on('dp.change', function(e){ 
+        $scope.buscar_horas_libres_empleado();
+    });
+
+    $scope.buscar_horas_libres_empleado=function () {
+        
+        if($scope.aux_empleado!=null){
+            if($scope.aux_cliente!=null){
+                var filtro={
+                    id_emp: $scope.aux_empleado.id_emp,
+                    id_cli: $scope.aux_cliente.id_cli,
+                    fecha: $('#fechacita').val()
+                }
+                $scope.load_tiempo(filtro);
+            }else{
+                sms("btn-warning","Seleccione un cliente");    
+            }
+        }else{
+            sms("btn-warning","Seleccione un medico");
+        }
+    };
+    $scope.limpiar_cliente=function() {
+        $scope.nombrecliente="";
+        $scope.aux_cliente=null;
+    };
+    $scope.limpiar_empleado=function() {
+        $scope.nombreempleado="";
+        $scope.aux_empleado=null;
+    };
+    $scope.load_tiempo=function(filter) {
+        if($scope.aux_empleado!=null){
+            if($scope.aux_cliente!=null){
+                if($("#fechacita").val()!=""){
+                    console.log(filter);
+                }else{
+                    sms("btn-warning","Seleccione una fecha");
+                }
+            }else{
+                sms("btn-warning","Seleccione un cliente");    
+            }
+        }else{
+            sms("btn-warning","Seleccione un medico");
+        }
+
+    };
+    ///--- buscar horas disponibles
 
 
 });
