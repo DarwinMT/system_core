@@ -279,6 +279,8 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
     $scope.nombrecliente="";
     $scope.aux_cliente=null;
 
+    $scope.tipoagenda="1";
+
 
         ///--- buscar medico
             $scope.buscar_empleado=function(){
@@ -396,6 +398,7 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
     ///--- generar horas
     $scope.horas_general=[];
     $scope.make_time=function() {
+        $scope.horas_general=[];
         var hora_init="";
         var hora_end="";
         var intervalo="";
@@ -437,7 +440,9 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
     ///--- generar horas
 
     ///--- buscar horas disponibles 
-    $('#fechacita').on('dp.change', function(e){ 
+    $('#fechacita').on('dp.change', function(e){
+        $scope.make_time();
+        $scope.fechacita=$(this).val(); 
         $scope.buscar_horas_libres_empleado();
     });
 
@@ -470,7 +475,9 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
         if($scope.aux_empleado!=null){
             if($scope.aux_cliente!=null){
                 if($("#fechacita").val()!=""){
-                    console.log(filter);
+                    if($scope.tipoagenda=="1"){ // solo si la agenda es normal // 1 normal 2 emeregencia y debe permitir agedar
+                        $scope.load_tiempo_agenda_persona(filter);
+                    }
                 }else{
                     sms("btn-warning","Seleccione una fecha");
                 }
@@ -481,6 +488,18 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
             sms("btn-warning","Seleccione un medico");
         }
 
+    };
+    $scope.load_tiempo_agenda_persona=function(data) {
+        $http.get(API_URL + 'Agenda/get_horas_ocupadas_persona/' + JSON.stringify(data))
+            .then(function(response){
+                var aux_horas=response.data;
+                aux_horas.forEach(function(h){
+                    var aux_time=h.horainicio.toString().split(":");
+                    var hora=aux_time[0]+":"+aux_time[1];
+                    var posicion= $scope.horas_general.indexOf(hora);
+                    $scope.horas_general.splice(posicion,1);
+                });
+        });  
     };
     ///--- buscar horas disponibles
 

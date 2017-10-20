@@ -128,7 +128,18 @@
 
 
 		<div >
+		<form class="form-horizontal"  name="frm_agenda" id="frm_agenda"  novalidate="">	
 			<div class="row">
+				<div class=" col-md-6 col-xs-12">
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1"> <i class="glyphicon glyphicon-list"></i> Tipo Agenda: </span>
+						<select class="form-control" ng-change="make_time();"  name="tipoagenda" id="tipoagenda" ng-model="tipoagenda" required>
+							<option value="1">Normal</option>
+							<option value="2">Emergencia</option>
+						</select>
+					</div>
+					<span class="help-block error" ng-show="frm_agenda.tipoagenda.$invalid && frm_agenda.tipoagenda.$touched">El tipo de ageanda es requerido</span>
+				</div>
 				<div class=" col-md-6 col-xs-12">
 					<div class="input-group ">
 						<span class="btn btn-sm input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-user "></i> Empleado </span>
@@ -142,7 +153,14 @@
 				        	</button>
 				      	</span>
 					</div>
+
+					<span class="help-block error" ng-show="frm_agenda.nombreempleado.$invalid && frm_agenda.nombreempleado.$touched">El Empleado es requerido</span>
 				</div>
+				
+			</div>
+
+
+			<div class="row">
 				<div class=" col-md-6 col-xs-12">
 					<div class="input-group ">
 						<span class="btn btn-sm input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-user "></i> Cliente </span>
@@ -156,52 +174,58 @@
 				        	</button>
 				      	</span>
 					</div>
+					<span class="help-block error" ng-show="frm_agenda.nombrecliente.$invalid && frm_agenda.nombrecliente.$touched">El Cliente es requerido</span>
 				</div>
-			</div>
 
+				<div class="col-md-6 col-xs-12">
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1"> <i class="glyphicon glyphicon-calendar"></i> Fecha Cita: </span>
+						<input type="text" class="form-control input-sm datepicker ng-pristine ng-valid ng-empty ng-touched" name="fechacita" id="fechacita" ng-model="fechacita" required>
+					</div>
+					<span class="help-block error" ng-show="frm_agenda.fechacita.$invalid && frm_agenda.fechacita.$touched">La fecha es requerida</span>
+				</div>
+				
+			</div>
 
 			<div class="row">
 				<div class="col-md-6 col-xs-12">
 					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1"> <i class="glyphicon glyphicon-calendar"></i> Fecha Cita: </span>
-						<input type="text" class="form-control input-sm datepicker ng-pristine ng-valid ng-empty ng-touched" name="fechacita" id="fechacita" ng-model="fechacita">
-					</div>
-				</div>
-				<div class="col-md-6 col-xs-12">
-					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon1"> <i class="glyphicon glyphicon-time"></i> Hora Cita: </span>
-						<select class="form-control"  name="hora" id="hora" ng-model="hora">
+						<select class="form-control"  name="hora" id="hora" ng-model="hora" required>
 							<option value="">Seleccione</option>
 							<option ng-repeat=" t in horas_general" value="{{t}}">{{t}}</option>
 						</select>
 					</div>
+				<span class="help-block error" ng-show="frm_agenda.hora.$invalid && frm_agenda.hora.$touched">La hora es requerida</span>
 				</div>
-			</div>
 
-			<div class="row">
-				<div class="col-md-12 col-xs-12">
+				<div class="col-md-6 col-xs-12">
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon1"> <i class="glyphicon glyphicon-comment"></i> Observacion: </span>
 						<input type="text" class="form-control input-sm " name="fechan" id="fechan" ng-model="fechan">
 					</div>
 				</div>
+
 			</div>
 
 			<div class="row">
-				<div class="col-md-12 col-xs-12 text-center">
-					<button class="btn btn-success btn-sm">
-						<i class="glyphicon glyphicon-calendar"></i>
-						Agendar
-					</button>
+				<div class="col-md-12 col-xs-12 text-center ">
+					<div class="btn-group ">
+						<button class="btn btn-success btn-sm" type="button" ng-disabled=" frm_agenda.$invalid ">
+							<i class="glyphicon glyphicon-calendar"></i>
+							Agendar
+						</button>
 
-					<button class="btn btn-default btn-sm">
-						<i class="glyphicon glyphicon-ban-circle"></i>
-						Cancelar
-					</button>
+						<button class="btn btn-default btn-sm" type="button" >
+							<i class="glyphicon glyphicon-ban-circle"></i>
+							Cancelar
+						</button>	
+					</div>
+					
 
 				</div>
 			</div>
-
+		</form>
 		</div>
 
 

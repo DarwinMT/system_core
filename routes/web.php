@@ -81,6 +81,7 @@ Route::resource('CargoE', 'Personas\CargoController');
 
 
 /*-----------------Logica agenda --------------*/
+Route::get('Agenda/get_horas_ocupadas_persona/{texto}', 'LSysMedico\Agenda\AgendaController@get_horas_ocupadas_persona');
 Route::get('Agenda/Configuracion', 'LSysMedico\Agenda\AgendaController@get_config');
 Route::resource('Agenda', 'LSysMedico\Agenda\AgendaController');
 /*-----------------Logica agenda --------------*/

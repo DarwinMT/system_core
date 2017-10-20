@@ -24,6 +24,8 @@ class Agenda extends Model
         'fecha',
         'horainicio',
         'observacion',
+        'tipo',
+        'gestion',
         'estado'
     ];
 
