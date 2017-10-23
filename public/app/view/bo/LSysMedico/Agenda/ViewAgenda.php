@@ -27,8 +27,8 @@
 	</div>
 
 	<div >
-		<div class="row" ng-hide="1==1" >
-			<div class="col-md-1 col-xs-6">
+		<div class="row" ng-hide=""  >
+			<div class="col-md-1 col-xs-6" >
 				<div class="btn-group">
 				  <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				    Acciones <span class="caret"></span>
@@ -40,8 +40,8 @@
 				  </ul>
 				</div>
 			</div>
-			<div class="col-md-5 col-xs-12">
-				<div class="btn-group" >
+			<div class="col-md-5 col-xs-12" style="padding: 0;">
+				<div class="btn-group"  >
 					<button type="button" ng-click="back_calendar();" class="btn btn-primary btn-sm">
 							<i class="glyphicon glyphicon-backward "></i> Atras
 					</button>
@@ -50,14 +50,28 @@
 							<i class="glyphicon glyphicon-forward "></i> Adelante
 					</button>
 
-					<button type="button" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-calendar "></i> Año</button>
-					<button type="button" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-calendar "></i> Mes</button>
-					<button type="button" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-calendar "></i> Semana</button>
-					<button type="button" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-calendar "></i> Dia</button>
+					<button type="button" class="btn btn-info btn-sm" ng-click="control_panel('Y');" id="btn_year">
+						<i class="glyphicon glyphicon-calendar "></i> Año
+					</button>
+					<button type="button" class="btn btn-info btn-sm" ng-click="control_panel('M');" id="btn_mes">
+						<i class="glyphicon glyphicon-calendar "></i> Mes
+					</button>
+					<button type="button" class="btn btn-info btn-sm" ng-click="control_panel('S');" id="btn_semana">
+						<i class="glyphicon glyphicon-calendar "></i> Semana
+					</button>
+					<button type="button" class="btn btn-info btn-sm" ng-click="control_panel('D');" id="btn_dia">
+						<i class="glyphicon glyphicon-calendar "></i> Dia
+					</button>
+
+					<button type="button" class="btn btn-primary btn-sm" ng-click=" tipo_calendar='AG'; ">
+						<i class="glyphicon glyphicon-plus "></i> Agendar
+					</button>
+
+					
 				</div>
 			</div>
 
-			<div class="col-md-2 col-xs-12">
+			<!--<div class="col-md-2 col-xs-12">
 				<div class="input-group ">
 					<span class="btn btn-sm input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-calendar "></i>  </span>
 					<input type="text" class="form-control input-sm" name="descripcion" id="nombre" ng-model="descripcion" required />
@@ -65,14 +79,20 @@
 			        	<button class="btn btn-default btn-sm" type="button"><i class="glyphicon glyphicon-search"></i></button>
 			      	</span>
 				</div>
-			</div>
+			</div>-->
 
 			<div class="col-md-4 col-xs-12">
 				<div class="input-group ">
-					<span class="btn btn-sm input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-calendar "></i> Desde  </span>
-					<input type="text" class="form-control input-sm" name="descripcion" id="nombre" ng-model="descripcion" required />
-					<span class="btn btn-sm input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-calendar "></i> Hasta  </span>
-					<input type="text" class="form-control input-sm" name="descripcion" id="nombre" ng-model="descripcion" required />
+					<span class="btn btn-sm input-group-addon">
+						<i class="glyphicon glyphicon-calendar "></i> Desde 
+					</span>
+					<input type="text" class="form-control input-sm datepicker" name="fecha_desde" id="fecha_desde" ng-model="fecha_desde" required />
+					
+					<span class="btn btn-sm input-group-addon">
+						<i class="glyphicon glyphicon-calendar "></i> Hasta 
+					</span>
+					<input type="text" class="form-control input-sm datepicker" name="fecha_hasta" id="fecha_hasta" ng-model="fecha_hasta" required />
+					
 					<span class="input-group-btn">
 			        	<button class="btn btn-default btn-sm" type="button"><i class="glyphicon glyphicon-search"></i></button>
 			      	</span>
@@ -84,26 +104,26 @@
 
 
 
-		<div class="row" id="mes" ng-hide=" 1==1 ">
-			<div class="col-md-12 col-xs-12">
+		<div class="row" id="mes" ng-hide=" tipo_calendar!='M' ">
+			<div class="col-md-12 col-xs-12 table-responsive">
 				<table class="table table-bordered table-condensend">
 					<thead>
 						<tr class="bg-primary">
 							<th colspan="7" class="text-center">{{Fecha_Select}}</th>
 						</tr>
 						<tr class="bg-primary">
-							<th style="width: 100px;">Domingo</th>
-							<th style="width: 100px;">Lunes</th>
-							<th style="width: 100px;">Martes</th>
-							<th style="width: 100px;">Miercoles</th>
-							<th style="width: 100px;">Jueves</th>
-							<th style="width: 100px;">Viernes</th>
-							<th style="width: 100px;">Sabado</th>
+							<th style="">Domingo</th>
+							<th style="">Lunes</th>
+							<th style="">Martes</th>
+							<th style="">Miercoles</th>
+							<th style="">Jueves</th>
+							<th style="">Viernes</th>
+							<th style="">Sabado</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="m in mes">
-							<td ng-repeat="d in m" style="height: 100px;">
+							<td ng-repeat="d in m" style="height: 130px !important;">
 								<div class="row">
 									<div class="col-xs-6">
 										<button onclick="$('#citas').modal('show');" class="btn btn-sm btn-success"><span class="badge" >{{d.Numero_Citas}}</span></button>
@@ -127,7 +147,7 @@
 
 
 
-		<div >
+		<div ng-hide=" tipo_calendar!='AG' " >
 		<form class="form-horizontal"  name="frm_agenda" id="frm_agenda"  novalidate="">	
 			<div class="row">
 				<div class=" col-md-6 col-xs-12">
@@ -216,7 +236,7 @@
 							Agendar
 						</button>
 
-						<button class="btn btn-default btn-sm" type="button" ng-click="clear_agenda(); " >
+						<button class="btn btn-default btn-sm" type="button" ng-click="clear_agenda(); control_panel('M'); " >
 							<i class="glyphicon glyphicon-ban-circle"></i>
 							Cancelar
 						</button>	
