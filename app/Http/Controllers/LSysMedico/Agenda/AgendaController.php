@@ -54,4 +54,26 @@ class AgendaController extends Controller
         				->orderBy("horainicio","ASC")
         				->get();
     }
+    /**
+     *
+     *
+     * Guardar agenda
+     *
+     */
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        $data_user=Session::get('user_data');
+        
+        $data["id_em"]=$data_user[0]->persona->personaempresa[0]->id_emp;
+        $data["id_u"]=$data_user[0]->id_u;
+        $data["turno"]=(Agenda::whereRaw("fecha='".$data["fecha"]."'")->max("turno")+1);
+        
+        $aux_agenda=Agenda::create($data);
+        if($aux_agenda->id_ag>0){
+            return response()->json(['success' => 0]); //ok
+        }else{
+            return response()->json(['success' => 1]); //error al guardar los datos dela agenda
+        }
+    } 
 }

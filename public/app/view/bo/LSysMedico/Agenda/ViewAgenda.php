@@ -202,7 +202,7 @@
 				<div class="col-md-6 col-xs-12">
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon1"> <i class="glyphicon glyphicon-comment"></i> Observacion: </span>
-						<input type="text" class="form-control input-sm " name="fechan" id="fechan" ng-model="fechan">
+						<input type="text" class="form-control input-sm " name="observacion" id="observacion" ng-model="observacion">
 					</div>
 				</div>
 
@@ -211,12 +211,12 @@
 			<div class="row">
 				<div class="col-md-12 col-xs-12 text-center ">
 					<div class="btn-group ">
-						<button class="btn btn-success btn-sm" type="button" ng-disabled=" frm_agenda.$invalid ">
+						<button class="btn btn-success btn-sm" type="button" ng-click="save_agenda();" ng-disabled=" frm_agenda.$invalid ">
 							<i class="glyphicon glyphicon-calendar"></i>
 							Agendar
 						</button>
 
-						<button class="btn btn-default btn-sm" type="button" >
+						<button class="btn btn-default btn-sm" type="button" ng-click="clear_agenda(); " >
 							<i class="glyphicon glyphicon-ban-circle"></i>
 							Cancelar
 						</button>	
@@ -398,6 +398,18 @@
   </div>
 </div>
 
+<div class="modal fade" id="progress" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="progress">
+		  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+		    <span class="">Procesando la transacción</span>
+		  </div>
+		</div>
+      </div>
+  </div>
+</div>
 
 
 

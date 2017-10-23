@@ -503,6 +503,52 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
     };
     ///--- buscar horas disponibles
 
+    ///--- guardar agenda
+    $scope.save_agenda=function() {
+        $("#progress").modal("show");
+        var f=new Date();
+        var today=f.getFullYear()+"-"+(f.getMonth()+1)+"-"+f.getDate();
+        var agenda={
+            id_em: 0,
+            id_u: 0,
+            id_cli: $scope.aux_cliente.id_cli,
+            id_emp: $scope.aux_empleado.id_emp,
+            turno: 0,
+            fechacreacion: today,
+            fecha: $scope.fechacita,
+            horainicio: $scope.hora,
+            horafin: '',
+            observacion: $scope.observacion,
+            tipo: $scope.tipoagenda, // 1 normal , 2 emergencia 
+            gestion:1, // 1, sin gestionar 2, gestionada o finalizada
+            estado: 1 // 1 activa, 0 inactiva 
+        };
+        $http.post(API_URL + 'Agenda',agenda)
+        .success(function(response){
+            console.log(response);
+            $("#progress").modal("hide");
+            if(response.success==0){
+                sms("btn-success","Se guardo correctamente los datos..!!");
+                $scope.clear_agenda();
+            }else{
+                sms("btn-danger","Error al guardar los datos..!!");
+                $scope.clear_agenda();
+            }
+        });
+    };
+
+    $scope.clear_agenda=function() {
+        $scope.limpiar_cliente();
+        $scope.limpiar_empleado();
+        $scope.make_time();
+        $scope.tipoagenda="1";
+        $("#fechacita").val("");
+        $scope.fechacita="";
+        $scope.observacion="";
+        $scope.hora="";
+
+    };
+    ///--- guardar agenda
 
 });
 
