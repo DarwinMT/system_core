@@ -75,5 +75,26 @@ class AgendaController extends Controller
         }else{
             return response()->json(['success' => 1]); //error al guardar los datos dela agenda
         }
-    } 
+    }
+    /**
+     *
+     * Carga la agenda por mes y por empleado seleccionado
+     * 
+     */
+    public function get_agenda_mes($texto)
+    {
+    	$filtro = json_decode($texto);
+        $sql=" agenda.fecha BETWEEN '".$filtro->fechaI."' AND '".$filtro->fechaF."'";
+        $sql2="";
+        if($filtro->id_emp!=""){
+            $sql+=" AND agenda.id_emp='".$filtro->id_emp."' ";
+            $sql2=" AND aux.id_emp=agenda.id_emp ";
+        }
+    	return Agenda::selectRaw("*")
+                    ->selectRaw("  (SELECT COUNT(*) FROM agenda AS aux WHERE aux.fecha=agenda.fecha ".$sql2." ) AS NumeroCita  ")
+                    ->whereRaw($sql)
+                    ->groupBy("agenda.fecha")
+                    ->orderBy("agenda.fecha","ASC")
+                    ->get();
+    }     
 }

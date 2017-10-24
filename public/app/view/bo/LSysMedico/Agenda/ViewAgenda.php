@@ -81,21 +81,31 @@
 				</div>
 			</div>-->
 
-			<div class="col-md-4 col-xs-12">
-				<div class="input-group ">
-					<span class="btn btn-sm input-group-addon">
-						<i class="glyphicon glyphicon-calendar "></i> Desde 
-					</span>
-					<input type="text" class="form-control input-sm datepicker" name="fecha_desde" id="fecha_desde" ng-model="fecha_desde" required />
+			<div class="col-md-6 col-xs-12">
+				
+					<div class="input-group ">
+						<span class="btn btn-sm input-group-addon">
+							<i class="glyphicon glyphicon-calendar "></i> Desde 
+						</span>
+						<input type="text" class="form-control input-sm datepicker" name="fecha_desde" id="fecha_desde" ng-model="fecha_desde" required />
+						
+						<span class="btn btn-sm input-group-addon">
+							<i class="glyphicon glyphicon-calendar "></i> Hasta 
+						</span>
+						<input type="text" class="form-control input-sm datepicker" name="fecha_hasta" id="fecha_hasta" ng-model="fecha_hasta" required />
+						
+						<span class="input-group-btn">
+				        	<button class="btn btn-info btn-sm" type="button"><i class="glyphicon glyphicon-search"></i></button>
+				      	</span>
+
+				      	<select class="form-control input-sm" name="empleadoagenda" id="empleadoagenda" ng-model="empleadoagenda">
+							<option value="">Seleccione</option>
+							<option ng-repeat=" e in list_empleados0 " value="{{e.id_emp}}">
+								{{e.persona.apellido+" "+e.persona.nombre+" || "+ ((e.cargo.id_carg!==null || e.cargo.id_carg!==undefined)? e.cargo.descripcion:'SIN CARGO') }}
+							</option>
+						</select>
+					</div>
 					
-					<span class="btn btn-sm input-group-addon">
-						<i class="glyphicon glyphicon-calendar "></i> Hasta 
-					</span>
-					<input type="text" class="form-control input-sm datepicker" name="fecha_hasta" id="fecha_hasta" ng-model="fecha_hasta" required />
-					
-					<span class="input-group-btn">
-			        	<button class="btn btn-default btn-sm" type="button"><i class="glyphicon glyphicon-search"></i></button>
-			      	</span>
 				</div>
 			</div>
 

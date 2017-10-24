@@ -24,6 +24,8 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
         var aux=fecha_init.split("-");
         var feha=new Date(parseInt(aux[0]), (parseInt(aux[1])-1) , 1 );
 
+
+
         var fecha_inicial = new Date(feha.getFullYear(), feha.getMonth(), 1);
         var fecha_final = new Date(feha.getFullYear(), feha.getMonth() + 1, 0);
 
@@ -58,7 +60,8 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
                                     Id:'',
                                     Numero_dia:'',
                                     Numero_Citas:'',
-                                    Hoy:hoy_actual
+                                    Hoy:hoy_actual, 
+                                    Fecha: (aux[0]+"-"+aux[1]+"" )
                                 };
                                 semana1.push(dia);
                                 aux_d++;
@@ -67,8 +70,9 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
                             var dia={
                                     Id:'',
                                     Numero_dia:x,
-                                    Numero_Citas:'8',
-                                    Hoy:hoy_actual
+                                    Numero_Citas:'',
+                                    Hoy:hoy_actual,
+                                    Fecha: (aux[0]+"-"+aux[1]+"-"+( (x<10)? "0"+x:x ) )
                                 };
                             semana1.push(dia);
 
@@ -77,8 +81,9 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
                                 var dia={
                                     Id:'',
                                     Numero_dia:x,
-                                    Numero_Citas:'8',
-                                    Hoy:hoy_actual
+                                    Numero_Citas:'',
+                                    Hoy:hoy_actual,
+                                    Fecha: (aux[0]+"-"+aux[1]+"-"+( (x<10)? "0"+x:x ) )
                                 };
                                 semana1.push(dia);
                                 
@@ -98,8 +103,9 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
                             var dia={
                                 Id:'',
                                 Numero_dia:x,
-                                Numero_Citas:'12',
-                                Hoy:hoy_actual
+                                Numero_Citas:'',
+                                Hoy:hoy_actual,
+                                Fecha: (aux[0]+"-"+aux[1]+"-"+( (x<10)? "0"+x:x ) )
                             };
                             semana2.push(dia);
                     
@@ -109,8 +115,9 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
                         var dia={
                                 Id:'',
                                 Numero_dia:x,
-                                Numero_Citas:'5',
-                                Hoy:hoy_actual
+                                Numero_Citas:'',
+                                Hoy:hoy_actual,
+                                Fecha: (aux[0]+"-"+aux[1]+"-"+( (x<10)? "0"+x:x ) )
                             };
                         semana3.push(dia);
                         
@@ -119,8 +126,9 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
                         var dia={
                                 Id:'',
                                 Numero_dia:x,
-                                Numero_Citas:'741',
-                                Hoy:hoy_actual
+                                Numero_Citas:'',
+                                Hoy:hoy_actual,
+                                Fecha: (aux[0]+"-"+aux[1]+"-"+( (x<10)? "0"+x:x ) )
                             };
                         semana4.push(dia);                        
                     break;
@@ -129,18 +137,20 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
                         var dia={
                                 Id:'',
                                 Numero_dia:x,
-                                Numero_Citas:'798',
-                                Hoy:hoy_actual
+                                Numero_Citas:'',
+                                Hoy:hoy_actual,
+                                Fecha: (aux[0]+"-"+aux[1]+"-"+( (x<10)? "0"+x:x ) )
                             };
                         semana5.push(dia);                        
                     break;
-                    case 6:
+                    case 6:aux
 
                         var dia={
                                 Id:'',
                                 Numero_dia:x,
-                                Numero_Citas:'8555',
-                                Hoy:hoy_actual
+                                Numero_Citas:'',
+                                Hoy:hoy_actual,
+                                Fecha: (aux[0]+"-"+aux[1]+"-"+( (x<10)? "0"+x:x ) )
                             };
                         semana6.push(dia);                        
                     break;
@@ -156,8 +166,9 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
                             var dia={
                                 Id:'',
                                 Numero_dia:x,
-                                Numero_Citas:'13',
-                                Hoy:hoy_actual
+                                Numero_Citas:'',
+                                Hoy:hoy_actual,
+                                Fecha: (aux[0]+"-"+aux[1]+"-"+( (x<10)? "0"+x:x ) )
                             };
                             semana2.push(dia)
                     break;
@@ -165,8 +176,9 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
                         var dia={
                                 Id:'',
                                 Numero_dia:x,
-                                Numero_Citas:'1',
-                                Hoy:hoy_actual
+                                Numero_Citas:'',
+                                Hoy:hoy_actual,
+                                Fecha: (aux[0]+"-"+aux[1]+"-"+( (x<10)? "0"+x:x ) )
                             };
                         semana3.push(dia);
                     break;
@@ -175,8 +187,9 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
                         var dia={
                             Id:'',
                             Numero_dia:x,
-                            Numero_Citas:'1222',
-                            Hoy:hoy_actual
+                            Numero_Citas:'',
+                            Hoy:hoy_actual,
+                            Fecha: (aux[0]+"-"+aux[1]+"-"+( (x<10)? "0"+x:x ) )
                         };
                         semana4.push(dia);
                     break;
@@ -185,8 +198,9 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
                         var dia={
                                 Id:'',
                                 Numero_dia:x,
-                                Numero_Citas:'-551',
-                                Hoy:hoy_actual
+                                Numero_Citas:'',
+                                Hoy:hoy_actual,
+                                Fecha: (aux[0]+"-"+aux[1]+"-"+( (x<10)? "0"+x:x ) )
                             };
                         semana5.push(dia);
                     break;
@@ -195,8 +209,9 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
                         var dia={
                                 Id:'',
                                 Numero_dia:x,
-                                Numero_Citas:'-55',
-                                Hoy:hoy_actual
+                                Numero_Citas:'',
+                                Hoy:hoy_actual,
+                                Fecha: (aux[0]+"-"+aux[1]+"-"+( (x<10)? "0"+x:x ) )
                             };
                         semana6.push(dia);                        
                     break;
@@ -219,6 +234,27 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
     };
     ///--- crear calendario mensual
 
+    ///--- agenda por mes
+    $scope.list_agenda_mensual=[]; 
+    $scope.empleadoagenda="";
+    $scope.ageda_mensual=function function_name() {
+        var filtro={
+            id_emp: $scope.empleadoagenda,
+            fechaI: $scope.fecha_desde,
+            fechaF: $scope.fecha_hasta
+        };
+        $scope.list_agenda_mensual=[];
+        $http.get(API_URL + 'Agenda/get_agenda_mensual/' + JSON.stringify(filtro))
+            .then(function(response){
+                $scope.list_agenda_mensual = response.data;
+                console.log($scope.list_agenda_mensual);
+                console.log($scope.mes);
+
+
+        });
+        
+    };
+    ///--- agenda por mes 
 
     ///---
     $scope.crear_fechas_control=function(action, f) {
@@ -246,6 +282,8 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
 
                 $scope.fecha_inicial=$scope.fecha_desde;
                 $scope.calendar($scope.fecha_inicial);
+
+                $scope.ageda_mensual();
             break;
             case "D":
                 desde=f.getFullYear()+"-";
@@ -423,6 +461,7 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
             $scope.estadoanulado="1";
             $scope.list_empleados=[];
 
+
             $scope.pageChanged_empleado = function(newPage) {
                 $scope.buscar_employed(newPage);
             };
@@ -438,7 +477,25 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
                         $scope.totalItems = response.data.total;
                         console.log($scope.list_empleados);
                  });
-            };    
+            }; 
+
+            $scope.list_empleados0=[];
+            $scope.all_empleado=function(){
+                var filtros = {
+                    buscar:'',
+                    estado: '1'
+                };
+                $scope.list_empleados0=[];
+                $http.get(API_URL + 'Empleado/get_list_empleado_excell/' + JSON.stringify(filtros))
+                    .then(function(response){
+                        $scope.list_empleados0 = response.data;
+                        console.log($scope.list_empleados0);
+                 });
+            };
+            $scope.all_empleado();
+
+
+
             ///--- lista de empleados
 
             ///--- seleccionar empleado
