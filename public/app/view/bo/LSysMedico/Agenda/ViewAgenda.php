@@ -50,16 +50,16 @@
 							<i class="glyphicon glyphicon-forward "></i> Adelante
 					</button>
 
-					<button type="button" class="btn btn-info btn-sm" ng-click="control_panel('Y');" id="btn_year">
+					<button type="button" class="btn btn-info btn-sm" ng-click="control_panel2('Y');" id="btn_year">
 						<i class="glyphicon glyphicon-calendar "></i> Año
 					</button>
-					<button type="button" class="btn btn-info btn-sm" ng-click="control_panel('M');" id="btn_mes">
+					<button type="button" class="btn btn-info btn-sm" ng-click="control_panel2('M');" id="btn_mes">
 						<i class="glyphicon glyphicon-calendar "></i> Mes
 					</button>
-					<button type="button" class="btn btn-info btn-sm" ng-click="control_panel('S');" id="btn_semana">
+					<button type="button" class="btn btn-info btn-sm" ng-click="control_panel2('S');" id="btn_semana">
 						<i class="glyphicon glyphicon-calendar "></i> Semana
 					</button>
-					<button type="button" class="btn btn-info btn-sm" ng-click="control_panel('D');" id="btn_dia">
+					<button type="button" class="btn btn-info btn-sm" ng-click="control_panel2('D');" id="btn_dia">
 						<i class="glyphicon glyphicon-calendar "></i> Dia
 					</button>
 

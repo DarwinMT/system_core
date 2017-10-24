@@ -7,116 +7,13 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
         ignoreReadonly: true
     });
 
-    $scope.fecha_inicial="2017-10-01";
+    //$scope.fecha_inicial="2017-10-01";
+    var fecha_referencial = new Date();
+    var mes_referencia=(((fecha_referencial.getMonth()+1)<10)? "0"+(fecha_referencial.getMonth()+1):(fecha_referencial.getMonth()+1));
+    $scope.fecha_inicial=fecha_referencial.getFullYear()+"-"+mes_referencia+"-01";
+
     $scope.tipo_calendar="M";
     $scope.meses_letras=["ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE"];
-
-    ///---
-    $scope.crear_fechas_control=function(action) {
-        var f = new Date();
-        var desde="";
-        var hasta="";
-        switch(action){
-            case "M":
-                desde=f.getFullYear()+"-";
-                desde+=((f.getMonth()+1)<10) ? "0"+(f.getMonth()+1):(f.getMonth()+1)+"-";
-                desde+="01";
-                $("#fecha_desde").val(desde);
-                $scope.fecha_desde=desde;
-
-                var aux_ultimodia_mes=new Date(f.getMonth(),(f.getMonth()-1),0);
-                hasta=f.getFullYear()+"-";
-                hasta+=((f.getMonth()+1)<10) ? "0"+(f.getMonth()+1):(f.getMonth()+1)+"-";
-                hasta+=aux_ultimodia_mes.getDate();
-
-                $("#fecha_hasta").val(hasta);
-                $scope.fecha_hasta=hasta;
-            break;
-            case "D":
-                desde=f.getFullYear()+"-";
-                desde+=((f.getMonth()+1)<10) ? "0"+(f.getMonth()+1):(f.getMonth()+1)+"-";
-                desde+=((f.getDate())<10) ? "0"+(f.getDate()):(f.getDate());
-                $("#fecha_desde").val(desde);
-                $scope.fecha_desde=desde;
-
-                hasta=desde;
-                $("#fecha_hasta").val(hasta);
-                $scope.fecha_hasta=hasta;
-            break;
-            case "Y":
-                desde=f.getFullYear()+"-";
-                desde+="01"+"-";
-                desde+="01";
-                $("#fecha_desde").val(desde);
-                $scope.fecha_desde=desde;
-
-                hasta=f.getFullYear()+"-";
-                hasta+="12"+"-";
-                hasta+="31";
-
-                $("#fecha_hasta").val(hasta);
-                $scope.fecha_hasta=hasta;
-            break;
-            case "S":
-                
-                var primerdia=new Date(f.getFullYear(),f.getMonth(),f.getDate());
-                primerdia.setDate((f.getDate()- f.getDay()));
-                
-                var ultimodia=new Date(f.getFullYear(),f.getMonth(),f.getDate());
-                ultimodia.setDate((f.getDate()+ (6-f.getDay())));
-                
-                desde=primerdia.getFullYear()+"-";
-                desde+=((primerdia.getMonth()+1)<10) ? "0"+(primerdia.getMonth()+1):(primerdia.getMonth()+1)+"-";
-                desde+=((primerdia.getDate())<10) ? "0"+(primerdia.getDate()):(primerdia.getDate());
-                $("#fecha_desde").val(desde);
-                $scope.fecha_desde=desde;
-
-                hasta=ultimodia.getFullYear()+"-";
-                hasta+=((ultimodia.getMonth()+1)<10) ? "0"+(ultimodia.getMonth()+1):(ultimodia.getMonth()+1)+"-";
-                hasta+=((ultimodia.getDate())<10) ? "0"+(ultimodia.getDate()):(ultimodia.getDate());
-
-                $("#fecha_hasta").val(hasta);
-                $scope.fecha_hasta=hasta;
-                
-
-            break;
-        };  
-    };
-
-    $scope.control_panel=function (action) {
-        $("#btn_mes").removeClass("active");
-        $("#btn_dia").removeClass("active");
-        $("#btn_year").removeClass("active");
-        $("#btn_semana").removeClass("active");
-        switch(action){
-            case "M":
-                $scope.tipo_calendar=action;
-                $("#btn_mes").addClass("active");
-                $scope.crear_fechas_control(action);
-            break;
-            case "D":
-                $scope.tipo_calendar=action;
-                $("#btn_dia").addClass("active");
-                $scope.crear_fechas_control(action);
-            break;
-            case "Y":
-                $scope.tipo_calendar=action;
-                $("#btn_year").addClass("active");
-                $scope.crear_fechas_control(action);
-            break;
-            case "S":
-                $scope.tipo_calendar=action;
-                $("#btn_semana").addClass("active");
-                $scope.crear_fechas_control(action);
-            break;
-        };
-    };
-    $scope.control_panel("M");
-
-    
-    ///---
-
-
 
     ///--- crear calendario mensual
     $scope.mes=[];
@@ -322,21 +219,143 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
     };
     ///--- crear calendario mensual
 
+
+    ///---
+    $scope.crear_fechas_control=function(action, f) {
+        fecha_referencial=f;
+        //var f = new Date();
+        var desde="";
+        var hasta="";
+        switch(action){
+            case "M":
+
+                desde=f.getFullYear()+"-";
+                desde+=((f.getMonth()+1)<10) ? "0"+(f.getMonth()+1):(f.getMonth()+1);
+                desde+="-01";
+                $("#fecha_desde").val(desde);
+                $scope.fecha_desde=desde;
+
+                var aux_ultimodia_mes=new Date(f.getFullYear(),(f.getMonth()+1),0);
+                console.log(aux_ultimodia_mes)
+                hasta=f.getFullYear()+"-";
+                hasta+=((f.getMonth()+1)<10) ? "0"+(f.getMonth()+1):(f.getMonth()+1);
+                hasta+="-"+aux_ultimodia_mes.getDate();
+
+                $("#fecha_hasta").val(hasta);
+                $scope.fecha_hasta=hasta;
+
+                $scope.fecha_inicial=$scope.fecha_desde;
+                $scope.calendar($scope.fecha_inicial);
+            break;
+            case "D":
+                desde=f.getFullYear()+"-";
+                desde+=(((f.getMonth()+1)<10) ? "0"+(f.getMonth()+1):(f.getMonth()+1)).toString()+"-";
+                desde+=((f.getDate())<10) ? "0"+(f.getDate()):(f.getDate());
+                $("#fecha_desde").val(desde);
+                $scope.fecha_desde=desde;
+
+                hasta=desde;
+                $("#fecha_hasta").val(hasta);
+                $scope.fecha_hasta=hasta;
+            break;
+            case "Y":
+                desde=f.getFullYear()+"-";
+                desde+="01"+"-";
+                desde+="01";
+                $("#fecha_desde").val(desde);
+                $scope.fecha_desde=desde;
+
+                hasta=f.getFullYear()+"-";
+                hasta+="12"+"-";
+                hasta+="31";
+
+                $("#fecha_hasta").val(hasta);
+                $scope.fecha_hasta=hasta;
+            break;
+            case "S":
+                
+                var primerdia=new Date(f.getFullYear(),f.getMonth(),f.getDate());
+                primerdia.setDate((f.getDate()- f.getDay()));
+                
+                var ultimodia=new Date(f.getFullYear(),f.getMonth(),f.getDate());
+                ultimodia.setDate((f.getDate()+ (6-f.getDay())));
+                
+                desde=primerdia.getFullYear()+"-";
+                desde+=(((primerdia.getMonth()+1)<10) ? "0"+(primerdia.getMonth()+1):(primerdia.getMonth()+1)).toString()+"-";
+                desde+=((primerdia.getDate())<10) ? "0"+(primerdia.getDate()):(primerdia.getDate());
+                $("#fecha_desde").val(desde);
+                $scope.fecha_desde=desde;
+
+                hasta=ultimodia.getFullYear()+"-";
+                hasta+=(((ultimodia.getMonth()+1)<10) ? "0"+(ultimodia.getMonth()+1):(ultimodia.getMonth()+1)).toString()+"-";
+                hasta+=((ultimodia.getDate())<10) ? "0"+(ultimodia.getDate()):(ultimodia.getDate());
+
+                $("#fecha_hasta").val(hasta);
+                $scope.fecha_hasta=hasta;
+                
+
+            break;
+        };  
+    };
+
+    $scope.control_panel=function (action,f) {
+
+        $("#btn_mes").removeClass("active");
+        $("#btn_dia").removeClass("active");
+        $("#btn_year").removeClass("active");
+        $("#btn_semana").removeClass("active");
+        switch(action){
+            case "M":
+                $scope.tipo_calendar=action;
+                $("#btn_mes").addClass("active");
+                $scope.crear_fechas_control(action,f);
+            break;
+            case "D":
+                $scope.tipo_calendar=action;
+                $("#btn_dia").addClass("active");
+                $scope.crear_fechas_control(action,f);
+            break;
+            case "Y":
+                $scope.tipo_calendar=action;
+                $("#btn_year").addClass("active");
+                $scope.crear_fechas_control(action,f);
+            break;
+            case "S":
+                $scope.tipo_calendar=action;
+                $("#btn_semana").addClass("active");
+                $scope.crear_fechas_control(action,f);
+            break;
+        };
+    };
+    $scope.control_panel($scope.tipo_calendar, fecha_referencial);
+    $scope.control_panel2=function (action) {
+        $scope.control_panel(action, fecha_referencial);
+    };
+    
+    ///---
+
+
+
+
+
     ///--- retroceder y adelantar calendario
     $scope.back_calendar=function(){
 
         switch($scope.tipo_calendar){
             case "M": // mensual
                 var aux_mes= $scope.fecha_inicial;
+
                 var aux = aux_mes.split("-");
                 var fecha_back= new Date(parseInt(aux[0]), (parseInt(aux[1]) -1 ),1);
                 var dayOfMonth = fecha_back.getMonth();
-                fecha_back.setMonth(dayOfMonth-1); //restar mes
-                var aux_mes_suma=(fecha_back.getMonth()+1);
+                fecha_back.setMonth(fecha_back.getMonth()-1); //restar mes
+
+                $scope.crear_fechas_control($scope.tipo_calendar, fecha_back);
+                /*var aux_mes_suma=(fecha_back.getMonth()+1);
                 var aux_mes = (aux_mes_suma.toString().length==1)? "0"+(aux_mes_suma):(aux_mes_suma);
                 var aux_dias = (fecha_back.getDate().toString().length==1)? "0"+fecha_back.getDate():fecha_back.getDate();
                 $scope.fecha_inicial=fecha_back.getFullYear()+"-"+aux_mes+"-"+aux_dias;
-                $scope.calendar($scope.fecha_inicial);
+                $scope.calendar($scope.fecha_inicial);*/
             break;
         };
         $scope.titulo_fecha();
@@ -351,12 +370,14 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
                 var fecha_next= new Date(parseInt(aux[0]), (parseInt(aux[1])-1),1);
                 var dayOfMonth2 = fecha_next.getMonth();
                 fecha_next.setMonth(dayOfMonth2 + 1); //sumar mes
+                
+                $scope.crear_fechas_control($scope.tipo_calendar, fecha_next);
 
-                var aux_mes_suma=(fecha_next.getMonth()+1);
+                /*var aux_mes_suma=(fecha_next.getMonth()+1);
                 var aux_mes = (aux_mes_suma.toString().length==1)? "0"+(aux_mes_suma):(aux_mes_suma);
                 var aux_dias = (fecha_next.getDate().toString().length==1)? "0"+fecha_next.getDate():fecha_next.getDate();
                 $scope.fecha_inicial=fecha_next.getFullYear()+"-"+aux_mes+"-"+aux_dias;
-                $scope.calendar($scope.fecha_inicial);
+                $scope.calendar($scope.fecha_inicial);*/
             break;
         };
         $scope.titulo_fecha();
@@ -374,7 +395,7 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
     };
     ///--- retroceder y adelantar calendario
 
-    $scope.calendar($scope.fecha_inicial);
+    //$scope.calendar($scope.fecha_inicial);
     $scope.titulo_fecha();
 
 
