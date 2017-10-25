@@ -9,6 +9,7 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
 
     //$scope.fecha_inicial="2017-10-01";
     var fecha_referencial = new Date();
+    $scope.fecha_referencial_angular = new Date();
     var mes_referencia=(((fecha_referencial.getMonth()+1)<10)? "0"+(fecha_referencial.getMonth()+1):(fecha_referencial.getMonth()+1));
     $scope.fecha_inicial=fecha_referencial.getFullYear()+"-"+mes_referencia+"-01";
 
@@ -238,6 +239,7 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
     $scope.list_agenda_mensual=[]; 
     $scope.empleadoagenda="";
     $scope.ageda_mensual=function function_name() {
+        console.log($scope.empleadoagenda)
         var filtro={
             id_emp: $scope.empleadoagenda,
             fechaI: $scope.fecha_desde,
@@ -250,6 +252,16 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
                 console.log($scope.list_agenda_mensual);
                 console.log($scope.mes);
 
+                $scope.mes.forEach(function(m) {
+                    m.forEach(function(d){
+                        $scope.list_agenda_mensual.forEach(function(c){
+                            if(d.Fecha==c.fecha && c.NumeroCita>0){
+                                d.Numero_Citas=c.NumeroCita;
+                            }
+                        });
+                    });
+                });
+
 
         });
         
@@ -258,7 +270,16 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
 
     ///---
     $scope.crear_fechas_control=function(action, f) {
-        fecha_referencial=f;
+        if(f!=null){
+            fecha_referencial=f;
+            $scope.fecha_referencial_angular=f;
+        }else{
+            f=new Date();
+            fecha_referencial=f;
+            $scope.fecha_referencial_angular=f;
+        }
+        
+        console.log(action+" "+ $scope.fecha_referencial_angular)
         //var f = new Date();
         var desde="";
         var hasta="";
@@ -365,9 +386,13 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
             break;
         };
     };
-    $scope.control_panel($scope.tipo_calendar, fecha_referencial);
+    $scope.control_panel($scope.tipo_calendar, $scope.fecha_referencial_angular);
     $scope.control_panel2=function (action) {
-        $scope.control_panel(action, fecha_referencial);
+        $scope.control_panel(action, $scope.fecha_referencial_angular);
+    };
+
+    $scope.control_panel3=function() {
+      $scope.control_panel($scope.tipo_calendar, $scope.fecha_referencial_angular);  
     };
     
     ///---
@@ -691,8 +716,8 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
     ///--- guardar agenda
     $scope.save_agenda=function() {
         $("#progress").modal("show");
-        var f=new Date();
-        var today=f.getFullYear()+"-"+(f.getMonth()+1)+"-"+f.getDate();
+        var fhoy=new Date();
+        var today=fhoy.getFullYear()+"-"+(fhoy.getMonth()+1)+"-"+fhoy.getDate();
         var agenda={
             id_em: 0,
             id_u: 0,
@@ -732,9 +757,30 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
         $scope.observacion="";
         $scope.hora="";
 
+
+        $scope.control_panel2($scope.tipo_calendar);
+
     };
     ///--- guardar agenda
 
+
+    ///--- inforamcion de la citas 
+    $scope.list_info_day=[];
+    $scope.info_citas_dia=function(item){
+        var filtro_cita={
+            Fecha: item.Fecha,
+            id_emp: $scope.empleadoagenda
+        };
+        $scope.list_info_day=[];
+        $http.get(API_URL + 'Agenda/get_info_agenda_mensual/' + JSON.stringify(filtro_cita))
+            .then(function(response){
+                console.log(response.data);
+                $scope.list_info_day=response.data;
+                $('#citas').modal('show');
+        });           
+
+    };
+    ///--- inforamcion de la citas 
 });
 
 function sms(color,mensaje) {

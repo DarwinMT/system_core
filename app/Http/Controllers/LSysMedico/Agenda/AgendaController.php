@@ -87,7 +87,7 @@ class AgendaController extends Controller
         $sql=" agenda.fecha BETWEEN '".$filtro->fechaI."' AND '".$filtro->fechaF."'";
         $sql2="";
         if($filtro->id_emp!=""){
-            $sql+=" AND agenda.id_emp='".$filtro->id_emp."' ";
+            $sql.=" AND agenda.id_emp='".$filtro->id_emp."' ";
             $sql2=" AND aux.id_emp=agenda.id_emp ";
         }
     	return Agenda::selectRaw("*")
@@ -96,5 +96,21 @@ class AgendaController extends Controller
                     ->groupBy("agenda.fecha")
                     ->orderBy("agenda.fecha","ASC")
                     ->get();
-    }     
+    } 
+    /**
+     *
+     * informacion de la agenda por dia 
+     * 
+     */
+     public function get_info_agenda_mensual($texto){
+        $filtro = json_decode($texto);
+        $sql=" agenda.fecha='".$filtro->Fecha."'  ";
+        if($filtro->id_emp!=""){
+            $sql.=" AND agenda.id_emp='".$filtro->id_emp."' ";
+        }
+        return Agenda::with("usuario.persona","cliente.persona","empleado.persona")
+                    ->whereRaw($sql)
+                    ->orderBy("agenda.horainicio","ASC")
+                    ->get();
+     }  
 }

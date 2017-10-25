@@ -95,10 +95,10 @@
 						<input type="text" class="form-control input-sm datepicker" name="fecha_hasta" id="fecha_hasta" ng-model="fecha_hasta" required />
 						
 						<span class="input-group-btn">
-				        	<button class="btn btn-info btn-sm" type="button"><i class="glyphicon glyphicon-search"></i></button>
+				        	<button class="btn btn-info btn-sm" ng-click="control_panel3();" type="button"><i class="glyphicon glyphicon-search"></i></button>
 				      	</span>
 
-				      	<select class="form-control input-sm" name="empleadoagenda" id="empleadoagenda" ng-model="empleadoagenda">
+				      	<select class="form-control input-sm " name="empleadoagenda" id="empleadoagenda" ng-model="empleadoagenda">
 							<option value="">Seleccione</option>
 							<option ng-repeat=" e in list_empleados0 " value="{{e.id_emp}}">
 								{{e.persona.apellido+" "+e.persona.nombre+" || "+ ((e.cargo.id_carg!==null || e.cargo.id_carg!==undefined)? e.cargo.descripcion:'SIN CARGO') }}
@@ -136,7 +136,7 @@
 							<td ng-repeat="d in m" style="height: 130px !important;">
 								<div class="row">
 									<div class="col-xs-6">
-										<button onclick="$('#citas').modal('show');" class="btn btn-sm btn-success"><span class="badge" >{{d.Numero_Citas}}</span></button>
+										<button ng-hide=" d.Numero_Citas=='' "  ng-click="info_citas_dia(d);" class="btn btn-sm btn-success"><span class="badge" >{{d.Numero_Citas}}</span></button>
 									</div>
 									<div class="col-xs-6 text-right " ng-hide="d.Hoy!=0 "  >
 										{{d.Numero_dia}}
@@ -272,14 +272,48 @@
 
 
 <div class="modal fade" id="citas" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header btn-primary">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Modal title</h4>
+        <h4 class="modal-title">Información </h4>
       </div>
       <div class="modal-body">
-        <p>One fine body&hellip;</p>
+        
+
+      	<div class="row">
+      		<div class="col-xs-12 table-responsive">
+      			<table class="table table-bordered table-condensend">
+      				<thead>
+      					<tr class="bg-primary">
+      						<th></th>
+      						<th>Empleado</th>
+      						<th>Cliente</th>
+      						<th>Usuario</th>
+      						<th>Fecha</th>
+      						<th>Hora</th>
+      						<th>Turno</th>
+      						<th>Descripción</th>
+      						<th>Estado</th>
+      					</tr>
+      				</thead>
+      				<tbody>
+      					<tr ng-repeat=" ci in list_info_day " style="font-size: 11px !important;">
+      						<td>{{$index+1}}</td>
+      						<td>{{ci.empleado.persona.apellido+' '+ci.empleado.persona.nombre}}</td>
+      						<td>{{ci.cliente.persona.apellido+' '+ci.cliente.persona.nombre}}</td>
+      						<td>{{ci.usuario.persona.apellido+' '+ci.usuario.persona.nombre}}</td>
+      						<td>{{ci.fecha}}</td>
+      						<td>{{ci.horainicio}}</td>
+      						<td>{{ci.turno}}</td>
+      						<td>{{ci.observacion}}</td>
+      						<td>{{ci.gestion}}</td>
+      					</tr>
+      				</tbody>
+      			</table>
+      		</div>
+      	</div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

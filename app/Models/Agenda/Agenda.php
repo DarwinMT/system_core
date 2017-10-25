@@ -33,18 +33,18 @@ class Agenda extends Model
 
     public function empresa()
     {
-        return $this->belongsTo('App\Modelos\Basico\Empresa',"id_em");
+        return $this->belongsTo('App\Models\Basico\Empresa',"id_em");
     }
     public function usuario()
     {
-        return $this->belongsTo('App\Modelos\Usuario\User',"id_u");
+        return $this->belongsTo('App\Models\Usuario\User',"id_u");
     }
     public function cliente()
     {
-        return $this->belongsTo('App\Modelos\Personas\Cliente',"id_cli");
+        return $this->belongsTo('App\Models\Personas\Cliente',"id_cli");
     }
     public function empleado()
     {
-        return $this->belongsTo('App\Modelos\Personas\Empleado',"id_emp");
+        return $this->belongsTo('App\Models\Personas\Empleado',"id_emp");
     }
 }
