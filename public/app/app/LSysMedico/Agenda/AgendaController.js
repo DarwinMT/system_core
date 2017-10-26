@@ -16,6 +16,116 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
     $scope.tipo_calendar="M";
     $scope.meses_letras=["ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE"];
 
+    $scope.empleadoagenda="";
+
+    ///--- configuracion empresa 
+    $scope.config_all=[];
+
+    $scope.get_config_all=function () {
+        $http.get(API_URL + 'Agenda/Configuracion')
+        .success(function(response){
+            $scope.config_all=response;
+            console.log($scope.config_all);
+            $scope.make_time();
+        });
+    };
+    $scope.get_config_all();
+    ///--- configuracion empresa 
+
+
+    ///--- generar horas
+    $scope.horas_general=[];
+    $scope.make_time=function() {
+        $scope.horas_general=[];
+        var hora_init="";
+        var hora_end="";
+        var intervalo="";
+
+        $scope.config_all.forEach(function(t){
+            switch(t.identificador){
+                case "RG_HORA_INICIO_AGENDA":
+                    hora_init=t.valor;
+                break;
+                case "RG_HORA_FIN_AGENDA":
+                    hora_end=t.valor;
+                break;
+                case "RG_INTERVALO_AGENDA":
+                    intervalo=t.valor;
+                break;
+            }
+        });
+
+        var aux_hora_init=hora_init.split(":");
+        var aux_hora_end=hora_end.split(":");
+
+        var aux_interval=intervalo.split(":");
+
+
+        for(var i=parseInt(aux_hora_init[0]); i<=parseInt(aux_hora_end[0]); i++ ){
+            for(var j=0; j<60; j+=parseInt(aux_interval[0]) ){
+
+                var hora1=(i.toString().length==1)? "0"+i: i;
+                var minuto1=(j.toString().length==1)? "0"+j: j;
+                var time =hora1+":"+minuto1;
+
+                $scope.horas_general.push(time);
+            }
+        }
+    };
+    ///--- generar horas
+
+    ///--- calendario semanal
+    $scope.list_citas_semana=[];
+    $scope.make_week=function (fecha_i,fecha_f,data) {
+        var aux_dia_i=fecha_i.split("-");
+        var aux_dia_f=fecha_f.split("-");
+        var today=new Date();
+
+
+        $scope.list_citas_semana=[];
+        data.Horas.forEach(function(h){
+            var lista_dias=[];
+            for(var x=parseInt(aux_dia_i[2]); x<=parseInt(aux_dia_f[2]); x++){
+                var hoy_actual=0;
+                if(x==today.getDate()){
+                    hoy_actual=1;
+                }
+                var dia={
+                        Id:'',
+                        Numero_dia:x,
+                        Numero_Citas:'',
+                        Hoy:hoy_actual, 
+                        Fecha: (aux_dia_i[0]+"-"+aux_dia_i[1]+"-"+( (x<10)? "0"+x:x ) )
+                    };
+                    lista_dias.push(dia);
+            }
+            $scope.list_citas_semana.push(lista_dias);
+        });
+
+        console.log($scope.list_citas_semana)
+        
+        
+    };
+    $scope.week=function (fecha_i,fecha_f) {
+        /*var filtro={
+            id_emp: $scope.empleadoagenda,
+            fechaI: $scope.fecha_desde,
+            fechaF: $scope.fecha_hasta
+        };*/
+        var filtro={
+            id_emp: $scope.empleadoagenda,
+            fechaI: fecha_i,
+            fechaF: fecha_f
+        };
+        $scope.list_agenda_mensual=[];
+        $http.get(API_URL + 'Agenda/get_agenda_semana/' + JSON.stringify(filtro))
+            .then(function(response){
+                $scope.make_week(fecha_i,fecha_f,response.data);
+        });
+    };
+    $scope.week("2017-10-22","2017-10-28");
+    ///--- calendario semanal
+
     ///--- crear calendario mensual
     $scope.mes=[];
     $scope.calendar=function(fecha_init){
@@ -237,7 +347,6 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
 
     ///--- agenda por mes
     $scope.list_agenda_mensual=[]; 
-    $scope.empleadoagenda="";
     $scope.ageda_mensual=function function_name() {
         console.log($scope.empleadoagenda)
         var filtro={
@@ -587,67 +696,9 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
             ///--- seleccione cliente
 
 
-            ///--- configuracion empresa 
-            $scope.config_all=[];
-
-            $scope.get_config_all=function () {
-                $http.get(API_URL + 'Agenda/Configuracion')
-                .success(function(response){
-                    $scope.config_all=response;
-                    console.log($scope.config_all);
-                    $scope.make_time();
-                });
-            };
-            $scope.get_config_all();
-            ///--- configuracion empresa 
-
 
         
     ///--- end crear agenda 
-
-    ///--- generar horas
-    $scope.horas_general=[];
-    $scope.make_time=function() {
-        $scope.horas_general=[];
-        var hora_init="";
-        var hora_end="";
-        var intervalo="";
-
-        $scope.config_all.forEach(function(t){
-            switch(t.identificador){
-                case "RG_HORA_INICIO_AGENDA":
-                    hora_init=t.valor;
-                break;
-                case "RG_HORA_FIN_AGENDA":
-                    hora_end=t.valor;
-                break;
-                case "RG_INTERVALO_AGENDA":
-                    intervalo=t.valor;
-                break;
-            }
-        });
-
-        var aux_hora_init=hora_init.split(":");
-        var aux_hora_end=hora_end.split(":");
-
-        var aux_interval=intervalo.split(":");
-
-        console.log(aux_interval[0])
-
-        for(var i=parseInt(aux_hora_init[0]); i<=parseInt(aux_hora_end[0]); i++ ){
-            for(var j=0; j<60; j+=parseInt(aux_interval[0]) ){
-
-                var hora1=(i.toString().length==1)? "0"+i: i;
-                var minuto1=(j.toString().length==1)? "0"+j: j;
-                var time =hora1+":"+minuto1;
-
-                $scope.horas_general.push(time);
-            }
-        }
-
-        
-    };
-    ///--- generar horas
 
     ///--- buscar horas disponibles 
     $('#fechacita').on('dp.change', function(e){

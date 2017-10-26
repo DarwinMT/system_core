@@ -156,6 +156,48 @@
 		</div>
 
 
+		<div class="row" id="mes" ng-hide=" tipo_calendar!='S' ">
+			<div class="col-xs-12 table-responsive">
+				<table class="table table-condensend table-bordered">
+					<thead>
+						<tr class="bg-primary">
+							<th colspan="7" class="text-center">{{Fecha_Select}}</th>
+						</tr>
+						<tr class="bg-primary">
+							<th style="">Domingo</th>
+							<th style="">Lunes</th>
+							<th style="">Martes</th>
+							<th style="">Miercoles</th>
+							<th style="">Jueves</th>
+							<th style="">Viernes</th>
+							<th style="">Sabado</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat=" w in list_citas_semana">
+							<td ng-repeat=" dy in w ">
+								<div class="row">
+									<div class="col-xs-6">
+										<button ng-hide=" dy.Numero_Citas=='' "  ng-click="info_citas_dia(dy);" class="btn btn-sm btn-success"><span class="badge" >{{dy.Numero_Citas}}</span></button>
+									</div>
+									<div class="col-xs-6 text-right " ng-hide="dy.Hoy!=0 "  >
+										{{dy.Numero_dia}}
+									</div>
+
+									<div class="col-xs-6 text-center " ng-hide="dy.Hoy==0 "  >
+										<div style="width: 30px; height: 30px; background-color:#81d4fa; border-radius: 50%; float: right;">
+											{{dy.Numero_dia}}
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+
 
 		<div ng-hide=" tipo_calendar!='AG' " >
 		<form class="form-horizontal"  name="frm_agenda" id="frm_agenda"  novalidate="">	

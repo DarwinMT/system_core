@@ -112,5 +112,31 @@ class AgendaController extends Controller
                     ->whereRaw($sql)
                     ->orderBy("agenda.horainicio","ASC")
                     ->get();
-     }  
+     } 
+    /**
+     *
+     * informacion de la agenda por semana
+     * 
+     */
+    public function get_agenda_semana($texto){
+        $filtro = json_decode($texto);
+        $sql=" agenda.fecha BETWEEN '".$filtro->fechaI."' AND '".$filtro->fechaF."'";
+        if($filtro->id_emp!=""){
+            $sql.=" AND agenda.id_emp='".$filtro->id_emp."' ";
+        }
+        $Citas=Agenda::with("usuario.persona","cliente.persona","empleado.persona")
+                    ->whereRaw($sql)
+                    ->orderBy("agenda.fecha","ASC")
+                    ->orderBy("agenda.horainicio","ASC")
+                    ->get();
+        $horas=Agenda::whereRaw($sql)
+                    ->groupBy("agenda.horainicio")
+                    ->orderBy("agenda.horainicio","ASC")
+                    ->get();
+        $data = array(
+                'Horas' => $horas, 
+                'Citas' => $Citas
+            );
+        return $data;
+    }  
 }
