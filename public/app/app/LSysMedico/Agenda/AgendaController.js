@@ -25,7 +25,6 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
         $http.get(API_URL + 'Agenda/Configuracion')
         .success(function(response){
             $scope.config_all=response;
-            console.log($scope.config_all);
             $scope.make_time();
         });
     };
@@ -76,6 +75,7 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
 
     ///--- calendario semanal
     $scope.list_citas_semana=[];
+    $scope.list_dias_citas_semana=[];
     $scope.make_week=function (fecha_i,fecha_f,data) {
         var aux_dia_i=fecha_i.split("-");
         var aux_dia_f=fecha_f.split("-");
@@ -83,6 +83,9 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
 
 
         $scope.list_citas_semana=[];
+        $scope.list_dias_citas_semana=[];
+        var aux_dia=1;
+        var aux_hora=1;
         data.Horas.forEach(function(h){
             var lista_dias=[];
             for(var x=parseInt(aux_dia_i[2]); x<=parseInt(aux_dia_f[2]); x++){
@@ -90,28 +93,53 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
                 if(x==today.getDate()){
                     hoy_actual=1;
                 }
+                if(aux_hora==1){
+                    var horas={
+                        time:h.horainicio
+                    };
+                    lista_dias.push(horas);
+                }
                 var dia={
                         Id:'',
                         Numero_dia:x,
+                        Hora:h.horainicio, 
                         Numero_Citas:'',
                         Hoy:hoy_actual, 
                         Fecha: (aux_dia_i[0]+"-"+aux_dia_i[1]+"-"+( (x<10)? "0"+x:x ) )
                     };
                     lista_dias.push(dia);
+                    if(aux_dia==1) $scope.list_dias_citas_semana.push(x);
+                    aux_hora++;
             }
             $scope.list_citas_semana.push(lista_dias);
+            aux_dia++;
+            aux_hora=1;
         });
 
-        console.log($scope.list_citas_semana)
+        console.log($scope.list_citas_semana);
+
+        $scope.list_citas_semana.forEach(function(c){
+            c.forEach(function(d){
+                if(d.Hora!=undefined){
+                    var nummerocitas=0;
+                    data.Citas.forEach(function(a){
+                        if(a.fecha==d.Fecha && a.horainicio==d.Hora){
+                           nummerocitas++; 
+                        }
+                    });
+                    d.Numero_Citas=nummerocitas;
+                }
+            });
+        });        
         
         
     };
     $scope.week=function (fecha_i,fecha_f) {
-        /*var filtro={
+        var filtro={
             id_emp: $scope.empleadoagenda,
             fechaI: $scope.fecha_desde,
             fechaF: $scope.fecha_hasta
-        };*/
+        };
         var filtro={
             id_emp: $scope.empleadoagenda,
             fechaI: fecha_i,
@@ -120,10 +148,10 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
         $scope.list_agenda_mensual=[];
         $http.get(API_URL + 'Agenda/get_agenda_semana/' + JSON.stringify(filtro))
             .then(function(response){
+                console.log(response.data)
                 $scope.make_week(fecha_i,fecha_f,response.data);
         });
     };
-    $scope.week("2017-10-22","2017-10-28");
     ///--- calendario semanal
 
     ///--- crear calendario mensual
@@ -348,7 +376,7 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
     ///--- agenda por mes
     $scope.list_agenda_mensual=[]; 
     $scope.ageda_mensual=function function_name() {
-        console.log($scope.empleadoagenda)
+        
         var filtro={
             id_emp: $scope.empleadoagenda,
             fechaI: $scope.fecha_desde,
@@ -358,8 +386,7 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
         $http.get(API_URL + 'Agenda/get_agenda_mensual/' + JSON.stringify(filtro))
             .then(function(response){
                 $scope.list_agenda_mensual = response.data;
-                console.log($scope.list_agenda_mensual);
-                console.log($scope.mes);
+                
 
                 $scope.mes.forEach(function(m) {
                     m.forEach(function(d){
@@ -388,7 +415,6 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
             $scope.fecha_referencial_angular=f;
         }
         
-        console.log(action+" "+ $scope.fecha_referencial_angular)
         //var f = new Date();
         var desde="";
         var hasta="";
@@ -402,7 +428,7 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
                 $scope.fecha_desde=desde;
 
                 var aux_ultimodia_mes=new Date(f.getFullYear(),(f.getMonth()+1),0);
-                console.log(aux_ultimodia_mes)
+                
                 hasta=f.getFullYear()+"-";
                 hasta+=((f.getMonth()+1)<10) ? "0"+(f.getMonth()+1):(f.getMonth()+1);
                 hasta+="-"+aux_ultimodia_mes.getDate();
@@ -461,6 +487,10 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
                 $("#fecha_hasta").val(hasta);
                 $scope.fecha_hasta=hasta;
                 
+                $scope.fecha_inicial=$scope.fecha_desde;
+
+
+                $scope.week($scope.fecha_desde,$scope.fecha_hasta);
 
             break;
         };  
@@ -513,43 +543,38 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
     ///--- retroceder y adelantar calendario
     $scope.back_calendar=function(){
 
+        var aux_mes= $scope.fecha_inicial;
+        var aux = aux_mes.split("-");
+
         switch($scope.tipo_calendar){
             case "M": // mensual
-                var aux_mes= $scope.fecha_inicial;
-
-                var aux = aux_mes.split("-");
                 var fecha_back= new Date(parseInt(aux[0]), (parseInt(aux[1]) -1 ),1);
-                var dayOfMonth = fecha_back.getMonth();
                 fecha_back.setMonth(fecha_back.getMonth()-1); //restar mes
-
                 $scope.crear_fechas_control($scope.tipo_calendar, fecha_back);
-                /*var aux_mes_suma=(fecha_back.getMonth()+1);
-                var aux_mes = (aux_mes_suma.toString().length==1)? "0"+(aux_mes_suma):(aux_mes_suma);
-                var aux_dias = (fecha_back.getDate().toString().length==1)? "0"+fecha_back.getDate():fecha_back.getDate();
-                $scope.fecha_inicial=fecha_back.getFullYear()+"-"+aux_mes+"-"+aux_dias;
-                $scope.calendar($scope.fecha_inicial);*/
+                
+            break;
+            case "S":
+                var fecha_back= new Date(parseInt(aux[0]), (parseInt(aux[1]) -1 ),parseInt(aux[2]));
+                fecha_back.setDate(fecha_back.getDate()-7); //restar dias
+                $scope.crear_fechas_control($scope.tipo_calendar, fecha_back);
             break;
         };
         $scope.titulo_fecha();
     };
 
     $scope.nex_calendar=function(){
+        var aux_mes= $scope.fecha_inicial;
+        var aux = aux_mes.split("-");
         switch($scope.tipo_calendar){
             case "M": // mensual
-                var aux_mes= $scope.fecha_inicial;
-                var aux = aux_mes.split("-");
-                
                 var fecha_next= new Date(parseInt(aux[0]), (parseInt(aux[1])-1),1);
-                var dayOfMonth2 = fecha_next.getMonth();
                 fecha_next.setMonth(dayOfMonth2 + 1); //sumar mes
-                
                 $scope.crear_fechas_control($scope.tipo_calendar, fecha_next);
-
-                /*var aux_mes_suma=(fecha_next.getMonth()+1);
-                var aux_mes = (aux_mes_suma.toString().length==1)? "0"+(aux_mes_suma):(aux_mes_suma);
-                var aux_dias = (fecha_next.getDate().toString().length==1)? "0"+fecha_next.getDate():fecha_next.getDate();
-                $scope.fecha_inicial=fecha_next.getFullYear()+"-"+aux_mes+"-"+aux_dias;
-                $scope.calendar($scope.fecha_inicial);*/
+            break;
+            case "S":
+                var fecha_back= new Date(parseInt(aux[0]), (parseInt(aux[1]) -1 ),parseInt(aux[2]));
+                fecha_back.setDate(fecha_back.getDate()+7); //sumar dias
+                $scope.crear_fechas_control($scope.tipo_calendar, fecha_back);
             break;
         };
         $scope.titulo_fecha();
@@ -623,7 +648,6 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
                 $http.get(API_URL + 'Empleado/get_list_empleado_excell/' + JSON.stringify(filtros))
                     .then(function(response){
                         $scope.list_empleados0 = response.data;
-                        console.log($scope.list_empleados0);
                  });
             };
             $scope.all_empleado();

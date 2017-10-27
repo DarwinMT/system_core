@@ -161,34 +161,31 @@
 				<table class="table table-condensend table-bordered">
 					<thead>
 						<tr class="bg-primary">
-							<th colspan="7" class="text-center">{{Fecha_Select}}</th>
+							<th colspan="8" class="text-center">{{Fecha_Select}}</th>
 						</tr>
 						<tr class="bg-primary">
-							<th style="">Domingo</th>
-							<th style="">Lunes</th>
-							<th style="">Martes</th>
-							<th style="">Miercoles</th>
-							<th style="">Jueves</th>
-							<th style="">Viernes</th>
-							<th style="">Sabado</th>
+							<th style="">Tiempo</th>
+							<th style="">Domingo  {{list_dias_citas_semana[0]}}</th>
+							<th style="">Lunes    {{list_dias_citas_semana[1]}}</th>
+							<th style="">Martes   {{list_dias_citas_semana[2]}}</th>
+							<th style="">Miercoles {{list_dias_citas_semana[3]}} </th>
+							<th style="">Jueves   {{list_dias_citas_semana[4]}}</th>
+							<th style="">Viernes  {{list_dias_citas_semana[5]}}</th>
+							<th style="">Sabado   {{list_dias_citas_semana[6]}}</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat=" w in list_citas_semana">
-							<td ng-repeat=" dy in w ">
-								<div class="row">
+							<td ng-repeat=" dy in w " >
+								<div class="row" >
 									<div class="col-xs-6">
-										<button ng-hide=" dy.Numero_Citas=='' "  ng-click="info_citas_dia(dy);" class="btn btn-sm btn-success"><span class="badge" >{{dy.Numero_Citas}}</span></button>
+										<button ng-hide=" dy.Numero_Citas=='' || dy.time "  ng-click="info_citas_dia(dy);" class="btn btn-sm btn-success"><span class="badge" >{{dy.Numero_Citas}}</span></button>
 									</div>
-									<div class="col-xs-6 text-right " ng-hide="dy.Hoy!=0 "  >
-										{{dy.Numero_dia}}
+									
+									<div class="col-xs-12" ng-hide=" !dy.time">
+										{{dy.time}}
 									</div>
-
-									<div class="col-xs-6 text-center " ng-hide="dy.Hoy==0 "  >
-										<div style="width: 30px; height: 30px; background-color:#81d4fa; border-radius: 50%; float: right;">
-											{{dy.Numero_dia}}
-										</div>
-									</div>
+								
 								</div>
 							</td>
 						</tr>
@@ -337,6 +334,7 @@
       						<th>Turno</th>
       						<th>Descripción</th>
       						<th>Estado</th>
+      						<th>Tipo</th>
       					</tr>
       				</thead>
       				<tbody>
@@ -350,6 +348,11 @@
       						<td>{{ci.turno}}</td>
       						<td>{{ci.observacion}}</td>
       						<td>{{ci.gestion}}</td>
+
+
+      						<td ng-hide="ci.tipo==1 " style="background-color: #f44336 ">{{((ci.tipo==1)?"NORMAL":"EMERRGENCIA")}}</td>
+      						<td ng-hide="ci.tipo!=1 " style="background-color: #80cbc4 ">{{((ci.tipo==1)?"NORMAL":"EMERRGENCIA")}}</td>
+
       					</tr>
       				</tbody>
       			</table>
@@ -358,8 +361,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="glyphicon glyphicon-ban-circle"></i> Cancelar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
