@@ -49,10 +49,10 @@
 					<button type="button" ng-click="nex_calendar();" class="btn btn-primary btn-sm">
 							<i class="glyphicon glyphicon-forward "></i> Adelante
 					</button>
-
+					<!--
 					<button type="button" class="btn btn-info btn-sm" ng-click="control_panel2('Y');" id="btn_year">
 						<i class="glyphicon glyphicon-calendar "></i> Año
-					</button>
+					</button>-->
 					<button type="button" class="btn btn-info btn-sm" ng-click="control_panel2('M');" id="btn_mes">
 						<i class="glyphicon glyphicon-calendar "></i> Mes
 					</button>

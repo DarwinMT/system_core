@@ -81,6 +81,13 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
         var aux_dia_f=fecha_f.split("-");
         var today=new Date();
 
+        
+        var fecha_init=new Date(parseInt(aux_dia_i[0]), (parseInt(aux_dia_i[1]) -1 ), parseInt(aux_dia_i[2]));
+
+        var fecha_end=new Date(parseInt(aux_dia_f[0]), (parseInt(aux_dia_f[1]) -1 ), parseInt(aux_dia_f[2]));
+
+
+
 
         $scope.list_citas_semana=[];
         $scope.list_dias_citas_semana=[];
@@ -88,9 +95,11 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
         var aux_hora=1;
         data.Horas.forEach(function(h){
             var lista_dias=[];
-            for(var x=parseInt(aux_dia_i[2]); x<=parseInt(aux_dia_f[2]); x++){
+
+            while(fecha_init<=fecha_end){
+
                 var hoy_actual=0;
-                if(x==today.getDate()){
+                if(fecha_init.getDate()==today.getDate()){
                     hoy_actual=1;
                 }
                 if(aux_hora==1){
@@ -101,19 +110,26 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
                 }
                 var dia={
                         Id:'',
-                        Numero_dia:x,
+                        Numero_dia:fecha_init.getDate(),
                         Hora:h.horainicio, 
                         Numero_Citas:'',
                         Hoy:hoy_actual, 
-                        Fecha: (aux_dia_i[0]+"-"+aux_dia_i[1]+"-"+( (x<10)? "0"+x:x ) )
+                        Fecha: (aux_dia_i[0]+"-"+aux_dia_i[1]+"-"+( (fecha_init.getDate()<10)? ("0"+fecha_init.getDate()):fecha_init.getDate() ) )
                     };
                     lista_dias.push(dia);
-                    if(aux_dia==1) $scope.list_dias_citas_semana.push(x);
+                    if(aux_dia==1) $scope.list_dias_citas_semana.push(fecha_init.getDate());
                     aux_hora++;
+
+                fecha_init.setDate(fecha_init.getDate()+1);
+                
+
             }
             $scope.list_citas_semana.push(lista_dias);
             aux_dia++;
             aux_hora=1;
+            fecha_init=new Date(parseInt(aux_dia_i[0]), (parseInt(aux_dia_i[1]) -1 ), parseInt(aux_dia_i[2]));
+            fecha_end=new Date(parseInt(aux_dia_f[0]), (parseInt(aux_dia_f[1]) -1 ), parseInt(aux_dia_f[2]));
+
         });
 
         console.log($scope.list_citas_semana);
