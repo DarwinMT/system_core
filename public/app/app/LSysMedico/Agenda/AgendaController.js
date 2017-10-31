@@ -73,6 +73,23 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
     };
     ///--- generar horas
 
+
+    ///--- agenda diaria
+    $scope.list_agend_day=[];
+    $scope.make_day=function(fecha){
+        var filtro_cita={
+            Fecha: fecha,
+            id_emp: $scope.empleadoagenda
+        };
+        $scope.list_info_day=[];
+        $http.get(API_URL + 'Agenda/get_info_agenda_mensual/' + JSON.stringify(filtro_cita))
+            .then(function(response){
+                console.log(response.data);
+                $scope.list_agend_day=response.data;
+        }); 
+    }
+    ///--- agenda diaria
+
     ///--- calendario semanal
     $scope.list_citas_semana=[];
     $scope.list_dias_citas_semana=[];
@@ -467,6 +484,8 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
                 hasta=desde;
                 $("#fecha_hasta").val(hasta);
                 $scope.fecha_hasta=hasta;
+                $scope.fecha_inicial=$scope.fecha_desde;
+                $scope.make_day($scope.fecha_inicial);
             break;
             case "Y":
                 desde=f.getFullYear()+"-";
@@ -574,6 +593,11 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
                 fecha_back.setDate(fecha_back.getDate()-7); //restar dias
                 $scope.crear_fechas_control($scope.tipo_calendar, fecha_back);
             break;
+            case "D":
+                var fecha_back= new Date(parseInt(aux[0]), (parseInt(aux[1]) -1 ),parseInt(aux[2]));
+                fecha_back.setDate(fecha_back.getDate()-1); //restar dias
+                $scope.crear_fechas_control($scope.tipo_calendar, fecha_back);
+            break;
         };
         $scope.titulo_fecha();
     };
@@ -590,6 +614,11 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
             case "S":
                 var fecha_back= new Date(parseInt(aux[0]), (parseInt(aux[1]) -1 ),parseInt(aux[2]));
                 fecha_back.setDate(fecha_back.getDate()+7); //sumar dias
+                $scope.crear_fechas_control($scope.tipo_calendar, fecha_back);
+            break;
+            case "D":
+                var fecha_back= new Date(parseInt(aux[0]), (parseInt(aux[1]) -1 ),parseInt(aux[2]));
+                fecha_back.setDate(fecha_back.getDate()+1); //sumar dias
                 $scope.crear_fechas_control($scope.tipo_calendar, fecha_back);
             break;
         };
@@ -853,6 +882,63 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
 
     };
     ///--- guardar agenda
+
+    ///---editar agenda
+    $scope.aux_edit_cita={}; 
+    $scope.edit_cita=function(item){
+        $scope.aux_edit_cita=item;
+        $scope.tipo_calendar='AG';
+
+        $scope.aux_cliente=item.cliente;
+        $scope.nombrecliente=item.cliente.persona.apellido+" "+item.cliente.persona.nombre;
+
+
+        $scope.aux_empleado=item.empleado;
+        $scope.nombreempleado=item.empleado.persona.apellido+" "+item.empleado.persona.nombre;
+
+
+        $scope.tipoagenda=String(item.tipo);
+
+        $scope.observacion=item.observacion;
+
+        console.log(item);
+    };
+
+    $scope.save_edit_agenda=function(){
+        $("#progress").modal("show");
+        var fhoy=new Date();
+        var today=fhoy.getFullYear()+"-"+(fhoy.getMonth()+1)+"-"+fhoy.getDate();
+        var agenda={
+            id_ag:$scope.aux_edit_cita.id_ag, 
+            id_em: $scope.aux_edit_cita.id_em,
+            id_u: $scope.aux_edit_cita.id_u,
+            id_cli: $scope.aux_cliente.id_cli,
+            id_emp: $scope.aux_empleado.id_emp,
+            turno: $scope.aux_empleado.turno,
+            fechacreacion: today,
+            fecha: $scope.fechacita,
+            horainicio: $scope.hora,
+            horafin: '',
+            observacion: $scope.observacion,
+            tipo: $scope.tipoagenda, // 1 normal , 2 emergencia 
+            gestion:$scope.aux_empleado.gestion, // 1, sin gestionar 2, gestionada o finalizada
+            estado: $scope.aux_empleado.estado // 1 activa, 0 inactiva 
+        };
+        $http.put(API_URL + 'Agenda/'+$scope.aux_edit_cita.id_ag,agenda)
+        .success(function(response){
+            console.log(response);
+            $("#progress").modal("hide");
+            if(response.success==0){
+                sms("btn-success","Se guardo correctamente los datos..!!");
+                $scope.clear_agenda();
+            }else{
+                sms("btn-danger","Error al guardar los datos..!!");
+                $scope.clear_agenda();
+            }
+        });
+
+    };
+    ///---editar agenda 
 
 
     ///--- inforamcion de la citas 

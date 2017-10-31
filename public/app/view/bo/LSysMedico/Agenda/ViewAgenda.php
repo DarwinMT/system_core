@@ -156,7 +156,7 @@
 		</div>
 
 
-		<div class="row" id="mes" ng-hide=" tipo_calendar!='S' ">
+		<div class="row"  ng-hide=" tipo_calendar!='S' ">
 			<div class="col-xs-12 table-responsive">
 				<table class="table table-condensend table-bordered">
 					<thead>
@@ -192,6 +192,58 @@
 					</tbody>
 				</table>
 			</div>
+		</div>
+
+
+		<div class="row"  ng-hide=" tipo_calendar!='D' ">
+			<div class="col-xs-12 table-responsive">
+      			<table class="table table-bordered table-condensend">
+      				<thead>
+      					<tr class="bg-primary">
+      						<th></th>
+      						<th>Empleado</th>
+      						<th>Cliente</th>
+      						<th>Usuario</th>
+      						<th>Fecha</th>
+      						<th>Hora</th>
+      						<th>Turno</th>
+      						<th>Descripción</th>
+      						<th>Estado</th>
+      						<th>Tipo</th>
+      						<th></th>
+      					</tr>
+      				</thead>
+      				<tbody>
+      					<tr ng-repeat=" dg in list_agend_day " style="font-size: 11px !important;">
+      						<td>{{$index+1}}</td>
+      						<td>{{dg.empleado.persona.apellido+' '+dg.empleado.persona.nombre}}</td>
+      						<td>{{dg.cliente.persona.apellido+' '+dg.cliente.persona.nombre}}</td>
+      						<td>{{dg.usuario.persona.apellido+' '+dg.usuario.persona.nombre}}</td>
+      						<td>{{dg.fecha}}</td>
+      						<td>{{dg.horainicio}}</td>
+      						<td>{{dg.turno}}</td>
+      						<td>{{dg.observacion}}</td>
+      						<td>{{dg.gestion}}</td>
+
+
+      						<td ng-hide="dg.tipo==1 " style="background-color: #f44336 ">{{((dg.tipo==1)?"NORMAL":"EMERRGENCIA")}}</td>
+      						<td ng-hide="dg.tipo!=1 " style="background-color: #80cbc4 ">{{((dg.tipo==1)?"NORMAL":"EMERRGENCIA")}}</td>
+
+      						<td>
+      							<div class="btn-group" role="group" >
+      								<button class="btn btn-info btn-sm" ng-click="edit_cita(dg)">
+      									<i class="glyphicon glyphicon-edit"   ></i>
+      								</button>
+      								<button class="btn btn-danger btn-sm">
+      									<i class="glyphicon glyphicon-trash"></i>
+      								</button>
+      							</div>
+      						</td>
+
+      					</tr>
+      				</tbody>
+      			</table>
+      		</div>
 		</div>
 
 
@@ -284,6 +336,12 @@
 							<i class="glyphicon glyphicon-calendar"></i>
 							Agendar
 						</button>
+
+						<button class="btn btn-info btn-sm" type="button" ng-click="save_edit_agenda();" ng-disabled=" frm_agenda.$invalid ">
+							<i class="glyphicon glyphicon-calendar"></i>
+							Agendar
+						</button>
+
 
 						<button class="btn btn-default btn-sm" type="button" ng-click="clear_agenda(); control_panel('M'); " >
 							<i class="glyphicon glyphicon-ban-circle"></i>

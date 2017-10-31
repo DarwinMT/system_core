@@ -138,5 +138,21 @@ class AgendaController extends Controller
                 'Citas' => $Citas
             );
         return $data;
+    }
+    /**
+     *
+     *
+     * Modificar  agenda
+     *
+     */
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+        $respuesta=Agenda::whereRaw("id_ag=".$id);
+        if($respuesta->update($data)){
+            return response()->json(['success' => 0]); //ok
+        }else{
+            return response()->json(['success' => 1]); //error al modificar  los datos de la agenda
+        }
     }  
 }
