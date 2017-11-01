@@ -81,6 +81,7 @@ Route::resource('CargoE', 'Personas\CargoController');
 
 
 /*-----------------Logica agenda --------------*/
+Route::get('Agenda/estado/{texto}', 'LSysMedico\Agenda\AgendaController@modify_estado');
 Route::get('Agenda/get_agenda_semana/{texto}', 'LSysMedico\Agenda\AgendaController@get_agenda_semana');
 Route::get('Agenda/get_info_agenda_mensual/{texto}', 'LSysMedico\Agenda\AgendaController@get_info_agenda_mensual');
 Route::get('Agenda/get_agenda_mensual/{texto}', 'LSysMedico\Agenda\AgendaController@get_agenda_mes');

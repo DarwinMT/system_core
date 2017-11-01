@@ -974,6 +974,45 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
 
     };
     ///--- inforamcion de la citas 
+
+    ///---dar de baja cita 
+    $scope.aux_estado_agenda={};
+    $scope.int_estado=function(item){
+        $scope.aux_estado_agenda=item;
+        if($scope.aux_estado_agenda.estado.toString()=="1"){
+            $scope.Msm_estado=" Esta seguro de inactivar la cita";
+        }else{
+            $scope.Msm_estado=" Esta seguro de activar la cita";
+        }
+        $("#modalestado").modal("show");
+    };
+    $scope.update_estado=function(){
+      $("#modalestado").modal("hide");
+      $("#progress").modal("show");
+      var aux_estado=($scope.aux_estado_agenda.estado.toString()=="1")?"0":"1";
+
+      var Rol={
+        id_ag:$scope.aux_estado_agenda.id_ag,
+        estado:aux_estado
+      };
+      $http.get(API_URL + 'Agenda/estado/' + JSON.stringify(Rol))
+        .success(function(data){
+            if(data.success==0){
+                $("#progress").modal("hide");
+                sms("btn-success","Se guardo correctamente la transacción..!!");
+                //$scope.clear();
+                //$scope.newusersin="0";
+                $scope.control_panel3();
+            }else{
+                $("#progress").modal("hide");
+                sms("btn-danger","Error al guardar la transacción..!!");
+                //$scope.clear();
+                //$scope.newusersin="0";
+                $scope.control_panel3();
+            }
+        });        
+    };
+    ///---dar de baja cita 
 });
 
 function sms(color,mensaje) {

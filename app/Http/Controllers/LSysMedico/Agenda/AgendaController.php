@@ -173,5 +173,22 @@ class AgendaController extends Controller
         }else{
             return response()->json(['success' => 1]); //error al modificar  los datos de la agenda
         }
-    }  
+    }
+    /**
+     *
+     *
+     * cambiar estado de la agenda o cita
+     *
+     */
+    public function modify_estado($texto)
+    {
+        $datos = json_decode($texto);
+        $aux_agenda=Agenda::find($datos->id_ag);
+        $aux_agenda->estado=$datos->estado;
+        if($aux_agenda->save()){
+            return response()->json(['success' => 0]); //ok
+        }else{
+            return response()->json(['success' => 1]); //error al modificar el estado
+        }
+    }       
 }
