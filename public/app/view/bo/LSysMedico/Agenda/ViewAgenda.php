@@ -231,10 +231,11 @@
 
       						<td>
       							<div class="btn-group" role="group" >
-      								<button class="btn btn-info btn-sm" ng-click="edit_cita(dg)">
+      								<button class="btn btn-info btn-sm" ng-disabled=" list_permisos.access_edit==0 " 
+      									ng-click="edit_cita(dg)">
       									<i class="glyphicon glyphicon-edit"   ></i>
       								</button>
-      								<button class="btn btn-danger btn-sm">
+      								<button class="btn btn-danger btn-sm" ng-disabled=" list_permisos.access_delete==0 ">
       									<i class="glyphicon glyphicon-trash"></i>
       								</button>
       							</div>
@@ -333,13 +334,13 @@
 				<div class="col-md-12 col-xs-12 text-center ">
 					<div class="btn-group ">
 						<button class="btn btn-success btn-sm" type="button" ng-click="save_agenda();" 
-							ng-disabled=" frm_agenda.$invalid " ng-hide="aux_edit_cita.id_ag!=undefined || aux_edit_cita.id_ag!=null ">
+							ng-disabled="list_permisos.access_save==0 || frm_agenda.$invalid " ng-hide="list_permisos.access_save==0 || aux_edit_cita.id_ag!=undefined || aux_edit_cita.id_ag!=null ">
 							<i class="glyphicon glyphicon-calendar"></i>
 							Agendar
 						</button>
 
 						<button class="btn btn-info btn-sm" type="button" ng-click="save_edit_agenda();" 
-							ng-disabled=" frm_agenda.$invalid " ng-hide="aux_edit_cita.id_ag==undefined || aux_edit_cita.id_ag==null ">
+							ng-disabled="list_permisos.access_edit==0 ||  frm_agenda.$invalid " ng-hide="list_permisos.access_edit==0 || aux_edit_cita.id_ag==undefined || aux_edit_cita.id_ag==null ">
 							<i class="glyphicon glyphicon-calendar"></i>
 							Agendar
 						</button>

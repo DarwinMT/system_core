@@ -18,6 +18,21 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
 
     $scope.empleadoagenda="";
 
+    ///---
+    $scope.list_permisos=[];
+    $scope.permisos_user=function () {
+        $http.get(API_URL + 'Agenda')
+        .success(function(response){
+            console.log(response[0].id_men);
+            if(response[0].id_men!= undefined  ){ // no tiene session activa
+                $scope.list_permisos=response[0];
+            }else{
+                location.reload();
+            }
+        });
+    };
+    ///---    
+
     ///--- configuracion empresa 
     $scope.config_all=[];
 
@@ -878,7 +893,7 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
         $scope.hora="";
 
         $scope.aux_edit_cita={}; 
-        
+
         $scope.control_panel2($scope.tipo_calendar);
 
     };
