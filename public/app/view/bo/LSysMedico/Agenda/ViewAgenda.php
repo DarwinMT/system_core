@@ -142,7 +142,7 @@
 										{{d.Numero_dia}}
 									</div>
 
-									<div class="col-xs-6 text-center " ng-hide="d.Hoy==0 "  >
+									<div class="col-xs-6 text-center " ng-hide="d.Hoy==0 && !isNaN(d.Numero_dia) "  >
 										<div style="width: 30px; height: 30px; background-color:#81d4fa; border-radius: 50%; float: right;">
 											{{d.Numero_dia}}
 										</div>
@@ -332,18 +332,21 @@
 			<div class="row">
 				<div class="col-md-12 col-xs-12 text-center ">
 					<div class="btn-group ">
-						<button class="btn btn-success btn-sm" type="button" ng-click="save_agenda();" ng-disabled=" frm_agenda.$invalid ">
+						<button class="btn btn-success btn-sm" type="button" ng-click="save_agenda();" 
+							ng-disabled=" frm_agenda.$invalid " ng-hide="aux_edit_cita.id_ag!=undefined || aux_edit_cita.id_ag!=null ">
 							<i class="glyphicon glyphicon-calendar"></i>
 							Agendar
 						</button>
 
-						<button class="btn btn-info btn-sm" type="button" ng-click="save_edit_agenda();" ng-disabled=" frm_agenda.$invalid ">
+						<button class="btn btn-info btn-sm" type="button" ng-click="save_edit_agenda();" 
+							ng-disabled=" frm_agenda.$invalid " ng-hide="aux_edit_cita.id_ag==undefined || aux_edit_cita.id_ag==null ">
 							<i class="glyphicon glyphicon-calendar"></i>
 							Agendar
 						</button>
 
 
-						<button class="btn btn-default btn-sm" type="button" ng-click="clear_agenda(); control_panel('M'); " >
+						<button class="btn btn-default btn-sm" type="button" 
+							ng-click="clear_agenda(); control_panel('M'); "  >
 							<i class="glyphicon glyphicon-ban-circle"></i>
 							Cancelar
 						</button>	

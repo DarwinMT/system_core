@@ -608,7 +608,7 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
         switch($scope.tipo_calendar){
             case "M": // mensual
                 var fecha_next= new Date(parseInt(aux[0]), (parseInt(aux[1])-1),1);
-                fecha_next.setMonth(dayOfMonth2 + 1); //sumar mes
+                fecha_next.setMonth(fecha_next.getMonth() + 1); //sumar mes
                 $scope.crear_fechas_control($scope.tipo_calendar, fecha_next);
             break;
             case "S":
@@ -877,7 +877,8 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
         $scope.observacion="";
         $scope.hora="";
 
-
+        $scope.aux_edit_cita={}; 
+        
         $scope.control_panel2($scope.tipo_calendar);
 
     };
