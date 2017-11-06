@@ -17,6 +17,7 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
     $scope.meses_letras=["ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE"];
 
     $scope.empleadoagenda="";
+    $scope.estadoanuladoagenda="1";
 
     ///---
     $scope.list_permisos=[];
@@ -428,7 +429,8 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
         var filtro={
             id_emp: $scope.empleadoagenda,
             fechaI: $scope.fecha_desde,
-            fechaF: $scope.fecha_hasta
+            fechaF: $scope.fecha_hasta,
+            estado: $scope.estadoanuladoagenda
         };
         $scope.list_agenda_mensual=[];
         $http.get(API_URL + 'Agenda/get_agenda_mensual/' + JSON.stringify(filtro))

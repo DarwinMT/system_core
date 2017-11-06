@@ -103,14 +103,14 @@ class AgendaController extends Controller
     public function get_agenda_mes($texto)
     {
     	$filtro = json_decode($texto);
-        $sql=" agenda.fecha BETWEEN '".$filtro->fechaI."' AND '".$filtro->fechaF."'";
+        $sql=" agenda.fecha BETWEEN '".$filtro->fechaI."' AND '".$filtro->fechaF."' AND agenda.estado='".$filtro->estado."' ";
         $sql2="";
         if($filtro->id_emp!=""){
             $sql.=" AND agenda.id_emp='".$filtro->id_emp."' ";
             $sql2=" AND aux.id_emp=agenda.id_emp ";
         }
     	return Agenda::selectRaw("*")
-                    ->selectRaw("  (SELECT COUNT(*) FROM agenda AS aux WHERE aux.fecha=agenda.fecha ".$sql2." ) AS NumeroCita  ")
+                    ->selectRaw("  (SELECT COUNT(*) FROM agenda AS aux WHERE aux.fecha=agenda.fecha ".$sql2." AND aux.estado='".$filtro->estado."' ) AS NumeroCita  ")
                     ->whereRaw($sql)
                     ->groupBy("agenda.fecha")
                     ->orderBy("agenda.fecha","ASC")
