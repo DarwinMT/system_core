@@ -95,7 +95,8 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
     $scope.make_day=function(fecha){
         var filtro_cita={
             Fecha: fecha,
-            id_emp: $scope.empleadoagenda
+            id_emp: $scope.empleadoagenda,
+            estado: $scope.estadoanuladoagenda
         };
         $scope.list_info_day=[];
         $http.get(API_URL + 'Agenda/get_info_agenda_mensual/' + JSON.stringify(filtro_cita))
@@ -184,15 +185,16 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
         
     };
     $scope.week=function (fecha_i,fecha_f) {
-        var filtro={
+        /*var filtro={
             id_emp: $scope.empleadoagenda,
             fechaI: $scope.fecha_desde,
             fechaF: $scope.fecha_hasta
-        };
+        };*/
         var filtro={
             id_emp: $scope.empleadoagenda,
             fechaI: fecha_i,
-            fechaF: fecha_f
+            fechaF: fecha_f,
+            estado: $scope.estadoanuladoagenda
         };
         $scope.list_agenda_mensual=[];
         $http.get(API_URL + 'Agenda/get_agenda_semana/' + JSON.stringify(filtro))
@@ -964,7 +966,8 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
     $scope.info_citas_dia=function(item){
         var filtro_cita={
             Fecha: item.Fecha,
-            id_emp: $scope.empleadoagenda
+            id_emp: $scope.empleadoagenda,
+            estado: $scope.estadoanuladoagenda
         };
         $scope.list_info_day=[];
         $http.get(API_URL + 'Agenda/get_info_agenda_mensual/' + JSON.stringify(filtro_cita))

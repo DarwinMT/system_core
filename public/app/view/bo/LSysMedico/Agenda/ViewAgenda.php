@@ -253,6 +253,7 @@
 		      						<th>Estado</th>
 		      						<th>Tipo</th>
 		      						<th></th>
+		      						<th></th>
 		      					</tr>
 		      				</thead>
 		      				<tbody>
@@ -270,6 +271,8 @@
 
 		      						<td ng-hide="dg.tipo==1 " style="background-color: #f44336 ">{{((dg.tipo==1)?"NORMAL":"EMERRGENCIA")}}</td>
 		      						<td ng-hide="dg.tipo!=1 " style="background-color: #80cbc4 ">{{((dg.tipo==1)?"NORMAL":"EMERRGENCIA")}}</td>
+
+		      						<td>{{((dg.estado==1)? "ACTIVA":"INACTIVA")}}</td>
 
 		      						<td>
 		      							<div class="btn-group" role="group" >
@@ -459,6 +462,7 @@
       						<th>Descripción</th>
       						<th>Estado</th>
       						<th>Tipo</th>
+      						<th></th>
       					</tr>
       				</thead>
       				<tbody>
@@ -476,6 +480,8 @@
 
       						<td ng-hide="ci.tipo==1 " style="background-color: #f44336 ">{{((ci.tipo==1)?"NORMAL":"EMERRGENCIA")}}</td>
       						<td ng-hide="ci.tipo!=1 " style="background-color: #80cbc4 ">{{((ci.tipo==1)?"NORMAL":"EMERRGENCIA")}}</td>
+
+      						<td>{{((ci.estado==1)? "ACTIVA":"INACTIVA")}}</td>
 
       					</tr>
       				</tbody>

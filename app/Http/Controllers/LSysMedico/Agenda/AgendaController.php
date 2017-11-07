@@ -123,7 +123,7 @@ class AgendaController extends Controller
      */
      public function get_info_agenda_mensual($texto){
         $filtro = json_decode($texto);
-        $sql=" agenda.fecha='".$filtro->Fecha."'  ";
+        $sql=" agenda.fecha='".$filtro->Fecha."' AND agenda.estado='".$filtro->estado."' ";
         if($filtro->id_emp!=""){
             $sql.=" AND agenda.id_emp='".$filtro->id_emp."' ";
         }
@@ -139,7 +139,7 @@ class AgendaController extends Controller
      */
     public function get_agenda_semana($texto){
         $filtro = json_decode($texto);
-        $sql=" agenda.fecha BETWEEN '".$filtro->fechaI."' AND '".$filtro->fechaF."'";
+        $sql=" agenda.fecha BETWEEN '".$filtro->fechaI."' AND '".$filtro->fechaF."' AND agenda.estado='".$filtro->estado."' ";
         if($filtro->id_emp!=""){
             $sql.=" AND agenda.id_emp='".$filtro->id_emp."' ";
         }
