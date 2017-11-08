@@ -50,7 +50,9 @@
 				</button>
 			</div>
 			<div class="col-md-2 col-xs-6">
-				<button ng-disabled=" list_permisos.access_ready==0 " type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-plus"></i> Nuevo Con Datos</button>
+				<button ng-disabled=" list_permisos.access_ready==0 " ng-click="init_listuser();" type="button" class="btn btn-sm btn-primary">
+                    <i class="glyphicon glyphicon-plus"></i> Nuevo Con Datos
+                </button>
 			</div>
 		</div>
 
@@ -301,6 +303,116 @@
 </div>
 
 
+    <div class="modal fade" id="listuser" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header btn-primary">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Lista De Usuarios</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-4 col-xs-4">
+                            <div class="form-group has-feedback">
+                                <input type="text" class="form-control input-sm" id="buscartextousuario" name="buscartextousuario" ng-model="buscartextousuario" ng-keyup="initLoad_usuario(1)" placeholder="Buscar Usuario">
+                                <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-xs-4">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">Estado</span>
+                                <select class="form-control input-sm" id="estadoanuladousuario" name="estadoanuladousuario" ng-model="estadoanuladousuario" ng-change="initLoad(1);">
+                                    <option value="1">Activo</option>
+                                    <option value="0">Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1 col-xs-4">
+                            <button type="button" class="btn btn-sm btn-default"><i class="glyphicon glyphicon-search" ng-click="initLoad_usuario(1);"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 table-responsive">
+                            <table class="table table-bordered table-condensend" >
+                                <thead class="bg-primary">
+                                <tr>
+                                    <th></th>
+                                    <th>Rol</th>
+                                    <th>Usuario</th>
+                                    <th>Nombre</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr dir-paginate="u in list_usuario | orderBy:sortKey:reverse |filter:buscartexto| itemsPerPage:5" total-items="totalItems" ng-cloak">
+                                <td>{{$index+1}}</td>
+                                <td>{{ (u.permisos[0].rol!=undefined)? u.permisos[0].rol.descripcion:"No Asignado"; }}</td>
+                                <td>{{u.username}}</td>
+                                <td>{{u.persona.apellido+" "+u.persona.nombre}}</td>
+                                <td>
+                                    <div class="btn-group" role="group" >
+                                        <button  ng-click="select_user(u);" type="button" title="Seleccionar" class="btn btn-sm btn-info">
+                                            <i class="glyphicon glyphicon-ok-circle"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <dir-pagination-controls
+                                    on-page-change="pageChanged_usuario(newPageNumber)"
+                                    template-url="dirPagination.html"
+                                    class="pull-right"
+                                    max-size="10"
+                                    direction-links="true"
+                                    boundary-links="true" >
+                            </dir-pagination-controls>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <i class="glyphicon glyphicon-ban-circle"></i>
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="confirmuserempl" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Confirmación</h4>
+                </div>
+                <div class="modal-body">
+                    <h4>
+                        <strong>Esta seguro de agregar este usuario como empleado?</strong>
+                    </h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <i class="glyphicon glyphicon-ban-circle"></i>
+                        Cancelar
+                    </button>
+                    <button type="button" ng-click="confir_user_emp();" class="btn btn-primary">
+                        <i class="glyphicon glyphicon-ok"></i>
+                        Aceptar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <div class="modal fade" id="progress" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -313,6 +425,8 @@
       </div>
   </div>
 </div>
+
+
 
 
 
