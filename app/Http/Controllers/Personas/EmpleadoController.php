@@ -213,5 +213,42 @@ class EmpleadoController extends Controller
                     ->whereRaw(" empleado.estado='".$filter->estado."' AND empleado.id_pe IN (SELECT personaempresa.id_pe  FROM personaempresa WHERE  personaempresa.id_emp='".$id_emp."'  ) ")
                     ->get();
 
-    }    
+    }
+    /**
+     *
+     *
+     * agregar empleado desde usuario
+     *
+     */
+    public function addempleado($texto)
+    {
+        $datos = json_decode($texto);
+        $buscar_empleado=Empleado::whereRaw("id_pe=".$datos->id_pe."")->get();
+        if(count($buscar_empleado)==0){
+
+            $resp=new Empleado;
+            $resp->id_pe=$datos->id_pe;
+            $resp->fechaingreso=$datos->fechaingreso;
+            $resp->estado="1";
+
+            if($resp->save()){
+                $data_user=Session::get('user_data');
+                $id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
+
+                $cont_personaemp=PersonaEmpresa::whereRaw("id_pe=".$datos->id_pe." AND id_emp=".$id_emp."")->get();
+                if(count($cont_personaemp)==0){
+                    $persoemp=new PersonaEmpresa;
+                    $persoemp->id_pe=$resp->id_pe;
+                    $persoemp->id_emp=$id_emp;
+                    $persoemp->save(); //empleado guardando a la empresa que pertence
+                }
+                return response()->json(['success' => 0]); //ok
+
+            }else {
+                return response()->json(['success' => 2]); //error al agregar el usuario al personal
+            }
+        }else{
+            return response()->json(['success' => 1]); //error ya existe este usuario en el personal
+        }
+    }
 }

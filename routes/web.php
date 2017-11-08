@@ -57,6 +57,7 @@ Route::resource('Proveedor', 'Personas\ProveedorController');
 /*-----------------Proveedor--------------*/
 
 /*-----------------Empleado--------------*/
+Route::get('Empleado/addempleadofromuser/{texto}', 'Personas\EmpleadoController@addempleado');
 Route::get('Empleado/get_list_empleado_excell/{texto}', 'Personas\EmpleadoController@get_list_empleado_excell');
 Route::get('Empleado/estado/{texto}', 'Personas\EmpleadoController@modify_estado');
 Route::post('Empleado/update_empleado/{id}', 'Personas\EmpleadoController@update_empleado');

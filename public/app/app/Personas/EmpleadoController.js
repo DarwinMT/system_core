@@ -347,6 +347,73 @@ app.controller('LogicaEmpleado', function($scope, $http, API_URL,Upload) {
          });
     };
     ///---
+
+    ///---
+    $scope.init_listuser=function () {
+        $("#listuser").modal("show");
+        $scope.initLoad_usuario(1);
+    };
+
+    ///---
+    $scope.buscartextousuario="";
+    $scope.estadoanuladousuario="1";
+    $scope.list_usuario=[];
+    $scope.pageChanged_usuario = function(newPage) {
+        $scope.initLoad_usuario(newPage);
+    };
+    $scope.initLoad_usuario = function(pageNumber){
+
+        var filtros = {
+            buscar:$scope.buscartextousuario,
+            estado: $scope.estadoanuladousuario
+        };
+        $http.get(API_URL + 'User/get_list_usuario?page=' + pageNumber + '&filter=' + JSON.stringify(filtros))
+            .then(function(response){
+                $scope.list_usuario = response.data.data;
+                $scope.totalItems = response.data.total;
+                console.log($scope.list_usuario);
+            });
+    };
+    $scope.usuario_toempleado={};
+    $scope.select_user=function (item) {
+
+        $scope.usuario_toempleado=item.persona;
+        console.log($scope.usuario_toempleado);
+        $("#confirmuserempl").modal("show");
+    };
+    $scope.confir_user_emp=function () {
+        $("#confirmuserempl").modal("hide");
+        $("#listuser").modal("hide");
+
+
+        $("#progress").modal("show");
+        var f =new Date();
+        var today=f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate();
+
+        var Empleado={
+            id_pe:$scope.usuario_toempleado.id_pe,
+            //id_carg:'',
+            fechaingreso:today,
+            estado:1
+        };
+        $http.get(API_URL + 'Empleado/addempleadofromuser/' + JSON.stringify(Empleado))
+            .success(function(data){
+                console.log(data);
+                if(data.success==0){
+                    $("#progress").modal("hide");
+                    sms("btn-success","Se guardo correctamente la transacción..!!");
+                    $scope.clear();
+                }else{
+                    $("#progress").modal("hide");
+                    sms("btn-danger","Error al guardar la transacción..!!");
+                    $scope.clear();
+                }
+            });
+
+    };
+    ///---
+
+
     
 });
 
