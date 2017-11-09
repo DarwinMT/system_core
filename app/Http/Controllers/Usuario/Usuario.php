@@ -245,4 +245,36 @@ class Usuario extends Controller
                     ->orderBy("usuario.username","ASC")
                     ->get();
     }
+    /**
+     *
+     *
+     * agregar usuario desde empleado
+     *
+     */
+    public function addusuariofromempleado($texto)
+    {
+        $datos = json_decode($texto);
+        $buscar_empleado=User::whereRaw("id_pe=".$datos->id_pe."")->get();
+        if(count($buscar_empleado)==0){
+            $resp=new User;
+            $resp->id_pe=$datos->id_pe;
+            $resp->estado=$datos->estado;
+            if($resp->save()){
+                $data_user=Session::get('user_data');
+                $id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
+                $cont_personaemp=PersonaEmpresa::whereRaw("id_pe=".$datos->id_pe." AND id_emp=".$id_emp."")->get();
+                if(count($cont_personaemp)==0){
+                    $persoemp=new PersonaEmpresa;
+                    $persoemp->id_pe=$resp->id_pe;
+                    $persoemp->id_emp=$id_emp;
+                    $persoemp->save(); //usuario guardando a la empresa que pertence
+                }
+                return response()->json(['success' => 0]); //ok
+            }else{
+                return response()->json(['success' => 2]); //error al agregar el empleado al usuario
+            }
+        }else{
+            return response()->json(['success' => 1]); //error ya existe este empleado en el usuario
+        }
+    }
 }

@@ -612,6 +612,70 @@ app.controller('LogicaUsuario', function($scope, $http, API_URL,Upload) {
 
     };
     ///---
+
+    ///---
+    $scope.init_listemple=function () {
+        $("#listempleado").modal("show");
+        $scope.initLoad_empleado(1);
+    };
+
+    $scope.buscartextoempleado="";
+    $scope.estadoanuladoempleado="1";
+    $scope.list_empleados=[];
+    $scope.pageChanged_empleado = function(newPage) {
+        $scope.initLoad(newPage);
+    };
+    $scope.initLoad_empleado = function(pageNumber){
+
+        var filtros = {
+            buscar:$scope.buscartextoempleado,
+            estado: $scope.estadoanuladoempleado
+        };
+        $http.get(API_URL + 'Empleado/get_list_empleado?page=' + pageNumber + '&filter=' + JSON.stringify(filtros))
+            .then(function(response){
+                $scope.list_empleados = response.data.data;
+                $scope.totalItems = response.data.total;
+                console.log($scope.list_empleados);
+            });
+    };
+
+    $scope.empleado_tousuario={};
+    $scope.select_empleado=function (item) {
+
+        $scope.empleado_tousuario=item.persona;
+        console.log($scope.empleado_tousuario);
+        $("#confirmuserempl").modal("show");
+    };
+
+    $scope.confir_user_emp=function () {
+        $("#confirmuserempl").modal("hide");
+        $("#listempleado").modal("hide");
+
+
+        $("#progress").modal("show");
+
+
+        var Empleado={
+            id_pe:$scope.empleado_tousuario.id_pe,
+            estado:1
+        };
+        $http.get(API_URL + 'User/addusuariofromempleado/' + JSON.stringify(Empleado))
+            .success(function(data){
+                console.log(data);
+                if(data.success==0){
+                    $("#progress").modal("hide");
+                    sms("btn-success","Se guardo correctamente la transacción..!!");
+                    $scope.clear();
+                }else{
+                    $("#progress").modal("hide");
+                    sms("btn-danger","Error al guardar la transacción..!!");
+                    $scope.clear();
+                }
+            });
+
+    };
+
+    ///---
 });
 
 function sms(color,mensaje) {

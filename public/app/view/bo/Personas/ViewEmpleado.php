@@ -323,7 +323,7 @@
                         <div class="col-md-3 col-xs-4">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">Estado</span>
-                                <select class="form-control input-sm" id="estadoanuladousuario" name="estadoanuladousuario" ng-model="estadoanuladousuario" ng-change="initLoad(1);">
+                                <select class="form-control input-sm" id="estadoanuladousuario" name="estadoanuladousuario" ng-model="estadoanuladousuario" ng-change="initLoad_usuario(1);">
                                     <option value="1">Activo</option>
                                     <option value="0">Inactivo</option>
                                 </select>
