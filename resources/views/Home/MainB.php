@@ -44,9 +44,10 @@
   <script src="<?= asset('../app/app/Personas/EmpleadoController.js') ?>"></script>
   <script src="<?= asset('../app/app/Personas/ClienteController.js') ?>"></script>
   <script src="<?= asset('../app/app/Personas/CargoController.js') ?>"></script>
-      <!--Controller logica medico-->  
+    <!--Controller logica medico-->
         <script src="<?= asset('../app/app/LSysMedico/Agenda/AgendaController.js') ?>"></script>
-		<!--Controller-->
+        <script src="<?= asset('../app/app/LSysMedico/Agenda/AgendaControllerPerson.js') ?>"></script>
+    <!--Controller-->
 
 
 <style>
