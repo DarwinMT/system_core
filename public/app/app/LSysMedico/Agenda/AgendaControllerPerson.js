@@ -1,5 +1,5 @@
 app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
-    $scope.Title="Agendar Citas";
+    $scope.Title="Agenda De Citas ";
     $('.datepicker').datetimepicker({
         locale: 'es',
         //format: 'DD/MM/YYYY',
@@ -32,8 +32,21 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
             }
         });
     };
-    ///---    
-
+    ///--- datos de usuario para la agenda
+    $scope.user_agenda={};
+    $scope.get_user_agenda=function () {
+        $http.get(API_URL + 'Agenda/get_user_agenda')
+            .success(function(response){
+                console.log(response);
+                $scope.user_agenda=response[0];
+                $scope.select_empleado($scope.user_agenda);
+                $scope.empleadoagenda=String($scope.user_agenda.id_emp);
+                $scope.control_panel($scope.tipo_calendar, $scope.fecha_referencial_angular);
+                $scope.Title="Agenda De Citas De "+$scope.user_agenda.persona.apellido+" "+$scope.user_agenda.persona.nombre;
+            });
+    };
+    $scope.get_user_agenda();
+    ///--- datos de usuario para la agenda
     ///--- configuracion empresa 
     $scope.config_all=[];
 
@@ -427,7 +440,7 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
     ///--- agenda por mes
     $scope.list_agenda_mensual=[]; 
     $scope.ageda_mensual=function function_name() {
-        
+
         var filtro={
             id_emp: $scope.empleadoagenda,
             fechaI: $scope.fecha_desde,
@@ -579,7 +592,7 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
             break;
         };
     };
-    $scope.control_panel($scope.tipo_calendar, $scope.fecha_referencial_angular);
+    //$scope.control_panel($scope.tipo_calendar, $scope.fecha_referencial_angular);
     $scope.control_panel2=function (action) {
         $scope.control_panel(action, $scope.fecha_referencial_angular);
     };
@@ -712,6 +725,7 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
                 $http.get(API_URL + 'Empleado/get_list_empleado_excell/' + JSON.stringify(filtros))
                     .then(function(response){
                         $scope.list_empleados0 = response.data;
+                        $scope.empleadoagenda=String($scope.user_agenda.id_emp);
                  });
             };
             $scope.all_empleado();
@@ -728,6 +742,7 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
 
 
                 $scope.aux_empleado=item;
+
                 $scope.nombreempleado=item.persona.apellido+" "+item.persona.nombre;
                 
                 $("#md_medico").modal("hide");

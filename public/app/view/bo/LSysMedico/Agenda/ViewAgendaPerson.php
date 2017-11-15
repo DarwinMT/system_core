@@ -21,7 +21,7 @@
 
 	<div class="row">
 		<div class="col-md-12 col-xs-12">
-			<h3><strong>{{Title}} Test..</strong></h3>
+			<h3><strong>{{Title}} </strong></h3>
 			<hr>
 		</div>
 	</div>
@@ -97,7 +97,7 @@
 							<span class="btn btn-sm input-group-addon">
 								<i class="glyphicon glyphicon-user "></i> Empleado 
 							</span>
-							<select class="form-control input-sm " name="empleadoagenda" id="empleadoagenda" ng-model="empleadoagenda">
+							<select class="form-control input-sm " disabled name="empleadoagenda" id="empleadoagenda" ng-model="empleadoagenda">
 								<option value="">Seleccione</option>
 								<option ng-repeat=" e in list_empleados0 " value="{{e.id_emp}}">
 									{{e.persona.apellido+" "+e.persona.nombre+" || "+ ((e.cargo.id_carg!==null || e.cargo.id_carg!==undefined)? e.cargo.descripcion:'SIN CARGO') }}
@@ -276,7 +276,12 @@
 
 		      						<td>
 		      							<div class="btn-group" role="group" >
-		      								<button class="btn btn-info btn-sm" ng-disabled=" list_permisos.access_edit==0 " 
+                                            <button class="btn btn-default btn-sm" ng-disabled=" list_permisos.access_edit==0 "
+                                                    ng-click="ready_cita(dg)">
+                                                <i class="glyphicon glyphicon-list-alt"   ></i>
+                                            </button>
+
+                                            <button class="btn btn-info btn-sm" ng-disabled=" list_permisos.access_edit==0 "
 		      									ng-click="edit_cita(dg)">
 		      									<i class="glyphicon glyphicon-edit"   ></i>
 		      								</button>
@@ -313,10 +318,10 @@
 									<span class="btn btn-sm input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-user "></i> Empleado </span>
 									<input type="text" class="form-control input-sm" readonly name="nombreempleado" id="nombreempleado" ng-model="nombreempleado" required />
 									<span class="input-group-btn">
-							        	<button class="btn btn-danger btn-sm" type="button" ng-click="limpiar_empleado();">
+							        	<button class="btn btn-danger btn-sm" type="button" disabled  ng-click="limpiar_empleado();">
 							        		<i class="glyphicon glyphicon-trash"></i>
 							        	</button>
-							        	<button class="btn btn-default btn-sm" type="button" ng-click="buscar_empleado()">
+							        	<button class="btn btn-default btn-sm" type="button" disabled ng-click="buscar_empleado()">
 							        		<i class="glyphicon glyphicon-search"></i>
 							        	</button>
 							      	</span>

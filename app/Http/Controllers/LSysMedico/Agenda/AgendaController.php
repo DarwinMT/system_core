@@ -190,5 +190,23 @@ class AgendaController extends Controller
         }else{
             return response()->json(['success' => 1]); //error al modificar el estado
         }
-    }       
+    }
+    /**
+     *
+     * Datos usuario para la agenda
+     *
+     */
+    public function data_user_agenda()
+    {
+        if(Session::has('user_data')){
+            $data_user=Session::get('user_data');
+            $id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
+            $id_per=$data_user[0]->id_pe;
+            return Empleado::with("persona","cargo")
+                        ->whereRaw("id_pe=".$id_per)->get();
+        }else{
+            Session::forget('user_data');
+            return redirect('/');
+        }
+    }
 }
