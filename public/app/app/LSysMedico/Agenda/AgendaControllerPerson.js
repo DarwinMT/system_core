@@ -1032,7 +1032,17 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
             }
         });        
     };
-    ///---dar de baja cita 
+    ///---dar de baja cita
+
+
+    ///---Logica de citas medicas
+    $scope.ready_cita=function (item) {
+
+        $scope.tipo_calendar="CIT"; //ESTA DE  QUE INICIA LA CITA MEDICA
+
+    };
+
+    ///---Logica de citas medicas
 });
 
 function sms(color,mensaje) {

@@ -111,7 +111,7 @@
 			<!--work-->
 			<div class="col-md-9 col-xs-12">
 
-				<div class="row">
+				<div class="row" ng-hide=" tipo_calendar=='CIT' ">
 					<div class="col-md-2 col-xs-6" >
 						<div class="btn-group">
 						  <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -410,6 +410,9 @@
 					</form>
 				</div>
 
+                <div class="row" ng-hide=" tipo_calendar!='CIT' ">
+                    <strong>Area de trabajo cita</strong>
+                </div>
 
 
 			</div>
