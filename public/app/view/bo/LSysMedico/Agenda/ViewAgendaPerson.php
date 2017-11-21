@@ -410,10 +410,146 @@
 					</form>
 				</div>
 
-                <div class="row" ng-hide=" tipo_calendar!='CIT' ">
-                    <strong>Area de trabajo cita</strong>
-                </div>
+                <!--FORMULARIO 002 – CONSULTA EXTERNA -->
+                <div class="row table-responsive" ng-hide=" tipo_calendar!='CIT' ">
 
+                    <table class="table table-bordered table-striped table-condensend">
+                        <tr>
+                            <th> Establecimiento</th>
+                            <th colspan="2">Nombre</th>
+                            <th>Sexo</th>
+                            <th>Edad</th>
+                            <th>Nº Historia Clínica </th>
+                        </tr>
+                        <tr>
+                            <td>{{datos_cita.usuario.persona.personaempresa[0].empresa.nombre}}</td>
+                            <td colspan="2">{{datos_cita.cliente.persona.apellido+" "+datos_cita.cliente.persona.nombre}}</td>
+                            <td>{{datos_cita.cliente.persona.genero}}</td>
+                            <td>{{calcular_edad(datos_cita.cliente.persona.fechan)}}</td>
+                            <td>{{datos_cita.cliente.numerohistoria}} </td>
+                        </tr>
+
+                        <tr>
+                            <th colspan="6">1 Motivo De La Consulta</th>
+                        </tr>
+
+                        <tr>
+                            <th colspan="6">
+                                <textarea class="form-control input-sm" cols="100" rows="2" name="motivoconsulta" id="motivoconsulta" ng-model="motivoconsulta"></textarea>
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th colspan="6">
+                                <div class="col-md-6 col-xs-6">2 Antecedentes Personales</div>
+                                <div class="col-md-6 col-xs-6 text-right" style="font-size: 8px;"> Datos Clínicos- Quirurgicos Relevante  Y Gineco Obstétricos</div>
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th colspan="6">
+                                <textarea class="form-control input-sm" cols="100" rows="2" name="antecedentespersonales" id="antecedentespersonales" ng-model="antecedentespersonales"></textarea>
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th colspan="6">3 Antecedentes Familiares</th>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6" >
+
+
+
+                                    <div class="col-md-2 col-xs-2">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="cardiopatia" id="cardiopatia" ng-model="cardiopatia" > 1. Cardiopatía
+                                            </label>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-2 col-xs-2">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="diabetes" id="diabetes" ng-model="diabetes" > 2. Diabetes
+                                            </label>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-2 col-xs-2">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="carvascular" id="carvascular" ng-model="carvascular" > 3. Enf. Car. Vascular
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                <div class="col-md-2 col-xs-2">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="cancer" id="cancer" ng-model="cancer" > 5. Cáncer
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 col-xs-2">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="tuberculosis" id="tuberculosis" ng-model="tuberculosis" > 6. Tuberculosis
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-2 col-xs-2">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="mental" id="mental" ng-model="mental" > 7. Enf. Mental
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 col-xs-2">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="infecciosa" id="infecciosa" ng-model="infecciosa" > 8. Enf. Infecciosa
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-2 col-xs-2">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="malformacion" id="malformacion" ng-model="malformacion" > 9. Mal Formación
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-2 col-xs-2">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="otros" id="otros" ng-model="otros" > 10. Otros
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-xs-12">
+                                    <textarea class="form-control input-sm" cols="100" rows="2" name="antecedentesfamiliares" id="antecedentesfamiliares" ng-model="antecedentesfamiliares"></textarea>
+                                </div>
+
+
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+                <!--FORMULARIO 002 – CONSULTA EXTERNA -->
 
 			</div>
 
