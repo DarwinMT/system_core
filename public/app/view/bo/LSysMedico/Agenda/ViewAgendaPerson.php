@@ -545,6 +545,136 @@
 
                             </td>
                         </tr>
+                        <tr>
+                            <th colspan="6">4. Enfermedad O Problema Actual</th>
+                        </tr>
+
+                        <tr>
+                            <th colspan="6">
+                                <textarea class="form-control input-sm" cols="100" rows="2" name="enfermedadproblemaactual" id="enfermedadproblemaactual" ng-model="enfermedadproblemaactual"></textarea>
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th colspan="6">
+                                <div class="col-xs-6">
+                                    5. Revisiòn Actual De Òrganos Y Sistemas
+                                </div>
+                                <div class="col-xs-3 text-right" style="font-size: 9px;"><strong>CP</strong>= Con evidencia de patologìa</div>
+                                <div class="col-xs-3 text-right" style="font-size: 9px;"><strong>SP</strong>= Sin evidencia de patologìa</div>
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th colspan="6" >
+                                <div class="col-xs-4" >
+                                    <div class="input-group" >
+                                        <span class="input-group-addon" style="font-size: 9px !important;" >1 Òrganos De Los Sentidos CP</span>
+                                        <input type="text" class="form-control input-sm" name="cp_sentidos" id="cp_sentidos" ng-model="cp_sentidos">
+                                        <span class="input-group-addon" style="font-size: 9px !important;"> SP</span>
+                                        <input type="text" class="form-control input-sm" name="sp_sentidos" id="sp_sentidos" ng-model="sp_sentidos" >
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4" >
+                                    <div class="input-group" >
+                                        <span class="input-group-addon" style="font-size: 9px !important;" >2 Respiratorio CP</span>
+                                        <input type="text" class="form-control input-sm" name="cp_respiratorio" id="cp_respiratorio" ng-model="cp_respiratorio">
+                                        <span class="input-group-addon" style="font-size: 9px !important;"> SP</span>
+                                        <input type="text" class="form-control input-sm" name="sp_respiratorio" id="sp_respiratorio" ng-model="sp_respiratorio" >
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4" >
+                                    <div class="input-group" >
+                                        <span class="input-group-addon" style="font-size: 9px !important;" >3 Cardio Vascular CP</span>
+                                        <input type="text" class="form-control input-sm" name="cp_cardiovascular" id="cp_cardiovascular" ng-model="cp_cardiovascular">
+                                        <span class="input-group-addon" style="font-size: 9px !important;"> SP</span>
+                                        <input type="text" class="form-control input-sm" name="sp_cardiovascular" id="sp_cardiovascular" ng-model="sp_cardiovascular" >
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4" >
+                                    <div class="input-group" >
+                                        <span class="input-group-addon" style="font-size: 9px !important;" >4 Digestivo CP</span>
+                                        <input type="text" class="form-control input-sm" name="cp_digestivo" id="cp_digestivo" ng-model="cp_digestivo">
+                                        <span class="input-group-addon" style="font-size: 9px !important;"> SP</span>
+                                        <input type="text" class="form-control input-sm" name="sp_digestivo" id="sp_digestivo" ng-model="sp_digestivo" >
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4" >
+                                    <div class="input-group" >
+                                        <span class="input-group-addon" style="font-size: 9px !important;" >5 Genital CP</span>
+                                        <input type="text" class="form-control input-sm" name="cp_genital" id="cp_genital" ng-model="cp_genital">
+                                        <span class="input-group-addon" style="font-size: 9px !important;"> SP</span>
+                                        <input type="text" class="form-control input-sm" name="sp_genital" id="sp_genital" ng-model="sp_genital" >
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4" >
+                                    <div class="input-group" >
+                                        <span class="input-group-addon" style="font-size: 9px !important;" >6 Urinario CP</span>
+                                        <input type="text" class="form-control input-sm" name="cp_urinario" id="cp_urinario" ng-model="cp_urinario">
+                                        <span class="input-group-addon" style="font-size: 9px !important;"> SP</span>
+                                        <input type="text" class="form-control input-sm" name="sp_urinario" id="sp_urinario" ng-model="sp_urinario" >
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4" >
+                                    <div class="input-group" >
+                                        <span class="input-group-addon" style="font-size: 9px !important;" >7 Mùsculo Esquelètico</span>
+                                        <input type="text" class="form-control input-sm" name="cp_musculoesqueletico" id="cp_musculoesqueletico" ng-model="cp_musculoesqueletico">
+                                        <span class="input-group-addon" style="font-size: 9px !important;"> SP</span>
+                                        <input type="text" class="form-control input-sm" name="sp_musculoesqueletico" id="sp_musculoesqueletico" ng-model="sp_musculoesqueletico" >
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4" >
+                                    <div class="input-group" >
+                                        <span class="input-group-addon" style="font-size: 9px !important;" >8 Endocrino CP</span>
+                                        <input type="text" class="form-control input-sm" name="cp_endocrino" id="cp_endocrino" ng-model="cp_endocrino">
+                                        <span class="input-group-addon" style="font-size: 9px !important;"> SP</span>
+                                        <input type="text" class="form-control input-sm" name="sp_endocrino" id="sp_endocrino" ng-model="sp_endocrino" >
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-4" >
+                                    <div class="input-group" >
+                                        <span class="input-group-addon" style="font-size: 9px !important;" >9 Hemo Limfàtico CP</span>
+                                        <input type="text" class="form-control input-sm" name="cp_hemolimfatico" id="cp_hemolimfatico" ng-model="cp_hemolimfatico">
+                                        <span class="input-group-addon" style="font-size: 9px !important;"> SP</span>
+                                        <input type="text" class="form-control input-sm" name="sp_hemolimfatico" id="sp_hemolimfatico" ng-model="sp_hemolimfatico" >
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-4" >
+                                    <div class="input-group" >
+                                        <span class="input-group-addon" style="font-size: 9px !important;" >10 Nervioso CP</span>
+                                        <input type="text" class="form-control input-sm" name="cp_nervioso" id="cp_nervioso" ng-model="cp_nervioso">
+                                        <span class="input-group-addon" style="font-size: 9px !important;"> SP</span>
+                                        <input type="text" class="form-control input-sm" name="sp_nervioso" id="sp_nervioso" ng-model="sp_nervioso" >
+
+                                    </div>
+                                </div>
+
+                                <textarea class="form-control input-sm" cols="100" rows="2" name="revisionactualorganossistema" id="revisionactualorganossistema" ng-model="revisionactualorganossistema"></textarea>
+
+
+                            </th>
+                        </tr>
+
 
                     </table>
 

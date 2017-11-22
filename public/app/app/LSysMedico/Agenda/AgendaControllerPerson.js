@@ -13,7 +13,7 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
     var mes_referencia=(((fecha_referencial.getMonth()+1)<10)? "0"+(fecha_referencial.getMonth()+1):(fecha_referencial.getMonth()+1));
     $scope.fecha_inicial=fecha_referencial.getFullYear()+"-"+mes_referencia+"-01";
 
-    $scope.tipo_calendar="M";
+    $scope.tipo_calendar="D";
     $scope.meses_letras=["ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE"];
 
     $scope.empleadoagenda="";
