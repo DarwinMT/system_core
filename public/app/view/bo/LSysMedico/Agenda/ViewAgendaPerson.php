@@ -675,6 +675,82 @@
                             </th>
                         </tr>
 
+                        <tr>
+                            <th colspan="6">6. Signos Vitales Y Antropometria</th>
+                        </tr>
+
+                        <tr>
+                            <th colspan="6">
+
+                                <div class="col-xs-4" >
+                                    <div class="input-group" >
+                                        <span class="input-group-addon" style="font-size: 9px !important;" >Fecha De Mediciòn</span>
+                                        <input type="text" class="form-control input-sm datepicker" name="fechamedicionsignosvitales" id="fechamedicionsignosvitales" ng-model="fechamedicionsignosvitales">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-4" >
+                                    <div class="input-group" >
+                                        <span class="input-group-addon" style="font-size: 9px !important;" >Temperatura °C</span>
+                                        <input type="text" class="form-control input-sm " name="temperaturasignosvitales" id="temperaturasignosvitales" ng-model="temperaturasignosvitales">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" style="font-size: 9px !important;">Presiòn Arterial </span>
+                                        <span class="input-group-btn" style="width: 15%;">
+                                            <input type="text" class="form-control input-sm" id="presionarterial1signosvitales" name="presionarterial1signosvitales" ng-model="presionarterial1signosvitales"  >
+	                                    </span>
+                                        <span class="input-group-btn" style="width: 15%;">
+                                            <input type="text" class="form-control input-sm" id="presionarterial2signosvitales" name="presionarterial2signosvitales" ng-model="presionarterial2signosvitales" >
+                                        </span>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" style="font-size: 9px !important;"> Pulso min  / Frecuencia Respiratoria </span>
+                                        <span class="input-group-btn" style="width: 15%;">
+                                            <input type="text" class="form-control input-sm" id="pulsosignosvitales" name="pulsosignosvitales" ng-model="pulsosignosvitales"  >
+	                                    </span>
+                                        <span class="input-group-btn" style="width: 15%;">
+                                            <input type="text" class="form-control input-sm" id="frecuenciarespiratoriasignosvitales" name="frecuenciarespiratoriasignosvitales" ng-model="frecuenciarespiratoriasignosvitales" >
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" style="font-size: 9px !important;"> Peso kg  / Talla cm </span>
+                                        <span class="input-group-btn" style="width: 15%;">
+                                            <input type="text" class="form-control input-sm" id="pesosignosvitales" name="pesosignosvitales" ng-model="pesosignosvitales"  >
+	                                    </span>
+                                        <span class="input-group-btn" style="width: 15%;">
+                                            <input type="text" class="form-control input-sm" id="tallasignosvitales" name="tallasignosvitales" ng-model="tallasignosvitales" >
+                                        </span>
+                                    </div>
+                                </div>
+
+
+
+                            </th>
+                        </tr>
+
+
+                        <tr>
+                            <th colspan="6">
+                                <div class="col-xs-6">
+                                    7. Examen Fìsico Regional
+                                </div>
+                                <div class="col-xs-3 text-right" style="font-size: 9px;"><strong>CP</strong>= Con evidencia de patologìa</div>
+                                <div class="col-xs-3 text-right" style="font-size: 9px;"><strong>SP</strong>= Sin evidencia de patologìa</div>
+                            </th>
+                        </tr>
+
 
                     </table>
 
