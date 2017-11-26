@@ -413,6 +413,14 @@
                 <!--FORMULARIO 002 – CONSULTA EXTERNA -->
                 <div class="row table-responsive" ng-hide=" tipo_calendar!='CIT' ">
 
+                    <div class="col-xs-12 text-center">
+                        <div class="btn-group" >
+                            <button class="btn btn-sm btn-success"><i class="glyphicon glyphicon-floppy-saved"></i> Guardar</button>
+                            <button class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-floppy-saved"></i> Finalizar</button>
+                            <button class="btn btn-sm btn-default"><i class="glyphicon glyphicon-ban-circle"></i> Cancelar</button>
+                        </div>
+                    </div>
+
                     <table class="table table-bordered table-striped table-condensend">
                         <tr>
                             <th> Establecimiento</th>
@@ -748,6 +756,196 @@
                                 </div>
                                 <div class="col-xs-3 text-right" style="font-size: 9px;"><strong>CP</strong>= Con evidencia de patologìa</div>
                                 <div class="col-xs-3 text-right" style="font-size: 9px;"><strong>SP</strong>= Sin evidencia de patologìa</div>
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th colspan="6">
+
+                                <div class="col-xs-4" >
+                                    <div class="input-group" >
+                                        <span class="input-group-addon" style="font-size: 9px !important;" >1 Cabeza</span>
+                                        <input type="text" class="form-control input-sm" name="cp_fisicoregionalcabeza" id="cp_fisicoregionalcabeza" ng-model="cp_fisicoregionalcabeza">
+                                        <span class="input-group-addon" style="font-size: 9px !important;"> SP</span>
+                                        <input type="text" class="form-control input-sm" name="sp_fisicoregionalcabeza" id="sp_fisicoregionalcabeza" ng-model="sp_fisicoregionalcabeza" >
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-4" >
+                                    <div class="input-group" >
+                                        <span class="input-group-addon" style="font-size: 9px !important;" >2 Cuello</span>
+                                        <input type="text" class="form-control input-sm" name="cp_fisicoregionalcuello" id="cp_fisicoregionalcuello" ng-model="cp_fisicoregionalcuello">
+                                        <span class="input-group-addon" style="font-size: 9px !important;"> SP</span>
+                                        <input type="text" class="form-control input-sm" name="sp_fisicoregionalcuello" id="sp_fisicoregionalcuello" ng-model="sp_fisicoregionalcuello" >
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-4" >
+                                    <div class="input-group" >
+                                        <span class="input-group-addon" style="font-size: 9px !important;" >3 Tórax</span>
+                                        <input type="text" class="form-control input-sm" name="cp_fisicoregionaltorax" id="cp_fisicoregionaltorax" ng-model="cp_fisicoregionaltorax">
+                                        <span class="input-group-addon" style="font-size: 9px !important;"> SP</span>
+                                        <input type="text" class="form-control input-sm" name="sp_fisicoregionaltorax" id="sp_fisicoregionaltorax" ng-model="sp_fisicoregionaltorax" >
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4" >
+                                    <div class="input-group" >
+                                        <span class="input-group-addon" style="font-size: 9px !important;" >4 Abdomen</span>
+                                        <input type="text" class="form-control input-sm" name="cp_fisicoregionalabdomen" id="cp_fisicoregionalabdomen" ng-model="cp_fisicoregionalabdomen">
+                                        <span class="input-group-addon" style="font-size: 9px !important;"> SP</span>
+                                        <input type="text" class="form-control input-sm" name="sp_fisicoregionalabdomen" id="sp_fisicoregionalabdomen" ng-model="sp_fisicoregionalabdomen" >
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-4" >
+                                    <div class="input-group" >
+                                        <span class="input-group-addon" style="font-size: 9px !important;" >5 Pelvis</span>
+                                        <input type="text" class="form-control input-sm" name="cp_fisicoregionalpelvis" id="cp_fisicoregionalpelvis" ng-model="cp_fisicoregionalpelvis">
+                                        <span class="input-group-addon" style="font-size: 9px !important;"> SP</span>
+                                        <input type="text" class="form-control input-sm" name="sp_fisicoregionalpelvis" id="sp_fisicoregionalpelvis" ng-model="sp_fisicoregionalpelvis" >
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-4" >
+                                    <div class="input-group" >
+                                        <span class="input-group-addon" style="font-size: 9px !important;" >6 Extremidades</span>
+                                        <input type="text" class="form-control input-sm" name="cp_fisicoregionalextremidades" id="cp_fisicoregionalextremidades" ng-model="cp_fisicoregionalextremidades">
+                                        <span class="input-group-addon" style="font-size: 9px !important;"> SP</span>
+                                        <input type="text" class="form-control input-sm" name="sp_fisicoregionalextremidades" id="sp_fisicoregionalextremidades" ng-model="sp_fisicoregionalextremidades" >
+
+                                    </div>
+                                </div>
+
+                                <textarea class="form-control input-sm" cols="100" rows="2" name="fisicoregional" id="fisicoregional" ng-model="fisicoregional"></textarea>
+
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th colspan="6">
+                                <div class="col-xs-6">
+                                    8. Diagnostico
+                                </div>
+                                <div class="col-xs-3 text-right" style="font-size: 9px;"><strong>PRE</strong>= Presuntivo</div>
+                                <div class="col-xs-3 text-right" style="font-size: 9px;"><strong>DEF</strong>= Definitivo</div>
+                            </th>
+                        </tr>
+
+
+                        <tr>
+                            <th colspan="6">
+
+                                <div class="col-xs-6">
+                                    <div class="input-group">
+                                        <span class="input-group-btn" style="width: 50%;">
+                                            <input type="text" class="form-control input-sm" id="diagnosticodescripcion" name="diagnosticodescripcion" ng-model="diagnosticodescripcion"  >
+	                                    </span>
+                                        <span class="input-group-btn" style="width: 20%;">
+                                            <input type="text" class="form-control input-sm" placeholder="CIE" id="diagnosticocie" name="diagnosticocie" ng-model="diagnosticocie" >
+                                        </span>
+
+                                        <span class="input-group-btn" style="width: 15%;">
+                                            <input type="text" class="form-control input-sm" placeholder="PRE"  id="diagnosticopre" name="diagnosticopre" ng-model="diagnosticopre" >
+                                        </span>
+
+                                        <span class="input-group-btn" style="width: 15%;">
+                                            <input type="text" class="form-control input-sm" placeholder="DEF" id="diagnosticodef" name="diagnosticodef" ng-model="diagnosticodef" >
+                                        </span>
+                                        <button type="button" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-search"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6">
+                                    <div class="input-group">
+                                        <span class="input-group-btn" style="width: 50%;">
+                                            <input type="text" class="form-control input-sm" id="diagnosticodescripcion" name="diagnosticodescripcion" ng-model="diagnosticodescripcion"  >
+	                                    </span>
+                                        <span class="input-group-btn" style="width: 20%;">
+                                            <input type="text" class="form-control input-sm" placeholder="CIE" id="diagnosticocie" name="diagnosticocie" ng-model="diagnosticocie" >
+                                        </span>
+
+                                        <span class="input-group-btn" style="width: 15%;">
+                                            <input type="text" class="form-control input-sm" placeholder="PRE"  id="diagnosticopre" name="diagnosticopre" ng-model="diagnosticopre" >
+                                        </span>
+
+                                        <span class="input-group-btn" style="width: 15%;">
+                                            <input type="text" class="form-control input-sm" placeholder="DEF" id="diagnosticodef" name="diagnosticodef" ng-model="diagnosticodef" >
+                                        </span>
+                                        <button type="button" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-search"></i></button>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-xs-6">
+                                    <div class="input-group">
+                                        <span class="input-group-btn" style="width: 50%;">
+                                            <input type="text" class="form-control input-sm" id="diagnosticodescripcion" name="diagnosticodescripcion" ng-model="diagnosticodescripcion"  >
+	                                    </span>
+                                        <span class="input-group-btn" style="width: 20%;">
+                                            <input type="text" class="form-control input-sm" placeholder="CIE" id="diagnosticocie" name="diagnosticocie" ng-model="diagnosticocie" >
+                                        </span>
+
+                                        <span class="input-group-btn" style="width: 15%;">
+                                            <input type="text" class="form-control input-sm" placeholder="PRE"  id="diagnosticopre" name="diagnosticopre" ng-model="diagnosticopre" >
+                                        </span>
+
+                                        <span class="input-group-btn" style="width: 15%;">
+                                            <input type="text" class="form-control input-sm" placeholder="DEF" id="diagnosticodef" name="diagnosticodef" ng-model="diagnosticodef" >
+                                        </span>
+                                        <button type="button" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-search"></i></button>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-6">
+                                    <div class="input-group">
+                                        <span class="input-group-btn" style="width: 50%;">
+                                            <input type="text" class="form-control input-sm" id="diagnosticodescripcion" name="diagnosticodescripcion" ng-model="diagnosticodescripcion"  >
+	                                    </span>
+                                        <span class="input-group-btn" style="width: 20%;">
+                                            <input type="text" class="form-control input-sm" placeholder="CIE" id="diagnosticocie" name="diagnosticocie" ng-model="diagnosticocie" >
+                                        </span>
+
+                                        <span class="input-group-btn" style="width: 15%;">
+                                            <input type="text" class="form-control input-sm" placeholder="PRE"  id="diagnosticopre" name="diagnosticopre" ng-model="diagnosticopre" >
+                                        </span>
+
+                                        <span class="input-group-btn" style="width: 15%;">
+                                            <input type="text" class="form-control input-sm" placeholder="DEF" id="diagnosticodef" name="diagnosticodef" ng-model="diagnosticodef" >
+                                        </span>
+                                        <button type="button" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-search"></i></button>
+                                    </div>
+                                </div>
+
+
+
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th colspan="6">
+                                <div class="col-xs-6">
+                                    9. Planes De Tratamiento
+                                </div>
+                                <div class="col-xs-6 text-right" style="font-size: 9px;">Planes De Diagnostico, Terapéutico Y Educacional</div>
+
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th colspan="6">
+                                <textarea class="form-control input-sm" cols="100" rows="2" name="planestratamiento" id="planestratamiento" ng-model="planestratamiento"></textarea>
                             </th>
                         </tr>
 
