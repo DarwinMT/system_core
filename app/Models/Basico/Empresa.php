@@ -30,7 +30,7 @@ class Empresa extends Model
 
     public function ciudad()
     {
-        return $this->belongsTo('App\Modelos\Basico\Ciudad',"id_ci");
+        return $this->belongsTo('App\Models\Basico\Ciudad',"id_ci");
     }
 
 }

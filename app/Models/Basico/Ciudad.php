@@ -22,6 +22,6 @@ class Ciudad extends Model
     ];
     public function provincia()
     {
-        return $this->belongsTo('App\Modelos\Basico\Provincia',"id_pro");
+        return $this->belongsTo('App\Models\Basico\Provincia',"id_pro");
     }
 }

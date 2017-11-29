@@ -1046,6 +1046,8 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
 
 
     $scope.calcular_edad=function(fecha) {
+        if(fecha==undefined  || fecha==null) return "";
+
         var values=fecha.split("-");
         var dia = values[2];
         var mes = values[1];

@@ -22,6 +22,6 @@ class Provincia extends Model
     ];
     public function pais()
     {
-        return $this->belongsTo('App\Modelos\Basico\Pais',"id_pa");
+        return $this->belongsTo('App\Models\Basico\Pais',"id_pa");
     }
 }
