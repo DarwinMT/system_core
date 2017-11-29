@@ -1041,7 +1041,24 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
         $scope.datos_cita={};
         $scope.tipo_calendar="CIT"; //ESTA DE  QUE INICIA LA CITA MEDICA
         $scope.datos_cita=item;
-        console.log(item)
+        console.log(item);
+        $scope.get_anamnesis();
+    };
+
+    $scope.aux_anamnesis=[];
+    $scope.get_anamnesis=function(){
+        var filtro_cita={
+            Fecha: '',
+            id_emp: '',
+            estado: ''
+        };
+
+        $http.get(API_URL + 'Anamnesis/get_anamnesis_id/' + JSON.stringify(filtro_cita))
+            .then(function(response){
+                console.log(response.data);
+                $scope.aux_anamnesis=response.data;
+            });
+
     };
 
 

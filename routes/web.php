@@ -92,3 +92,10 @@ Route::get('Agenda/get_horas_ocupadas_persona/{texto}', 'LSysMedico\Agenda\Agend
 Route::get('Agenda/Configuracion', 'LSysMedico\Agenda\AgendaController@get_config');
 Route::resource('Agenda', 'LSysMedico\Agenda\AgendaController');
 /*-----------------Logica agenda --------------*/
+
+/*-----------------Logica Anamnesis --------------*/
+
+Route::get('Anamnesis/get_anamnesis_id/{texto}', 'LSysMedico\HistoriaClinica\Anamnesis@get_anamnesistoid');
+Route::resource('Anamnesis', 'LSysMedico\HistoriaClinica\Anamnesis');
+
+/*-----------------Logica Anamnesis --------------*/

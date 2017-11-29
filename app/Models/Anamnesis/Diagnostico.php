@@ -24,4 +24,8 @@ class Diagnostico extends Model
     {
         return $this->belongsTo('App\Models\Anamnesis\ConsultaExterna',"id_cone");
     }
+    public function cie()
+    {
+        return $this->belongsTo('App\Models\Basico\Cie',"id_ci");
+    }
 }
