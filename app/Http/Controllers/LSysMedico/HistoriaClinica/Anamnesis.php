@@ -71,6 +71,7 @@ class Anamnesis extends Controller
                                             "organossistemas","fisicoregional","diagnostico.cie")
                             ->WhereRaw("id_cone=1")
                             ->get();
+
     }
 
 }
