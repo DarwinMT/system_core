@@ -1045,6 +1045,10 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
         $scope.get_anamnesis();
     };
 
+    $scope.find_cie=function () {
+        $("#cie_information").modal("show");
+    };
+
     $scope.aux_anamnesis=[];
     $scope.get_anamnesis=function(){
         var filtro_cita={

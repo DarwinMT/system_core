@@ -472,7 +472,7 @@
                                     <div class="col-md-2 col-xs-2">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="cardiopatia" id="cardiopatia" ng-model="cardiopatia" > 1. Cardiopatía
+                                                <input type="checkbox" name="cardiopatia" id="cardiopatia" ng-model="cardiopatia"  ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].cardiopatia==1" > 1. Cardiopatía
                                             </label>
                                         </div>
                                     </div>
@@ -481,7 +481,7 @@
                                     <div class="col-md-2 col-xs-2">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="diabetes" id="diabetes" ng-model="diabetes" > 2. Diabetes
+                                                <input type="checkbox" name="diabetes" id="diabetes" ng-model="diabetes" ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].diabetes==1" > 2. Diabetes
                                             </label>
                                         </div>
                                     </div>
@@ -490,7 +490,8 @@
                                     <div class="col-md-2 col-xs-2">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="carvascular" id="carvascular" ng-model="carvascular" > 3. Enf. Car. Vascular
+                                                <input type="checkbox" name="carvascular" id="carvascular" ng-model="carvascular"
+                                                       ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].vascular==1" > 3. Enf. Car. Vascular
                                             </label>
                                         </div>
                                     </div>
@@ -498,7 +499,7 @@
                                 <div class="col-md-2 col-xs-2">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="cancer" id="cancer" ng-model="cancer" > 5. Cáncer
+                                            <input type="checkbox" name="cancer" id="cancer" ng-model="cancer" ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].hipertencion==1"  > 4. Hipertensión
                                         </label>
                                     </div>
                                 </div>
@@ -506,16 +507,7 @@
                                 <div class="col-md-2 col-xs-2">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="tuberculosis" id="tuberculosis" ng-model="tuberculosis" > 6. Tuberculosis
-                                        </label>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-2 col-xs-2">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="mental" id="mental" ng-model="mental" > 7. Enf. Mental
+                                            <input type="checkbox" name="cancer" id="cancer" ng-model="cancer" ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].cancer==1"  > 5. Cáncer
                                         </label>
                                     </div>
                                 </div>
@@ -523,7 +515,7 @@
                                 <div class="col-md-2 col-xs-2">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="infecciosa" id="infecciosa" ng-model="infecciosa" > 8. Enf. Infecciosa
+                                            <input type="checkbox" name="tuberculosis" id="tuberculosis" ng-model="tuberculosis" ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].tuberculosis==1"  > 6. Tuberculosis
                                         </label>
                                     </div>
                                 </div>
@@ -532,7 +524,15 @@
                                 <div class="col-md-2 col-xs-2">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="malformacion" id="malformacion" ng-model="malformacion" > 9. Mal Formación
+                                            <input type="checkbox" name="mental" id="mental" ng-model="mental" ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].enfmental==1" > 7. Enf. Mental
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 col-xs-2">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="infecciosa" id="infecciosa" ng-model="infecciosa"  ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].enfinfecciosa==1" > 8. Enf. Infecciosa
                                         </label>
                                     </div>
                                 </div>
@@ -541,13 +541,22 @@
                                 <div class="col-md-2 col-xs-2">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="otros" id="otros" ng-model="otros" > 10. Otros
+                                            <input type="checkbox" name="malformacion" id="malformacion" ng-model="malformacion" ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].malformacion==1" > 9. Mal Formación
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-2 col-xs-2">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="otros" id="otros" ng-model="otros" ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].otro==1" > 10. Otros
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12 col-xs-12">
-                                    <textarea class="form-control input-sm" cols="100" rows="2" name="antecedentesfamiliares" id="antecedentesfamiliares" ng-model="antecedentesfamiliares"></textarea>
+                                    <textarea class="form-control input-sm" cols="100" rows="2" name="antecedentesfamiliares" id="antecedentesfamiliares" ng-model="aux_anamnesis[0].antecedentesfamiliares[0].descripcion"></textarea>
                                 </div>
 
 
@@ -765,9 +774,9 @@
                                 <div class="col-xs-4" >
                                     <div class="input-group" >
                                         <span class="input-group-addon" style="font-size: 9px !important;" >1 Cabeza</span>
-                                        <input type="text" class="form-control input-sm" name="cp_fisicoregionalcabeza" id="cp_fisicoregionalcabeza" ng-model="cp_fisicoregionalcabeza">
+                                        <input type="text" class="form-control input-sm" name="cp_fisicoregionalcabeza" id="cp_fisicoregionalcabeza" ng-model="aux_anamnesis[0].fisicoregional[0].cabeza_cp">
                                         <span class="input-group-addon" style="font-size: 9px !important;"> SP</span>
-                                        <input type="text" class="form-control input-sm" name="sp_fisicoregionalcabeza" id="sp_fisicoregionalcabeza" ng-model="sp_fisicoregionalcabeza" >
+                                        <input type="text" class="form-control input-sm" name="sp_fisicoregionalcabeza" id="sp_fisicoregionalcabeza" ng-model="aux_anamnesis[0].fisicoregional[0].cabeza_sp" >
 
                                     </div>
                                 </div>
@@ -776,9 +785,9 @@
                                 <div class="col-xs-4" >
                                     <div class="input-group" >
                                         <span class="input-group-addon" style="font-size: 9px !important;" >2 Cuello</span>
-                                        <input type="text" class="form-control input-sm" name="cp_fisicoregionalcuello" id="cp_fisicoregionalcuello" ng-model="cp_fisicoregionalcuello">
+                                        <input type="text" class="form-control input-sm" name="cp_fisicoregionalcuello" id="cp_fisicoregionalcuello" ng-model="aux_anamnesis[0].fisicoregional[0].cuello_cp">
                                         <span class="input-group-addon" style="font-size: 9px !important;"> SP</span>
-                                        <input type="text" class="form-control input-sm" name="sp_fisicoregionalcuello" id="sp_fisicoregionalcuello" ng-model="sp_fisicoregionalcuello" >
+                                        <input type="text" class="form-control input-sm" name="sp_fisicoregionalcuello" id="sp_fisicoregionalcuello" ng-model="aux_anamnesis[0].fisicoregional[0].cuello_sp" >
 
                                     </div>
                                 </div>
@@ -787,9 +796,9 @@
                                 <div class="col-xs-4" >
                                     <div class="input-group" >
                                         <span class="input-group-addon" style="font-size: 9px !important;" >3 Tórax</span>
-                                        <input type="text" class="form-control input-sm" name="cp_fisicoregionaltorax" id="cp_fisicoregionaltorax" ng-model="cp_fisicoregionaltorax">
+                                        <input type="text" class="form-control input-sm" name="cp_fisicoregionaltorax" id="cp_fisicoregionaltorax" ng-model="aux_anamnesis[0].fisicoregional[0].torax_cp">
                                         <span class="input-group-addon" style="font-size: 9px !important;"> SP</span>
-                                        <input type="text" class="form-control input-sm" name="sp_fisicoregionaltorax" id="sp_fisicoregionaltorax" ng-model="sp_fisicoregionaltorax" >
+                                        <input type="text" class="form-control input-sm" name="sp_fisicoregionaltorax" id="sp_fisicoregionaltorax" ng-model="aux_anamnesis[0].fisicoregional[0].torax_sp" >
 
                                     </div>
                                 </div>
@@ -797,9 +806,9 @@
                                 <div class="col-xs-4" >
                                     <div class="input-group" >
                                         <span class="input-group-addon" style="font-size: 9px !important;" >4 Abdomen</span>
-                                        <input type="text" class="form-control input-sm" name="cp_fisicoregionalabdomen" id="cp_fisicoregionalabdomen" ng-model="cp_fisicoregionalabdomen">
+                                        <input type="text" class="form-control input-sm" name="cp_fisicoregionalabdomen" id="cp_fisicoregionalabdomen" ng-model="aux_anamnesis[0].fisicoregional[0].abdomen_cp">
                                         <span class="input-group-addon" style="font-size: 9px !important;"> SP</span>
-                                        <input type="text" class="form-control input-sm" name="sp_fisicoregionalabdomen" id="sp_fisicoregionalabdomen" ng-model="sp_fisicoregionalabdomen" >
+                                        <input type="text" class="form-control input-sm" name="sp_fisicoregionalabdomen" id="sp_fisicoregionalabdomen" ng-model="aux_anamnesis[0].fisicoregional[0].abdomen_sp" >
 
                                     </div>
                                 </div>
@@ -808,9 +817,9 @@
                                 <div class="col-xs-4" >
                                     <div class="input-group" >
                                         <span class="input-group-addon" style="font-size: 9px !important;" >5 Pelvis</span>
-                                        <input type="text" class="form-control input-sm" name="cp_fisicoregionalpelvis" id="cp_fisicoregionalpelvis" ng-model="cp_fisicoregionalpelvis">
+                                        <input type="text" class="form-control input-sm" name="cp_fisicoregionalpelvis" id="cp_fisicoregionalpelvis" ng-model="aux_anamnesis[0].fisicoregional[0].pelvis_cp">
                                         <span class="input-group-addon" style="font-size: 9px !important;"> SP</span>
-                                        <input type="text" class="form-control input-sm" name="sp_fisicoregionalpelvis" id="sp_fisicoregionalpelvis" ng-model="sp_fisicoregionalpelvis" >
+                                        <input type="text" class="form-control input-sm" name="sp_fisicoregionalpelvis" id="sp_fisicoregionalpelvis" ng-model="aux_anamnesis[0].fisicoregional[0].pelvis_sp" >
 
                                     </div>
                                 </div>
@@ -819,14 +828,14 @@
                                 <div class="col-xs-4" >
                                     <div class="input-group" >
                                         <span class="input-group-addon" style="font-size: 9px !important;" >6 Extremidades</span>
-                                        <input type="text" class="form-control input-sm" name="cp_fisicoregionalextremidades" id="cp_fisicoregionalextremidades" ng-model="cp_fisicoregionalextremidades">
+                                        <input type="text" class="form-control input-sm" name="cp_fisicoregionalextremidades" id="cp_fisicoregionalextremidades" ng-model="aux_anamnesis[0].fisicoregional[0].extremidades_cp">
                                         <span class="input-group-addon" style="font-size: 9px !important;"> SP</span>
-                                        <input type="text" class="form-control input-sm" name="sp_fisicoregionalextremidades" id="sp_fisicoregionalextremidades" ng-model="sp_fisicoregionalextremidades" >
+                                        <input type="text" class="form-control input-sm" name="sp_fisicoregionalextremidades" id="sp_fisicoregionalextremidades" ng-model="aux_anamnesis[0].fisicoregional[0].extremidades_sp" >
 
                                     </div>
                                 </div>
 
-                                <textarea class="form-control input-sm" cols="100" rows="2" name="fisicoregional" id="fisicoregional" ng-model="fisicoregional"></textarea>
+                                <textarea class="form-control input-sm" cols="100" rows="2" name="fisicoregional" id="fisicoregional" ng-model="aux_anamnesis[0].fisicoregional[0].descripcion"></textarea>
 
                             </th>
                         </tr>
@@ -834,7 +843,7 @@
                         <tr>
                             <th colspan="6">
                                 <div class="col-xs-6">
-                                    8. Diagnostico
+                                    8. Diagnostico <button class="btn btn-primary btn-sm" ng-click="find_cie();" title="Agregar"><i class="glyphicon glyphicon-plus"></i></button>
                                 </div>
                                 <div class="col-xs-3 text-right" style="font-size: 9px;"><strong>PRE</strong>= Presuntivo</div>
                                 <div class="col-xs-3 text-right" style="font-size: 9px;"><strong>DEF</strong>= Definitivo</div>
@@ -979,6 +988,24 @@
 
 
 
+
+    <div class="modal fade" id="cie_information" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Cie 10</h4>
+                </div>
+                <div class="modal-body">
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="glyphicon glyphicon-ban-circle"></i>Cancelar</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 
 
