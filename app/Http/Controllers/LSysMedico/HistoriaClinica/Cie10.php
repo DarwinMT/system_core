@@ -18,7 +18,7 @@ class Cie10 extends Controller
 
     /**
      *
-     * Cargar los permisos de empleado
+     * Cargar los permisos del cie
      *
      */
     public function index()
@@ -26,7 +26,7 @@ class Cie10 extends Controller
         if(Session::has('user_data')){
             $data_user=Session::get('user_data');
             $permisos=json_decode($data_user[0]->permisos[0]->acceso);
-            //id_men =9 = registro de empleados
+            //id_men =9 = registro de empleados //pendiente para cargara datos cie
             $aux_permiso=array();
             foreach ($permisos as $p) {
                 if($p->id_men==9){
