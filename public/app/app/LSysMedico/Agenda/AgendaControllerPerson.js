@@ -1047,7 +1047,29 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
 
     $scope.find_cie=function () {
         $("#cie_information").modal("show");
+        $scope.pageChanged_cie(1);
     };
+
+
+    $scope.lis_cie10=[];
+    $scope.buscar_cie10="";
+    $scope.pageChanged_cie = function(newPage) {
+        $scope.buscar_cie(newPage);
+    };
+    $scope.buscar_cie = function(pageNumber){
+
+        var filtros = {
+            buscar:$scope.buscar_cie10,
+            estado: '1'
+        };
+        $http.get(API_URL + 'Cie/get_list_cie?page=' + pageNumber + '&filter=' + JSON.stringify(filtros))
+            .then(function(response){
+                $scope.lis_cie10 = response.data.data;
+                $scope.totalItemscie = response.data.total;
+                console.log($scope.list_empleados);
+            });
+    };
+
 
     $scope.aux_anamnesis=[];
     $scope.get_anamnesis=function(){

@@ -998,6 +998,53 @@
                 </div>
                 <div class="modal-body">
 
+                    <div class="row">
+                        <div class="col-xs-6 col-md-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control input-sm" placeholder="Buscar " ng-keyup="pageChanged_cie(1);" name="buscar_cie10" ng-model="buscar_cie10" id="buscar_cie10">
+                                <span class="input-group-btn">
+			                        <button class="btn btn-default btn-sm" ng-click="pageChanged_cie(1);" type="button">Buscar</button>
+			                    </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 table-responsive">
+                            <table class="table table-condensend table-bordered " >
+                                <thead>
+                                <tr class="bg-primary">
+                                    <th></th>
+                                    <th>Codigo</th>
+                                    <th>Descripcion</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr style="font-size: 10px !important;" dir-paginate="u in lis_cie10 | orderBy:sortKey:reverse |filter:buscar_cie10| itemsPerPage:5" total-items="totalItemscie" ng-cloak">
+                                <td >{{$index+1}}</td>
+                                <td >{{u.codigo}}</td>
+                                <td >{{u.descripcion}}</td>
+                                <td >
+                                    <div class="btn-group" role="group" >
+                                        <button  ng-click="select_cie10(u);" type="button" title="Seleccionar" class="btn btn-sm btn-info">
+                                            <i class="glyphicon glyphicon-ok-circle"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <dir-pagination-controls
+                                    on-page-change="pageChanged_cie(newPageNumber)"
+                                    template-url="dirPagination.html"
+                                    class="pull-right"
+                                    max-size="10"
+                                    direction-links="true"
+                                    boundary-links="true" >
+                            </dir-pagination-controls>
+                        </div>
+                    </div>
 
                 </div>
                 <div class="modal-footer">

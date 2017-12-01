@@ -93,6 +93,13 @@ Route::get('Agenda/Configuracion', 'LSysMedico\Agenda\AgendaController@get_confi
 Route::resource('Agenda', 'LSysMedico\Agenda\AgendaController');
 /*-----------------Logica agenda --------------*/
 
+
+/*-----------------Logica CIE10 --------------*/
+Route::get('Cie/get_list_cie', 'LSysMedico\HistoriaClinica\Cie10@get_list_cie');
+Route::resource('Cie', 'LSysMedico\HistoriaClinica\Cie10');
+/*-----------------Logica CIE10 --------------*/
+
+
 /*-----------------Logica Anamnesis --------------*/
 
 Route::get('Anamnesis/get_anamnesis_id/{texto}', 'LSysMedico\HistoriaClinica\Anamnesis@get_anamnesistoid');
