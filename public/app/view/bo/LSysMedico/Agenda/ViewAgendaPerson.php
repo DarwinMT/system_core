@@ -111,7 +111,7 @@
 			<!--work-->
 			<div class="col-md-9 col-xs-12">
 
-				<div class="row" ng-hide=" tipo_calendar=='CIT' ">
+				<div class="row" ng-hide=" tipo_calendar=='CIT' || tipo_calendar=='DIAG' ">
 					<div class="col-md-2 col-xs-6" >
 						<div class="btn-group">
 						  <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -415,9 +415,9 @@
 
                     <div class="col-xs-12 text-center">
                         <div class="btn-group" >
-                            <button class="btn btn-sm btn-success"><i class="glyphicon glyphicon-floppy-saved"></i> Guardar</button>
-                            <button class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-floppy-saved"></i> Finalizar</button>
-                            <button class="btn btn-sm btn-default"><i class="glyphicon glyphicon-ban-circle"></i> Cancelar</button>
+                            <button class="btn btn-sm btn-success" ng-click="save_anamnesis();"><i class="glyphicon glyphicon-floppy-saved"></i> Guardar</button>
+                            <button class="btn btn-sm btn-primary" ng-click="save_end_anamnesis();"><i class="glyphicon glyphicon-floppy-saved"></i> Finalizar</button>
+                            <button class="btn btn-sm btn-default" ng-click="cancel_anamnesis();"><i class="glyphicon glyphicon-ban-circle"></i> Cancelar</button>
                         </div>
                     </div>
 
@@ -472,7 +472,7 @@
                                     <div class="col-md-2 col-xs-2">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="cardiopatia" id="cardiopatia" ng-model="cardiopatia"  ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].cardiopatia==1" > 1. Cardiopatía
+                                                <input type="checkbox" name="cardiopatia" id="cardiopatia" ng-model="aux_anamnesis[0].antecedentesfamiliares[0].cardiopatia"  ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].cardiopatia==1" > 1. Cardiopatía
                                             </label>
                                         </div>
                                     </div>
@@ -481,7 +481,7 @@
                                     <div class="col-md-2 col-xs-2">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="diabetes" id="diabetes" ng-model="diabetes" ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].diabetes==1" > 2. Diabetes
+                                                <input type="checkbox" name="diabetes" id="diabetes" ng-model="aux_anamnesis[0].antecedentesfamiliares[0].diabetes" ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].diabetes==1" > 2. Diabetes
                                             </label>
                                         </div>
                                     </div>
@@ -490,7 +490,7 @@
                                     <div class="col-md-2 col-xs-2">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="carvascular" id="carvascular" ng-model="carvascular"
+                                                <input type="checkbox" name="carvascular" id="carvascular" ng-model="aux_anamnesis[0].antecedentesfamiliares[0].vascular"
                                                        ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].vascular==1" > 3. Enf. Car. Vascular
                                             </label>
                                         </div>
@@ -499,7 +499,7 @@
                                 <div class="col-md-2 col-xs-2">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="cancer" id="cancer" ng-model="cancer" ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].hipertencion==1"  > 4. Hipertensión
+                                            <input type="checkbox" name="cancer" id="cancer" ng-model="aux_anamnesis[0].antecedentesfamiliares[0].hipertencion" ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].hipertencion==1"  > 4. Hipertensión
                                         </label>
                                     </div>
                                 </div>
@@ -507,7 +507,7 @@
                                 <div class="col-md-2 col-xs-2">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="cancer" id="cancer" ng-model="cancer" ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].cancer==1"  > 5. Cáncer
+                                            <input type="checkbox" name="cancer" id="cancer" ng-model="aux_anamnesis[0].antecedentesfamiliares[0].cancer" ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].cancer==1"  > 5. Cáncer
                                         </label>
                                     </div>
                                 </div>
@@ -515,24 +515,7 @@
                                 <div class="col-md-2 col-xs-2">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="tuberculosis" id="tuberculosis" ng-model="tuberculosis" ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].tuberculosis==1"  > 6. Tuberculosis
-                                        </label>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-2 col-xs-2">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="mental" id="mental" ng-model="mental" ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].enfmental==1" > 7. Enf. Mental
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-2 col-xs-2">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="infecciosa" id="infecciosa" ng-model="infecciosa"  ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].enfinfecciosa==1" > 8. Enf. Infecciosa
+                                            <input type="checkbox" name="tuberculosis" id="tuberculosis" ng-model="aux_anamnesis[0].antecedentesfamiliares[0].tuberculosis" ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].tuberculosis==1"  > 6. Tuberculosis
                                         </label>
                                     </div>
                                 </div>
@@ -541,7 +524,15 @@
                                 <div class="col-md-2 col-xs-2">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="malformacion" id="malformacion" ng-model="malformacion" ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].malformacion==1" > 9. Mal Formación
+                                            <input type="checkbox" name="mental" id="mental" ng-model="aux_anamnesis[0].antecedentesfamiliares[0].enfmental" ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].enfmental==1" > 7. Enf. Mental
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 col-xs-2">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="infecciosa" id="infecciosa" ng-model="aux_anamnesis[0].antecedentesfamiliares[0].enfinfecciosa"  ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].enfinfecciosa==1" > 8. Enf. Infecciosa
                                         </label>
                                     </div>
                                 </div>
@@ -550,7 +541,16 @@
                                 <div class="col-md-2 col-xs-2">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="otros" id="otros" ng-model="otros" ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].otro==1" > 10. Otros
+                                            <input type="checkbox" name="malformacion" id="malformacion" ng-model="aux_anamnesis[0].antecedentesfamiliares[0].malformacion" ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].malformacion==1" > 9. Mal Formación
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-2 col-xs-2">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="otros" id="otros" ng-model="aux_anamnesis[0].antecedentesfamiliares[0].otro" ng-checked="aux_anamnesis[0].antecedentesfamiliares[0].otro==1" > 10. Otros
                                         </label>
                                     </div>
                                 </div>
@@ -854,88 +854,29 @@
                         <tr>
                             <th colspan="6">
 
-                                <div class="col-xs-6">
+                                <div class="col-xs-6" ng-repeat=" d in aux_anamnesis[0].diagnostico">
                                     <div class="input-group">
                                         <span class="input-group-btn" style="width: 50%;">
-                                            <input type="text" class="form-control input-sm" id="diagnosticodescripcion" name="diagnosticodescripcion" ng-model="diagnosticodescripcion"  >
+                                            <input type="text" class="form-control input-sm" id="diagnosticodescripcion" name="diagnosticodescripcion" readonly ng-model="d.cie.descripcion"  >
 	                                    </span>
                                         <span class="input-group-btn" style="width: 20%;">
-                                            <input type="text" class="form-control input-sm" placeholder="CIE" id="diagnosticocie" name="diagnosticocie" ng-model="diagnosticocie" >
+                                            <input type="text" class="form-control input-sm" placeholder="CIE" id="diagnosticocie" name="diagnosticocie" readonly ng-model="d.cie.codigo" >
                                         </span>
 
                                         <span class="input-group-btn" style="width: 15%;">
-                                            <input type="text" class="form-control input-sm" placeholder="PRE"  id="diagnosticopre" name="diagnosticopre" ng-model="diagnosticopre" >
+                                            <input type="text" class="form-control input-sm" placeholder="PRE"  id="diagnosticopre" name="diagnosticopre" ng-model="d.presuntivo" >
                                         </span>
 
                                         <span class="input-group-btn" style="width: 15%;">
-                                            <input type="text" class="form-control input-sm" placeholder="DEF" id="diagnosticodef" name="diagnosticodef" ng-model="diagnosticodef" >
+                                            <input type="text" class="form-control input-sm" placeholder="DEF" id="diagnosticodef" name="diagnosticodef" ng-model="d.definitivo" >
                                         </span>
-                                        <button type="button" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-search"></i></button>
+                                        <button type="button" class="btn btn-danger btn-sm" ng-click="delete_cie(d)"><i class="glyphicon glyphicon-trash"></i></button>
                                     </div>
                                 </div>
 
-                                <div class="col-xs-6">
-                                    <div class="input-group">
-                                        <span class="input-group-btn" style="width: 50%;">
-                                            <input type="text" class="form-control input-sm" id="diagnosticodescripcion" name="diagnosticodescripcion" ng-model="diagnosticodescripcion"  >
-	                                    </span>
-                                        <span class="input-group-btn" style="width: 20%;">
-                                            <input type="text" class="form-control input-sm" placeholder="CIE" id="diagnosticocie" name="diagnosticocie" ng-model="diagnosticocie" >
-                                        </span>
-
-                                        <span class="input-group-btn" style="width: 15%;">
-                                            <input type="text" class="form-control input-sm" placeholder="PRE"  id="diagnosticopre" name="diagnosticopre" ng-model="diagnosticopre" >
-                                        </span>
-
-                                        <span class="input-group-btn" style="width: 15%;">
-                                            <input type="text" class="form-control input-sm" placeholder="DEF" id="diagnosticodef" name="diagnosticodef" ng-model="diagnosticodef" >
-                                        </span>
-                                        <button type="button" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-search"></i></button>
-                                    </div>
-                                </div>
+                               
 
 
-
-                                <div class="col-xs-6">
-                                    <div class="input-group">
-                                        <span class="input-group-btn" style="width: 50%;">
-                                            <input type="text" class="form-control input-sm" id="diagnosticodescripcion" name="diagnosticodescripcion" ng-model="diagnosticodescripcion"  >
-	                                    </span>
-                                        <span class="input-group-btn" style="width: 20%;">
-                                            <input type="text" class="form-control input-sm" placeholder="CIE" id="diagnosticocie" name="diagnosticocie" ng-model="diagnosticocie" >
-                                        </span>
-
-                                        <span class="input-group-btn" style="width: 15%;">
-                                            <input type="text" class="form-control input-sm" placeholder="PRE"  id="diagnosticopre" name="diagnosticopre" ng-model="diagnosticopre" >
-                                        </span>
-
-                                        <span class="input-group-btn" style="width: 15%;">
-                                            <input type="text" class="form-control input-sm" placeholder="DEF" id="diagnosticodef" name="diagnosticodef" ng-model="diagnosticodef" >
-                                        </span>
-                                        <button type="button" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-search"></i></button>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-xs-6">
-                                    <div class="input-group">
-                                        <span class="input-group-btn" style="width: 50%;">
-                                            <input type="text" class="form-control input-sm" id="diagnosticodescripcion" name="diagnosticodescripcion" ng-model="diagnosticodescripcion"  >
-	                                    </span>
-                                        <span class="input-group-btn" style="width: 20%;">
-                                            <input type="text" class="form-control input-sm" placeholder="CIE" id="diagnosticocie" name="diagnosticocie" ng-model="diagnosticocie" >
-                                        </span>
-
-                                        <span class="input-group-btn" style="width: 15%;">
-                                            <input type="text" class="form-control input-sm" placeholder="PRE"  id="diagnosticopre" name="diagnosticopre" ng-model="diagnosticopre" >
-                                        </span>
-
-                                        <span class="input-group-btn" style="width: 15%;">
-                                            <input type="text" class="form-control input-sm" placeholder="DEF" id="diagnosticodef" name="diagnosticodef" ng-model="diagnosticodef" >
-                                        </span>
-                                        <button type="button" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-search"></i></button>
-                                    </div>
-                                </div>
 
 
 
@@ -964,6 +905,11 @@
                 </div>
                 <!--FORMULARIO 002 – CONSULTA EXTERNA -->
 
+                <!-- FORMULARIO DE RECETA-->
+                <div class="row" ng-hide=" tipo_calendar!='DIAG' ">
+                	<h3>Prescripción Medica </h3>
+                </div>
+                <!-- FORMULARIO DE RECETA-->
 			</div>
 
 		</div>

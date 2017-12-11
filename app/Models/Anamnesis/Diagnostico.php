@@ -17,7 +17,9 @@ class Diagnostico extends Model
     protected $fillable = [
         'id_diag',
         'id_cone',
-        'id_ci'
+        'id_ci',
+        'presuntivo',
+        'definitivo'
     ];
 
     public function consultaexterna()

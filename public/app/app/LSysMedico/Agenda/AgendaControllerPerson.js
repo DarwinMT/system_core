@@ -1036,13 +1036,283 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
 
 
     ///---Logica de citas medicas
+    $scope.aux_anamnesis=[];
     $scope.datos_cita={};
+    $scope.aux_diagnostico=[];
     $scope.ready_cita=function (item) {
+
+        var f =new Date();
+        var today=f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate();
+
+        $scope.aux_diagnostico=[];
+
         $scope.datos_cita={};
         $scope.tipo_calendar="CIT"; //ESTA DE  QUE INICIA LA CITA MEDICA
         $scope.datos_cita=item;
         console.log(item);
         $scope.get_anamnesis();
+
+        var antecedents_familiares={
+            id_antf:null, 
+            id_cone:null, 
+            cardiopatia:null, 
+            diabetes:null, 
+            vascular:null, 
+            hipertencion:null, 
+            cancer:null, 
+            tuberculosis:null, 
+            enfmental:null, 
+            enfinfecciosa:null, 
+            malformacion:null, 
+            otro:null, 
+            descripcion:null, 
+            estado:null
+        };
+        var aux_antecedents_familiares=[];
+        aux_antecedents_familiares.push(antecedents_familiares);
+
+       /* var aux_cie={
+            id_ci:null, 
+            id_clasf:null, 
+            orden:null, 
+            imagen:null, 
+            fechaingreso:null, 
+            codigo:"asdasdsa", 
+            descripcion:"prueba medicamento", 
+            estado:null
+        };
+        var diagnostico={
+            id_diag:null, 
+            id_cone:null, 
+            id_ci:null, 
+            presuntivo:null, 
+            definitivo:null,
+            cie:aux_cie
+        };
+        
+        $scope.aux_diagnostico.push(diagnostico);*/
+
+        var fisico_regional={
+            id_freg:null, 
+            id_cone:null, 
+            cabeza_cp:null, 
+            cabeza_sp:null, 
+            cuello_cp:null, 
+            cuello_sp:null, 
+            torax_cp:null, 
+            torax_sp:null, 
+            abdomen_cp:null, 
+            abdomen_sp:null, 
+            pelvis_cp:null, 
+            pelvis_sp:null, 
+            extremidades_cp:null, 
+            extremidades_sp:null, 
+            descripcion:null, 
+            estado:null
+        };
+        var aux_fisico_regional=[];
+        aux_fisico_regional.push(fisico_regional);
+
+        var organos_sistemas={
+            id_orgs:null,
+            id_cone:null , 
+            sentidos_cp:null , 
+            sentidos_sp:null , 
+            respiratorio_cp:null , 
+            respiratorio_sp:null , 
+            vascular_cp:null, 
+            vascular_sp:null, 
+            digestivo_cp:null, 
+            digestivo_sp:null, 
+            genital_cp:null, 
+            genital_sp:null, 
+            urinario_cp:null, 
+            urinario_sp:null, 
+            mesqueletico_cp:null, 
+            mesqueletico_sp:null, 
+            endocrino_cp:null, 
+            endocrino_sp:null, 
+            linfatico_cp:null, 
+            linfatico_sp:null, 
+            nervioso_cp:null, 
+            nervioso_sp:null, 
+            descripcion:null, 
+            estado:null
+        };
+        var aux_organos_sistemas=[];
+        aux_organos_sistemas.push(organos_sistemas);
+
+        var signos_vitales={
+            id_sigv:null, 
+            id_cone:null, 
+            fechamedicion:today, 
+            temperatura:null, 
+            presionarterial:null, 
+            pulso:null, 
+            frerespiratoria:null, 
+            peso:null, 
+            talla:null, 
+            estado:null
+        };
+        var aux_signos_vitales=[];
+        aux_signos_vitales.push(signos_vitales);
+        var consulta_externa={
+            id_cone:null, 
+            id_ag:item.id_ag, 
+            fecha:today, 
+            motivo:null, 
+            antecedentespersonales:null, 
+            enfermedadactual:null, 
+            planestratamiento:null, 
+            data_json:null, 
+            estado:null,
+            antecedentesfamiliares: aux_antecedents_familiares,
+            diagnostico: $scope.aux_diagnostico,
+            fisicoregional:aux_fisico_regional,
+            organossistemas:aux_organos_sistemas,
+            signosvitales:aux_signos_vitales
+        };
+
+        $scope.aux_anamnesis.push(consulta_externa);
+    };
+
+    $scope.clear_anamnesis=function()
+    {
+        var f =new Date();
+        var today=f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate();
+
+        $scope.aux_anamnesis=[];
+        $scope.aux_diagnostico=[];
+        var antecedents_familiares={
+            id_antf:null, 
+            id_cone:null, 
+            cardiopatia:null, 
+            diabetes:null, 
+            vascular:null, 
+            hipertencion:null, 
+            cancer:null, 
+            tuberculosis:null, 
+            enfmental:null, 
+            enfinfecciosa:null, 
+            malformacion:null, 
+            otro:null, 
+            descripcion:null, 
+            estado:null
+        };
+        var aux_antecedents_familiares=[];
+        aux_antecedents_familiares.push(antecedents_familiares);
+
+        var fisico_regional={
+            id_freg:null, 
+            id_cone:null, 
+            cabeza_cp:null, 
+            cabeza_sp:null, 
+            cuello_cp:null, 
+            cuello_sp:null, 
+            torax_cp:null, 
+            torax_sp:null, 
+            abdomen_cp:null, 
+            abdomen_sp:null, 
+            pelvis_cp:null, 
+            pelvis_sp:null, 
+            extremidades_cp:null, 
+            extremidades_sp:null, 
+            descripcion:null, 
+            estado:null
+        };
+        var aux_fisico_regional=[];
+        aux_fisico_regional.push(fisico_regional);
+
+        var organos_sistemas={
+            id_orgs:null,
+            id_cone:null , 
+            sentidos_cp:null , 
+            sentidos_sp:null , 
+            respiratorio_cp:null , 
+            respiratorio_sp:null , 
+            vascular_cp:null, 
+            vascular_sp:null, 
+            digestivo_cp:null, 
+            digestivo_sp:null, 
+            genital_cp:null, 
+            genital_sp:null, 
+            urinario_cp:null, 
+            urinario_sp:null, 
+            mesqueletico_cp:null, 
+            mesqueletico_sp:null, 
+            endocrino_cp:null, 
+            endocrino_sp:null, 
+            linfatico_cp:null, 
+            linfatico_sp:null, 
+            nervioso_cp:null, 
+            nervioso_sp:null, 
+            descripcion:null, 
+            estado:null
+        };
+        var aux_organos_sistemas=[];
+        aux_organos_sistemas.push(organos_sistemas);
+
+        var signos_vitales={
+            id_sigv:null, 
+            id_cone:null, 
+            fechamedicion:today, 
+            temperatura:null, 
+            presionarterial:null, 
+            pulso:null, 
+            frerespiratoria:null, 
+            peso:null, 
+            talla:null, 
+            estado:null
+        };
+        var aux_signos_vitales=[];
+        aux_signos_vitales.push(signos_vitales);
+        var consulta_externa={
+            id_cone:null, 
+            id_ag:null, 
+            fecha:today, 
+            motivo:null, 
+            antecedentespersonales:null, 
+            enfermedadactual:null, 
+            planestratamiento:null, 
+            data_json:null, 
+            estado:null,
+            antecedentesfamiliares: aux_antecedents_familiares,
+            diagnostico: $scope.aux_diagnostico,
+            fisicoregional:aux_fisico_regional,
+            organossistemas:aux_organos_sistemas,
+            signosvitales:aux_signos_vitales
+        };
+
+        $scope.aux_anamnesis.push(consulta_externa);
+    };
+
+    $scope.save_anamnesis=function() {
+        $("#progress").modal("show");
+      console.log($scope.aux_anamnesis);
+
+      $http.post(API_URL + 'Anamnesis',$scope.aux_anamnesis)
+        .success(function(response){
+            console.log(response);
+            $("#progress").modal("hide");
+            if(response.success==0){
+                sms("btn-success","Se guardo correctamente los datos..!!");
+                $scope.clear_agenda();
+                $scope.clear_anamnesis();
+
+                $scope.tipo_calendar="DIAG";/// Recetar 
+            }else{
+                sms("btn-danger","Error al guardar los datos..!!");
+                $scope.clear_agenda();
+                $scope.clear_anamnesis();
+            }
+        });
+
+    };
+    $scope.save_end_anamnesis=function() {
+        
+    };
+    $scope.cancel_anamnesis=function() {
+        
     };
 
     $scope.find_cie=function () {
@@ -1066,12 +1336,27 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
             .then(function(response){
                 $scope.lis_cie10 = response.data.data;
                 $scope.totalItemscie = response.data.total;
-                console.log($scope.list_empleados);
             });
     };
+    $scope.select_cie10=function(u) {
+        var diagnostico={
+            id_diag:null, 
+            id_cone:null, 
+            id_ci:null, 
+            presuntivo:null, 
+            definitivo:null,
+            cie:u
+        };
+        $scope.aux_diagnostico.push(diagnostico);
+        $("#cie_information").modal("hide");
+    };
 
+    $scope.delete_cie=function (item) {
+        var posicion= $scope.aux_diagnostico.indexOf(item);
+         $scope.aux_diagnostico.splice(posicion,1);
+    };
 
-    $scope.aux_anamnesis=[];
+    
     $scope.get_anamnesis=function(){
         var filtro_cita={
             Fecha: '',
@@ -1082,7 +1367,7 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
         $http.get(API_URL + 'Anamnesis/get_anamnesis_id/' + JSON.stringify(filtro_cita))
             .then(function(response){
                 console.log(response.data);
-                $scope.aux_anamnesis=response.data;
+                //$scope.aux_anamnesis=response.data;
             });
 
     };
