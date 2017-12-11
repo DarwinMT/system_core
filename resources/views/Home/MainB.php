@@ -72,6 +72,15 @@ $(document).ready(function(){
     e.stopPropagation();
     e.preventDefault();
   });
+
+    $('.table-responsive').on('show.bs.dropdown', function () {
+        $('.table-responsive').css( "overflow", "inherit" );
+    });
+
+    $('.table-responsive').on('hide.bs.dropdown', function () {
+        $('.table-responsive').css( "overflow", "auto" );
+    });
+
 });
 </script>
 

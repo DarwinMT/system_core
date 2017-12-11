@@ -69,7 +69,7 @@ class Anamnesis extends Controller
         $filtro = json_decode($texto);
         return ConsultaExterna::with("signosvitales","antecedentesfamiliares",
                                             "organossistemas","fisicoregional","diagnostico.cie")
-                            ->WhereRaw("id_cone=1")
+                            ->WhereRaw("id_ag=".$filtro->id_ag."" )
                             ->get();
 
     }

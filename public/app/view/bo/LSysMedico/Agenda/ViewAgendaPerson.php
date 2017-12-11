@@ -275,21 +275,48 @@
 		      						<td>{{((dg.estado==1)? "ACTIVA":"INACTIVA")}}</td>
 
 		      						<td>
-		      							<div class="btn-group" role="group" >
+
+
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <li ng-disabled=" list_permisos.access_edit==0 " ng-click="edit_cita(dg)" ng-hide=" list_permisos.access_edit==0 " >
+                                                    <a href="">
+                                                        <i class="glyphicon glyphicon-edit"></i> Editar Cita
+                                                    </a>
+                                                </li>
+                                                <li ng-click="ready_cita(dg)">
+                                                    <a href="" >
+                                                        <i class="glyphicon glyphicon-list-alt"></i> Anamnesis
+                                                    </a>
+                                                </li>
+
+                                                <li role="separator" class="divider"></li>
+                                                <li ng-disabled=" list_permisos.access_delete==0 " ng-hide=" list_permisos.access_delete==0 "  ng-click="int_estado(dg);" >
+                                                    <a href="">
+                                                        <i class="glyphicon glyphicon-trash"></i> Cancelar Cita
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+		      							<!--<div class="btn-group" role="group" >
                                             <button class="btn btn-default btn-sm" ng-disabled=" list_permisos.access_edit==0 "
                                                     ng-click="ready_cita(dg)">
                                                 <i class="glyphicon glyphicon-list-alt"   ></i>
                                             </button>
 
                                             <button class="btn btn-info btn-sm" ng-disabled=" list_permisos.access_edit==0 "
-		      									ng-click="edit_cita(dg)">
-		      									<i class="glyphicon glyphicon-edit"   ></i>
-		      								</button>
-		      								<button class="btn btn-danger btn-sm" ng-disabled=" list_permisos.access_delete==0 "
-		      									ng-click="int_estado(dg);" >
-		      									<i class="glyphicon glyphicon-trash"></i>
-		      								</button>
-		      							</div>
+                                                    ng-click="edit_cita(dg)">
+                                                <i class="glyphicon glyphicon-edit"   ></i>
+                                            </button>
+                                            <button class="btn btn-danger btn-sm" ng-disabled=" list_permisos.access_delete==0 "
+                                                    ng-click="int_estado(dg);" >
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                            </button>
+                                        </div>-->
 		      						</td>
 
 		      					</tr>

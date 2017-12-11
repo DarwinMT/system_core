@@ -7,6 +7,15 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
         ignoreReadonly: true
     });
 
+    $('.table-responsive').on('show.bs.dropdown', function () {
+        $('.table-responsive').css( "overflow", "inherit" );
+    });
+
+    $('.table-responsive').on('hide.bs.dropdown', function () {
+        $('.table-responsive').css( "overflow", "auto" );
+    });
+
+
     //$scope.fecha_inicial="2017-10-01";
     var fecha_referencial = new Date();
     $scope.fecha_referencial_angular = new Date();
@@ -1050,7 +1059,7 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
         $scope.tipo_calendar="CIT"; //ESTA DE  QUE INICIA LA CITA MEDICA
         $scope.datos_cita=item;
         console.log(item);
-        $scope.get_anamnesis();
+
 
         var antecedents_familiares={
             id_antf:null, 
@@ -1174,6 +1183,9 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
         };
 
         $scope.aux_anamnesis.push(consulta_externa);
+
+
+        $scope.get_anamnesis(item.id_ag);
     };
 
     $scope.clear_anamnesis=function()
@@ -1357,16 +1369,20 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
     };
 
     
-    $scope.get_anamnesis=function(){
+    $scope.get_anamnesis=function(id){
         var filtro_cita={
             Fecha: '',
             id_emp: '',
-            estado: ''
+            estado: '',
+            id_ag:id
         };
 
         $http.get(API_URL + 'Anamnesis/get_anamnesis_id/' + JSON.stringify(filtro_cita))
             .then(function(response){
                 console.log(response.data);
+                if(response.data[0].id_ag!=null && response.data[0].id_ag!=undefined  ){
+                    $scope.aux_anamnesis=response.data;
+                }
                 //$scope.aux_anamnesis=response.data;
             });
 
@@ -1484,4 +1500,5 @@ $(document).ready(function(){
         format: 'YYYY-MM-DD',
         ignoreReadonly: true
     });
+
 });
