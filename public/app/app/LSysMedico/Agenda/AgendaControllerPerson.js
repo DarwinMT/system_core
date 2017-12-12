@@ -1342,9 +1342,7 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
             }
         });
     };
-    $scope.cancel_anamnesis=function() {
-        
-    };
+    
 
     $scope.find_cie=function () {
         $("#cie_information").modal("show");

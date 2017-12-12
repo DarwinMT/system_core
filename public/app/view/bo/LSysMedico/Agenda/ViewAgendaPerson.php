@@ -287,18 +287,32 @@
                                                         <i class="glyphicon glyphicon-edit"></i> Editar Cita
                                                     </a>
                                                 </li>
+                                                <li ng-disabled=" list_permisos.access_delete==0 " ng-hide=" list_permisos.access_delete==0 "  ng-click="int_estado(dg);" >
+                                                    <a href="">
+                                                        <i class="glyphicon glyphicon-trash"></i> Cancelar Cita
+                                                    </a>
+                                                </li>
+                                                <li role="separator" class="divider"></li>
                                                 <li ng-click="ready_cita(dg)">
                                                     <a href="" >
                                                         <i class="glyphicon glyphicon-list-alt"></i> Anamnesis
                                                     </a>
                                                 </li>
 
-                                                <li role="separator" class="divider"></li>
-                                                <li ng-disabled=" list_permisos.access_delete==0 " ng-hide=" list_permisos.access_delete==0 "  ng-click="int_estado(dg);" >
-                                                    <a href="">
-                                                        <i class="glyphicon glyphicon-trash"></i> Cancelar Cita
+                                                <li ng-click="ready_receta(dg)">
+                                                    <a href="" >
+                                                        <i class="glyphicon glyphicon-list"></i> Receta
                                                     </a>
                                                 </li>
+
+                                                <li ng-click="end_consulta(dg)">
+                                                    <a href="" >
+                                                        <i class="glyphicon glyphicon-ok-circle"></i> Finalizar consulta
+                                                    </a>
+                                                </li>
+
+                                                
+                                                
                                             </ul>
                                         </div>
 
@@ -448,7 +462,7 @@
                             <button class="btn btn-sm btn-primary" ng-click="save_edit_anamnesis();" ng-hide=" aux_anamnesis[0].id_cone==null || aux_anamnesis[0].id_cone==undefined">
                             	<i class="glyphicon glyphicon-floppy-saved"></i> Guardar
                             </button>
-                            <button class="btn btn-sm btn-default" ng-click="cancel_anamnesis();"><i class="glyphicon glyphicon-ban-circle"></i> Cancelar</button>
+                            <button class="btn btn-sm btn-default" ng-click="control_panel2('D');"><i class="glyphicon glyphicon-ban-circle"></i> Cancelar</button>
                         </div>
                     </div>
 
@@ -938,7 +952,31 @@
 
                 <!-- FORMULARIO DE RECETA-->
                 <div class="row" ng-hide=" tipo_calendar!='DIAG' ">
-                	<h3>Prescripción Medica </h3>
+                	<h5><strong>Prescripción Medica</strong> </h5>
+                	<div class="row">
+                		<div class="col-xs-2">
+                			<button type="button" class="btn btn-primary btn-sm" >
+                				<i class="glyphicon glyphicon-plus"></i> Agregar Medicamento
+                			</button>
+                		</div>
+                	</div>
+                	<div class="row">
+                		<div class="col-xs-12 table-responsive">
+                			<table class="table table-bordered table-condensend">
+                				<thead>
+                					<tr class="bg-primary">
+                						<th></th>
+                						<th>Medicamento</th>
+                						<th>Dosis</th>
+                						<th>Indicaciones</th>
+                					</tr>
+                				</thead>
+                				<tbody>
+                					<tr></tr>
+                				</tbody>
+                			</table>
+                		</div>
+                	</div>
                 </div>
                 <!-- FORMULARIO DE RECETA-->
 			</div>
