@@ -1320,8 +1320,27 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
         });
 
     };
-    $scope.save_end_anamnesis=function() {
-        
+    $scope.save_edit_anamnesis=function() {
+        $("#progress").modal("show");
+      console.log($scope.aux_anamnesis);
+
+      //$http.post(API_URL + 'Anamnesis',$scope.aux_anamnesis)
+      $http.put(API_URL + 'Anamnesis/'+$scope.aux_anamnesis[0].id_cone,$scope.aux_anamnesis)
+        .success(function(response){
+            console.log(response);
+            $("#progress").modal("hide");
+            if(response.success==0){
+                sms("btn-success","Se guardo correctamente los datos..!!");
+                $scope.clear_agenda();
+                $scope.clear_anamnesis();
+
+                $scope.tipo_calendar="DIAG";/// Recetar 
+            }else{
+                sms("btn-danger","Error al guardar los datos..!!");
+                $scope.clear_agenda();
+                $scope.clear_anamnesis();
+            }
+        });
     };
     $scope.cancel_anamnesis=function() {
         
@@ -1382,6 +1401,7 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
                 console.log(response.data);
                 if(response.data[0].id_ag!=null && response.data[0].id_ag!=undefined  ){
                     $scope.aux_anamnesis=response.data;
+                    $scope.aux_diagnostico=$scope.aux_anamnesis[0].diagnostico;
                 }
                 //$scope.aux_anamnesis=response.data;
             });

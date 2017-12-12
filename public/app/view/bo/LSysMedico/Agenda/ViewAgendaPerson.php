@@ -442,8 +442,12 @@
 
                     <div class="col-xs-12 text-center">
                         <div class="btn-group" >
-                            <button class="btn btn-sm btn-success" ng-click="save_anamnesis();"><i class="glyphicon glyphicon-floppy-saved"></i> Guardar</button>
-                            <button class="btn btn-sm btn-primary" ng-click="save_end_anamnesis();"><i class="glyphicon glyphicon-floppy-saved"></i> Finalizar</button>
+                            <button class="btn btn-sm btn-success" ng-click="save_anamnesis();"     ng-hide=" aux_anamnesis[0].id_cone!=null || aux_anamnesis[0].id_cone!=undefined ">
+                            	<i class="glyphicon glyphicon-floppy-saved"></i> Guardar
+                            </button>
+                            <button class="btn btn-sm btn-primary" ng-click="save_edit_anamnesis();" ng-hide=" aux_anamnesis[0].id_cone==null || aux_anamnesis[0].id_cone==undefined">
+                            	<i class="glyphicon glyphicon-floppy-saved"></i> Guardar
+                            </button>
                             <button class="btn btn-sm btn-default" ng-click="cancel_anamnesis();"><i class="glyphicon glyphicon-ban-circle"></i> Cancelar</button>
                         </div>
                     </div>
