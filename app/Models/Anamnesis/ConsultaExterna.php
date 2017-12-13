@@ -52,6 +52,10 @@ class ConsultaExterna extends Model
     {
         return $this->hasMany('App\Models\Anamnesis\Diagnostico',"id_cone");
     }
+    public function prescripcion()
+    {
+        return $this->hasMany('App\Models\Receta\Prescripcion',"id_cone");
+    }
 
 
 }

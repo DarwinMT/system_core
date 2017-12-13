@@ -1406,6 +1406,19 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
 
     };
 
+    $scope.ready_receta=function (item) {
+        if(item.consultageneral.length>0){// tiene consulta externa
+            console.log(item.consultageneral);
+            $scope.tipo_calendar="DIAG";/// Recetar 
+
+        }else{
+            sms("btn-info","Ingrese la Anamnesis ");
+        }
+    };
+
+    $scope.add_vademecum=function() {
+        
+    };
 
     $scope.calcular_edad=function(fecha) {
         if(fecha==undefined  || fecha==null) return "";

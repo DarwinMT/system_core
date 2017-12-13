@@ -955,7 +955,7 @@
                 	<h5><strong>Prescripción Medica</strong> </h5>
                 	<div class="row">
                 		<div class="col-xs-2">
-                			<button type="button" class="btn btn-primary btn-sm" >
+                			<button type="button" class="btn btn-primary btn-sm" ng-click="add_vademecum(); >
                 				<i class="glyphicon glyphicon-plus"></i> Agregar Medicamento
                 			</button>
                 		</div>

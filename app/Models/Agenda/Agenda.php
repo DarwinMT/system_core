@@ -47,4 +47,8 @@ class Agenda extends Model
     {
         return $this->belongsTo('App\Models\Personas\Empleado',"id_emp");
     }
+    public function consultageneral()
+    {
+        return $this->hasMany('App\Models\Anamnesis\ConsultaExterna',"id_ag");
+    }
 }
