@@ -955,7 +955,7 @@
                 	<h5><strong>Prescripción Medica</strong> </h5>
                 	<div class="row">
                 		<div class="col-xs-2">
-                			<button type="button" class="btn btn-primary btn-sm" ng-click="add_vademecum(); >
+                			<button type="button" class="btn btn-primary btn-sm" ng-click="add_vademecum();"
                 				<i class="glyphicon glyphicon-plus"></i> Agregar Medicamento
                 			</button>
                 		</div>
@@ -967,12 +967,23 @@
                 					<tr class="bg-primary">
                 						<th></th>
                 						<th>Medicamento</th>
-                						<th>Dosis</th>
+                						<th style="width:20%; " >Dosis</th>
                 						<th>Indicaciones</th>
+                                        <th></th>
                 					</tr>
                 				</thead>
                 				<tbody>
-                					<tr></tr>
+                					<tr ng-repeat="m in list_receta">
+                                        <td>{{$index+1}}</td>
+                                        <td>{{m.item.descripcion}}</td>
+                                        <td><input type="text" class="form-control input-sm "  ng-model="m.cantidad"></td>
+                                        <td><input type="text" class="form-control input-sm " ng-model="m.indicaciones"></td>
+                                        <td>
+                                            <button class="btn btn-danger btn-sm" ng-click="delete_medicamento(m)">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
                 				</tbody>
                 			</table>
                 		</div>
@@ -1002,6 +1013,72 @@
 
 
 
+    <div class="modal fade" id="vademecum_information" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Vademecum</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-xs-6 col-md-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control input-sm" placeholder="Buscar " ng-keyup="pageChanged_vademecum(1);" name="buscar_medicamento" ng-model="buscar_medicamento" id="buscar_medicamento">
+                                <span class="input-group-btn">
+			                        <button class="btn btn-default btn-sm" ng-click="pageChanged_vademecum(1);" type="button">Buscar</button>
+			                    </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 table-responsive">
+                            <table class="table table-condensend table-bordered " >
+                                <thead>
+                                <tr class="bg-primary">
+                                    <th></th>
+                                    <th>Codigo</th>
+                                    <th>Descripcion</th>
+                                    <th>Presentacion</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr style="font-size: 10px !important;" dir-paginate="u in lis_vademecum | orderBy:sortKey:reverse |filter:buscar_medicamento| itemsPerPage:5" total-items="totalItemsvademe" ng-cloak">
+                                <td >{{$index+1}}</td>
+                                <td >{{u.codigo}}</td>
+                                <td >{{u.descripcion}}</td>
+                                <td >{{u.presentacion}}</td>
+                                <td >
+                                    <div class="btn-group" role="group" >
+                                        <button  ng-click="select_vademecum(u);" type="button" title="Seleccionar" class="btn btn-sm btn-info">
+                                            <i class="glyphicon glyphicon-ok-circle"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <dir-pagination-controls
+                                    on-page-change="pageChanged_vademecum(newPageNumber)"
+                                    template-url="dirPagination.html"
+                                    class="pull-right"
+                                    max-size="10"
+                                    direction-links="true"
+                                    boundary-links="true" >
+                            </dir-pagination-controls>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="glyphicon glyphicon-ban-circle"></i>Cancelar</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 
     <div class="modal fade" id="cie_information" tabindex="-1" role="dialog">

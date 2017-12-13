@@ -1406,6 +1406,7 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
 
     };
 
+    $scope.list_receta=[];
     $scope.ready_receta=function (item) {
         if(item.consultageneral.length>0){// tiene consulta externa
             console.log(item.consultageneral);
@@ -1417,7 +1418,40 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
     };
 
     $scope.add_vademecum=function() {
-        
+        $("#vademecum_information").modal("show");
+        $scope.pageChanged_vademecum(1);
+    };
+
+    $scope.lis_vademecum=[];
+    $scope.buscar_medicamento="";
+    $scope.totalItemsvademe=0;
+    $scope.pageChanged_vademecum = function(newPage) {
+        $scope.buscar_vademecum(newPage);
+    };
+    $scope.buscar_vademecum = function(pageNumber){
+
+        var filtros = {
+            buscar:$scope.buscar_medicamento,
+            estado: '1'
+        };
+        $http.get(API_URL + 'Vademecum/get_list_vademecum?page=' + pageNumber + '&filter=' + JSON.stringify(filtros))
+            .then(function(response){
+                $scope.lis_vademecum = response.data.data;
+                $scope.totalItemsvademe = response.data.total;
+            });
+    };
+
+    $scope.select_vademecum=function (i) {
+
+        var medicamento={
+          item:i,
+          cantidad:null,
+          indicaciones: null
+        };
+
+        $scope.list_receta.push(medicamento);
+        $("#vademecum_information").modal("hide");
+        console.log($scope.list_receta);
     };
 
     $scope.calcular_edad=function(fecha) {
