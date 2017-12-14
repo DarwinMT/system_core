@@ -97,4 +97,44 @@ class PrescripcionMedica extends Controller
             return response()->json(['success' => 1]); //error al guardar la receta
         }
     }
+    /**
+     *
+     * Cargar recetas
+     *
+     */
+    public function get_recetaid($texto)
+    {
+        $filtro = json_decode($texto);
+        $preshead=Prescripcion::whereRaw(" id_cone=".$filtro->id_cone."")
+                            ->orderBy("id_pres", "DESC")
+                            ->limit(1)
+                            ->get();
+
+        return PrescripcionItem::with("item","prescripcion")
+                                ->whereRaw(" id_pres=".$preshead[0]->id_pres."")
+                                ->get();
+
+    }
+    /**
+     *
+     *
+     * Modificar  receta
+     *
+     */
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+        $presant=PrescripcionItem::whereRaw("id_pres=".$id."")
+                                ->delete();
+        foreach ($data["Receta"] as $m) {
+            $presbody=new PrescripcionItem;
+            $presbody->id_pres=$id;
+            $presbody->id_item=$m["item"]["id_item"];
+            $presbody->cantidad=$m["cantidad"];
+            $presbody->indicaciones=$m["indicaciones"];
+            $presbody->save();
+        }
+        return response()->json(['success' => 0]); //datos guardados correctamente
+
+    }
 }

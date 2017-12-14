@@ -108,6 +108,7 @@ Route::resource('Anamnesis', 'LSysMedico\HistoriaClinica\Anamnesis');
 /*-----------------Logica Anamnesis --------------*/
 
 /*-----------------Logica Prescripcion Medica --------------*/
+Route::get('Prescripcion/get_receta_id/{texto}', 'LSysMedico\HistoriaClinica\PrescripcionMedica@get_recetaid');
 Route::get('Prescripcion/get_list_vademecum', 'LSysMedico\HistoriaClinica\PrescripcionMedica@get_list_vademecum');
 Route::resource('Prescripcion', 'LSysMedico\HistoriaClinica\PrescripcionMedica');
 /*-----------------Logica Prescripcion Medica --------------*/

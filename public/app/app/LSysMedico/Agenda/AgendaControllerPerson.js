@@ -1409,10 +1409,13 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
     $scope.list_receta=[];
     $scope.aux_temp_cinta_consulta=[];
     $scope.ready_receta=function (item) {
+        $scope.list_receta=[];
         if(item.consultageneral.length>0){// tiene consulta externa
             console.log(item.consultageneral);
             $scope.tipo_calendar="DIAG";/// Recetar 
             $scope.aux_temp_cinta_consulta=item;
+
+            $scope.get_receta($scope.aux_temp_cinta_consulta.consultageneral[0].id_cone);
         }else{
             sms("btn-info","Ingrese la Anamnesis ");
         }
@@ -1496,6 +1499,64 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
         sms("btn-info","Agrege medicamentos para guardar la receta");
       }  
     };
+    $scope.aux_tem_idprescripcion=null;
+    $scope.get_receta=function(id){
+        $scope.aux_tem_idprescripcion=null;
+        var filtro_receta={
+            Fecha: '',
+            estado: '',
+            id_cone:id,
+            numero:1 // trae la ultima receta si es diferente trae todas la recetas
+        };
+
+        $http.get(API_URL + 'Prescripcion/get_receta_id/' + JSON.stringify(filtro_receta))
+            .then(function(response){
+                console.log(response.data);
+                if(response.data[0].id_presit!=null && response.data[0].id_presit!=undefined  ){
+                    $scope.list_receta=response.data;
+                    $scope.aux_tem_idprescripcion=response.data[0].id_pres;
+                }
+            });
+
+    };
+    $scope.edit_receta=function () {
+        if ($scope.list_receta.length>0) {
+            var f =new Date();
+            var today=f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate();
+
+            var cita_consulta_receta={
+                Citaconsulta: $scope.aux_temp_cinta_consulta,
+                Receta: $scope.list_receta,
+                Fecha: today
+            };
+
+            $("#progress").modal("show");
+            console.log(cita_consulta_receta);
+
+            $http.put(API_URL + 'Prescripcion/'+$scope.aux_tem_idprescripcion,cita_consulta_receta)
+                .success(function(response){
+                    console.log(response);
+                    $("#progress").modal("hide");
+                    if(response.success==0){
+                        sms("btn-success","Se guardo correctamente los datos..!!");
+                        $scope.clear_agenda();
+                        $scope.clear_anamnesis();
+
+                        $scope.tipo_calendar="DIAG";/// Recetar
+                    }else{
+                        sms("btn-danger","Error al guardar los datos..!!");
+                        $scope.clear_agenda();
+                        $scope.clear_anamnesis();
+                    }
+                });
+
+
+        }else{
+            sms("btn-info","Agrege medicamentos para guardar la receta");
+        }
+    };
+
+
 
     $scope.calcular_edad=function(fecha) {
         if(fecha==undefined  || fecha==null) return "";

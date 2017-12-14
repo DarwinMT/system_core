@@ -960,20 +960,23 @@
 	                				<i class="glyphicon glyphicon-plus"></i>  Medicamento
 	                			</button>
 
-	                			<button type="button" class="btn btn-success btn-sm" ng-click="save_receta();">
+	                			<button type="button" class="btn btn-success btn-sm" ng-click="save_receta();"
+                                    ng-hide="list_receta[0].id_presit!=null && list_receta[0].id_presit!=undefined">
 	                				<i class="glyphicon glyphicon-floppy-saved"></i>  Guardar
 	                			</button>
 
-	                			<button type="button" class="btn btn-primary btn-sm" ng-click="add_vademecum();">
+	                			<button type="button" class="btn btn-primary btn-sm" ng-click="edit_receta();" title="Editar"
+                                        ng-hide="list_receta[0].id_presit==null && list_receta[0].id_presit==undefined">
 	                				<i class="glyphicon glyphicon-floppy-saved"></i>  Guardar
 	                			</button>
 
-	                			<button type="button" class="btn btn-info btn-sm" ng-click="add_vademecum();">
+	                			<button type="button" class="btn btn-info btn-sm" ng-click="save_receta();" title="Guardar Como Nueva Prescripción Medica"
+                                        ng-hide="list_receta[0].id_presit==null && list_receta[0].id_presit==undefined">
 	                				<i class="glyphicon glyphicon-floppy-saved"></i>  Guardar 
 	                			</button>
 
 
-	                			<button type="button" class="btn btn-default btn-sm" ng-click="add_vademecum();">
+	                			<button type="button" class="btn btn-default btn-sm" ng-click="control_panel2('D');">
 	                				<i class="glyphicon glyphicon-ban-circle"></i>  Cancelar
 	                			</button>
                 			</div>
