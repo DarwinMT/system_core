@@ -291,5 +291,23 @@ class Anamnesis extends Controller
         }
 
     }
+    /**
+     *
+     *
+     * cambiar estado de la anamnesis
+     *
+     */
+    public function modify_estado($texto)
+    {
+        // modifica el estado de la cita para dar finalizado a la consulta externa
+        $datos = json_decode($texto);
+        $cone=Agenda::find($datos->id_ag);
+        $cone->gestion=$datos->estado; // estado 2 para finalizado la cita y a su vez la consulta
+        if($cone->save()){
+            return response()->json(['success' => 0]); //ok
+        }else{
+            return response()->json(['success' => 1]); //error al modificar el estado
+        }
+    }
 
 }

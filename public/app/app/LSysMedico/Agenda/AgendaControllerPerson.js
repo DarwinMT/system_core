@@ -1410,6 +1410,7 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
     $scope.aux_temp_cinta_consulta=[];
     $scope.ready_receta=function (item) {
         $scope.list_receta=[];
+        $scope.aux_temp_cinta_consulta=[];
         if(item.consultageneral.length>0){// tiene consulta externa
             console.log(item.consultageneral);
             $scope.tipo_calendar="DIAG";/// Recetar 
@@ -1557,6 +1558,38 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
     };
 
 
+    $scope.end_consulta=function (item) {
+        $scope.aux_temp_cinta_consulta=[];
+        if(item.consultageneral.length>0){// tiene consulta externa
+            $scope.aux_temp_cinta_consulta=item;
+            $("#finalizarcita").modal("show");
+        }else{
+            sms("btn-info","Ingrese la Anamnesis para poder finalizar la consulta");
+        }
+    };
+    $scope.end_citaok=function () {
+        $("#finalizarcita").modal("hide");
+        $("#progress").modal("show");
+
+        var Rol={
+            id_ag:$scope.aux_temp_cinta_consulta.consultageneral[0].id_ag,
+            estado:'2' // finalizar la cita estado de gestion pasa a 2
+        };
+        $http.get(API_URL + 'Anamnesis/estado/' + JSON.stringify(Rol))
+            .success(function(data){
+                if(data.success==0){
+                    $("#progress").modal("hide");
+                    sms("btn-success","Se guardo correctamente la transacción..!!");
+                }else{
+                    $("#progress").modal("hide");
+                    sms("btn-danger","Error al guardar la transacción..!!");
+                }
+                $scope.clear_agenda();
+                $scope.clear_anamnesis();
+
+                $scope.tipo_calendar="D";/// Recetar
+            });
+    };
 
     $scope.calcular_edad=function(fecha) {
         if(fecha==undefined  || fecha==null) return "";

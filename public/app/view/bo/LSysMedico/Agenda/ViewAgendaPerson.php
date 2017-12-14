@@ -1035,6 +1035,24 @@
 	</div>
 
 
+    <div class="modal fade" id="finalizarcita" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Información</h4>
+                </div>
+                <div class="modal-body">
+                    <h5><strong>Esta seguro de finalizar la cita?</strong></h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="glyphicon glyphicon-ban-circle"></i>Cancelar</button>
+                    <button type="button" class="btn btn-primary btn-sm" ng-click="end_citaok();"><i class="glyphicon glyphicon-floppy-saved"></i> Finalizar</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
 
     <div class="modal fade" id="vademecum_information" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">

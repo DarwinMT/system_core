@@ -175,11 +175,11 @@ class AgendaController extends Controller
         }
     }
     /**
-     *
-     *
-     * cambiar estado de la agenda o cita
-     *
-     */
+ *
+ *
+ * cambiar estado de la agenda o cita
+ *
+ */
     public function modify_estado($texto)
     {
         $datos = json_decode($texto);
