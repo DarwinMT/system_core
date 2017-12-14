@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Session;
 
 
 use App\Models\Basico\Item;
+use App\Models\Receta\Prescripcion;
+use App\Models\Receta\PrescripcionItem;
 
 class PrescripcionMedica extends Controller
 {
@@ -48,7 +50,7 @@ class PrescripcionMedica extends Controller
 
     /**
      *
-     * Lista cie10
+     * Lista cie10 para vademecum
      *
      */
     public function get_list_vademecum(Request $request)
@@ -68,5 +70,31 @@ class PrescripcionMedica extends Controller
 
         return $data->paginate(5);
     }
-
+    /**
+     *
+     *
+     * Guardar prescripcion
+     *
+     */
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        $preshead=new Prescripcion;
+        $preshead->id_cone=$data["Citaconsulta"]["consultageneral"][0]["id_cone"];
+        $preshead->fecha=$data["Fecha"];
+        $preshead->estado=1;
+        if($preshead->save()){
+            foreach ($data["Receta"] as $m) {
+                $presbody=new PrescripcionItem;
+                $presbody->id_pres=$preshead->id_pres;
+                $presbody->id_item=$m["item"]["id_item"];
+                $presbody->cantidad=$m["cantidad"];
+                $presbody->indicaciones=$m["indicaciones"];
+                $presbody->save();
+            }
+            return response()->json(['success' => 0]); //datos guardados correctamente
+        }else{
+            return response()->json(['success' => 1]); //error al guardar la receta
+        }
+    }
 }

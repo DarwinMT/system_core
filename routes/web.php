@@ -107,6 +107,7 @@ Route::resource('Anamnesis', 'LSysMedico\HistoriaClinica\Anamnesis');
 
 /*-----------------Logica Anamnesis --------------*/
 
-/*-----------------Logica Vademecum --------------*/
-Route::get('Vademecum/get_list_vademecum', 'LSysMedico\HistoriaClinica\PrescripcionMedica@get_list_vademecum');
-/*-----------------Logica Vademecum --------------*/
+/*-----------------Logica Prescripcion Medica --------------*/
+Route::get('Prescripcion/get_list_vademecum', 'LSysMedico\HistoriaClinica\PrescripcionMedica@get_list_vademecum');
+Route::resource('Prescripcion', 'LSysMedico\HistoriaClinica\PrescripcionMedica');
+/*-----------------Logica Prescripcion Medica --------------*/

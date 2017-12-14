@@ -954,10 +954,30 @@
                 <div class="row" ng-hide=" tipo_calendar!='DIAG' ">
                 	<h5><strong>Prescripción Medica</strong> </h5>
                 	<div class="row">
-                		<div class="col-xs-2">
-                			<button type="button" class="btn btn-primary btn-sm" ng-click="add_vademecum();"
-                				<i class="glyphicon glyphicon-plus"></i> Agregar Medicamento
-                			</button>
+                		<div class="col-md-12 col-xs-12 text-center">
+                			<div class="btn-group" >
+                				<button type="button" class="btn btn-default btn-sm" ng-click="add_vademecum();">
+	                				<i class="glyphicon glyphicon-plus"></i>  Medicamento
+	                			</button>
+
+	                			<button type="button" class="btn btn-success btn-sm" ng-click="save_receta();">
+	                				<i class="glyphicon glyphicon-floppy-saved"></i>  Guardar
+	                			</button>
+
+	                			<button type="button" class="btn btn-primary btn-sm" ng-click="add_vademecum();">
+	                				<i class="glyphicon glyphicon-floppy-saved"></i>  Guardar
+	                			</button>
+
+	                			<button type="button" class="btn btn-info btn-sm" ng-click="add_vademecum();">
+	                				<i class="glyphicon glyphicon-floppy-saved"></i>  Guardar 
+	                			</button>
+
+
+	                			<button type="button" class="btn btn-default btn-sm" ng-click="add_vademecum();">
+	                				<i class="glyphicon glyphicon-ban-circle"></i>  Cancelar
+	                			</button>
+                			</div>
+                			
                 		</div>
                 	</div>
                 	<div class="row">
