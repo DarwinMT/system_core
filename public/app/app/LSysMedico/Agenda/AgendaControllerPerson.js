@@ -1591,6 +1591,21 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
             });
     };
 
+    $scope.print_anamnesis=function (item) {
+        console.log(item)
+        if(item.consultageneral.length>0){// tiene consulta externa
+            var data={
+                id_cone:item.consultageneral[0].id_cone,
+                id_ag:item.consultageneral[0].id_ag
+            };
+            var accion = API_URL + "Anamnesis/print_anamnesis/"+JSON.stringify(data);
+            $("#WPrint_head").html("Anamnesis");
+            $("#WPrint").modal("show");
+            $("#bodyprint").html("<object width='100%' height='600' data='"+accion+"'></object>");
+        }else{
+            sms("btn-info","Ingrese la Anamnesis para poder imprimir");
+        }
+    };
     $scope.calcular_edad=function(fecha) {
         if(fecha==undefined  || fecha==null) return "";
 

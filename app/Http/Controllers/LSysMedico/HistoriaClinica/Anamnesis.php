@@ -309,5 +309,23 @@ class Anamnesis extends Controller
             return response()->json(['success' => 1]); //error al modificar el estado
         }
     }
+    /**
+     * Imprimir anamanesis
+     * 
+     * 
+     */
+    public function print_anamnesis($parametro)
+    {   
+        ini_set('max_execution_time', 300);
+        $filtro = json_decode($parametro);
+        $anamnesis=$this->get_anamnesistoid($parametro);
+        
+        $today=date("Y-m-d H:i:s");
+        $view =  \View::make('Print.Anamnesis', compact('filtro','anamnesis','today'))->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        $pdf->setPaper('A4', 'portrait');
+        return $pdf->stream("anamnesis_".$today."");
+    }
 
 }

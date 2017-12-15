@@ -305,6 +305,16 @@
                                                     </a>
                                                 </li>
 
+                                                <li role="separator" class="divider"></li>
+
+                                                <li ng-click="print_anamnesis(dg)">
+                                                    <a href="" >
+                                                        <i class="glyphicon glyphicon-print"></i> Anamnesis
+                                                    </a>
+                                                </li>
+
+												<li role="separator" class="divider"></li>
+
                                                 <li ng-click="end_consulta(dg)">
                                                     <a href="" >
                                                         <i class="glyphicon glyphicon-ok-circle"></i> Finalizar consulta
@@ -1024,16 +1034,29 @@
 
 
 
-
-
-
-
-
-
-
-
 	</div>
 
+
+	<div class="modal fade"  id="WPrint" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header btn-primary">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="WPrint_head"></h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-xs-12" id="bodyprint">
+
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar <i class="glyphicon glyphicon glyphicon-ban-circle"></i> </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="modal fade" id="finalizarcita" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">

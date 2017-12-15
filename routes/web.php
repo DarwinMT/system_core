@@ -101,6 +101,7 @@ Route::resource('Cie', 'LSysMedico\HistoriaClinica\Cie10');
 
 
 /*-----------------Logica Anamnesis --------------*/
+Route::get('Anamnesis/print_anamnesis/{texto}', 'LSysMedico\HistoriaClinica\Anamnesis@print_anamnesis');
 Route::get('Anamnesis/estado/{texto}', 'LSysMedico\HistoriaClinica\Anamnesis@modify_estado');
 Route::get('Anamnesis/get_anamnesis_id/{texto}', 'LSysMedico\HistoriaClinica\Anamnesis@get_anamnesistoid');
 Route::resource('Anamnesis', 'LSysMedico\HistoriaClinica\Anamnesis');
