@@ -1054,7 +1054,7 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
         var today=f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate();
 
         $scope.aux_diagnostico=[];
-
+        $scope.aux_anamnesis=[];
         $scope.datos_cita={};
         $scope.tipo_calendar="CIT"; //ESTA DE  QUE INICIA LA CITA MEDICA
         $scope.datos_cita=item;
@@ -1306,12 +1306,13 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
         .success(function(response){
             console.log(response);
             $("#progress").modal("hide");
-            if(response.success==0){
+            if(response.success.length>0){
                 sms("btn-success","Se guardo correctamente los datos..!!");
                 $scope.clear_agenda();
                 $scope.clear_anamnesis();
-
+                console.log(response.success);
                 $scope.tipo_calendar="DIAG";/// Recetar 
+                $scope.ready_receta(response.success[0]); // pasando los datos de la agenda y de la consulta genera para la receta 
             }else{
                 sms("btn-danger","Error al guardar los datos..!!");
                 $scope.clear_agenda();
@@ -1397,7 +1398,7 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
         $http.get(API_URL + 'Anamnesis/get_anamnesis_id/' + JSON.stringify(filtro_cita))
             .then(function(response){
                 console.log(response.data);
-                if(response.data[0].id_ag!=null && response.data[0].id_ag!=undefined  ){
+                if(response.data.length>0){
                     $scope.aux_anamnesis=response.data;
                     $scope.aux_diagnostico=$scope.aux_anamnesis[0].diagnostico;
                 }
@@ -1409,13 +1410,14 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
     $scope.list_receta=[];
     $scope.aux_temp_cinta_consulta=[];
     $scope.ready_receta=function (item) {
+        console.log(item)
         $scope.list_receta=[];
         $scope.aux_temp_cinta_consulta=[];
         if(item.consultageneral.length>0){// tiene consulta externa
-            console.log(item.consultageneral);
+            
             $scope.tipo_calendar="DIAG";/// Recetar 
             $scope.aux_temp_cinta_consulta=item;
-
+            console.log($scope.aux_temp_cinta_consulta.consultageneral[0].id_cone)
             $scope.get_receta($scope.aux_temp_cinta_consulta.consultageneral[0].id_cone);
         }else{
             sms("btn-info","Ingrese la Anamnesis ");

@@ -175,10 +175,11 @@ class Anamnesis extends Controller
                 $diag->definitivo=$d["definitivo"];
                 $diag->save();
             }
-
-
-
-            return response()->json(['success' => 0]); //error al guardar la consulta
+            $aux_data=Agenda::with("usuario.persona.personaempresa.empresa","cliente.persona","empleado.persona","consultageneral") //agregado la consulta externa
+                    ->whereRaw("id_ag=".$consulta->id_ag."")
+                    ->orderBy("agenda.horainicio","ASC")
+                    ->get();
+            return response()->json(['success' => $aux_data]); //error al guardar la consulta
         }else{
             return response()->json(['success' => 1]); //error al guardar la consulta
         }
@@ -320,8 +321,13 @@ class Anamnesis extends Controller
         $filtro = json_decode($parametro);
         $anamnesis=$this->get_anamnesistoid($parametro);
         
+        $agenda=Agenda::with("usuario.persona.personaempresa.empresa","cliente.persona","empleado.persona","consultageneral") //agregado la consulta externa
+                    ->whereRaw("id_ag=".$filtro->id_ag."")
+                    ->orderBy("agenda.horainicio","ASC")
+                    ->get();
+
         $today=date("Y-m-d H:i:s");
-        $view =  \View::make('Print.Anamnesis', compact('filtro','anamnesis','today'))->render();
+        $view =  \View::make('Print.Anamnesis', compact('filtro','anamnesis','today','agenda'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         $pdf->setPaper('A4', 'portrait');

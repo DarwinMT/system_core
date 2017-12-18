@@ -109,6 +109,8 @@ class PrescripcionMedica extends Controller
                             ->orderBy("id_pres", "DESC")
                             ->limit(1)
                             ->get();
+        
+        if(count($preshead)==0) return response()->json([]);
 
         return PrescripcionItem::with("item","prescripcion")
                                 ->whereRaw(" id_pres=".$preshead[0]->id_pres."")
