@@ -135,12 +135,8 @@
 </script>
 </head>
 <body >
-<?= $filtro->id_ag ?>
-<?php echo $today; ?>
 
-
-
-	<div class="row table-responsive" ">
+	<div class="row" >
 
         <table class="table table-bordered table-striped table-condensend">
             <tr>
@@ -155,7 +151,11 @@
 
                 <td colspan="2"><?php echo $agenda[0]->cliente->persona->apellido." ".$agenda[0]->cliente->persona->nombre; ?> </td>
                 <td><?php echo $agenda[0]->cliente->persona->genero; ?></td>
-                <td><?php echo $agenda[0]->cliente->persona->fechan; ?></td>
+                <?php 
+	                $fecha = time() - strtotime($agenda[0]->cliente->persona->fechan);
+					$edad = floor((($fecha / 3600) / 24) / 360);
+                ?>
+                <td><?php echo $edad." años "; ?></td>
                 <td><?php echo $agenda[0]->cliente->numerohistoria; ?> <?php echo "<script> Edad('aa'); </script>"; ?></td>
             </tr>
 
@@ -264,7 +264,7 @@
             <tr>
                 <td colspan="6" >
                     
-                    <table>
+                    <table class="table">
                     	<tr>
                     		<th></th>
                     		<th>CP</th>
@@ -284,37 +284,37 @@
                     	</tr>
                     	<tr>
                     		<th style="font-size: 9px !important;"> 1 Òrganos De Los Sentidos  </th>
-                    		<td><input type="text" class="form-control input-sm" style="width: 10px; height:10px; " name="cp_sentidos" id="cp_sentidos" <?php  if($anamnesis[0]->organossistemas[0]->sentidos_cp!="") echo "value='X'"; ?>  ></td>
-                    		<td><input type="text" class="form-control input-sm"  style="width: 10px; height:10px; " name="sp_sentidos" id="sp_sentidos" <?php  if($anamnesis[0]->organossistemas[0]->sentidos_sp!="") echo "value='X'"; ?> ></td>
+                    		<td><?php  echo $anamnesis[0]->organossistemas[0]->sentidos_cp; ?> </td>
+                    		<td><?php  echo $anamnesis[0]->organossistemas[0]->sentidos_sp; ?> </td>
                     		<th style="font-size: 9px !important;">3 Cardio Vascular</th>
-                    		<td><input type="text" class="form-control input-sm" style="width: 10px; height:10px; " name="cp_cardiovascular" id="cp_cardiovascular" <?php  if($anamnesis[0]->organossistemas[0]->vascular_cp!="") echo "value='X'"; ?> ></td>
-                    		<td><input type="text" class="form-control input-sm" style="width: 10px; height:10px; " name="sp_cardiovascular" id="sp_cardiovascular" <?php  if($anamnesis[0]->organossistemas[0]->vascular_sp!="") echo "value='X'"; ?>  ></td>
+                    		<td><?php  echo $anamnesis[0]->organossistemas[0]->vascular_cp; ?> </td>
+                    		<td><?php  echo $anamnesis[0]->organossistemas[0]->vascular_sp; ?> </td>
                     		<th style="font-size: 9px !important;" >5 Genital</th>
-                    		<td><input type="text" class="form-control input-sm" style="width: 10px; height:10px; " name="cp_genital" id="cp_genital"  <?php  if($anamnesis[0]->organossistemas[0]->genital_cp!="") echo "value='X'"; ?>   ></td>
-                    		<td><input type="text" class="form-control input-sm" style="width: 10px; height:10px; " name="sp_genital" id="sp_genital"  <?php  if($anamnesis[0]->organossistemas[0]->genital_sp!="") echo "value='X'"; ?>   ></td>
+                    		<td><?php  echo $anamnesis[0]->organossistemas[0]->genital_cp; ?>   </td>
+                    		<td><?php  echo $anamnesis[0]->organossistemas[0]->genital_sp; ?>   </td>
                     		<th style="font-size: 9px !important;">7 Mùsculo Esquelètico</th>
-                    		<td><input type="text" class="form-control input-sm" style="width: 10px; height:10px; " name="cp_musculoesqueletico" id="cp_musculoesqueletico"   <?php  if($anamnesis[0]->organossistemas[0]->mesqueletico_cp!="") echo "value='X'"; ?>   ></td>
-                    		<td><input type="text" class="form-control input-sm" style="width: 10px; height:10px; " name="sp_musculoesqueletico" id="sp_musculoesqueletico" <?php  if($anamnesis[0]->organossistemas[0]->mesqueletico_sp!="") echo "value='X'"; ?> ></td>
+                    		<td><?php  echo $anamnesis[0]->organossistemas[0]->mesqueletico_cp; ?> </td>
+                    		<td><?php  echo $anamnesis[0]->organossistemas[0]->mesqueletico_sp; ?> </td>
                     		<th style="font-size: 9px !important;" >9 Hemo Limfàtico</th>
-                    		<td><input type="text" class="form-control input-sm" style="width: 10px; height:10px; " name="cp_hemolimfatico" id="cp_hemolimfatico" <?php  if($anamnesis[0]->organossistemas[0]->linfatico_cp!="") echo "value='X'"; ?> ></td>
-                    		<td><input type="text" class="form-control input-sm" style="width: 10px; height:10px; " name="sp_hemolimfatico" id="sp_hemolimfatico" <?php  if($anamnesis[0]->organossistemas[0]->linfatico_sp!="") echo "value='X'"; ?> ></td>
+                    		<td><?php  echo $anamnesis[0]->organossistemas[0]->linfatico_cp; ?> </td>
+                    		<td><?php  echo $anamnesis[0]->organossistemas[0]->linfatico_sp; ?> </td>
                     	</tr>
                     	<tr>
                     		<th style="font-size: 9px !important;">2 Respiratorio</th>
-                    		<td><input type="text" class="form-control input-sm" style="width: 10px; height:10px; " name="cp_respiratorio" id="cp_respiratorio" <?php  if($anamnesis[0]->organossistemas[0]->respiratorio_cp!="") echo "value='X'"; ?> ></td>
-                    		<td><input type="text" class="form-control input-sm" style="width: 10px; height:10px; " name="sp_respiratorio" id="sp_respiratorio" <?php  if($anamnesis[0]->organossistemas[0]->respiratorio_sp!="") echo "value='X'"; ?> ></td>
+                    		<td><?php  echo $anamnesis[0]->organossistemas[0]->respiratorio_cp; ?> </td>
+                    		<td><?php  echo $anamnesis[0]->organossistemas[0]->respiratorio_sp; ?> </td>
                     		<th style="font-size: 9px !important;">4 Digestivo</th>
-                    		<td><input type="text" class="form-control input-sm" style="width: 10px; height:10px; " name="cp_digestivo" id="cp_digestivo" <?php  if($anamnesis[0]->organossistemas[0]->digestivo_cp!="") echo "value='X'"; ?>  ></td>
-                    		<td><input type="text" class="form-control input-sm" style="width: 10px; height:10px; " name="sp_digestivo" id="sp_digestivo" <?php  if($anamnesis[0]->organossistemas[0]->digestivo_sp!="") echo "value='X'"; ?> ></td>
+                    		<td><?php  echo $anamnesis[0]->organossistemas[0]->digestivo_cp; ?> </td>
+                    		<td><?php  echo $anamnesis[0]->organossistemas[0]->digestivo_sp; ?> </td>
                     		<th style="font-size: 9px !important;">6 Urinario</th>
-                    		<td><input type="text" class="form-control input-sm" style="width: 10px; height:10px; " name="cp_urinario" id="cp_urinario" <?php  if($anamnesis[0]->organossistemas[0]->urinario_cp!="") echo "value='X'"; ?> ></td>
-                    		<td><input type="text" class="form-control input-sm" style="width: 10px; height:10px; " name="sp_urinario" id="sp_urinario" <?php  if($anamnesis[0]->organossistemas[0]->urinario_sp!="") echo "value='X'"; ?> ></td>
+                    		<td><?php  echo $anamnesis[0]->organossistemas[0]->urinario_cp; ?> </td>
+                    		<td><?php  echo $anamnesis[0]->organossistemas[0]->urinario_sp; ?> </td>
                     		<th style="font-size: 9px !important;">8 Endocrino</th>
-                    		<td><input type="text" class="form-control input-sm" style="width: 10px; height:10px; " name="cp_endocrino" id="cp_endocrino" <?php  if($anamnesis[0]->organossistemas[0]->endocrino_cp!="") echo "value='X'"; ?>  ></td>
-                    		<td><input type="text" class="form-control input-sm" style="width: 10px; height:10px; " name="sp_endocrino" id="sp_endocrino" <?php  if($anamnesis[0]->organossistemas[0]->endocrino_sp!="") echo "value='X'"; ?>  ></td>
+                    		<td><?php  echo $anamnesis[0]->organossistemas[0]->endocrino_cp; ?>  </td>
+                    		<td><?php  echo $anamnesis[0]->organossistemas[0]->endocrino_sp; ?>  </td>
                     		<th style="font-size: 9px !important;">10 Nervioso</th>
-                    		<td><input type="text" class="form-control input-sm" style="width: 10px; height:10px; " name="cp_nervioso" id="cp_nervioso" <?php  if($anamnesis[0]->organossistemas[0]->nervioso_cp!="") echo "value='X'"; ?> ></td>
-                    		<td><input type="text" class="form-control input-sm" style="width: 10px; height:10px; " name="sp_nervioso" id="sp_nervioso" <?php  if($anamnesis[0]->organossistemas[0]->nervioso_sp!="") echo "value='X'"; ?> ></td>
+                    		<td><?php  echo $anamnesis[0]->organossistemas[0]->nervioso_cp; ?> </td>
+                    		<td><?php  echo $anamnesis[0]->organossistemas[0]->nervioso_sp; ?> </td>
                     	</tr>
                     </table>
 
@@ -332,44 +332,44 @@
                 <td colspan="6">
 
                 	
-                	<table>
+                	<table class="table">
                 		<tr>
                 			<th style="font-size: 9px !important;">Fecha De Mediciòn</th>
                 			<td colspan="2">
-                				<input type="text" class="form-control input-sm" style="width: 145px; height: 10px;"  name="fechamedicionsignosvitales" id="fechamedicionsignosvitales" <?php  echo "value='".$anamnesis[0]->signosvitales[0]->fechamedicion."'"; ?> >
+                				<?php  echo $anamnesis[0]->signosvitales[0]->fechamedicion; ?> 
                 			</td>
 
                 			<th style="font-size: 9px !important;">Pulso min</th>
-                			<td><input type="text" class="form-control input-sm" style=" width: 145px; height:10px;" id="pulsosignosvitales" name="pulsosignosvitales" <?php  echo "value='".$anamnesis[0]->signosvitales[0]->pulso."'"; ?> ></td>
+                			<td><?php  echo $anamnesis[0]->signosvitales[0]->pulso; ?> </td>
 
                 		</tr>
 
                 		<tr>
                 			<th style="font-size: 9px !important;">Temperatura °C</th>
                 			<td colspan="2">
-                				<input type="text" class="form-control input-sm " style="width: 145px; height:10px;" name="temperaturasignosvitales" id="temperaturasignosvitales" >
+                				<?php  echo $anamnesis[0]->signosvitales[0]->temperatura; ?> 
                 			</td>
 
                 			<th style="font-size: 9px !important;">Frecuencia Respiratoria</th>
                 			<td>
-                				<input type="text" class="form-control input-sm" style="width: 145px; height:10px;" id="frecuenciarespiratoriasignosvitales" name="frecuenciarespiratoriasignosvitales" >
+                				<?php  echo $anamnesis[0]->signosvitales[0]->frerespiratoria; ?> 
                 			</td>
                 		</tr>
                 		<tr>
                 			<th style="font-size: 9px !important;">Presiòn Arterial</th>
                 			<td>
-                				<input type="text" class="form-control input-sm" style="width: 145px; height:10px;" id="presionarterial1signosvitales" name="presionarterial1signosvitales"  >
+                				<?php  echo $anamnesis[0]->signosvitales[0]->presionarterial; ?>  
                 			</td>
                 			<td>
-                				<input type="text" class="form-control input-sm" style="width: 145px; height:10px;" id="presionarterial2signosvitales" name="presionarterial2signosvitales" >
+                				<!--campo pendiente-->
                 			</td>
 
                 			<th style="font-size: 9px !important;">Peso kg</th>
-                			<td><input type="text" class="form-control input-sm" style="width: 145px; height:10px;" id="pesosignosvitales" name="pesosignosvitales" ></td>
+                			<td><?php  echo $anamnesis[0]->signosvitales[0]->peso; ?> </td>
                 		</tr>
                 		<tr>
                 			<th style="font-size: 9px !important;">Talla cm</th>
-                			<td colspan="4"><input type="text" class="form-control input-sm" style="width: 145px;height:10px;" id="tallasignosvitales" name="tallasignosvitales" ></td>
+                			<td colspan="4"><?php  echo $anamnesis[0]->signosvitales[0]->talla; ?> </td>
                 		</tr>
                 	</table>
                     
@@ -389,7 +389,7 @@
             <tr>
                 <td colspan="6">
 
-                	<table>
+                	<table class="table">
                 		<tr>
                 			<th></th>
                 			<th>CP</th>
@@ -412,30 +412,30 @@
                 		</tr>
                 		<tr>
                 			<th style="font-size: 9px;">1 Cabeza</th>
-                			<td><input type="text" class="form-control input-sm" style="width: 8px height:5px !important;" name="cp_fisicoregionalcabeza" id="cp_fisicoregionalcabeza" ></td>
-                			<td><input type="text" class="form-control input-sm" style="width: 8px height:5px !important;" name="sp_fisicoregionalcabeza" id="sp_fisicoregionalcabeza" ></td>
+                			<td><?php  echo $anamnesis[0]->fisicoregional[0]->cabeza_cp; ?>  </td>
+                			<td><?php  echo $anamnesis[0]->fisicoregional[0]->cabeza_sp; ?>  </td>
 
                 			<th style="font-size: 9px;">2 Cuello</th>
-                			<td><input type="text" class="form-control input-sm" style="width: 8px height:5px !important;" name="cp_fisicoregionalcuello" id="cp_fisicoregionalcuello" ></td>
-                			<td><input type="text" class="form-control input-sm" style="width: 8px height:5px !important;" name="sp_fisicoregionalcuello" id="sp_fisicoregionalcuello" ></td>
+                			<td><?php  echo $anamnesis[0]->fisicoregional[0]->cuello_cp; ?>  </td>
+                			<td><?php  echo $anamnesis[0]->fisicoregional[0]->cuello_sp; ?> </td>
 
                 			<th style="font-size: 9px;">3 Tórax</th>
-                			<td><input type="text" class="form-control input-sm" style="width: 8px height:5px !important;" name="cp_fisicoregionaltorax" id="cp_fisicoregionaltorax" ></td>
-                			<td><input type="text" class="form-control input-sm" style="width: 8px height:5px !important;" name="sp_fisicoregionaltorax" id="sp_fisicoregionaltorax" ></td>
+                			<td><?php  echo $anamnesis[0]->fisicoregional[0]->torax_cp; ?> </td>
+                			<td><?php  echo $anamnesis[0]->fisicoregional[0]->torax_sp; ?> </td>
 
                 			<th style="font-size: 9px;">4 Abdomen</th>
-                			<td><input type="text" class="form-control input-sm" style="width: 8px height:5px !important;" name="cp_fisicoregionalabdomen" id="cp_fisicoregionalabdomen" ></td>
-                			<td><input type="text" class="form-control input-sm" style="width: 8px height:5px !important;" name="sp_fisicoregionalabdomen" id="sp_fisicoregionalabdomen"  ></td>
+                			<td><?php  echo $anamnesis[0]->fisicoregional[0]->abdomen_cp; ?>  </td>
+                			<td><?php  echo $anamnesis[0]->fisicoregional[0]->abdomen_sp; ?>  </td>
 
 
                 			<th style="font-size: 9px;">5 Pelvis</th>
-                			<td><input type="text" class="form-control input-sm" style="width: 8px height:5px !important;" name="cp_fisicoregionalpelvis" id="cp_fisicoregionalpelvis" ></td>
-                			<td><input type="text" class="form-control input-sm" style="width: 8px height:5px !important;" name="sp_fisicoregionalpelvis" id="sp_fisicoregionalpelvis" ></td>
+                			<td><?php  echo $anamnesis[0]->fisicoregional[0]->pelvis_cp; ?>  </td>
+                			<td><?php  echo $anamnesis[0]->fisicoregional[0]->pelvis_sp; ?>  </td>
 
 
                 			<th style="font-size: 9px;">6 Extremidades</th>
-                			<td><input type="text" class="form-control input-sm" style="width: 8px height:5px !important;" name="cp_fisicoregionalextremidades" id="cp_fisicoregionalextremidades" ></td>
-                			<td><input type="text" class="form-control input-sm" style="width: 8px height:5px !important;" name="sp_fisicoregionalextremidades" id="sp_fisicoregionalextremidades" ></td>
+                			<td><?php  echo $anamnesis[0]->fisicoregional[0]->extremidades_cp; ?>  </td>
+                			<td><?php  echo $anamnesis[0]->fisicoregional[0]->extremidades_sp; ?>  </td>
 
                 		</tr>
                 	</table>
@@ -443,7 +443,7 @@
 
                   
 
-						fisicoregional
+						<?php  echo $anamnesis[0]->fisicoregional[0]->descripcion; ?>
                  
 
                     
@@ -463,7 +463,7 @@
             <tr>
                 <td colspan="6">
 
-                	<table>
+                	<table class="table">
                 		<tr>
                 			<th></th>
                 			<td>CIE</td>
@@ -474,19 +474,44 @@
                 			<td>PRE</td>
                 			<td>DEF</td>
                 		</tr>
-                		<tr>
-                			<th><input type="text" class="form-control input-sm" style="width:140px ; height:10px; " id="diagnosticodescripcion" name="diagnosticodescripcion" readonly ></th>
-                			<th><input type="text" class="form-control input-sm" style="width:50px ; height:10px; " placeholder="CIE" id="diagnosticocie" name="diagnosticocie" readonly ></th>
-                			<th><input type="text" class="form-control input-sm" style="width:20px ; height:10px; " placeholder="PRE"  id="diagnosticopre" name="diagnosticopre" ></th>
-                			<th><input type="text" class="form-control input-sm" style="width:20px ; height:10px; " placeholder="DEF" id="diagnosticodef" name="diagnosticodef" ></th>
+                		
 
+                			<?php 
+                				$aux=1;
+                				$cont=0;
+                				foreach ($anamnesis[0]->diagnostico as $d) {
+                					
+                					if($aux==1){
+                						echo "<tr>";
+                					}
 
-                			<th><input type="text" class="form-control input-sm" style="width:140px ; height:10px; " id="diagnosticodescripcion" name="diagnosticodescripcion" readonly ></th>
-                			<th><input type="text" class="form-control input-sm" style="width:50px ; height:10px; " placeholder="CIE" id="diagnosticocie" name="diagnosticocie" readonly ></th>
-                			<th><input type="text" class="form-control input-sm" style="width:20px ; height:10px; " placeholder="PRE"  id="diagnosticopre" name="diagnosticopre" ></th>
-                			<th><input type="text" class="form-control input-sm" style="width:20px ; height:10px; " placeholder="DEF" id="diagnosticodef" name="diagnosticodef" ></th>
+                					echo "
+                						<th>".$d->cie->descripcion."</th>
+			                			<th>".$d->cie->codigo."</th>
+			                			<th>".$d->presuntivo."</th>
+			                			<th>".$d->definitivo."</th>
+                					";
 
-                		</tr>
+                					if ($aux==2){ 
+                						echo "</tr>";
+                						$aux=1;
+                					}
+
+                					$aux++;
+                					$cont++;
+                				}
+
+                				if(($cont % 2)==1){
+                					echo "
+                						<th></th>
+			                			<th></th>
+			                			<th></th>
+			                			<th></th>
+			                			</tr>
+                					";
+                				}
+                			?>
+                		
                 	</table>
                   
 
@@ -502,7 +527,7 @@
 
             <tr>
                 <td colspan="6">
-                    planestratamiento
+                    <?php  echo $anamnesis[0]->planestratamiento; ?>
                 </td>
             </tr>
 

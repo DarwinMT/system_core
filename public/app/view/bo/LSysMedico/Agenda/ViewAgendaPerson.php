@@ -266,7 +266,10 @@
 		      						<td>{{dg.horainicio}}</td>
 		      						<td>{{dg.turno}}</td>
 		      						<td>{{dg.observacion}}</td>
-		      						<td>{{dg.gestion}}</td>
+		      						<!--<td>{{dg.gestion}}</td>-->
+
+		      						<td ng-hide="dg.gestion==1 " style="background-color: #009688;">{{((dg.gestion==1)?"PENDIENTE":"FINALIZADA")}}</td>
+		      						<td ng-hide="dg.gestion!=1 " style="background-color: #bbdefb; ">{{((dg.gestion==1)?"PENDIENTE":"FINALIZADA")}}</td>
 
 
 		      						<td ng-hide="dg.tipo==1 " style="background-color: #f44336 ">{{((dg.tipo==1)?"NORMAL":"EMERRGENCIA")}}</td>
@@ -1253,8 +1256,10 @@
       						<td>{{ci.horainicio}}</td>
       						<td>{{ci.turno}}</td>
       						<td>{{ci.observacion}}</td>
-      						<td>{{ci.gestion}}</td>
+      						<!--<td>{{ci.gestion}}</td>-->
 
+							<td ng-hide="ci.gestion==1 " style="background-color: #009688;">{{((ci.gestion==1)?"PENDIENTE":"FINALIZADA")}}</td>
+		      				<td ng-hide="ci.gestion!=1 " style="background-color: #bbdefb; ">{{((ci.gestion==1)?"PENDIENTE":"FINALIZADA")}}</td>
 
       						<td ng-hide="ci.tipo==1 " style="background-color: #f44336 ">{{((ci.tipo==1)?"NORMAL":"EMERRGENCIA")}}</td>
       						<td ng-hide="ci.tipo!=1 " style="background-color: #80cbc4 ">{{((ci.tipo==1)?"NORMAL":"EMERRGENCIA")}}</td>
