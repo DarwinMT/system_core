@@ -37,6 +37,8 @@ app.config(function($routeProvider,API_URL){
         controller : "LogicaAgendaPerson"
     })
 	.otherwise({
-        template : "<h1>Nada</h1><p>Ejemplo de pagina no encotrada,</p>"
+        //template : "<h1>Nada</h1><p>Ejemplo de pagina no encotrada,</p>"
+        templateUrl : "app/view/bo/LSysMedico/Graficos/ViewGraficosBasico.php",
+        controller : "GraficosDefault"
     });
 });

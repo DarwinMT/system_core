@@ -25,6 +25,10 @@
   <script src="<?= asset('../js/jquery.table2excel.js') ?>"></script>
   <!--Excell -->
 
+  <!--Graficos-->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+  <script type="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+  <!--Graficos-->
   
 	<!--Angular-->
 	<script src="<?= asset('../app/angular/angular.min.js') ?>"></script>
@@ -48,6 +52,11 @@
         <script src="<?= asset('../app/app/LSysMedico/Agenda/AgendaController.js') ?>"></script>
         <script src="<?= asset('../app/app/LSysMedico/Agenda/AgendaControllerPerson.js') ?>"></script>
     <!--Controller-->
+
+    
+    <!--Graficos logica angular-->
+    <script src="<?= asset('../app/app/LSysMedico/Graficos/GraficosBasicoController.js') ?>"></script>
+    <!--Graficos logica angular-->
 
 
 <style>

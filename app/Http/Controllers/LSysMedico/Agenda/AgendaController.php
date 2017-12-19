@@ -209,4 +209,19 @@ class AgendaController extends Controller
             return redirect('/');
         }
     }
+
+     /**
+     *
+     * Numero de citas por mes
+     *
+     */
+    public function data_numbercitas()
+    {
+        $tomonth="20".date("y-m");
+        return Agenda::selectRaw("agenda.fecha")
+                    ->selectRaw("(SELECT  COUNT(*) FROM agenda aux WHERE aux.fecha=agenda.fecha) AS numero")
+                    ->whereRaw(" agenda.fecha LIKE '%".$tomonth."%'")
+                    ->groupBy("agenda.fecha")
+                    ->get();
+    }
 }

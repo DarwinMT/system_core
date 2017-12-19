@@ -83,6 +83,11 @@ Route::resource('CargoE', 'Personas\CargoController');
 
 
 /*-----------------Logica agenda --------------*/
+
+	/*-----------------Datos grafico --------------*/	
+	Route::get('Agenda/get_numbercitas', 'LSysMedico\Agenda\AgendaController@data_numbercitas');
+	/*-----------------Datos grafico --------------*/	
+
 Route::get('Agenda/get_user_agenda', 'LSysMedico\Agenda\AgendaController@data_user_agenda');
 Route::get('Agenda/estado/{texto}', 'LSysMedico\Agenda\AgendaController@modify_estado');
 Route::get('Agenda/get_agenda_semana/{texto}', 'LSysMedico\Agenda\AgendaController@get_agenda_semana');
@@ -113,3 +118,4 @@ Route::get('Prescripcion/get_receta_id/{texto}', 'LSysMedico\HistoriaClinica\Pre
 Route::get('Prescripcion/get_list_vademecum', 'LSysMedico\HistoriaClinica\PrescripcionMedica@get_list_vademecum');
 Route::resource('Prescripcion', 'LSysMedico\HistoriaClinica\PrescripcionMedica');
 /*-----------------Logica Prescripcion Medica --------------*/
+
