@@ -106,6 +106,11 @@ Route::resource('Cie', 'LSysMedico\HistoriaClinica\Cie10');
 
 
 /*-----------------Logica Anamnesis --------------*/
+	/*-----------------Datos grafico --------------*/	
+	Route::get('Anamnesis/get_enfermedadesfamiliares', 'LSysMedico\HistoriaClinica\Anamnesis@data_enfermedadesfamiliares');
+	Route::get('Anamnesis/get_diagnosticos', 'LSysMedico\HistoriaClinica\Anamnesis@data_diagnosticos');
+	/*-----------------Datos grafico --------------*/	
+
 Route::get('Anamnesis/print_anamnesis/{texto}', 'LSysMedico\HistoriaClinica\Anamnesis@print_anamnesis');
 Route::get('Anamnesis/estado/{texto}', 'LSysMedico\HistoriaClinica\Anamnesis@modify_estado');
 Route::get('Anamnesis/get_anamnesis_id/{texto}', 'LSysMedico\HistoriaClinica\Anamnesis@get_anamnesistoid');
@@ -114,6 +119,9 @@ Route::resource('Anamnesis', 'LSysMedico\HistoriaClinica\Anamnesis');
 /*-----------------Logica Anamnesis --------------*/
 
 /*-----------------Logica Prescripcion Medica --------------*/
+	/*-----------------Datos grafico --------------*/	
+	Route::get('Prescripcion/get_datavademecum', 'LSysMedico\HistoriaClinica\PrescripcionMedica@data_vademecum');
+	/*-----------------Datos grafico --------------*/	
 Route::get('Prescripcion/get_receta_id/{texto}', 'LSysMedico\HistoriaClinica\PrescripcionMedica@get_recetaid');
 Route::get('Prescripcion/get_list_vademecum', 'LSysMedico\HistoriaClinica\PrescripcionMedica@get_list_vademecum');
 Route::resource('Prescripcion', 'LSysMedico\HistoriaClinica\PrescripcionMedica');

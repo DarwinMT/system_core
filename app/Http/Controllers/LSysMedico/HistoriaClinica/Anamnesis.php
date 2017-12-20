@@ -334,4 +334,94 @@ class Anamnesis extends Controller
         return $pdf->stream("anamnesis_".$today."");
     }
 
+     /**
+     *
+     * estadistica de tipo de enfermedades comunes
+     *
+     */
+    public function data_enfermedadesfamiliares()
+    {
+        $data_user=Session::get('user_data');
+        $id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
+        $tomonth="20".date("y-m");
+
+        
+        $sql=" AND id_cone IN (SELECT consulta_externa.id_cone FROM consulta_externa  WHERE consulta_externa.id_ag  IN ( ";
+        $sql.=" SELECT agenda.id_ag FROM agenda WHERE agenda.fecha LIKE '%".$tomonth."%' AND agenda.id_em=".$id_emp.")) ";
+
+        $cardiopatia = AntecedentesFamiliares::selectRaw(" COUNT(*) AS Cantidad ")
+                                            ->whereRaw(" cardiopatia<>0 ".$sql)
+                                            ->get();
+
+        $diabetes = AntecedentesFamiliares::selectRaw(" COUNT(*) AS Cantidad ")
+                                            ->whereRaw(" diabetes<>0 ".$sql)
+                                            ->get();
+
+        $vascular = AntecedentesFamiliares::selectRaw(" COUNT(*) AS Cantidad ")
+                                            ->whereRaw(" vascular<>0 ".$sql)
+                                            ->get();
+
+        $hipertencion = AntecedentesFamiliares::selectRaw(" COUNT(*) AS Cantidad ")
+                                            ->whereRaw(" hipertencion<>0 ".$sql)
+                                            ->get();
+
+        $cancer = AntecedentesFamiliares::selectRaw(" COUNT(*) AS Cantidad ")
+                                            ->whereRaw(" cancer<>0 ".$sql)
+                                            ->get();
+
+        $tuberculosis = AntecedentesFamiliares::selectRaw(" COUNT(*) AS Cantidad ")
+                                            ->whereRaw(" tuberculosis<>0 ".$sql)
+                                            ->get();
+
+        $enfinfecciosa = AntecedentesFamiliares::selectRaw(" COUNT(*) AS Cantidad ")
+                                            ->whereRaw(" enfinfecciosa<>0 ".$sql)
+                                            ->get();
+
+        $enfmental = AntecedentesFamiliares::selectRaw(" COUNT(*) AS Cantidad ")
+                                            ->whereRaw(" enfmental<>0 ".$sql)
+                                            ->get();
+
+        $malformacion = AntecedentesFamiliares::selectRaw(" COUNT(*) AS Cantidad ")
+                                            ->whereRaw(" malformacion<>0 ".$sql)
+                                            ->get();
+
+        $otro = AntecedentesFamiliares::selectRaw(" COUNT(*) AS Cantidad ")
+                                            ->whereRaw(" otro<>0 ".$sql)
+                                            ->get();
+        return  $arrayName = array(
+                        'Cardiopatia' => $cardiopatia[0]->Cantidad ,
+                        'Diabetes' => $diabetes[0]->Cantidad ,
+                        'Vascular' => $vascular[0]->Cantidad ,
+                        'Hipertencion' => $hipertencion[0]->Cantidad ,
+                        'Cancer' => $cancer[0]->Cantidad ,
+                        'Tuberculosis' => $tuberculosis[0]->Cantidad ,
+                        'Enfermedad_mental' => $enfmental[0]->Cantidad ,
+                        'Enfermedad_infecciosa' => $enfinfecciosa[0]->Cantidad ,
+                        'Malformacion' => $malformacion[0]->Cantidad ,
+                        'Otro' => $otro[0]->Cantidad 
+                         );
+    }
+
+      /**
+     *
+     * estadistica de diagnosticos
+     *
+     */
+    public function data_diagnosticos()
+    {
+        $data_user=Session::get('user_data');
+        $id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
+        $tomonth="20".date("y-m");
+
+        
+        $sql=" IN (SELECT consulta_externa.id_cone FROM consulta_externa  WHERE consulta_externa.id_ag  IN ( ";
+        $sql.=" SELECT agenda.id_ag FROM agenda WHERE agenda.fecha LIKE '%".$tomonth."%' AND agenda.id_em=".$id_emp.")) ";
+
+        return Diagnostico::selectRaw(" (SELECT cie.descripcion FROM cie WHERE cie.id_ci=diagnostico.id_ci) AS Diagnosticos ")
+                            ->selectRaw(" (SELECT COUNT(*)  FROM diagnostico aux_di WHERE aux_di.id_ci=diagnostico.id_ci AND aux_di.id_cone ".$sql." )  AS Cantidad ")
+                            ->whereRaw(" diagnostico.id_cone ".$sql." ")
+                            ->groupBy("diagnostico.id_ci")
+                            ->get();
+    }
+
 }

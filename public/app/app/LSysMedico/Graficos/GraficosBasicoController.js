@@ -44,19 +44,9 @@ app.controller('GraficosDefault', function($scope, $http, API_URL,Upload) {
                 colores.push(color);
                 border.push(color);
             });
-
-
-
-            var horizontalBarChartData = {
-                        labels: titles,
-                        datasets: datos
-            };
-
-
-
             var ctx = document.getElementById("number_citas").getContext('2d');
             var myChart = new Chart(ctx, {
-                type: 'bar',
+                type: 'line',
                 data: {
                     labels: titles,
                     datasets: [{
@@ -77,39 +67,207 @@ app.controller('GraficosDefault', function($scope, $http, API_URL,Upload) {
                     }
                 }
             });
-
-
-            var ctx = document.getElementById("number_cie").getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: titles,
-                    datasets: [{
-                        label: 'Numbero De Citas Del Mes',
-                        data: datos,
-                        backgroundColor:colores,
-                        borderColor: border,
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero:true
-                            }
-                        }]
-                    }
-                }
-            });
-
-
-            
         });
     };
 
-    $scope.get_numbercitas();    
+    $scope.get_numbercitas(); 
 
+
+    $scope.get_numberenfermedadesfamiliares=function () {
+        $http.get(API_URL + 'Anamnesis/get_enfermedadesfamiliares')
+        .success(function(response){
+            console.log(response);
+          var datos=[];
+            var titles=[];
+            var colores=[];
+            var border=[];
+            var color="";
+            
+                
+                if (response.Cancer!=0) {
+                    datos.push(response.Cancer);
+                    titles.push("Cancer");
+                    color = "rgba(" + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ",0.2)";
+                    colores.push(color);
+                    border.push(color);
+                }
+
+                if (response.Cardiopatia!=0) {
+                    datos.push(response.Cardiopatia);
+                    titles.push("Cardiopatia");
+                    color = "rgba(" + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ",0.2)";
+                    colores.push(color);
+                    border.push(color);
+                }
+
+                if (response.Diabetes!=0) {
+                    datos.push(response.Diabetes);
+                    titles.push("Diabetes");
+                    color = "rgba(" + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ",0.2)";
+                    colores.push(color);
+                    border.push(color);
+                }
+
+                if (response.Enfermedad_infecciosa!=0) {
+                    datos.push(response.Enfermedad_infecciosa);
+                    titles.push("Enfermedad infecciosa");
+                    color = "rgba(" + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ",0.2)";
+                    colores.push(color);
+                    border.push(color);
+                }
+
+                if (response.Enfermedad_mental!=0) {
+                    datos.push(response.Enfermedad_mental);
+                    titles.push("Enfermedad mental");
+                    color = "rgba(" + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ",0.2)";
+                    colores.push(color);
+                    border.push(color);
+                }
+
+                if (response.Hipertencion!=0) {
+                    datos.push(response.Hipertencion);
+                    titles.push("Hipertencion");
+                    color = "rgba(" + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ",0.2)";
+                    colores.push(color);
+                    border.push(color);
+                }
+
+                if (response.Malformacion!=0) {
+                    datos.push(response.Malformacion);
+                    titles.push("Malformacion");
+                    color = "rgba(" + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ",0.2)";
+                    colores.push(color);
+                    border.push(color);
+                }
+
+                if (response.Otro!=0) {
+                    datos.push(response.Otro);
+                    titles.push("Otro");
+                    color = "rgba(" + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ",0.2)";
+                    colores.push(color);
+                    border.push(color);
+                }
+
+                if (response.Tuberculosis!=0) {
+                    datos.push(response.Tuberculosis);
+                    titles.push("Tuberculosis");
+                    color = "rgba(" + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ",0.2)";
+                    colores.push(color);
+                    border.push(color);
+                }
+
+                if (response.Vascular!=0) {
+                    datos.push(response.Vascular);
+                    titles.push("Cardio Vascular");
+                    color = "rgba(" + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ",0.2)";
+                    colores.push(color);
+                    border.push(color);
+                }
+
+                console.log(colores)
+            var ctx = document.getElementById("number_enfermedadgenerales").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: titles,
+                    datasets: [{
+                        label: 'Enfermedades Comunes',
+                        data: datos,
+                        backgroundColor:colores,
+                        borderColor: border,
+                        borderWidth: 1
+                    }]
+                }
+            });
+        });
+    };
+
+    $scope.get_numberenfermedadesfamiliares(); 
+
+    $scope.get_datadiagnosticos=function () {
+        $http.get(API_URL + 'Anamnesis/get_diagnosticos')
+        .success(function(response){
+            console.log(response);
+            var datos=[];
+            var titles=[];
+            var colores=[];
+            var border=[];
+            response.forEach(function(i) {
+                datos.push(i.Cantidad);
+                titles.push(i.Diagnosticos);
+                var color = "rgba(" + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ",0.2)";
+                colores.push(color);
+                border.push(color);
+            });
+            var ctx = document.getElementById("number_diagnosticos").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'horizontalBar',
+                data: {
+                    labels: titles,
+                    datasets: [{
+                        label: 'Diagnosticos Por Mes',
+                        data: datos,
+                        backgroundColor:colores,
+                        borderColor: border,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+    };
+    $scope.get_datadiagnosticos();
+
+
+    $scope.get_datadmvademecum=function () {
+        $http.get(API_URL + 'Prescripcion/get_datavademecum')
+        .success(function(response){
+            console.log(response);
+            var datos=[];
+            var titles=[];
+            var colores=[];
+            var border=[];
+            response.forEach(function(i) {
+                datos.push(i.Cantidad);
+                titles.push(i.Medicamento);
+                var color = "rgba(" + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ", " + (Math.round(Math.random() * (250))) + ",0.2)";
+                colores.push(color);
+                border.push(color);
+            });
+            var ctx = document.getElementById("number_medicamentos").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'horizontalBar',
+                data: {
+                    labels: titles,
+                    datasets: [{
+                        label: 'Medicamentos Por Mes',
+                        data: datos,
+                        backgroundColor:colores,
+                        borderColor: border,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+    };
+    $scope.get_datadmvademecum();
 });
 
 function sms(color,mensaje) {

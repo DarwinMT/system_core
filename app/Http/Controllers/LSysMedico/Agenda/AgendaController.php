@@ -217,10 +217,12 @@ class AgendaController extends Controller
      */
     public function data_numbercitas()
     {
+        $data_user=Session::get('user_data');
+        $id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
         $tomonth="20".date("y-m");
         return Agenda::selectRaw("agenda.fecha")
                     ->selectRaw("(SELECT  COUNT(*) FROM agenda aux WHERE aux.fecha=agenda.fecha) AS numero")
-                    ->whereRaw(" agenda.fecha LIKE '%".$tomonth."%'")
+                    ->whereRaw(" agenda.fecha LIKE '%".$tomonth."%' AND agenda.id_em=".$id_emp."")
                     ->groupBy("agenda.fecha")
                     ->get();
     }

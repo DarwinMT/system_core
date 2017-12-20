@@ -139,4 +139,26 @@ class PrescripcionMedica extends Controller
         return response()->json(['success' => 0]); //datos guardados correctamente
 
     }
+
+     /**
+     *
+     * estadistica de vademecum
+     *
+     */
+    public function data_vademecum()
+    {
+        $data_user=Session::get('user_data');
+        $id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
+        $tomonth="20".date("y-m");
+
+        
+        $sql=" IN (SELECT prescripcion.id_pres FROM prescripcion WHERE prescripcion.id_cone IN (SELECT consulta_externa.id_cone FROM consulta_externa  WHERE consulta_externa.id_ag  IN ( ";
+        $sql.=" SELECT agenda.id_ag FROM agenda WHERE agenda.fecha LIKE '%".$tomonth."%' AND agenda.id_em=".$id_emp.")) )";
+
+        return PrescripcionItem::selectRaw(" (SELECT item.descripcion FROM item WHERE item.id_item=prescripcion_item.id_item) AS Medicamento ")
+                            ->selectRaw(" (SELECT  COUNT(*) FROM prescripcion_item aux WHERE aux.id_item=prescripcion_item.id_item AND aux.id_pres ".$sql." )  AS Cantidad ")
+                            ->whereRaw(" prescripcion_item.id_pres ".$sql." ")
+                            ->groupBy("prescripcion_item.id_item")
+                            ->get();
+    }
 }
