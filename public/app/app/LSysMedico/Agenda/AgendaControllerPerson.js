@@ -912,7 +912,7 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
 
     $scope.clear_agenda=function() {
         $scope.limpiar_cliente();
-        $scope.limpiar_empleado();
+        //$scope.limpiar_empleado();
         $scope.make_time();
         $scope.tipoagenda="1";
         $("#fechacita").val("");

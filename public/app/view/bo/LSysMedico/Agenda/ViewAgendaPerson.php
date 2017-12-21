@@ -452,7 +452,7 @@
 
 
 									<button class="btn btn-default btn-sm" type="button" 
-										ng-click="clear_agenda(); control_panel('M'); "  >
+										ng-click="clear_agenda(); control_panel('D'); "  >
 										<i class="glyphicon glyphicon-ban-circle"></i>
 										Cancelar
 									</button>	
