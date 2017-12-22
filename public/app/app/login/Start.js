@@ -1,5 +1,5 @@
 app.controller('Login', function($scope, $http, API_URL) {
-    $scope.Name_Company="Company Name";
+    $scope.Name_Company="SystemCore";
     $scope.username="";
     $scope.password="";
     $scope.Mensaje_Start="";

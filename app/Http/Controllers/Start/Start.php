@@ -30,7 +30,7 @@ class Start extends Controller
                     return view('Home/MainB',compact("data_user","acees"));
                 }else{
                     $acees=$this->access_user_materialize();
-                    return view('Home/MainM',compact("data_user","acees"));
+                    return view('Home/MainM',compact("data_user","acees")); 
                 }
             }else{
                 Session::forget('user_data');

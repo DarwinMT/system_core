@@ -127,7 +127,7 @@
 
 					<div class="col-md-4 col-xs-6">
 						<div class="form-group has-feedback">
-						    <input type="text" class="form-control input-sm" id="buscartexto" name="buscartexto" ng-model="buscartexto" ng-keyup="initLoad(1)" placeholder="Buscar Cita">
+						    <input type="text" class="form-control input-sm" id="buscartexto" name="buscartexto" ng-model="buscartexto" " placeholder="Buscar Cita">
 						    <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
 						</div>
 					</div>
@@ -245,7 +245,8 @@
 		      						<th></th>
 		      						<th>Empleado</th>
 		      						<th>Cliente</th>
-		      						<th>Usuario</th>
+		      						<!--<th>Usuario</th>-->
+		      						<th>CI. Cli.</th>
 		      						<th>Fecha</th>
 		      						<th>Hora</th>
 		      						<th>Turno</th>
@@ -257,11 +258,12 @@
 		      					</tr>
 		      				</thead>
 		      				<tbody>
-		      					<tr ng-repeat=" dg in list_agend_day " style="font-size: 11px !important;">
+		      					<tr ng-repeat=" dg in list_agend_day |filter:buscartexto " style="font-size: 11px !important;">
 		      						<td>{{$index+1}}</td>
 		      						<td>{{dg.empleado.persona.apellido+' '+dg.empleado.persona.nombre}}</td>
 		      						<td>{{dg.cliente.persona.apellido+' '+dg.cliente.persona.nombre}}</td>
-		      						<td>{{dg.usuario.persona.apellido+' '+dg.usuario.persona.nombre}}</td>
+		      						<!--<td>{{dg.usuario.persona.apellido+' '+dg.usuario.persona.nombre}}</td>-->
+		      						<td>{{dg.cliente.persona.ci}}</td>
 		      						<td>{{dg.fecha}}</td>
 		      						<td>{{dg.horainicio}}</td>
 		      						<td>{{dg.turno}}</td>
@@ -1243,7 +1245,8 @@
       						<th></th>
       						<th>Empleado</th>
       						<th>Cliente</th>
-      						<th>Usuario</th>
+      						<th>CI. Cli.</th>
+      						<!--<th>Usuario</th>-->
       						<th>Fecha</th>
       						<th>Hora</th>
       						<th>Turno</th>
@@ -1258,7 +1261,8 @@
       						<td>{{$index+1}}</td>
       						<td>{{ci.empleado.persona.apellido+' '+ci.empleado.persona.nombre}}</td>
       						<td>{{ci.cliente.persona.apellido+' '+ci.cliente.persona.nombre}}</td>
-      						<td>{{ci.usuario.persona.apellido+' '+ci.usuario.persona.nombre}}</td>
+      						<td>{{ci.cliente.persona.ci}}</td>
+      						<!--<td>{{ci.usuario.persona.apellido+' '+ci.usuario.persona.nombre}}</td>-->
       						<td>{{ci.fecha}}</td>
       						<td>{{ci.horainicio}}</td>
       						<td>{{ci.turno}}</td>
