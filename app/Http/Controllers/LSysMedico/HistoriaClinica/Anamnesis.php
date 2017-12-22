@@ -175,7 +175,7 @@ class Anamnesis extends Controller
                 $diag->definitivo=$d["definitivo"];
                 $diag->save();
             }
-            $aux_data=Agenda::with("usuario.persona.personaempresa.empresa","cliente.persona","empleado.persona","consultageneral") //agregado la consulta externa
+            $aux_data=Agenda::with("usuario.persona.personaempresa.empresa","cliente.persona","empleado.persona","consultageneral.prescripcion") //agregado la consulta externa
                     ->whereRaw("id_ag=".$consulta->id_ag."")
                     ->orderBy("agenda.horainicio","ASC")
                     ->get();

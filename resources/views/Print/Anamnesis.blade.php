@@ -128,11 +128,6 @@
 
 
 </style>	
-<script type="text/javascript">
-	function Edad(fecha) {
-		return "holaaaaaaa";
-	}
-</script>
 </head>
 <body >
 

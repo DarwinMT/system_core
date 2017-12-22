@@ -1515,9 +1515,11 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
         $http.get(API_URL + 'Prescripcion/get_receta_id/' + JSON.stringify(filtro_receta))
             .then(function(response){
                 console.log(response.data);
-                if(response.data[0].id_presit!=null && response.data[0].id_presit!=undefined  ){
-                    $scope.list_receta=response.data;
-                    $scope.aux_tem_idprescripcion=response.data[0].id_pres;
+                if(response.data.length>0){
+                    if(response.data[0].id_presit!=null && response.data[0].id_presit!=undefined  ){
+                        $scope.list_receta=response.data;
+                        $scope.aux_tem_idprescripcion=response.data[0].id_pres;
+                    }
                 }
             });
 
@@ -1606,6 +1608,26 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
             $("#bodyprint").html("<object width='100%' height='600' data='"+accion+"'></object>");
         }else{
             sms("btn-info","Ingrese la Anamnesis para poder imprimir");
+        }
+    };
+    
+    $scope.print_receta=function (item) {
+        console.log(item)
+        if(item.consultageneral.length>0){// tiene consulta externa
+            if(item.consultageneral[0].prescripcion.length>0){// tiene una receta
+                var data={
+                    id_cone:item.consultageneral[0].id_cone,
+                    id_ag:item.consultageneral[0].id_ag
+                };
+                var accion = API_URL + "Prescripcion/print_receta/"+JSON.stringify(data);
+                $("#WPrint_head").html("Receta");
+                $("#WPrint").modal("show");
+                $("#bodyprint").html("<object width='100%' height='600' data='"+accion+"'></object>");
+            }else{
+                sms("btn-info","Ingrese una Receta para poder imprimir");
+            }
+        }else{
+            sms("btn-info","Ingrese la Anamnesis para poder recetar");
         }
     };
     $scope.calcular_edad=function(fecha) {

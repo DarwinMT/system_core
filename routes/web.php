@@ -122,6 +122,7 @@ Route::resource('Anamnesis', 'LSysMedico\HistoriaClinica\Anamnesis');
 	/*-----------------Datos grafico --------------*/	
 	Route::get('Prescripcion/get_datavademecum', 'LSysMedico\HistoriaClinica\PrescripcionMedica@data_vademecum');
 	/*-----------------Datos grafico --------------*/	
+Route::get('Prescripcion/print_receta/{texto}', 'LSysMedico\HistoriaClinica\PrescripcionMedica@print_receta');
 Route::get('Prescripcion/get_receta_id/{texto}', 'LSysMedico\HistoriaClinica\PrescripcionMedica@get_recetaid');
 Route::get('Prescripcion/get_list_vademecum', 'LSysMedico\HistoriaClinica\PrescripcionMedica@get_list_vademecum');
 Route::resource('Prescripcion', 'LSysMedico\HistoriaClinica\PrescripcionMedica');

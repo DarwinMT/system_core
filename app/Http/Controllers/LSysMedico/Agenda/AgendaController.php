@@ -127,7 +127,7 @@ class AgendaController extends Controller
         if($filtro->id_emp!=""){
             $sql.=" AND agenda.id_emp='".$filtro->id_emp."' ";
         }
-        return Agenda::with("usuario.persona.personaempresa.empresa","cliente.persona","empleado.persona","consultageneral") //agregado la consulta externa
+        return Agenda::with("usuario.persona.personaempresa.empresa","cliente.persona","empleado.persona","consultageneral.prescripcion") //agregado la consulta externa
                     ->whereRaw($sql)
                     ->orderBy("agenda.horainicio","ASC")
                     ->get();

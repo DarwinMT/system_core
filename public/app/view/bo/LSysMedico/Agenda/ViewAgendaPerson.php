@@ -316,6 +316,13 @@
                                                     </a>
                                                 </li>
 
+                                                <li ng-click="print_receta(dg)">
+                                                    <a href="" >
+                                                        <i class="glyphicon glyphicon-print"></i> Receta
+                                                    </a>
+                                                </li>
+
+
 												<li role="separator" class="divider"></li>
 
                                                 <li ng-click="end_consulta(dg)">

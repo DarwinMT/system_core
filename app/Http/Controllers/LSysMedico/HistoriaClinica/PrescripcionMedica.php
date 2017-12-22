@@ -161,4 +161,31 @@ class PrescripcionMedica extends Controller
                             ->groupBy("prescripcion_item.id_item")
                             ->get();
     }
+    /**
+     * Imprimir anamanesis
+     * 
+     * 
+     */
+    public function print_receta($parametro)
+    {   
+        ini_set('max_execution_time', 300);
+
+        $filtro = json_decode($parametro);
+        $preshead=Prescripcion::whereRaw(" id_cone=".$filtro->id_cone."")
+                            ->orderBy("id_pres", "DESC")
+                            ->limit(1)
+                            ->get();
+
+        $receta= PrescripcionItem::with("item","prescripcion.consultaexterna.diagnostico.cie", "prescripcion.consultaexterna.agenda.cliente.persona", "prescripcion.consultaexterna.agenda.empresa.ciudad")
+                                ->whereRaw(" id_pres=".$preshead[0]->id_pres."")
+                                ->get();
+
+
+        $today=date("Y-m-d H:i:s");
+        $view =  \View::make('Print.Receta', compact('filtro','receta','today'))->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        $pdf->setPaper('A4', 'portrait');
+        return $pdf->stream("anamnesis_".$today."");
+    }
 }
