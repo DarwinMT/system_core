@@ -128,3 +128,8 @@ Route::get('Prescripcion/get_list_vademecum', 'LSysMedico\HistoriaClinica\Prescr
 Route::resource('Prescripcion', 'LSysMedico\HistoriaClinica\PrescripcionMedica');
 /*-----------------Logica Prescripcion Medica --------------*/
 
+/*-----------------Logica Empresa --------------*/
+Route::get('Company/get_infoempresa', 'Configuracion\EmpresaController@get_dataempresa');
+Route::resource('Company', 'Configuracion\EmpresaController');
+/*-----------------Logica Empresa --------------*/
+

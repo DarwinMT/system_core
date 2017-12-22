@@ -35,6 +35,9 @@ app.config(function($routeProvider,API_URL){
 	}).when("/AgendaPerson",{
         templateUrl : "app/view/bo/LSysMedico/Agenda/ViewAgendaPerson.php",
         controller : "LogicaAgendaPerson"
+    }).when("/RegistroEmpresa",{
+        templateUrl : "app/view/bo/Basico/ViewEmpresa.php",
+        controller : "LogicaEmpresa"
     })
 	.otherwise({
         //template : "<h1>Nada</h1><p>Ejemplo de pagina no encotrada,</p>"
