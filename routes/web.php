@@ -129,7 +129,23 @@ Route::resource('Prescripcion', 'LSysMedico\HistoriaClinica\PrescripcionMedica')
 /*-----------------Logica Prescripcion Medica --------------*/
 
 /*-----------------Logica Empresa --------------*/
+Route::post('Company/update_empresa/{id}', 'Configuracion\EmpresaController@update_empresa');
 Route::get('Company/get_infoempresa', 'Configuracion\EmpresaController@get_dataempresa');
 Route::resource('Company', 'Configuracion\EmpresaController');
 /*-----------------Logica Empresa --------------*/
+
+/*-----------------Logica Ciudad --------------*/
+Route::get('Ciudad/get_ciudades/{texto}', 'Configuracion\CiudadController@get_ciudades');
+Route::resource('Ciudad', 'Configuracion\CiudadController');
+/*-----------------Logica Ciudad --------------*/
+
+/*-----------------Logica Provincia --------------*/
+Route::get('Provincia/get_provincias/{texto}', 'Configuracion\ProvinciaController@get_provincias');
+Route::resource('Provincia', 'Configuracion\ProvinciaController');
+/*-----------------Logica Provincia --------------*/
+
+/*-----------------Logica pais --------------*/
+Route::get('Pais/get_paises/{texto}', 'Configuracion\PaisController@get_paises');
+Route::resource('Pais', 'Configuracion\PaisController');
+/*-----------------Logica pais --------------*/
 

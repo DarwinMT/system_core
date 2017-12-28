@@ -53,4 +53,41 @@ class EmpresaController extends Controller
         				->whereRaw(" id_emp=".$id_emp."")
         				->get();
     }
+     /**
+     *
+     *
+     * Actualizar datos de la empresa
+     *
+     */
+    public function update_empresa(Request $request, $id)
+    {
+    	$data = $request->all();
+    	$emp= Empresa::find($id);
+    	$emp->id_ci=$data["Empresa"]["id_ci"];
+    	$emp->nombre=$data["Empresa"]["nombre"];
+    	$emp->direccion=$data["Empresa"]["direccion"];
+    	$emp->telefono=$data["Empresa"]["telefono"];
+    	$emp->ruc=$data["Empresa"]["ruc"];
+
+    	if($emp->save()){
+	    	if ($request->hasFile('file')) {
+	            $image = $request->file('file');
+	            $destinationPath = public_path() . '/upload/Empresa/'.$id;
+	            if(!file_exists($destinationPath)) mkdir($destinationPath, 0777);
+	            $destinationPath.='/logo';
+	            if(!file_exists($destinationPath)) mkdir($destinationPath, 0777);
+	            $name = rand(0, 9999) . '_' . $image->getClientOriginalName();
+	            if($image->move($destinationPath, $name)) {
+	                $emp= Empresa::find($id);
+	                $emp->logo='/upload/Empresa/'.$id.'/logo/'.$name;
+	                $emp->save();
+	                return response()->json(['success' => 0]); //ok
+	            }
+	        }
+	        return response()->json(['success' => 0]); //ok	
+    	}else{
+    		return response()->json(['success' => 1]); //error al modificar los datos
+    	}
+
+    }   
 }

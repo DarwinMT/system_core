@@ -25,13 +25,17 @@ app.controller('LogicaEmpresa', function($scope, $http, API_URL,Upload) {
     ///---
 
 
+
+
     ///---
    $scope.data_empresa=[];
+   $scope.id_emp="";
    $scope.nombre="";
    $scope.ruc="";
-   $scope.pais="";
+   $scope.id_pa="";
    $scope.provincia="";
-   $scope.ciudad="";
+   $scope.id_ci="";
+   $scope.id_pro="";
    $scope.direccion="";
    $scope.telefono="";
    $scope.file="";
@@ -39,45 +43,60 @@ app.controller('LogicaEmpresa', function($scope, $http, API_URL,Upload) {
     	$scope.data_empresa=[];
     	$http.get(API_URL + 'Company/get_infoempresa')
             .then(function(response){
-                $scope.data_empresa = response.data;
-                console.log($scope.data_empresa);
+               $scope.data_empresa = response.data;
+               console.log($scope.data_empresa);
+               $scope.id_emp=$scope.data_empresa[0].id_emp;
                $scope.nombre=$scope.data_empresa[0].nombre;
 			   $scope.ruc=$scope.data_empresa[0].ruc;
-			   $scope.pais="";
-			   $scope.provincia="";
-			   $scope.ciudad=$scope.data_empresa[0].id_ci;
 			   $scope.direccion=$scope.data_empresa[0].direccion;
 			   $scope.telefono=$scope.data_empresa[0].telefono;
-			   $scope.file=$scope.data_empresa[0].logo;
+			   $scope.file="";
+
+			   $scope.url_foto=$scope.data_empresa[0].logo;
+			   $scope.loadpaises($scope.data_empresa[0].ciudad.provincia.id_pa);
+			   $scope.loadprovincia($scope.data_empresa[0].ciudad.provincia.id_pa, $scope.data_empresa[0].ciudad.id_pro);
+			   $scope.loadcioudad($scope.data_empresa[0].ciudad.id_pro, $scope.data_empresa[0].ciudad.id_ci );
         });
     };
     $scope.initLoad();
     ///---
 
     ///---
-    $scope.list_cargos_excell=[];
-    $scope.excell_cargo=function(){
-        $("#progress").modal("show");
-        var filtros = {
-            buscar:$scope.buscartexto,
-            estado: $scope.estadoanulado
-        };
-        $scope.list_cargos_excell=[];
-        $http.get(API_URL + 'CargoE/get_list_cargos_excell/' + JSON.stringify(filtros))
+    $scope.list_ciudad=[];
+    $scope.loadcioudad = function(idprovincia, idciudad){
+    	$scope.list_ciudad=[];
+    	var filtro={
+    		id_pro:idprovincia
+    	};
+    	$http.get(API_URL + 'Ciudad/get_ciudades/' + JSON.stringify(filtro))
             .then(function(response){
-                $scope.list_cargos_excell = response.data;
-                console.log($scope.list_cargos_excell);
-
-                setTimeout(function(){
-                    $("#list_rol").table2excel({
-                        exclude: ".noExl",
-                        name: "Lista De Cargos De Los Empleados",
-                        filename: "Lista De Cargos De Los Empleados" 
-                    });
-                    $("#progress").modal("hide");
-                },1000);
-         });
-
+                $scope.list_ciudad = response.data;
+                $scope.id_ci= idciudad.toString();
+        });
+    };
+    $scope.list_provincia=[];
+    $scope.loadprovincia = function(idpais, idprovincia){
+    	$scope.list_provincia=[];
+    	var filtro={
+    		id_pa:idpais
+    	};
+    	$http.get(API_URL + 'Provincia/get_provincias/' + JSON.stringify(filtro))
+            .then(function(response){
+                $scope.list_provincia = response.data;
+                $scope.id_pro=idprovincia.toString();
+        });
+    };
+    $scope.list_pais=[];
+    $scope.loadpaises = function(idpais){
+    	$scope.list_pais=[];
+    	var filtro={
+    		id_pa:idpais
+    	};
+    	$http.get(API_URL + 'Pais/get_paises/' + JSON.stringify(filtro))
+            .then(function(response){
+                $scope.list_pais = response.data;
+                $scope.id_pa=idpais.toString();
+        });
     };
     ///---
 
@@ -90,87 +109,42 @@ app.controller('LogicaEmpresa', function($scope, $http, API_URL,Upload) {
     };
     ///---
 
-    ///---
-    $scope.save=function() {
-        $("#progress").modal("show");
-        var cargo_data={
-            descripcion: $scope.descripcion.trim(),
-            estado: '1'
-        };
-        $http.post(API_URL + 'CargoE',cargo_data)
-        .success(function(response){
-            console.log(response);
-            $("#progress").modal("hide");
-                if(response.success==0){
-                    sms("btn-success","Se guardo correctamente los datos..!!");
-                    $scope.clear();
-                }else{
-                    sms("btn-danger","Error al guardar los datos..!!");
-                    $scope.clear();
-                }
-        });
-    };
+ 
     ///---
 
-    ///---
-    $scope.aux_cargo={};
-    $scope.init_edit=function(item){
-        $scope.aux_cargo=item;
-        $scope.neweditrol="2";
-        $scope.descripcion=$scope.aux_cargo.descripcion;
-    };
     $scope.edit=function(){
-        $scope.aux_cargo.descripcion=$scope.descripcion;
-        $http.put(API_URL + 'CargoE/'+$scope.aux_cargo.id_carg,$scope.aux_cargo)
-        .success(function(response){
-            console.log(response);
-            $("#progress").modal("hide");
-                if(response.success==0){
-                    sms("btn-success","Se guardo correctamente los datos..!!");
-                    $scope.clear();
-                }else{
-                    sms("btn-danger","Error al guardar los datos..!!");
-                    $scope.clear();
-                }
-        });
-    };
-    ///---
-
-    ///---
-    $scope.aux_estado_cargo={};
-    $scope.int_estado=function(item){
-        $scope.aux_estado_cargo=item;
-        if($scope.aux_estado_cargo.estado.toString()=="1"){
-            $scope.Msm_estado=" Esta seguro de inactivar el cargo";
-        }else{
-            $scope.Msm_estado=" Esta seguro de activar el cargo";
-        }
-        $("#modalestado").modal("show");
-    };
-    $scope.update_estado=function(){
-      $("#modalestado").modal("hide");
-      $("#progress").modal("show");
-      var aux_estado=($scope.aux_estado_cargo.estado.toString()=="1")?"0":"1";
-
-      var Rol={
-        id_carg:$scope.aux_estado_cargo.id_carg,
-        estado:aux_estado
-      };
-      $http.get(API_URL + 'CargoE/estado/' + JSON.stringify(Rol))
-        .success(function(data){
-            if(data.success==0){
+        var empresa_data={
+            Empresa:{
+            	nombre:$scope.nombre,
+				ruc:$scope.ruc,
+				id_ci:$scope.id_ci,
+				direccion:$scope.direccion,
+				telefono:$scope.telefono
+            },
+            file: $scope.file
+        };
+        $("#progress").modal("show");
+        
+        Upload.upload({
+            url: API_URL + "Company/update_empresa/" + $scope.id_emp,
+            method: 'POST',
+            data: empresa_data
+        }).success(function(data, status, headers, config) {
+        	console.log(data);
+           if(data.success==0){
                 $("#progress").modal("hide");
                 sms("btn-success","Se guardo correctamente la transacción..!!");
                 $scope.clear();
-                $scope.newusersin="0";
             }else{
                 $("#progress").modal("hide");
                 sms("btn-danger","Error al guardar la transacción..!!");
                 $scope.clear();
-                $scope.newusersin="0";
             }
         });
+
     };
+
+
     ///---
 
 
