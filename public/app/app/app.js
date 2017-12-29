@@ -39,6 +39,10 @@ app.config(function($routeProvider,API_URL){
         templateUrl : "app/view/bo/Basico/ViewEmpresa.php",
         controller : "LogicaEmpresa"
     })
+    .when("/Pais",{
+        templateUrl : "app/view/bo/Basico/ViewPais.php",
+        controller : "LogicaPais"
+    })
 	.otherwise({
         //template : "<h1>Nada</h1><p>Ejemplo de pagina no encotrada,</p>"
         templateUrl : "app/view/bo/LSysMedico/Graficos/ViewGraficosBasico.php",

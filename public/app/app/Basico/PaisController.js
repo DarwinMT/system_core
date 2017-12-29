@@ -1,5 +1,5 @@
-app.controller('LogicaCargo', function($scope, $http, API_URL,Upload) {
-    $scope.Title="Cargo De Empleado";
+app.controller('LogicaPais', function($scope, $http, API_URL,Upload) {
+    $scope.Title="Registro De Países";
     $('.datepicker').datetimepicker({
         locale: 'es',
         //format: 'DD/MM/YYYY',
@@ -7,13 +7,13 @@ app.controller('LogicaCargo', function($scope, $http, API_URL,Upload) {
         ignoreReadonly: true
     });
 
-    $scope.neweditrol="0";
+    $scope.newedid="0";
     $scope.estadoanulado="1";
     
     ///---
     $scope.list_permisos=[];
     $scope.permisos_user=function () {
-        $http.get(API_URL + 'CargoE')
+        $http.get(API_URL + 'Pais')
         .success(function(response){
             console.log(response[0].id_men);
             if(response[0].id_men!= undefined  ){ // no tiene session activa
@@ -29,7 +29,7 @@ app.controller('LogicaCargo', function($scope, $http, API_URL,Upload) {
     ///---
     $scope.buscartexto="";
     $scope.estadoanulado="1";
-    $scope.list_cargos=[];
+    $scope.list_pais=[];
     $scope.pageChanged = function(newPage) {
         $scope.initLoad(newPage);
     };
@@ -39,9 +39,9 @@ app.controller('LogicaCargo', function($scope, $http, API_URL,Upload) {
             buscar:$scope.buscartexto,
             estado: $scope.estadoanulado
         };
-        $http.get(API_URL + 'CargoE/get_list_paises?page=' + pageNumber + '&filter=' + JSON.stringify(filtros))
+        $http.get(API_URL + 'Pais/get_list_pais?page=' + pageNumber + '&filter=' + JSON.stringify(filtros))
             .then(function(response){
-                $scope.list_cargos = response.data.data;
+                $scope.list_pais = response.data.data;
                 $scope.totalItems = response.data.total;
          });
     };
@@ -49,24 +49,24 @@ app.controller('LogicaCargo', function($scope, $http, API_URL,Upload) {
     ///---
 
     ///---
-    $scope.list_cargos_excell=[];
-    $scope.excell_cargo=function(){
+    $scope.list_pais_excell=[];
+    $scope.excell_pais=function(){
         $("#progress").modal("show");
         var filtros = {
             buscar:$scope.buscartexto,
             estado: $scope.estadoanulado
         };
-        $scope.list_cargos_excell=[];
-        $http.get(API_URL + 'CargoE/get_list_cargos_excell/' + JSON.stringify(filtros))
+        $scope.list_pais_excell=[];
+        $http.get(API_URL + 'Pais/get_paises/' + JSON.stringify(filtros))
             .then(function(response){
-                $scope.list_cargos_excell = response.data;
-                console.log($scope.list_cargos_excell);
+                $scope.list_pais_excell = response.data;
+                console.log($scope.list_pais_excell);
 
                 setTimeout(function(){
-                    $("#list_rol").table2excel({
+                    $("#list_country").table2excel({
                         exclude: ".noExl",
-                        name: "Lista De Cargos De Los Empleados",
-                        filename: "Lista De Cargos De Los Empleados" 
+                        name: "Lista De Países",
+                        filename: "Lista De Países" 
                     });
                     $("#progress").modal("hide");
                 },1000);
@@ -77,7 +77,7 @@ app.controller('LogicaCargo', function($scope, $http, API_URL,Upload) {
 
     ///---
     $scope.clear=function(){
-        $scope.neweditrol="0";
+        $scope.newedid="0";
         $scope.descripcion="";
 
         $scope.initLoad(1);
@@ -87,11 +87,11 @@ app.controller('LogicaCargo', function($scope, $http, API_URL,Upload) {
     ///---
     $scope.save=function() {
         $("#progress").modal("show");
-        var cargo_data={
+        var pais_data={
             descripcion: $scope.descripcion.trim(),
             estado: '1'
         };
-        $http.post(API_URL + 'CargoE',cargo_data)
+        $http.post(API_URL + 'Pais',pais_data)
         .success(function(response){
             console.log(response);
             $("#progress").modal("hide");
@@ -107,15 +107,15 @@ app.controller('LogicaCargo', function($scope, $http, API_URL,Upload) {
     ///---
 
     ///---
-    $scope.aux_cargo={};
+    $scope.aux_pais={};
     $scope.init_edit=function(item){
-        $scope.aux_cargo=item;
-        $scope.neweditrol="2";
-        $scope.descripcion=$scope.aux_cargo.descripcion;
+        $scope.aux_pais=item;
+        $scope.newedid="2";
+        $scope.descripcion=$scope.aux_pais.descripcion;
     };
     $scope.edit=function(){
-        $scope.aux_cargo.descripcion=$scope.descripcion;
-        $http.put(API_URL + 'CargoE/'+$scope.aux_cargo.id_carg,$scope.aux_cargo)
+        $scope.aux_pais.descripcion=$scope.descripcion;
+        $http.put(API_URL + 'Pais/'+$scope.aux_pais.id_pa,$scope.aux_pais)
         .success(function(response){
             console.log(response);
             $("#progress").modal("hide");
@@ -131,26 +131,26 @@ app.controller('LogicaCargo', function($scope, $http, API_URL,Upload) {
     ///---
 
     ///---
-    $scope.aux_estado_cargo={};
+    $scope.aux_estado_pais={};
     $scope.int_estado=function(item){
-        $scope.aux_estado_cargo=item;
-        if($scope.aux_estado_cargo.estado.toString()=="1"){
-            $scope.Msm_estado=" Esta seguro de inactivar el cargo";
+        $scope.aux_estado_pais=item;
+        if($scope.aux_estado_pais.estado.toString()=="1"){
+            $scope.Msm_estado=" Esta seguro de inactivar el país";
         }else{
-            $scope.Msm_estado=" Esta seguro de activar el cargo";
+            $scope.Msm_estado=" Esta seguro de activar el país";
         }
         $("#modalestado").modal("show");
     };
     $scope.update_estado=function(){
       $("#modalestado").modal("hide");
       $("#progress").modal("show");
-      var aux_estado=($scope.aux_estado_cargo.estado.toString()=="1")?"0":"1";
+      var aux_estado=($scope.aux_estado_pais.estado.toString()=="1")?"0":"1";
 
-      var Rol={
-        id_carg:$scope.aux_estado_cargo.id_carg,
+      var pais={
+        id_pa:$scope.aux_estado_pais.id_pa,
         estado:aux_estado
       };
-      $http.get(API_URL + 'CargoE/estado/' + JSON.stringify(Rol))
+      $http.get(API_URL + 'Pais/estado/' + JSON.stringify(pais))
         .success(function(data){
             if(data.success==0){
                 $("#progress").modal("hide");

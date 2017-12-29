@@ -145,6 +145,8 @@ Route::resource('Provincia', 'Configuracion\ProvinciaController');
 /*-----------------Logica Provincia --------------*/
 
 /*-----------------Logica pais --------------*/
+Route::get('Pais/estado/{texto}', 'Configuracion\PaisController@modify_estado');
+Route::get('Pais/get_list_pais', 'Configuracion\PaisController@get_list_pais');
 Route::get('Pais/get_paises/{texto}', 'Configuracion\PaisController@get_paises');
 Route::resource('Pais', 'Configuracion\PaisController');
 /*-----------------Logica pais --------------*/
