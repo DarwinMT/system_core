@@ -38,10 +38,15 @@ app.config(function($routeProvider,API_URL){
     }).when("/RegistroEmpresa",{
         templateUrl : "app/view/bo/Basico/ViewEmpresa.php",
         controller : "LogicaEmpresa"
-    })
-    .when("/Pais",{
+    }).when("/Pais",{
         templateUrl : "app/view/bo/Basico/ViewPais.php",
         controller : "LogicaPais"
+    }).when("/Provincia",{
+        templateUrl : "app/view/bo/Basico/ViewProvincia.php",
+        controller : "LogicaProvincia"
+    }).when("/Ciudad",{
+        templateUrl : "app/view/bo/Basico/ViewCiudad.php",
+        controller : "LogicaCiudad"
     })
 	.otherwise({
         //template : "<h1>Nada</h1><p>Ejemplo de pagina no encotrada,</p>"

@@ -135,11 +135,17 @@ Route::resource('Company', 'Configuracion\EmpresaController');
 /*-----------------Logica Empresa --------------*/
 
 /*-----------------Logica Ciudad --------------*/
+Route::get('Ciudad/get_ciudades_all/{texto}', 'Configuracion\CiudadController@get_ciudades_all');
+Route::get('Ciudad/estado/{texto}', 'Configuracion\CiudadController@modify_estado');
+Route::get('Ciudad/get_list_ciudades', 'Configuracion\CiudadController@get_list_ciudades');
 Route::get('Ciudad/get_ciudades/{texto}', 'Configuracion\CiudadController@get_ciudades');
 Route::resource('Ciudad', 'Configuracion\CiudadController');
 /*-----------------Logica Ciudad --------------*/
 
 /*-----------------Logica Provincia --------------*/
+Route::get('Provincia/get_provincias_all/{texto}', 'Configuracion\ProvinciaController@get_provincias_all');
+Route::get('Provincia/estado/{texto}', 'Configuracion\ProvinciaController@modify_estado');
+Route::get('Provincia/get_list_provincia', 'Configuracion\ProvinciaController@get_list_provincia');
 Route::get('Provincia/get_provincias/{texto}', 'Configuracion\ProvinciaController@get_provincias');
 Route::resource('Provincia', 'Configuracion\ProvinciaController');
 /*-----------------Logica Provincia --------------*/
