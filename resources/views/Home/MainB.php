@@ -52,6 +52,7 @@
   <script src="<?= asset('../app/app/Basico/PaisController.js') ?>"></script>
   <script src="<?= asset('../app/app/Basico/ProvinciaController.js') ?>"></script>
   <script src="<?= asset('../app/app/Basico/CiudadController.js') ?>"></script>
+  <script src="<?= asset('../app/app/Basico/MedicamentoController.js') ?>"></script>
   
     <!--Controller logica medico-->
         <script src="<?= asset('../app/app/LSysMedico/Agenda/AgendaController.js') ?>"></script>

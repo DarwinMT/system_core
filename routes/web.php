@@ -157,3 +157,12 @@ Route::get('Pais/get_paises/{texto}', 'Configuracion\PaisController@get_paises')
 Route::resource('Pais', 'Configuracion\PaisController');
 /*-----------------Logica pais --------------*/
 
+/*-----------------Logica vademecum --------------*/
+Route::get('Vademecum/get_medicamentos/{texto}', 'Configuracion\MedicamentoController@get_medicamentos');
+Route::get('Vademecum/estado/{texto}', 'Configuracion\MedicamentoController@modify_estado');
+Route::get('Vademecum/get_list_vademecum', 'Configuracion\MedicamentoController@get_list_vademecum');
+Route::resource('Vademecum', 'Configuracion\MedicamentoController');
+/*-----------------Logica vademecum --------------*/
+
+
+

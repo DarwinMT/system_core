@@ -47,6 +47,9 @@ app.config(function($routeProvider,API_URL){
     }).when("/Ciudad",{
         templateUrl : "app/view/bo/Basico/ViewCiudad.php",
         controller : "LogicaCiudad"
+    }).when("/Vademecum",{
+        templateUrl : "app/view/bo/Basico/ViewMedicamento.php",
+        controller : "LogicaVademecum"
     })
 	.otherwise({
         //template : "<h1>Nada</h1><p>Ejemplo de pagina no encotrada,</p>"
