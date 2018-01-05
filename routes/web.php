@@ -164,5 +164,11 @@ Route::get('Vademecum/get_list_vademecum', 'Configuracion\MedicamentoController@
 Route::resource('Vademecum', 'Configuracion\MedicamentoController');
 /*-----------------Logica vademecum --------------*/
 
+/*-----------------Logica historia clinica --------------*/
+Route::get('Historia/get_listanamnesis_cliente', 'LSysMedico\HistoriaClinica\HistoriaClinicaController@get_list_anamnesis_id');
+Route::get('Historia/get_paciente_historia', 'LSysMedico\HistoriaClinica\HistoriaClinicaController@get_pacientehistorias');
+Route::resource('Historia', 'LSysMedico\HistoriaClinica\HistoriaClinicaController');
+/*-----------------Logica historia clinica --------------*/
+
 
 

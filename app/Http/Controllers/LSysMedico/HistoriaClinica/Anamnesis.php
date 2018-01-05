@@ -331,7 +331,7 @@ class Anamnesis extends Controller
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         $pdf->setPaper('A4', 'portrait');
-        return $pdf->stream("anamnesis_".$today."");
+        return $pdf->stream("anamnesis_".$today.".pdf");
     }
 
      /**

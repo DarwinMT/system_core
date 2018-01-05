@@ -50,6 +50,9 @@ app.config(function($routeProvider,API_URL){
     }).when("/Vademecum",{
         templateUrl : "app/view/bo/Basico/ViewMedicamento.php",
         controller : "LogicaVademecum"
+    }).when("/Historia",{
+        templateUrl : "app/view/bo/LSysMedico/Agenda/ViewHistoriaClinica.php",
+        controller : "LogicaHistoriaClinica"
     })
 	.otherwise({
         //template : "<h1>Nada</h1><p>Ejemplo de pagina no encotrada,</p>"
