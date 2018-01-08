@@ -79,7 +79,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr dir-paginate="r in list_Historia | orderBy:sortKey:reverse |filter:buscartexto| itemsPerPage:5" total-items="totalItems" ng-cloak">
+						<tr dir-paginate="r in list_Historia | orderBy:sortKey:reverse |filter:buscartexto| itemsPerPage:5" total-items="totalItems" ng-cloak>
 							<td>{{$index+1}}</td>
 							<td>{{r.cliente.persona.apellido+' '+r.cliente.persona.nombre}}</td>
 							<td>{{r.cliente.persona.ci+' | '+r.cliente.numerohistoria}}</td>
@@ -164,7 +164,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr dir-paginate="r in list_anamnesiscliente | itemsPerPage:5" total-items="totalItemsanamnesis" ng-cloak">
+						<tr dir-paginate="r in list_anamnesiscliente | itemsPerPage:5" total-items="totalItemsanamnesis" ng-cloak>
 							<td>{{$index+1}}</td>
 							<td>{{r.empleado.persona.apellido+' '+r.empleado.persona.nombre}}</td>
 							<td>{{r.empresa.nombre}}</td>

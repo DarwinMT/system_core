@@ -78,4 +78,41 @@ class HistoriaClinicaController extends Controller
                     ->orderBy("agenda.fecha","DESC");
         return $data->paginate(5);
     }
+    /**
+     *
+     * Webservices 
+     *
+     */
+    public function get_pacientehistorias_id($texto)
+    {
+        $filtro = json_decode($texto);
+        $sql="";
+        if($filtro->buscar!=""){
+            $sql=" AND agenda.id_cli IN(SELECT cl.id_cli FROM cliente cl  ";
+            $sql.=" WHERE cl.id_pe IN(SELECT per.id_pe  FROM persona per WHERE per.ci LIKE '%".$filtro->buscar."%'  OR  CONCAT(apellido,' ',nombre) LIKE '%".$filtro->buscar."%' ) ";
+            $sql.=" OR cl.numerohistoria LIKE '%".$filtro->buscar."%') ";
+        }
+        //->whereRaw("  agenda.fecha BETWEEN '".$filter->fechai."' AND '".$filter->fechaf."' AND agenda.estado='1'  ".$sql)
+        return Agenda::with("cliente.persona")
+                    ->whereRaw(" agenda.estado='1'  ".$sql)
+                    ->orderBy("agenda.fecha","ASC")
+                    ->groupBy("agenda.id_cli")
+                    ->get();
+
+    }
+    /**
+     *
+     *
+     * Lista de anamnesis de cliente 
+     *
+     */
+    public function get_list_anamnesis_id_webservice($texto)
+    {
+        $filter = json_decode($texto);
+        $sql =" agenda.estado='1' AND  agenda.id_cli='".$filter->id_cli."'";
+        return Agenda::with("cliente.persona","empleado.persona","empresa","consultageneral.prescripcion")
+                    ->whereRaw($sql)
+                    ->orderBy("agenda.fecha","DESC")
+                    ->get();
+    }
 }

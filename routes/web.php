@@ -165,6 +165,8 @@ Route::resource('Vademecum', 'Configuracion\MedicamentoController');
 /*-----------------Logica vademecum --------------*/
 
 /*-----------------Logica historia clinica --------------*/
+Route::get('Historia/get_listanamnesis_cliente_webservice/{texto}',"LSysMedico\HistoriaClinica\HistoriaClinicaController@get_list_anamnesis_id_webservice")->middleware("cors");
+Route::get('Historia/get_paciente_historia_webservice/{texto}',"LSysMedico\HistoriaClinica\HistoriaClinicaController@get_pacientehistorias_id")->middleware("cors");
 Route::get('Historia/get_listanamnesis_cliente', 'LSysMedico\HistoriaClinica\HistoriaClinicaController@get_list_anamnesis_id');
 Route::get('Historia/get_paciente_historia', 'LSysMedico\HistoriaClinica\HistoriaClinicaController@get_pacientehistorias');
 Route::resource('Historia', 'LSysMedico\HistoriaClinica\HistoriaClinicaController');
