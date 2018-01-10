@@ -53,6 +53,9 @@ app.config(function($routeProvider,API_URL){
     }).when("/Historia",{
         templateUrl : "app/view/bo/LSysMedico/Agenda/ViewHistoriaClinica.php",
         controller : "LogicaHistoriaClinica"
+    }).when("/EmpresaInit",{ //----------------------------------------------2018-01-08
+        templateUrl : "app/view/bo/Basico/ViewEmpresaInit.php",
+        controller : "LogicaEmpresaInit"
     })
 	.otherwise({
         //template : "<h1>Nada</h1><p>Ejemplo de pagina no encotrada,</p>"

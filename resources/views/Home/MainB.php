@@ -66,6 +66,9 @@
     <script src="<?= asset('../app/app/LSysMedico/Graficos/GraficosBasicoController.js') ?>"></script>
     <!--Graficos logica angular-->
 
+    <!--||-->
+    <script src="<?= asset('../app/app/Basico/EmpresaInitController.js') ?>"></script>
+    <!--||-->
 
 <style>
   .dropdown-submenu {
