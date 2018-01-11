@@ -56,6 +56,9 @@ app.config(function($routeProvider,API_URL){
     }).when("/EmpresaInit",{ //----------------------------------------------2018-01-08
         templateUrl : "app/view/bo/Basico/ViewEmpresaInit.php",
         controller : "LogicaEmpresaInit"
+    }).when("/Perfil",{
+        templateUrl : "app/view/bo/Usuario/ViewPerfilUsuario.php",
+        controller : "LogicaPerfil"
     })
 	.otherwise({
         //template : "<h1>Nada</h1><p>Ejemplo de pagina no encotrada,</p>"

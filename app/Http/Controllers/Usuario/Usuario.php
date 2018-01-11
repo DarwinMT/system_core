@@ -277,4 +277,15 @@ class Usuario extends Controller
             return response()->json(['success' => 1]); //error ya existe este empleado en el usuario
         }
     }
+    /**
+     *
+     *
+     * datos user
+     *
+     */
+    public function get_me()
+    {   
+        $data_user=Session::get('user_data');
+        return $data_user;
+    }    
 }
