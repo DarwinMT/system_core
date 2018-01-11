@@ -29,13 +29,6 @@
 
 	<!--Style  https://bootsnipp.com/snippets/featured/register-page -->
 	<style type="text/css">
-	body { 
-    background: url(https://www.ten-x.com/company/blog/wp-content/uploads/sites/4/2017/03/computer-1149148_1280.jpg) no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-  }
 		.main{
 		 	margin-top: 70px;
 		}
