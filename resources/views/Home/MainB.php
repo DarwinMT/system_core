@@ -83,6 +83,17 @@
   body {
     padding-top: 50px;
   }
+  footer {
+        position: fixed;
+        height: 15px !important;
+        bottom: 0;
+        width: 100%;
+        color: white;
+        font-size: 11px;
+        background-color:  rgba(34, 34, 34,0.7);
+        background:        rgba(34, 34, 34,0.7);
+        
+  }
 
 </style>
 
@@ -136,6 +147,18 @@ $(document).ready(function(){
 
 
 
-
+<footer class="navbar-fixed-bottom">
+    <div class="row">
+      <div class="col-md-4 col-xs-12 text-left">
+        © Todos los derechos reservados
+      </div>
+      <div class="col-md-4 col-xs-12 text-center">
+        
+      </div>
+      <div class="col-md-4 col-xs-12 text-right">
+        Athan V. 0.1.0  (SystemCore)
+      </div>
+    </div>
+</footer> 
 </body>
 </html>
