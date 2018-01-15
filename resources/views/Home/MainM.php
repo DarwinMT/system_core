@@ -13,16 +13,35 @@
     <!--Materialize-->
     <!--Import Google Icon Font-->
       	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<script src="<?= asset('../assetsm/js/materialize.min.js') ?>"></script>
-	<link href="<?= asset('../assetsm/css/materialize.min.css') ?>" rel="stylesheet">
+	<!--<script src="<?= asset('../assetsm/js/materialize.min.js') ?>"></script>
+	<link href="<?= asset('../assetsm/css/materialize.min.css') ?>" rel="stylesheet">-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 	
 	<!--Angular-->
 	<script src="<?= asset('../app/angular/angular.min.js') ?>"></script>
 	<script src="<?= asset('../app/angular/angular-route.min.js') ?>"></script>
+
+    <!--Paginacion angular-->
+    <script src="<?= asset('../js/dirPagination.js') ?>"></script>
+    <!--Upfile angular-->
+    <script src="<?= asset('../js/ng-file-upload-shim.min.js') ?>"></script>
+    <script src="<?= asset('../js/ng-file-upload.min.js') ?>"></script>
+    
 		<!--Aplicacion-->
 	<script src="<?= asset('../app/app/appm.js') ?>"></script>
 		<!--Controller-->
+      <script src="<?= asset('../app/app/LSysMedico/Agenda/ListCitasPersonController.js') ?>"></script>
+      <script src="<?= asset('../app/app/LSysMedico/Agenda/AgendarCitasPersonController.js') ?>"></script>
+    <!--Controller-->
     
+<style type="text/css">
+  .header {
+      color: #ee6e73;
+      font-weight: 300;
+  }
+</style>
 
 <script type="text/javascript">
 $(document).ready(function() {

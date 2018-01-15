@@ -5,14 +5,16 @@ app.constant('API_URL', 'http://127.0.0.1:8000/');
 
 app.config(function($routeProvider,API_URL){
 	$routeProvider
-	/*.when("/",{
-		templateUrl : ""
-	})*/
-	.when("/RegistroUsuario",{
-		templateUrl : "app/view/ma/Usuario/ViewUsuario.php",
-		controller : "ListaClientes"
+	.when("/Citas",{
+		templateUrl : "app/view/ma/LSysMedico/Agenda/ViewCitas.php",
+		controller : "LogicaListaCitasPersona"
+	})
+	.when("/CrearCita",{
+		templateUrl : "app/view/ma/LSysMedico/Agenda/ViewCrearCitas.php",
+		controller : "LogicaAgendaCitasPersona"
 	})
 	.otherwise({
-        template : "<h1>Nada</h1><p>Ejemplo de pagina no encotrada,</p>"
+        templateUrl : "app/view/ma/LSysMedico/Agenda/ViewCitas.php",
+		controller : "LogicaListaCitasPersona"
     });
 });

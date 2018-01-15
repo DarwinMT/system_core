@@ -132,9 +132,10 @@ class Main extends Controller
 
     /**
      *
-     * Crear menu materialize en base a los permisos del usuario 
-     * 
-     *
+     * Crear menu materialize en base a los permisos del usuario => se restringe el acceso por la magnitud
+     * que tiene los formulario ya que en un celular no se los puede trabajar bien.
+     * Es por eso que en modo celular o table solo tiene accesos a cita (que se divide en la agenar citas y ver las citas)
+     * mas el modulo de editar perfil claro si tiene permisos para esto
      */
     public function access_user_materialize()
     {
@@ -146,7 +147,7 @@ class Main extends Controller
      	foreach ($menupadre as $m) {
      		$encontrar=0;
      		foreach ($permisos as $p) {
-     			if($m["id_men"]==$p->id_nodmen && $encontrar==0){
+     			if($m["id_men"]==$p->id_nodmen && $encontrar==0 &  ($m["id_men"]==15 || $m["id_men"]==7)  ){
 
      				$nav.=" <li > "; // menu padre
      				$nav.="  <a href='#' class='dropdown-button' href='#!' data-activates='dropdown".$m["id_men"]."'> ";
@@ -162,7 +163,18 @@ class Main extends Controller
      				$nav.=" <ul id='dropdown".$m["id_men"]."' class='dropdown-content'  > "; //sub menu nivel 2 
      				foreach ($permisos as $i) {
      					if($m["id_men"]==$i->id_nodmen){
-     						$nav.=" <li><a href='".$i->url."'>".$i->titulo."</a></li>  ";
+                            switch ($i->id_men) {
+                                case 11:  // Cita en escritorio es todo el modulo en mobile es solo agendar y ver citas divido en 2 submodulos pero con los mismo permisos que cita
+                                    $nav.=" <li><a href='#CrearCita'>Agendar</a></li>  ";
+                                    $nav.=" <li><a href='#Citas'>".$i->titulo."</a></li>  ";
+                                    break;
+                                case 16:
+                                    $nav.=" <li><a href='".$i->url."'>".$i->titulo."</a></li>  ";
+                                    break;
+                                case 17:
+                                    $nav.=" <li><a href='".$i->url."'>".$i->titulo."</a></li>  ";
+                                    break;
+                            }
      					}
      				}
      				$nav.="</ul>";

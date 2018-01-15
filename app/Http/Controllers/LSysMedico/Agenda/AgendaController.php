@@ -131,6 +131,22 @@ class AgendaController extends Controller
                     ->whereRaw($sql)
                     ->orderBy("agenda.horainicio","ASC")
                     ->get();
+     }
+    /**
+     *
+     * informacion de la agenda por fechas y empleado
+     * 
+     */
+     public function get_info_agenda_fechas_empleado($texto){
+        $filtro = json_decode($texto);
+        $sql=" agenda.fecha BETWEEN '".$filtro->Fechai."' AND '".$filtro->Fechaf."' AND agenda.estado='".$filtro->estado."' ";
+        if($filtro->id_emp!=""){
+            $sql.=" AND agenda.id_emp='".$filtro->id_emp."' ";
+        }
+        return Agenda::with("usuario.persona.personaempresa.empresa","cliente.persona","empleado.persona","consultageneral.prescripcion") //agregado la consulta externa
+                    ->whereRaw($sql)
+                    ->orderBy("agenda.horainicio","ASC")
+                    ->get();
      } 
     /**
      *
