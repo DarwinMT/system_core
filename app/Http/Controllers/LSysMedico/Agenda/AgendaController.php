@@ -90,9 +90,30 @@ class AgendaController extends Controller
         
         $aux_agenda=Agenda::create($data);
         if($aux_agenda->id_ag>0){
+            $this->send_email($aux_agenda->id_ag);
             return response()->json(['success' => 0]); //ok
         }else{
             return response()->json(['success' => 1]); //error al guardar los datos dela agenda
+        }
+    }
+    /**
+     *
+     * Enviar correo al cliente 
+     *
+     */
+    public function send_email($id_ag)
+    {
+       $datos=Agenda::with("usuario.persona.personaempresa.empresa","cliente.persona","empleado.persona")
+                    ->whereRaw("agenda.id_ag=".$id_ag."")
+                    ->get();
+
+        $para  = $datos[0]->cliente->persona->email;
+        if($para!=""){
+            $mensaje = "Athan le recuerda que tiene una cita medica el ".$datos[0]->fecha." a las ".$datos[0]->horainicio.". \n";
+            $mensaje.=" En ".$datos[0]->usuario->persona->personaempresa[0]->empresa->nombre.", con la dirección ".$datos[0]->usuario->persona->personaempresa[0]->empresa->direccion.". \n";
+            $mensaje.=" Con el medico ".$datos[0]->empleado->persona->apellido." ".$datos[0]->empleado->persona->nombre." ";
+
+            mail($para, 'Recordatorio de cita medica', $mensaje);
         }
     }
     /**
@@ -185,6 +206,7 @@ class AgendaController extends Controller
         $data = $request->all();
         $respuesta=Agenda::whereRaw("id_ag=".$id);
         if($respuesta->update($data)){
+            $this->send_email($id);
             return response()->json(['success' => 0]); //ok
         }else{
             return response()->json(['success' => 1]); //error al modificar  los datos de la agenda
