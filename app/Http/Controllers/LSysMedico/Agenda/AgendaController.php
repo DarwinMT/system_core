@@ -108,12 +108,20 @@ class AgendaController extends Controller
                     ->get();
 
         $para  = $datos[0]->cliente->persona->email;
+        $paramedico  = $datos[0]->empleado->persona->email;
         if($para!=""){
             $mensaje = "Athan le recuerda que tiene una cita medica el ".$datos[0]->fecha." a las ".$datos[0]->horainicio.". \n";
             $mensaje.=" En ".$datos[0]->usuario->persona->personaempresa[0]->empresa->nombre.", con la dirección ".$datos[0]->usuario->persona->personaempresa[0]->empresa->direccion.". \n";
             $mensaje.=" Con el medico ".$datos[0]->empleado->persona->apellido." ".$datos[0]->empleado->persona->nombre." ";
 
             mail($para, 'Recordatorio de cita medica', $mensaje);
+        }
+        if($paramedico!=""){
+            $mensaje = "Athan le recuerda que tiene una cita  el ".$datos[0]->fecha." a las ".$datos[0]->horainicio.". \n";
+            $mensaje .="Con el cliente ".$datos[0]->cliente->persona->apellido." ".$datos[0]->cliente->persona->nombre.". \n";
+            $mensaje.=" En ".$datos[0]->usuario->persona->personaempresa[0]->empresa->nombre.", con la dirección ".$datos[0]->usuario->persona->personaempresa[0]->empresa->direccion.". \n";
+
+            mail($paramedico, 'Recordatorio de cita medica', $mensaje);
         }
     }
     /**
