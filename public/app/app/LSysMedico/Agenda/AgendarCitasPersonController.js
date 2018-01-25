@@ -3,8 +3,16 @@ app.controller('LogicaAgendaCitasPersona', function($scope, $http, API_URL,Uploa
 
       $(document).ready(function() {
         $('select').material_select();
+        $('.tooltipped').tooltip({delay: 50});
+        $('.modal').modal();
       });
       
+    $scope.tipoagenda="1";
+    $("#fechacita").val("");
+    $scope.fechacita="";
+    $scope.observacion="";
+    $scope.hora="";
+
     ///---
     $scope.list_permisos=[];
     $scope.permisos_user=function () {
@@ -79,5 +87,6 @@ function head_msm() {
 
 
 $(document).ready(function(){
-
+$('.tooltipped').tooltip({delay: 50});
+$('.modal').modal();
 });
