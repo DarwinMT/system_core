@@ -64,6 +64,7 @@ app.controller('LogicaEmpresaInit', function($scope, $http, API_URL,Upload) {
     $scope.horai="";
     $scope.horaf="";
     $scope.intervalo="";
+    $scope.allclientes="1";
 
     /*$scope.initLoad = function(){
     	$scope.data_empresa=[];
@@ -206,7 +207,7 @@ app.controller('LogicaEmpresaInit', function($scope, $http, API_URL,Upload) {
         $scope.horai="";
         $scope.horaf="";
         $scope.intervalo="";
-
+        $scope.allclientes="1";
 
     };
     ///---
@@ -242,7 +243,8 @@ app.controller('LogicaEmpresaInit', function($scope, $http, API_URL,Upload) {
             Configuracion:{
                 HoraI: $scope.horai,
                 HoraF: $scope.horaf,
-                Intervalo: $scope.intervalo
+                Intervalo: $scope.intervalo,
+                Compartir: $scope.allclientes
             },
             file_emp: $scope.file,
             file_per: $scope.avatar

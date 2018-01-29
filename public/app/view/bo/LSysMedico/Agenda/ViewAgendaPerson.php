@@ -1416,7 +1416,7 @@
 							<td>{{u.persona.ci}}</td>
 							<td>{{u.numerohistoria}}</td>
 							<td>{{u.persona.apellido+" "+u.persona.nombre}}</td>
-							<td>{{u.persona.edad}}</td>
+							<td>{{calcular_edad(u.persona.fechan)}}</td>
 							<td>{{u.persona.direccion}}</td>
 							<td>
 								<div class="btn-group" role="group" >

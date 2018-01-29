@@ -42,7 +42,7 @@
 			</div>
 
 			<div class="col-md-1 col-xs-6">
-				<button type="button" class="btn btn-sm btn-default"><i class="glyphicon glyphicon-search" ng-click="initLoad(1);"></i></button>
+				<button type="button" class="btn btn-sm btn-default" ng-click="initLoad(1);"><i class="glyphicon glyphicon-search" ></i></button>
 			</div>
 			<div class="col-md-2 col-xs-6">
 				<button ng-disabled=" list_permisos.access_ready==0 " type="button" class="btn btn-sm btn-primary" ng-click=" newedit='1'; ">
@@ -77,7 +77,7 @@
 							<td>{{u.persona.ci}}</td>
 							<td>{{u.numerohistoria}}</td>
 							<td>{{u.persona.apellido+" "+u.persona.nombre}}</td>
-							<td>{{u.persona.edad}}</td>
+							<td>{{calcular_edad(u.persona.fechan)}}</td>
 							<td>{{u.persona.direccion}}</td>
 							<td>{{u.telefonodomicilio}}</td>
 							<td>{{u.persona.email}}</td>

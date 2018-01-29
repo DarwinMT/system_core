@@ -11,7 +11,7 @@ use App\Models\Usuario\User;
 use App\Models\Personas\Persona;
 use App\Models\Personas\Cliente;
 use App\Models\Personas\PersonaEmpresa;
-
+use App\Models\Config\Configuracion;
 class ClienteController extends Controller
 {
     /**
@@ -58,13 +58,29 @@ class ClienteController extends Controller
             $sql=" OR CONCAT(persona.apellido,' ',persona.nombre) LIKE '%".$filter->buscar."%' ";
             $sqlcl=" OR cliente.numerohistoria LIKE '%".$filter->buscar."%' ";
         }
-        $data=Cliente::with(["persona"=>function($query) use ($sql, $estado){
+        /*$data=Cliente::with(["persona"=>function($query) use ($sql, $estado){
         				$query->selectRaw("*")
         				->selectRaw("   CONCAT(YEAR(FROM_DAYS(DATEDIFF(NOW(), persona.fechan ))), ' años, ', MONTH(FROM_DAYS(DATEDIFF(NOW(), persona.fechan ))), ' meses y ', DAY(FROM_DAYS(DATEDIFF(NOW(), persona.fechan ))), ' días') AS edad")
         				->whereRaw(" persona.estado='1' ".$sql)
         				->orderBy( "persona.apellido","ASC");
         			}])
         			->whereRaw(" cliente.estado='".$filter->estado."' ".$sqlcl);
+        return $data->paginate(5);*/
+        
+        $data_user=Session::get('user_data');
+        $id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
+
+        $confi=Configuracion:: whereRaw(" id_relacion=".$id_emp."  AND identificador='RG_COMPARTIR_CLIENTE' " )->get();
+        $aux_clie_all="";
+        if($confi[0]->valor=="1"){
+            $aux_clie_all.=" AND cliente.id_pe IN (SELECT personaempresa.id_pe  FROM personaempresa WHERE  personaempresa.id_emp='".$id_emp."') ";
+        }
+        $data=Cliente::with("persona")
+                    ->join("persona", "persona.id_pe","=", "cliente.id_pe")
+                    ->whereRaw(" (cliente.estado='".$filter->estado."'  ".$sql.")  ".$aux_clie_all)
+                    ->orderBy("persona.apellido","ASC")
+                    ->orderBy("persona.nombre","ASC");
+                    
         return $data->paginate(5);
     }
      /**
@@ -85,6 +101,14 @@ class ClienteController extends Controller
     			$aux2_client=Cliente::find($aux_cliente->id_cli);
 	    		$aux2_client->numerohistoria=str_pad($aux_cliente->id_cli, 10, "0", STR_PAD_LEFT);
 	    		$aux2_client->save();
+
+                $data_user=Session::get('user_data');
+                $id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
+                $persoemp=new PersonaEmpresa;
+                $persoemp->id_pe=$aux_persona->id_pe;
+                $persoemp->id_emp=$id_emp;
+                $persoemp->save(); //cliente guardando a la empresa que pertence
+
 
 
     			if ($request->hasFile('file')) {

@@ -193,6 +193,13 @@ class EmpresaController extends Controller
                             $conf3->save();
 
 
+                            $conf4=new Configuracion;
+                            $conf4->identificador="RG_COMPARTIR_CLIENTE";
+                            $conf4->id_relacion=$emp->id_emp;
+                            $conf4->valor=$data["Configuracion"]["Compartir"];
+                            $conf4->save();
+
+
 
                             return response()->json(['success' => 0]); //Ok
                         }else{

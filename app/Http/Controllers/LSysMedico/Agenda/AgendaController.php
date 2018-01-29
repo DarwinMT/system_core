@@ -131,6 +131,9 @@ class AgendaController extends Controller
      */
     public function get_agenda_mes($texto)
     {
+        $data_user=Session::get('user_data');
+        $id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
+
     	$filtro = json_decode($texto);
         $sql=" agenda.fecha BETWEEN '".$filtro->fechaI."' AND '".$filtro->fechaF."' AND agenda.estado='".$filtro->estado."' ";
         $sql2="";
@@ -139,8 +142,8 @@ class AgendaController extends Controller
             $sql2=" AND aux.id_emp=agenda.id_emp ";
         }
     	return Agenda::selectRaw("*")
-                    ->selectRaw("  (SELECT COUNT(*) FROM agenda AS aux WHERE aux.fecha=agenda.fecha ".$sql2." AND aux.estado='".$filtro->estado."' ) AS NumeroCita  ")
-                    ->whereRaw($sql)
+                    ->selectRaw("  (SELECT COUNT(*) FROM agenda AS aux WHERE aux.fecha=agenda.fecha ".$sql2." AND aux.estado='".$filtro->estado."' AND aux.id_em=".$id_emp." ) AS NumeroCita  ")
+                    ->whereRaw($sql." AND agenda.id_em=".$id_emp." ")
                     ->groupBy("agenda.fecha")
                     ->orderBy("agenda.fecha","ASC")
                     ->get();
@@ -151,13 +154,16 @@ class AgendaController extends Controller
      * 
      */
      public function get_info_agenda_mensual($texto){
+        $data_user=Session::get('user_data');
+        $id_empresa=$data_user[0]->persona->personaempresa[0]->id_emp;
+
         $filtro = json_decode($texto);
         $sql=" agenda.fecha='".$filtro->Fecha."' AND agenda.estado='".$filtro->estado."' ";
         if($filtro->id_emp!=""){
             $sql.=" AND agenda.id_emp='".$filtro->id_emp."' ";
         }
         return Agenda::with("usuario.persona.personaempresa.empresa","cliente.persona","empleado.persona","consultageneral.prescripcion") //agregado la consulta externa
-                    ->whereRaw($sql)
+                    ->whereRaw($sql." AND agenda.id_em=".$id_empresa." ")
                     ->orderBy("agenda.horainicio","ASC")
                     ->get();
      }
@@ -167,13 +173,16 @@ class AgendaController extends Controller
      * 
      */
      public function get_info_agenda_fechas_empleado($texto){
+        $data_user=Session::get('user_data');
+        $id_empresa=$data_user[0]->persona->personaempresa[0]->id_emp;
+
         $filtro = json_decode($texto);
         $sql=" agenda.fecha BETWEEN '".$filtro->Fechai."' AND '".$filtro->Fechaf."' AND agenda.estado='".$filtro->estado."' ";
         if($filtro->id_emp!=""){
             $sql.=" AND agenda.id_emp='".$filtro->id_emp."' ";
         }
         return Agenda::with("usuario.persona.personaempresa.empresa","cliente.persona","empleado.persona","consultageneral.prescripcion") //agregado la consulta externa
-                    ->whereRaw($sql)
+                    ->whereRaw($sql." AND agenda.id_em=".$id_empresa." ")
                     ->orderBy("agenda.horainicio","ASC")
                     ->get();
      } 
@@ -183,17 +192,20 @@ class AgendaController extends Controller
      * 
      */
     public function get_agenda_semana($texto){
+        $data_user=Session::get('user_data');
+        $id_empresa=$data_user[0]->persona->personaempresa[0]->id_emp;
+
         $filtro = json_decode($texto);
         $sql=" agenda.fecha BETWEEN '".$filtro->fechaI."' AND '".$filtro->fechaF."' AND agenda.estado='".$filtro->estado."' ";
         if($filtro->id_emp!=""){
             $sql.=" AND agenda.id_emp='".$filtro->id_emp."' ";
         }
         $Citas=Agenda::with("usuario.persona","cliente.persona","empleado.persona")
-                    ->whereRaw($sql)
+                    ->whereRaw($sql." AND agenda.id_em=".$id_empresa." ")
                     ->orderBy("agenda.fecha","ASC")
                     ->orderBy("agenda.horainicio","ASC")
                     ->get();
-        $horas=Agenda::whereRaw($sql)
+        $horas=Agenda::whereRaw($sql." AND agenda.id_em=".$id_empresa." ")
                     ->groupBy("agenda.horainicio")
                     ->orderBy("agenda.horainicio","ASC")
                     ->get();

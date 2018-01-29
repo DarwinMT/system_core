@@ -143,7 +143,23 @@
 					</div>
 					<span class="help-block error" ng-show="frmemp.intervalo.$invalid && frmemp.intervalo.$touched">El intervalo es requerido</span>
 				</div>
+
+				<div class="col-md-6 col-xs-12">
+					<div class="input-group" id="">
+							<span class="input-group-addon" id="basic-addon1">Ver Clientes : </span>
+							<select class="form-control input-sm"  name="allclientes" id="allclientes" ng-model="allclientes" required>
+								<option value="1">Propios</option>
+								<option value="0">Todos Del Sistema</option>
+							</select>
+					</div>
+					<span class="help-block error" ng-show="frmemp.allclientes.$invalid && frmemp.allclientes.$touched">El estado cliente es requerido</span>
+				</div>
+			
 			</div>
+
+			
+			
+			
 
 		  </div>
 		</div>
