@@ -54,9 +54,17 @@ class EmpresaController extends Controller
     {
         $data_user=Session::get('user_data');
         $id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
-        return Empresa::with("ciudad.provincia.pais")
+        /*return Empresa::with("ciudad.provincia.pais")
         				->whereRaw(" id_emp=".$id_emp."")
-        				->get();
+        				->get();*/
+        $info_empresa=Empresa::with("ciudad.provincia.pais")
+                        ->whereRaw(" id_emp=".$id_emp."")
+                        ->get();
+        $info_config=Configuracion::whereRaw("id_relacion=".$id_emp."")->get();
+        $data = array(
+            'Empresa' => $info_empresa,
+            'Configuracion'=> $info_config );
+        return $data;
     }
      /**
      *
@@ -75,6 +83,25 @@ class EmpresaController extends Controller
     	$emp->ruc=$data["Empresa"]["ruc"];
 
     	if($emp->save()){
+
+            $aux1=Configuracion::find($data["Configuracion"][0]["id_conf"]);
+            $aux1->valor=$data["Configuracion"][0]["valor"];
+            $aux1->save();
+
+            $aux1=Configuracion::find($data["Configuracion"][1]["id_conf"]);
+            $aux1->valor=$data["Configuracion"][1]["valor"];
+            $aux1->save();
+
+            $aux1=Configuracion::find($data["Configuracion"][2]["id_conf"]);
+            $aux1->valor=$data["Configuracion"][2]["valor"];
+            $aux1->save();
+
+            $aux1=Configuracion::find($data["Configuracion"][3]["id_conf"]);
+            $aux1->valor=$data["Configuracion"][3]["valor"];
+            $aux1->save();
+
+
+
 	    	if ($request->hasFile('file')) {
 	            $image = $request->file('file');
 	            $destinationPath = public_path() . '/upload/Empresa/'.$id;

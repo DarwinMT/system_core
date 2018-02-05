@@ -9,88 +9,151 @@
 
 	<div class="row">
 	<form class="form-horizontal"  name="frmemp" id="frmemp"  novalidate="">
-		<div class="row">
-			<div class="col-md-6 col-xs-12">
-				<div class="input-group">
-				  <span class="input-group-addon" id="basic-addon1"> Nombre</span>
-				  <input type="text" class="form-control input-sm" id="nombre" name="nombre" ng-model="nombre" required />
-				</div>
-				<span class="help-block error" ng-show="frmemp.nombre.$invalid && frmemp.nombre.$touched">El nombres es requerido</span>
-			</div>
 
-			<div class="col-md-6 col-xs-12">
-				<div class="input-group">
-				  <span class="input-group-addon" id="basic-addon1"> RUC</span>
-				  <input type="text" class="form-control input-sm" id="ruc" name="ruc" ng-model="ruc" />
+		<div class="panel panel-primary">
+		  <div class="panel-heading">Crear Empresa</div>
+		  	<div class="panel-body">
+				<div class="row">
+					<div class="col-md-6 col-xs-12">
+						<div class="input-group">
+						  <span class="input-group-addon" id="basic-addon1"> Nombre</span>
+						  <input type="text" class="form-control input-sm" id="nombre" name="nombre" ng-model="nombre" required />
+						</div>
+						<span class="help-block error" ng-show="frmemp.nombre.$invalid && frmemp.nombre.$touched">El nombres es requerido</span>
+					</div>
+
+					<div class="col-md-6 col-xs-12">
+						<div class="input-group">
+						  <span class="input-group-addon" id="basic-addon1"> RUC</span>
+						  <input type="text" class="form-control input-sm" id="ruc" name="ruc" ng-model="ruc" />
+						</div>
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 col-xs-12">
+						<div class="input-group">
+						  <span class="input-group-addon" id="basic-addon1"> País</span>
+						  <select  class="form-control input-sm" id="id_pa" name="id_pa" ng-model="id_pa"  required >
+						  		<option value="">Seleccione</option>
+						  		<option ng-repeat=" p in list_pais " value="{{p.id_pa}}">{{p.descripcion}}</option>
+						  </select>
+						</div>
+						<span class="help-block error" ng-show="frmemp.id_pa.$invalid && frmemp.id_pa.$touched">El pais es requerido</span>
+					</div>
+					<div class="col-md-6 col-xs-12">
+						<div class="input-group">
+						  <span class="input-group-addon" id="basic-addon1"> Provincia</span>
+						  <select  class="form-control input-sm" id="id_pro" name="id_pro" ng-model="id_pro"  required >
+						  		<option value="">Seleccione</option>
+						  		<option ng-repeat=" p in list_provincia " value="{{p.id_pro}}">{{p.descripcion}}</option>
+						  </select>
+						</div>
+						<span class="help-block error" ng-show="frmemp.id_pro.$invalid && frmemp.id_pro.$touched">La provincia es requerida</span>
+					</div>
 				</div>
 
+				<div class="row">
+					<div class="col-md-6 col-xs-12">
+						<div class="input-group">
+						  <span class="input-group-addon" id="basic-addon1"> Ciudad</span>
+						  <select  class="form-control input-sm" id="id_ci" name="id_ci" ng-model="id_ci" required >
+						  		<option value="">Seleccione</option>
+						  		<option ng-repeat=" c in list_ciudad " value="{{c.id_ci}}">{{c.descripcion}}</option>
+						  </select>
+						</div>
+						<span class="help-block error" ng-show="frmemp.id_ci.$invalid && frmemp.id_ci.$touched">La ciudad es requerida</span>
+					</div>
+
+					<div class="col-md-6 col-xs-12">
+						<div class="input-group">
+						  <span class="input-group-addon" id="basic-addon1"> Dirección</span>
+						  <input type="text" class="form-control input-sm" id="direccion" name="direccion" ng-model="direccion" required />
+						</div>
+						<span class="help-block error" ng-show="frmemp.direccion.$invalid && frmemp.direccion.$touched">La dirección es requerida</span>
+					</div>
+
+				</div>
+
+				<div class="row" >
+					<div class="col-md-6 col-xs-6">
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1">Teléfono : </span>
+							<input type="text" class="form-control input-sm" name="telefono" id="telefono" ng-model="telefono" required />
+						</div>
+						<span class="help-block error" ng-show="frmemp.telefono.$invalid && frmemp.telefono.$touched">El teléfono es requerido</span>
+					</div>
+
+					<div class="col-md-6 col-xs-6">
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1">Logo: </span>
+							<input class="form-control" type="file" ngf-select ng-model="file" name="file" id="file" accept="image/*" ngf-max-size="2MB"  ng-required="false" ngf-pattern="image/*">
+						</div>
+						<span class="help-block error" ng-show="frmemp.file.$error.pattern">El archivo debe ser Imagen</span>
+						<span class="help-block error" ng-show="frmemp.file.$error.maxSize">El tamaño máximo es de 2 MB </span>
+
+						<img class="img-thumbnail" ngf-src="file || url_foto"  alt="" style="width: 50%;">
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-6 col-xs-12">
-				<div class="input-group">
-				  <span class="input-group-addon" id="basic-addon1"> País</span>
-				  <select  class="form-control input-sm" id="id_pa" name="id_pa" ng-model="id_pa"  required >
-				  		<option value="">Seleccione</option>
-				  		<option ng-repeat=" p in list_pais " value="{{p.id_pa}}">{{p.descripcion}}</option>
-				  </select>
+
+
+
+
+		<div class="panel panel-primary">
+		  <div class="panel-heading">Confiuracion Empresa</div>
+		  <div class="panel-body">
+		    
+		  	<div class="row">
+				<div class="col-md-6 col-xs-12">
+					<div class="input-group" id="">
+							<span class="input-group-addon" id="basic-addon1">Hora Inicio Agenda: </span>
+							<input type="text" class="form-control input-sm" name="horai" id="horai" ng-model="configuracion[0].valor" required />
+					</div>
+					<span class="help-block error" ng-show="frmemp.horai.$invalid && frmemp.horai.$touched">La hora de inicio es requerida</span>
 				</div>
-				<span class="help-block error" ng-show="frmemp.id_pa.$invalid && frmemp.id_pa.$touched">El pais es requerido</span>
-			</div>
-			<div class="col-md-6 col-xs-12">
-				<div class="input-group">
-				  <span class="input-group-addon" id="basic-addon1"> Provincia</span>
-				  <select  class="form-control input-sm" id="id_pro" name="id_pro" ng-model="id_pro"  required >
-				  		<option value="">Seleccione</option>
-				  		<option ng-repeat=" p in list_provincia " value="{{p.id_pro}}">{{p.descripcion}}</option>
-				  </select>
+
+				<div class="col-md-6 col-xs-12">
+					<div class="input-group" id="">
+							<span class="input-group-addon" id="basic-addon1">Hora Fin Agenda: </span>
+							<input type="text" class="form-control input-sm" name="horaf" id="horaf" ng-model="configuracion[1].valor" required />
+					</div>
+					<span class="help-block error" ng-show="frmemp.horaf.$invalid && frmemp.horaf.$touched">La hora final es requerida</span>
 				</div>
-				<span class="help-block error" ng-show="frmemp.id_pro.$invalid && frmemp.id_pro.$touched">La provincia es requerida</span>
+
 			</div>
+
+			<div class="row">
+				<div class="col-md-6 col-xs-12">
+					<div class="input-group" id="">
+							<span class="input-group-addon" id="basic-addon1">Intervalo  Agenda: </span>
+							<input type="text" class="form-control input-sm" name="intervalo" id="intervalo" ng-model="configuracion[2].valor" required />
+					</div>
+					<span class="help-block error" ng-show="frmemp.intervalo.$invalid && frmemp.intervalo.$touched">El intervalo es requerido</span>
+				</div>
+
+				<div class="col-md-6 col-xs-12">
+					<div class="input-group" id="">
+							<span class="input-group-addon" id="basic-addon1">Ver Clientes : </span>
+							<select class="form-control input-sm"  name="allclientes" id="allclientes" ng-model="configuracion[3].valor" required>
+								<option value="1">Propios</option>
+								<option value="0">Todos Del Sistema</option>
+							</select>
+					</div>
+					<span class="help-block error" ng-show="frmemp.allclientes.$invalid && frmemp.allclientes.$touched">El estado cliente es requerido</span>
+				</div>
+			
+			</div>
+
+			
+			
+			
+
+		  </div>
 		</div>
 
-		<div class="row">
-			<div class="col-md-6 col-xs-12">
-				<div class="input-group">
-				  <span class="input-group-addon" id="basic-addon1"> Ciudad</span>
-				  <select  class="form-control input-sm" id="id_ci" name="id_ci" ng-model="id_ci" required >
-				  		<option value="">Seleccione</option>
-				  		<option ng-repeat=" c in list_ciudad " value="{{c.id_ci}}">{{c.descripcion}}</option>
-				  </select>
-				</div>
-				<span class="help-block error" ng-show="frmemp.id_ci.$invalid && frmemp.id_ci.$touched">La ciudad es requerida</span>
-			</div>
 
-			<div class="col-md-6 col-xs-12">
-				<div class="input-group">
-				  <span class="input-group-addon" id="basic-addon1"> Dirección</span>
-				  <input type="text" class="form-control input-sm" id="direccion" name="direccion" ng-model="direccion" required />
-				</div>
-				<span class="help-block error" ng-show="frmemp.direccion.$invalid && frmemp.direccion.$touched">La dirección es requerida</span>
-			</div>
-
-		</div>
-
-		<div class="row" >
-			<div class="col-md-6 col-xs-6">
-				<div class="input-group">
-					<span class="input-group-addon" id="basic-addon1">Teléfono : </span>
-					<input type="text" class="form-control input-sm" name="telefono" id="telefono" ng-model="telefono" required />
-				</div>
-				<span class="help-block error" ng-show="frmemp.telefono.$invalid && frmemp.telefono.$touched">El teléfono es requerido</span>
-			</div>
-
-			<div class="col-md-6 col-xs-6">
-				<div class="input-group">
-					<span class="input-group-addon" id="basic-addon1">Logo: </span>
-					<input class="form-control" type="file" ngf-select ng-model="file" name="file" id="file" accept="image/*" ngf-max-size="2MB"  ng-required="false" ngf-pattern="image/*">
-				</div>
-				<span class="help-block error" ng-show="frmemp.file.$error.pattern">El archivo debe ser Imagen</span>
-				<span class="help-block error" ng-show="frmemp.file.$error.maxSize">El tamaño máximo es de 2 MB </span>
-
-				<img class="img-thumbnail" ngf-src="file || url_foto"  alt="" style="width: 50%;">
-			</div>
-		</div>
 
 		<div class="row">
 			<div class="col-md-12 col-xs-12 text-center">

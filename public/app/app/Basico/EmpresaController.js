@@ -39,12 +39,18 @@ app.controller('LogicaEmpresa', function($scope, $http, API_URL,Upload) {
    $scope.direccion="";
    $scope.telefono="";
    $scope.file="";
+
+   $scope.configuracion=[];
+
     $scope.initLoad = function(){
     	$scope.data_empresa=[];
     	$http.get(API_URL + 'Company/get_infoempresa')
             .then(function(response){
-               $scope.data_empresa = response.data;
+                
+               $scope.data_empresa = response.data.Empresa;
+               $scope.configuracion= response.data.Configuracion;
                console.log($scope.data_empresa);
+               console.log($scope.configuracion);
                $scope.id_emp=$scope.data_empresa[0].id_emp;
                $scope.nombre=$scope.data_empresa[0].nombre;
 			   $scope.ruc=$scope.data_empresa[0].ruc;
@@ -121,8 +127,10 @@ app.controller('LogicaEmpresa', function($scope, $http, API_URL,Upload) {
 				direccion:$scope.direccion,
 				telefono:$scope.telefono
             },
-            file: $scope.file
+            file: $scope.file,
+            Configuracion:$scope.configuracion
         };
+    
         $("#progress").modal("show");
         
         Upload.upload({
