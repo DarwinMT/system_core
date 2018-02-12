@@ -312,6 +312,14 @@
 
                                                 <li role="separator" class="divider"></li>
 
+                                                <li ng-click="ready_odontograma(dg)">
+                                                    <a href="" >
+                                                        <i class="glyphicon glyphicon-list-alt"></i> Odontograma
+                                                    </a>
+                                                </li>
+
+                                                <li role="separator" class="divider"></li>
+
                                                 <li ng-click="print_anamnesis(dg)">
                                                     <a href="" >
                                                         <i class="glyphicon glyphicon-print"></i> Anamnesis
@@ -1035,6 +1043,471 @@
                 	</div>
                 </div>
                 <!-- FORMULARIO DE RECETA-->
+
+                <!-- ODONTOGRAMA PARTE DEL FORMULARIO 033-->
+                <div class="row" ng-hide=" tipo_calendar!='ODONT' ">
+                	<h3>Odontograma</h3>
+                	<table class="">
+                		<tr>
+                			<th>Recesión</th>
+                			<td ng-repeat=" v1811 in odontograma.vestibular1811 "><input type="text" style="width: 40px;" ng-model=" v1811.text1" class="form-control" name=""></td>
+                			<td style="width: 25px;"></td>
+                			<td style="width: 25px;"></td>
+                			<td ng-repeat=" v2128 in odontograma.vestibular2128 "><input type="text" style="width: 40px;" ng-model=" v2128.text1" class="form-control" name=""></td>
+                		</tr>
+                		<tr>
+                			<th>Movilidad</th>
+                			<td ng-repeat=" v1811 in odontograma.vestibular1811 "><input type="text" style="width: 40px;" ng-model=" v1811.text2" class="form-control" name=""></td>
+                			<td style="width: 25px;"></td>
+                			<td style="width: 25px;"></td>
+                			<td ng-repeat=" v2128 in odontograma.vestibular2128 "><input type="text" style="width: 40px;" ng-model=" v2128.text2" class="form-control" name=""></td>
+                		</tr>
+                		<tr>
+                			<td></td>
+                			<td ng-repeat=" v1811 in odontograma.vestibular1811 ">{{v1811.id_numero}}</td>
+                			<td style="width: 25px;"></td>
+							<td style="width: 25px;"></td>
+							<td ng-repeat=" v2128 in odontograma.vestibular2128 ">{{v2128.id_numero}}</td>
+                		</tr>
+                		<tr>
+                			<th>Vestibular</th>
+                			<td ng-repeat=" v1811 in odontograma.vestibular1811 " >
+                				<svg xmlns="http://www.w3.org/2000/svg"  version="1.1" style="height: 50px; width: 40px;" viewBox="0 0 194 186"  width="150" height="150">  
+								  <polygon points="100,50  150,20  150,20  0,20  50,50"
+								  	class="arriba"
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+
+								  <rect x="50" y="50" width="50" height="50" 
+								  class="center"
+								  style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" />
+
+								  <polygon points="100,100 50,100 0,130  0,130  150,130"
+								  	class="abajo"
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+
+								   <polygon points="100,100 100,50 150,20 150,130  150,130"
+								  	class="derecha"
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+
+								   <polygon points="50,100 50,50 0,20 0,130  0,130"
+								  	class="izquierda"
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+								</svg>
+                			</td>
+                			<td style="width: 25px;"></td>
+							<td style="width: 25px;"></td>
+							<td ng-repeat=" v2128 in odontograma.vestibular2128 " >
+                				<svg xmlns="http://www.w3.org/2000/svg"  version="1.1" style="height: 50px; width: 40px;" viewBox="0 0 194 186"  width="150" height="150">  
+								  <polygon points="100,50  150,20  150,20  0,20  50,50"
+								  	class="arriba"
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+
+								  <rect x="50" y="50" width="50" height="50" 
+								  class="center"
+								  style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" />
+
+								  <polygon points="100,100 50,100 0,130  0,130  150,130"
+								  	class="abajo"
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+
+								   <polygon points="100,100 100,50 150,20 150,130  150,130"
+								  	class="derecha"
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+
+								   <polygon points="50,100 50,50 0,20 0,130  0,130"
+								  	class="izquierda"
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+								</svg>
+                			</td>
+                		</tr>
+
+                		<tr>
+                			<td></td>
+                			<td></td>
+                			<td></td>
+                			<td ng-repeat=" l5551 in odontograma.lingual5551 " >{{l5551.id_numero}}</td>
+                			<td style="width: 25px;"></td>
+							<td style="width: 25px;"></td>
+							<td></td>
+                			<td></td>
+                			<td ng-repeat=" l6165 in odontograma.lingual6165 " >{{l6165.id_numero}}</td>
+                			<td></td>
+                			<td></td>
+                		</tr>
+                		<tr>
+                			<th>Lingual</th>
+                			<td></td>
+                			<td></td>
+                			<td ng-repeat=" l5551 in odontograma.lingual5551 " >
+                				<svg style="height: 50px; width: 40px;" version="1.1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
+						           xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+						           x="0px" y="0px" width="558px" height="557px" viewBox="0 0 558 557" enable-background="new 0 0 558 557" xml:space="preserve">
+						        <switch>
+						          <foreignObject requiredExtensions="&ns_ai;" x="0" y="0" width="1" height="1">
+						            <i:pgfRef  xlink:href="#adobe_illustrator_pgf">
+						            </i:pgfRef>
+						          </foreignObject>
+						          <g i:extraneous="self">
+						            <g id="Capa_1">
+						              <g>
+						                <g>
+						                  <path fill="none" stroke="#000000" stroke-miterlimit="10" d="M278.641,12.429c-147.684,0-267.404,119.721-267.404,267.404
+						                    s119.721,267.404,267.404,267.404s267.404-119.721,267.404-267.404S426.324,12.429,278.641,12.429z M467.139,279.833
+						                    c0,52.054-21.099,99.179-55.209,133.289l55.793,55.793l-55.793-55.793c-34.112,34.11-81.237,55.209-133.289,55.209
+						                    c-52.053,0-99.177-21.099-133.289-55.209l-55.794,55.793l55.794-55.793c-34.11-34.112-55.209-81.237-55.209-133.289
+						                    s21.099-99.176,55.209-133.289L89.557,90.75l55.794,55.793c34.112-34.11,81.236-55.209,133.289-55.209
+						                    c52.052,0,99.177,21.099,133.289,55.209l55.793-55.793l-55.793,55.793C446.04,180.655,467.139,227.779,467.139,279.833z"/>
+						                  <path fill="none" stroke="#000000" stroke-miterlimit="10" d="M278.641,548.333c-148.052,0-268.5-120.448-268.5-268.5
+						                    s120.448-268.5,268.5-268.5s268.5,120.448,268.5,268.5S426.692,548.333,278.641,548.333z M91.197,468.825
+						                    c48.158,47.767,114.417,77.316,187.444,77.316c73.026,0,139.284-29.55,187.442-77.314l-54.155-54.157
+						                    c-35.723,35.321-83.01,54.757-133.287,54.757s-97.565-19.436-133.287-54.757L91.197,468.825z M413.478,413.12l54.157,54.155
+						                    c47.765-48.158,77.314-114.416,77.314-187.442s-29.55-139.284-77.314-187.443l-54.157,54.156
+						                    c35.321,35.72,54.757,83.007,54.757,133.287C468.234,330.113,448.799,377.399,413.478,413.12z M89.646,92.39
+						                    C41.88,140.549,12.333,206.807,12.333,279.833S41.88,419.117,89.646,467.275l54.158-54.155
+						                    c-35.321-35.723-54.757-83.01-54.757-133.287c0-50.275,19.437-97.564,54.757-133.287L89.646,92.39z M146.044,412.264
+						                    l0.083,0.083c35.396,35.396,82.457,54.889,132.514,54.889c50.017,0,97.044-19.464,132.431-54.805l0.083-0.084
+						                    c35.396-35.395,54.889-82.457,54.889-132.514s-19.493-97.119-54.889-132.514l-0.083-0.083
+						                    c-35.387-35.341-82.414-54.804-132.431-54.804c-50.057,0-97.118,19.493-132.514,54.888l-0.083,0.083
+						                    c-35.342,35.386-54.805,82.415-54.805,132.431S110.702,376.878,146.044,412.264z M278.641,90.239
+						                    c50.277,0,97.564,19.436,133.287,54.757l54.155-54.158c-48.158-47.764-114.416-77.313-187.442-77.313
+						                    c-73.027,0-139.286,29.549-187.444,77.316l54.157,54.156C181.075,109.675,228.363,90.239,278.641,90.239z"/>
+						                </g>
+						              </g>
+						            </g>
+						            <g id="Capa_2">
+						              <path class="arriba" style="fill:rgb(255,255,255);" d="M278.641,90.239c50.277,0,97.564,19.436,133.287,54.757l54.155-54.158
+						                c-48.158-47.764-114.416-77.313-187.442-77.313S139.354,43.074,91.198,90.841l54.156,54.156
+						                C181.076,109.675,228.363,90.239,278.641,90.239z"/>
+						            </g>
+						            <g id="Capa_3">
+						              <path class="derecha" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" d="M468.56,280.161c0,50.275-19.436,97.562-54.757,133.287l54.158,54.154
+						                c47.767-48.156,77.313-114.417,77.313-187.441c0-73.028-29.547-139.289-77.313-187.445l-54.158,54.158
+						                C449.124,182.594,468.56,229.881,468.56,280.161z"/>
+						            </g>
+						            <g id="Capa_4">
+						              <path class="abajo" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"  d="M278.641,470.08c-50.277,0-97.564-19.436-133.287-54.758L91.198,469.48
+						                c48.159,47.765,114.417,77.313,187.443,77.313s139.286-29.549,187.442-77.315l-54.155-54.156
+						                C376.205,450.645,328.918,470.08,278.641,470.08z"/>
+						            </g>
+						            <g id="Capa_5">
+						              <path class="izquierda" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" d="M88.72,280.161c0-50.28,19.436-97.567,54.757-133.287L89.32,92.716
+						                c-47.765,48.16-77.314,114.417-77.314,187.445c0,73.024,29.549,139.285,77.316,187.441l54.156-54.154
+						                C108.156,377.723,88.72,330.436,88.72,280.161z"/>
+						            </g>
+						            <g id="Capa_6">
+						              <circle class='center' style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" cx="278.902" cy="279.699" r="187.352"/>
+						            </g>
+						          </g>
+						        </switch>
+
+						        </svg>
+                			</td>
+                			<td></td>
+                			<td style="width: 25px;"></td>
+                			<td style="width: 25px;"></td>
+                			
+                			<td></td>
+                			<td ng-repeat=" l6165 in odontograma.lingual6165 " >
+                				<svg style="height: 50px; width: 40px;" version="1.1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
+						           xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+						           x="0px" y="0px" width="558px" height="557px" viewBox="0 0 558 557" enable-background="new 0 0 558 557" xml:space="preserve">
+						        <switch>
+						          <foreignObject requiredExtensions="&ns_ai;" x="0" y="0" width="1" height="1">
+						            <i:pgfRef  xlink:href="#adobe_illustrator_pgf">
+						            </i:pgfRef>
+						          </foreignObject>
+						          <g i:extraneous="self">
+						            <g id="Capa_1">
+						              <g>
+						                <g>
+						                  <path fill="none" stroke="#000000" stroke-miterlimit="10" d="M278.641,12.429c-147.684,0-267.404,119.721-267.404,267.404
+						                    s119.721,267.404,267.404,267.404s267.404-119.721,267.404-267.404S426.324,12.429,278.641,12.429z M467.139,279.833
+						                    c0,52.054-21.099,99.179-55.209,133.289l55.793,55.793l-55.793-55.793c-34.112,34.11-81.237,55.209-133.289,55.209
+						                    c-52.053,0-99.177-21.099-133.289-55.209l-55.794,55.793l55.794-55.793c-34.11-34.112-55.209-81.237-55.209-133.289
+						                    s21.099-99.176,55.209-133.289L89.557,90.75l55.794,55.793c34.112-34.11,81.236-55.209,133.289-55.209
+						                    c52.052,0,99.177,21.099,133.289,55.209l55.793-55.793l-55.793,55.793C446.04,180.655,467.139,227.779,467.139,279.833z"/>
+						                  <path fill="none" stroke="#000000" stroke-miterlimit="10" d="M278.641,548.333c-148.052,0-268.5-120.448-268.5-268.5
+						                    s120.448-268.5,268.5-268.5s268.5,120.448,268.5,268.5S426.692,548.333,278.641,548.333z M91.197,468.825
+						                    c48.158,47.767,114.417,77.316,187.444,77.316c73.026,0,139.284-29.55,187.442-77.314l-54.155-54.157
+						                    c-35.723,35.321-83.01,54.757-133.287,54.757s-97.565-19.436-133.287-54.757L91.197,468.825z M413.478,413.12l54.157,54.155
+						                    c47.765-48.158,77.314-114.416,77.314-187.442s-29.55-139.284-77.314-187.443l-54.157,54.156
+						                    c35.321,35.72,54.757,83.007,54.757,133.287C468.234,330.113,448.799,377.399,413.478,413.12z M89.646,92.39
+						                    C41.88,140.549,12.333,206.807,12.333,279.833S41.88,419.117,89.646,467.275l54.158-54.155
+						                    c-35.321-35.723-54.757-83.01-54.757-133.287c0-50.275,19.437-97.564,54.757-133.287L89.646,92.39z M146.044,412.264
+						                    l0.083,0.083c35.396,35.396,82.457,54.889,132.514,54.889c50.017,0,97.044-19.464,132.431-54.805l0.083-0.084
+						                    c35.396-35.395,54.889-82.457,54.889-132.514s-19.493-97.119-54.889-132.514l-0.083-0.083
+						                    c-35.387-35.341-82.414-54.804-132.431-54.804c-50.057,0-97.118,19.493-132.514,54.888l-0.083,0.083
+						                    c-35.342,35.386-54.805,82.415-54.805,132.431S110.702,376.878,146.044,412.264z M278.641,90.239
+						                    c50.277,0,97.564,19.436,133.287,54.757l54.155-54.158c-48.158-47.764-114.416-77.313-187.442-77.313
+						                    c-73.027,0-139.286,29.549-187.444,77.316l54.157,54.156C181.075,109.675,228.363,90.239,278.641,90.239z"/>
+						                </g>
+						              </g>
+						            </g>
+						            <g id="Capa_2">
+						              <path class="arriba" style="fill:rgb(255,255,255);" d="M278.641,90.239c50.277,0,97.564,19.436,133.287,54.757l54.155-54.158
+						                c-48.158-47.764-114.416-77.313-187.442-77.313S139.354,43.074,91.198,90.841l54.156,54.156
+						                C181.076,109.675,228.363,90.239,278.641,90.239z"/>
+						            </g>
+						            <g id="Capa_3">
+						              <path class="derecha" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" d="M468.56,280.161c0,50.275-19.436,97.562-54.757,133.287l54.158,54.154
+						                c47.767-48.156,77.313-114.417,77.313-187.441c0-73.028-29.547-139.289-77.313-187.445l-54.158,54.158
+						                C449.124,182.594,468.56,229.881,468.56,280.161z"/>
+						            </g>
+						            <g id="Capa_4">
+						              <path class="abajo" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"  d="M278.641,470.08c-50.277,0-97.564-19.436-133.287-54.758L91.198,469.48
+						                c48.159,47.765,114.417,77.313,187.443,77.313s139.286-29.549,187.442-77.315l-54.155-54.156
+						                C376.205,450.645,328.918,470.08,278.641,470.08z"/>
+						            </g>
+						            <g id="Capa_5">
+						              <path class="izquierda" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" d="M88.72,280.161c0-50.28,19.436-97.567,54.757-133.287L89.32,92.716
+						                c-47.765,48.16-77.314,114.417-77.314,187.445c0,73.024,29.549,139.285,77.316,187.441l54.156-54.154
+						                C108.156,377.723,88.72,330.436,88.72,280.161z"/>
+						            </g>
+						            <g id="Capa_6">
+						              <circle class='center' style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" cx="278.902" cy="279.699" r="187.352"/>
+						            </g>
+						          </g>
+						        </switch>
+
+						        </svg>
+                			</td>
+                			<td></td>
+                			<td></td>
+                		</tr>
+                		<tr>
+                			<th>Lingual</th>
+                			<td></td>
+                			<td></td>
+                			<td ng-repeat=" l8581 in odontograma.lingual8581 " >
+                				<svg style="height: 50px; width: 40px;" version="1.1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
+						           xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+						           x="0px" y="0px" width="558px" height="557px" viewBox="0 0 558 557" enable-background="new 0 0 558 557" xml:space="preserve">
+						        <switch>
+						          <foreignObject requiredExtensions="&ns_ai;" x="0" y="0" width="1" height="1">
+						            <i:pgfRef  xlink:href="#adobe_illustrator_pgf">
+						            </i:pgfRef>
+						          </foreignObject>
+						          <g i:extraneous="self">
+						            <g id="Capa_1">
+						              <g>
+						                <g>
+						                  <path fill="none" stroke="#000000" stroke-miterlimit="10" d="M278.641,12.429c-147.684,0-267.404,119.721-267.404,267.404
+						                    s119.721,267.404,267.404,267.404s267.404-119.721,267.404-267.404S426.324,12.429,278.641,12.429z M467.139,279.833
+						                    c0,52.054-21.099,99.179-55.209,133.289l55.793,55.793l-55.793-55.793c-34.112,34.11-81.237,55.209-133.289,55.209
+						                    c-52.053,0-99.177-21.099-133.289-55.209l-55.794,55.793l55.794-55.793c-34.11-34.112-55.209-81.237-55.209-133.289
+						                    s21.099-99.176,55.209-133.289L89.557,90.75l55.794,55.793c34.112-34.11,81.236-55.209,133.289-55.209
+						                    c52.052,0,99.177,21.099,133.289,55.209l55.793-55.793l-55.793,55.793C446.04,180.655,467.139,227.779,467.139,279.833z"/>
+						                  <path fill="none" stroke="#000000" stroke-miterlimit="10" d="M278.641,548.333c-148.052,0-268.5-120.448-268.5-268.5
+						                    s120.448-268.5,268.5-268.5s268.5,120.448,268.5,268.5S426.692,548.333,278.641,548.333z M91.197,468.825
+						                    c48.158,47.767,114.417,77.316,187.444,77.316c73.026,0,139.284-29.55,187.442-77.314l-54.155-54.157
+						                    c-35.723,35.321-83.01,54.757-133.287,54.757s-97.565-19.436-133.287-54.757L91.197,468.825z M413.478,413.12l54.157,54.155
+						                    c47.765-48.158,77.314-114.416,77.314-187.442s-29.55-139.284-77.314-187.443l-54.157,54.156
+						                    c35.321,35.72,54.757,83.007,54.757,133.287C468.234,330.113,448.799,377.399,413.478,413.12z M89.646,92.39
+						                    C41.88,140.549,12.333,206.807,12.333,279.833S41.88,419.117,89.646,467.275l54.158-54.155
+						                    c-35.321-35.723-54.757-83.01-54.757-133.287c0-50.275,19.437-97.564,54.757-133.287L89.646,92.39z M146.044,412.264
+						                    l0.083,0.083c35.396,35.396,82.457,54.889,132.514,54.889c50.017,0,97.044-19.464,132.431-54.805l0.083-0.084
+						                    c35.396-35.395,54.889-82.457,54.889-132.514s-19.493-97.119-54.889-132.514l-0.083-0.083
+						                    c-35.387-35.341-82.414-54.804-132.431-54.804c-50.057,0-97.118,19.493-132.514,54.888l-0.083,0.083
+						                    c-35.342,35.386-54.805,82.415-54.805,132.431S110.702,376.878,146.044,412.264z M278.641,90.239
+						                    c50.277,0,97.564,19.436,133.287,54.757l54.155-54.158c-48.158-47.764-114.416-77.313-187.442-77.313
+						                    c-73.027,0-139.286,29.549-187.444,77.316l54.157,54.156C181.075,109.675,228.363,90.239,278.641,90.239z"/>
+						                </g>
+						              </g>
+						            </g>
+						            <g id="Capa_2">
+						              <path class="arriba" style="fill:rgb(255,255,255);" d="M278.641,90.239c50.277,0,97.564,19.436,133.287,54.757l54.155-54.158
+						                c-48.158-47.764-114.416-77.313-187.442-77.313S139.354,43.074,91.198,90.841l54.156,54.156
+						                C181.076,109.675,228.363,90.239,278.641,90.239z"/>
+						            </g>
+						            <g id="Capa_3">
+						              <path class="derecha" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" d="M468.56,280.161c0,50.275-19.436,97.562-54.757,133.287l54.158,54.154
+						                c47.767-48.156,77.313-114.417,77.313-187.441c0-73.028-29.547-139.289-77.313-187.445l-54.158,54.158
+						                C449.124,182.594,468.56,229.881,468.56,280.161z"/>
+						            </g>
+						            <g id="Capa_4">
+						              <path class="abajo" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"  d="M278.641,470.08c-50.277,0-97.564-19.436-133.287-54.758L91.198,469.48
+						                c48.159,47.765,114.417,77.313,187.443,77.313s139.286-29.549,187.442-77.315l-54.155-54.156
+						                C376.205,450.645,328.918,470.08,278.641,470.08z"/>
+						            </g>
+						            <g id="Capa_5">
+						              <path class="izquierda" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" d="M88.72,280.161c0-50.28,19.436-97.567,54.757-133.287L89.32,92.716
+						                c-47.765,48.16-77.314,114.417-77.314,187.445c0,73.024,29.549,139.285,77.316,187.441l54.156-54.154
+						                C108.156,377.723,88.72,330.436,88.72,280.161z"/>
+						            </g>
+						            <g id="Capa_6">
+						              <circle class='center' style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" cx="278.902" cy="279.699" r="187.352"/>
+						            </g>
+						          </g>
+						        </switch>
+
+						        </svg>
+						    </td>
+						    <td></td>
+						    <td style="width: 25px;"></td>
+                			<td style="width: 25px;"></td>
+                			<td></td>
+                			<td ng-repeat=" l7175 in odontograma.lingual7175 " >
+                				<svg style="height: 50px; width: 40px;" version="1.1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
+						           xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+						           x="0px" y="0px" width="558px" height="557px" viewBox="0 0 558 557" enable-background="new 0 0 558 557" xml:space="preserve">
+						        <switch>
+						          <foreignObject requiredExtensions="&ns_ai;" x="0" y="0" width="1" height="1">
+						            <i:pgfRef  xlink:href="#adobe_illustrator_pgf">
+						            </i:pgfRef>
+						          </foreignObject>
+						          <g i:extraneous="self">
+						            <g id="Capa_1">
+						              <g>
+						                <g>
+						                  <path fill="none" stroke="#000000" stroke-miterlimit="10" d="M278.641,12.429c-147.684,0-267.404,119.721-267.404,267.404
+						                    s119.721,267.404,267.404,267.404s267.404-119.721,267.404-267.404S426.324,12.429,278.641,12.429z M467.139,279.833
+						                    c0,52.054-21.099,99.179-55.209,133.289l55.793,55.793l-55.793-55.793c-34.112,34.11-81.237,55.209-133.289,55.209
+						                    c-52.053,0-99.177-21.099-133.289-55.209l-55.794,55.793l55.794-55.793c-34.11-34.112-55.209-81.237-55.209-133.289
+						                    s21.099-99.176,55.209-133.289L89.557,90.75l55.794,55.793c34.112-34.11,81.236-55.209,133.289-55.209
+						                    c52.052,0,99.177,21.099,133.289,55.209l55.793-55.793l-55.793,55.793C446.04,180.655,467.139,227.779,467.139,279.833z"/>
+						                  <path fill="none" stroke="#000000" stroke-miterlimit="10" d="M278.641,548.333c-148.052,0-268.5-120.448-268.5-268.5
+						                    s120.448-268.5,268.5-268.5s268.5,120.448,268.5,268.5S426.692,548.333,278.641,548.333z M91.197,468.825
+						                    c48.158,47.767,114.417,77.316,187.444,77.316c73.026,0,139.284-29.55,187.442-77.314l-54.155-54.157
+						                    c-35.723,35.321-83.01,54.757-133.287,54.757s-97.565-19.436-133.287-54.757L91.197,468.825z M413.478,413.12l54.157,54.155
+						                    c47.765-48.158,77.314-114.416,77.314-187.442s-29.55-139.284-77.314-187.443l-54.157,54.156
+						                    c35.321,35.72,54.757,83.007,54.757,133.287C468.234,330.113,448.799,377.399,413.478,413.12z M89.646,92.39
+						                    C41.88,140.549,12.333,206.807,12.333,279.833S41.88,419.117,89.646,467.275l54.158-54.155
+						                    c-35.321-35.723-54.757-83.01-54.757-133.287c0-50.275,19.437-97.564,54.757-133.287L89.646,92.39z M146.044,412.264
+						                    l0.083,0.083c35.396,35.396,82.457,54.889,132.514,54.889c50.017,0,97.044-19.464,132.431-54.805l0.083-0.084
+						                    c35.396-35.395,54.889-82.457,54.889-132.514s-19.493-97.119-54.889-132.514l-0.083-0.083
+						                    c-35.387-35.341-82.414-54.804-132.431-54.804c-50.057,0-97.118,19.493-132.514,54.888l-0.083,0.083
+						                    c-35.342,35.386-54.805,82.415-54.805,132.431S110.702,376.878,146.044,412.264z M278.641,90.239
+						                    c50.277,0,97.564,19.436,133.287,54.757l54.155-54.158c-48.158-47.764-114.416-77.313-187.442-77.313
+						                    c-73.027,0-139.286,29.549-187.444,77.316l54.157,54.156C181.075,109.675,228.363,90.239,278.641,90.239z"/>
+						                </g>
+						              </g>
+						            </g>
+						            <g id="Capa_2">
+						              <path class="arriba" style="fill:rgb(255,255,255);" d="M278.641,90.239c50.277,0,97.564,19.436,133.287,54.757l54.155-54.158
+						                c-48.158-47.764-114.416-77.313-187.442-77.313S139.354,43.074,91.198,90.841l54.156,54.156
+						                C181.076,109.675,228.363,90.239,278.641,90.239z"/>
+						            </g>
+						            <g id="Capa_3">
+						              <path class="derecha" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" d="M468.56,280.161c0,50.275-19.436,97.562-54.757,133.287l54.158,54.154
+						                c47.767-48.156,77.313-114.417,77.313-187.441c0-73.028-29.547-139.289-77.313-187.445l-54.158,54.158
+						                C449.124,182.594,468.56,229.881,468.56,280.161z"/>
+						            </g>
+						            <g id="Capa_4">
+						              <path class="abajo" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"  d="M278.641,470.08c-50.277,0-97.564-19.436-133.287-54.758L91.198,469.48
+						                c48.159,47.765,114.417,77.313,187.443,77.313s139.286-29.549,187.442-77.315l-54.155-54.156
+						                C376.205,450.645,328.918,470.08,278.641,470.08z"/>
+						            </g>
+						            <g id="Capa_5">
+						              <path class="izquierda" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" d="M88.72,280.161c0-50.28,19.436-97.567,54.757-133.287L89.32,92.716
+						                c-47.765,48.16-77.314,114.417-77.314,187.445c0,73.024,29.549,139.285,77.316,187.441l54.156-54.154
+						                C108.156,377.723,88.72,330.436,88.72,280.161z"/>
+						            </g>
+						            <g id="Capa_6">
+						              <circle class='center' style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" cx="278.902" cy="279.699" r="187.352"/>
+						            </g>
+						          </g>
+						        </switch>
+
+						        </svg>
+                			</td>
+                			<td></td>
+                			<td></td>
+                		</tr>
+
+                		<tr>
+                			<td></td>
+                			<td></td>
+                			<td></td>
+                			<td ng-repeat=" l8581 in odontograma.lingual8581 " >{{l8581.id_numero}}</td>
+                			<td style="width: 25px;"></td>
+							<td style="width: 25px;"></td>
+							<td></td>
+                			<td></td>
+                			<td ng-repeat=" l7175 in odontograma.lingual7175 " >{{l7175.id_numero}}</td>
+                			<td></td>
+                			<td></td>
+                		</tr>
+
+
+                		<tr>
+                			<th>Vestibular</th>
+                			<td ng-repeat=" v4841 in odontograma.vestibular4841 " >
+                				<svg xmlns="http://www.w3.org/2000/svg"  version="1.1" style="height: 50px; width: 40px;" viewBox="0 0 194 186"  width="150" height="150">  
+								  <polygon points="100,50  150,20  150,20  0,20  50,50"
+								  	class="arriba"
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+
+								  <rect x="50" y="50" width="50" height="50" 
+								  class="center"
+								  style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" />
+
+								  <polygon points="100,100 50,100 0,130  0,130  150,130"
+								  	class="abajo"
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+
+								   <polygon points="100,100 100,50 150,20 150,130  150,130"
+								  	class="derecha"
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+
+								   <polygon points="50,100 50,50 0,20 0,130  0,130"
+								  	class="izquierda"
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+								</svg>
+                			</td>
+                			<td style="width: 25px;"></td>
+							<td style="width: 25px;"></td>
+							<td ng-repeat=" v3138 in odontograma.vestibular3138 " >
+                				<svg xmlns="http://www.w3.org/2000/svg"  version="1.1" style="height: 50px; width: 40px;" viewBox="0 0 194 186"  width="150" height="150">  
+								  <polygon points="100,50  150,20  150,20  0,20  50,50"
+								  	class="arriba"
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+
+								  <rect x="50" y="50" width="50" height="50" 
+								  class="center"
+								  style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" />
+
+								  <polygon points="100,100 50,100 0,130  0,130  150,130"
+								  	class="abajo"
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+
+								   <polygon points="100,100 100,50 150,20 150,130  150,130"
+								  	class="derecha"
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+
+								   <polygon points="50,100 50,50 0,20 0,130  0,130"
+								  	class="izquierda"
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+								</svg>
+                			</td>
+                		</tr>
+                		<tr>
+                			<td></td>
+                			<td ng-repeat=" v4841 in odontograma.vestibular4841 ">{{v4841.id_numero}}</td>
+                			<td style="width: 25px;"></td>
+							<td style="width: 25px;"></td>
+							<td ng-repeat=" v3138 in odontograma.vestibular3138 ">{{v3138.id_numero}}</td>
+                		</tr>
+                		<tr>
+                			<th>Movilidad</th>
+                			<td ng-repeat=" v4841 in odontograma.vestibular4841 "><input type="text" style="width: 40px;" ng-model=" v4841.text2" class="form-control" name=""></td>
+                			<td style="width: 25px;"></td>
+                			<td style="width: 25px;"></td>
+                			<td ng-repeat=" v3138 in odontograma.vestibular3138 "><input type="text" style="width: 40px;" ng-model=" v3138.text2" class="form-control" name=""></td>
+                		</tr>
+                		<tr>
+                			<th>Recesión</th>
+                			<td ng-repeat=" v4841 in odontograma.vestibular4841 "><input type="text" style="width: 40px;" ng-model=" v4841.text1" class="form-control" name=""></td>
+                			<td style="width: 25px;"></td>
+                			<td style="width: 25px;"></td>
+                			<td ng-repeat=" v3138 in odontograma.vestibular3138 "><input type="text" style="width: 40px;" ng-model=" v3138.text1" class="form-control" name=""></td>
+                		</tr>
+                	</table>
+
+                </div>
+                <!-- ODONTOGRAMA PARTE DEL FORMULARIO 033-->
+
+
+
 			</div>
 
 		</div>

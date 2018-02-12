@@ -1678,6 +1678,162 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
         return edad+" años, "+meses+" meses y "+dias+" días";
     }
     ///---Logica de citas medicas
+
+
+
+    ///---ODONTOGRAMA
+    $scope.odontograma={};
+    $scope.ready_odontograma=function (item) {
+        console.log(item);
+        $scope.odontograma={};
+        if(item.consultageneral.length>0){// tiene consulta externa
+            
+            $scope.tipo_calendar="ODONT";/// odontograma 
+
+            $scope.crear_odontograma();
+
+            $scope.aux_temp_cinta_consulta=item;
+            console.log($scope.aux_temp_cinta_consulta.consultageneral[0].id_cone)
+            
+        }else{
+            sms("btn-info","Ingrese la Anamnesis ");
+        }
+    };
+    $scope.crear_odontograma=function () {
+        var vestibular1811=[];
+        for(var x=18;x>=11;x--){
+            var diente={
+                id_numero:x,
+                arriba: '',
+                abajo: '',
+                izquierda:'',
+                diferente:'',
+                centro:'',
+                text1:'',
+                text2:'',
+                tratamiento:[]
+            };
+            vestibular1811.push(diente);
+        }
+
+        var vestibular2128=[];
+        for(var x=21;x<=28;x++){
+            var diente={
+                id_numero:x,
+                arriba: '',
+                abajo: '',
+                izquierda:'',
+                diferente:'',
+                centro:'',
+                text1:'11',
+                text2:'',
+                tratamiento:[]
+            };
+            vestibular2128.push(diente);
+        }
+
+        var lingual5551=[];
+        for(var x=55;x>=51;x--){
+            var diente={
+                id_numero:x,
+                arriba: '',
+                abajo: '',
+                izquierda:'',
+                diferente:'',
+                centro:'',
+                tratamiento:[]
+            };
+            lingual5551.push(diente);
+        }
+
+        var lingual6165=[];
+        for(var x=61;x<=65;x++){
+            var diente={
+                id_numero:x,
+                arriba: '',
+                abajo: '',
+                izquierda:'',
+                diferente:'',
+                centro:'',
+                tratamiento:[]
+            };
+            lingual6165.push(diente);
+        }
+
+        var lingual8581=[];
+        for(var x=85;x>=81;x--){
+            var diente={
+                id_numero:x,
+                arriba: '',
+                abajo: '',
+                izquierda:'',
+                diferente:'',
+                centro:'',
+                tratamiento:[]
+            };
+            lingual8581.push(diente);
+        }
+        var lingual7175=[];
+        for(var x=71;x<=75;x++){
+            var diente={
+                id_numero:x,
+                arriba: '',
+                abajo: '',
+                izquierda:'',
+                diferente:'',
+                centro:'',
+                tratamiento:[]
+            };
+            lingual7175.push(diente);
+        }
+
+
+        var vestibular4841=[];
+        for(var x=48;x>=41;x--){
+            var diente={
+                id_numero:x,
+                arriba: '',
+                abajo: '',
+                izquierda:'',
+                diferente:'',
+                centro:'',
+                text1:'',
+                text2:'',
+                tratamiento:[]
+            };
+            vestibular4841.push(diente);
+        }
+
+        var vestibular3138=[];
+        for(var x=31;x<=38;x++){
+            var diente={
+                id_numero:x,
+                arriba: '',
+                abajo: '',
+                izquierda:'',
+                diferente:'',
+                centro:'',
+                text1:'',
+                text2:'',
+                tratamiento:[]
+            };
+            vestibular3138.push(diente);
+        }
+
+        $scope.odontograma={
+            vestibular1811: vestibular1811,
+            vestibular2128: vestibular2128,
+            lingual5551: lingual5551,
+            lingual6165: lingual6165,
+            lingual8581: lingual8581,
+            lingual7175:lingual7175,
+            vestibular4841: vestibular4841,
+            vestibular3138: vestibular3138
+        };
+
+        console.log($scope.odontograma);
+    };
+    ///---ODONTOGRAMA
 });
 
 function sms(color,mensaje) {
