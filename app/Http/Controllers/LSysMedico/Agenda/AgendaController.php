@@ -52,13 +52,13 @@ class AgendaController extends Controller
      * Cargar los datos de configuracion por empresa 
      * 
      */
-    public function get_config()
-    {
-    	$data_user=Session::get('user_data');
-        $id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
-        return Configuracion:: whereRaw(" id_relacion=".$id_emp)
-        					->get();
-    }
+     public function get_config()
+     {
+         $data_user=Session::get('user_data');
+         $id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
+         return Configuracion:: whereRaw(" id_relacion=".$id_emp)
+         ->get();
+     }
     /**
      *
      * Cargar las horas ocupadas por la persona 
@@ -70,8 +70,8 @@ class AgendaController extends Controller
     	$data_user=Session::get('user_data');
         $id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
         return Agenda::whereRaw("id_em=".$id_emp."  AND id_emp=".$filtro->id_emp." AND fecha='".$filtro->fecha."' ")
-        				->orderBy("horainicio","ASC")
-        				->get();
+        ->orderBy("horainicio","ASC")
+        ->get();
     }
     /**
      *
@@ -104,26 +104,26 @@ class AgendaController extends Controller
     public function send_email($id_ag)
     {
        $datos=Agenda::with("usuario.persona.personaempresa.empresa","cliente.persona","empleado.persona")
-                    ->whereRaw("agenda.id_ag=".$id_ag."")
-                    ->get();
+       ->whereRaw("agenda.id_ag=".$id_ag."")
+       ->get();
 
-        $para  = $datos[0]->cliente->persona->email;
-        $paramedico  = $datos[0]->empleado->persona->email;
-        if($para!=""){
-            $mensaje = "Athan le recuerda que tiene una cita medica el ".$datos[0]->fecha." a las ".$datos[0]->horainicio.". \n";
-            $mensaje.=" En ".$datos[0]->usuario->persona->personaempresa[0]->empresa->nombre.", con la dirección ".$datos[0]->usuario->persona->personaempresa[0]->empresa->direccion.". \n";
-            $mensaje.=" Con el medico ".$datos[0]->empleado->persona->apellido." ".$datos[0]->empleado->persona->nombre." ";
+       $para  = $datos[0]->cliente->persona->email;
+       $paramedico  = $datos[0]->empleado->persona->email;
+       if($para!=""){
+        $mensaje = "Athan le recuerda que tiene una cita medica el ".$datos[0]->fecha." a las ".$datos[0]->horainicio.". \n";
+        $mensaje.=" En ".$datos[0]->usuario->persona->personaempresa[0]->empresa->nombre.", con la dirección ".$datos[0]->usuario->persona->personaempresa[0]->empresa->direccion.". \n";
+        $mensaje.=" Con el medico ".$datos[0]->empleado->persona->apellido." ".$datos[0]->empleado->persona->nombre." ";
 
-            mail($para, 'Recordatorio de cita medica', $mensaje);
-        }
-        if($paramedico!=""){
-            $mensaje = "Athan le recuerda que tiene una cita  el ".$datos[0]->fecha." a las ".$datos[0]->horainicio.". \n";
-            $mensaje .="Con el cliente ".$datos[0]->cliente->persona->apellido." ".$datos[0]->cliente->persona->nombre.". \n";
-            $mensaje.=" En ".$datos[0]->usuario->persona->personaempresa[0]->empresa->nombre.", con la dirección ".$datos[0]->usuario->persona->personaempresa[0]->empresa->direccion.". \n";
-
-            mail($paramedico, 'Recordatorio de cita medica', $mensaje);
-        }
+        mail($para, 'Recordatorio de cita medica', $mensaje);
     }
+    if($paramedico!=""){
+        $mensaje = "Athan le recuerda que tiene una cita  el ".$datos[0]->fecha." a las ".$datos[0]->horainicio.". \n";
+        $mensaje .="Con el cliente ".$datos[0]->cliente->persona->apellido." ".$datos[0]->cliente->persona->nombre.". \n";
+        $mensaje.=" En ".$datos[0]->usuario->persona->personaempresa[0]->empresa->nombre.", con la dirección ".$datos[0]->usuario->persona->personaempresa[0]->empresa->direccion.". \n";
+
+        mail($paramedico, 'Recordatorio de cita medica', $mensaje);
+    }
+}
     /**
      *
      * Carga la agenda por mes y por empleado seleccionado
@@ -134,26 +134,26 @@ class AgendaController extends Controller
         $data_user=Session::get('user_data');
         $id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
 
-    	$filtro = json_decode($texto);
+        $filtro = json_decode($texto);
         $sql=" agenda.fecha BETWEEN '".$filtro->fechaI."' AND '".$filtro->fechaF."' AND agenda.estado='".$filtro->estado."' ";
         $sql2="";
         if($filtro->id_emp!=""){
             $sql.=" AND agenda.id_emp='".$filtro->id_emp."' ";
             $sql2=" AND aux.id_emp=agenda.id_emp ";
         }
-    	return Agenda::selectRaw("*")
-                    ->selectRaw("  (SELECT COUNT(*) FROM agenda AS aux WHERE aux.fecha=agenda.fecha ".$sql2." AND aux.estado='".$filtro->estado."' AND aux.id_em=".$id_emp." ) AS NumeroCita  ")
-                    ->whereRaw($sql." AND agenda.id_em=".$id_emp." ")
-                    ->groupBy("agenda.fecha")
-                    ->orderBy("agenda.fecha","ASC")
-                    ->get();
+        return Agenda::selectRaw("*")
+        ->selectRaw("  (SELECT COUNT(*) FROM agenda AS aux WHERE aux.fecha=agenda.fecha ".$sql2." AND aux.estado='".$filtro->estado."' AND aux.id_em=".$id_emp." ) AS NumeroCita  ")
+        ->whereRaw($sql." AND agenda.id_em=".$id_emp." ")
+        ->groupBy("agenda.fecha")
+        ->orderBy("agenda.fecha","ASC")
+        ->get();
     } 
     /**
      *
      * informacion de la agenda por dia 
      * 
      */
-     public function get_info_agenda_mensual($texto){
+    public function get_info_agenda_mensual($texto){
         $data_user=Session::get('user_data');
         $id_empresa=$data_user[0]->persona->personaempresa[0]->id_emp;
 
@@ -162,17 +162,17 @@ class AgendaController extends Controller
         if($filtro->id_emp!=""){
             $sql.=" AND agenda.id_emp='".$filtro->id_emp."' ";
         }
-        return Agenda::with("usuario.persona.personaempresa.empresa","cliente.persona","empleado.persona","consultageneral.prescripcion") //agregado la consulta externa
-                    ->whereRaw($sql." AND agenda.id_em=".$id_empresa." ")
-                    ->orderBy("agenda.horainicio","ASC")
-                    ->get();
-     }
+        return Agenda::with("usuario.persona.personaempresa.empresa","cliente.persona","empleado.persona","consultageneral.prescripcion","consultageneral.odontograma") //agregado la consulta externa
+        ->whereRaw($sql." AND agenda.id_em=".$id_empresa." ")
+        ->orderBy("agenda.horainicio","ASC")
+        ->get();
+    }
     /**
      *
      * informacion de la agenda por fechas y empleado
      * 
      */
-     public function get_info_agenda_fechas_empleado($texto){
+    public function get_info_agenda_fechas_empleado($texto){
         $data_user=Session::get('user_data');
         $id_empresa=$data_user[0]->persona->personaempresa[0]->id_emp;
 
@@ -181,11 +181,11 @@ class AgendaController extends Controller
         if($filtro->id_emp!=""){
             $sql.=" AND agenda.id_emp='".$filtro->id_emp."' ";
         }
-        return Agenda::with("usuario.persona.personaempresa.empresa","cliente.persona","empleado.persona","consultageneral.prescripcion") //agregado la consulta externa
-                    ->whereRaw($sql." AND agenda.id_em=".$id_empresa." ")
-                    ->orderBy("agenda.horainicio","ASC")
-                    ->get();
-     } 
+        return Agenda::with("usuario.persona.personaempresa.empresa","cliente.persona","empleado.persona","consultageneral.prescripcion","consultageneral.odontograma") //agregado la consulta externa
+        ->whereRaw($sql." AND agenda.id_em=".$id_empresa." ")
+        ->orderBy("agenda.horainicio","ASC")
+        ->get();
+    } 
     /**
      *
      * informacion de la agenda por semana
@@ -201,18 +201,18 @@ class AgendaController extends Controller
             $sql.=" AND agenda.id_emp='".$filtro->id_emp."' ";
         }
         $Citas=Agenda::with("usuario.persona","cliente.persona","empleado.persona")
-                    ->whereRaw($sql." AND agenda.id_em=".$id_empresa." ")
-                    ->orderBy("agenda.fecha","ASC")
-                    ->orderBy("agenda.horainicio","ASC")
-                    ->get();
+        ->whereRaw($sql." AND agenda.id_em=".$id_empresa." ")
+        ->orderBy("agenda.fecha","ASC")
+        ->orderBy("agenda.horainicio","ASC")
+        ->get();
         $horas=Agenda::whereRaw($sql." AND agenda.id_em=".$id_empresa." ")
-                    ->groupBy("agenda.horainicio")
-                    ->orderBy("agenda.horainicio","ASC")
-                    ->get();
+        ->groupBy("agenda.horainicio")
+        ->orderBy("agenda.horainicio","ASC")
+        ->get();
         $data = array(
-                'Horas' => $horas, 
-                'Citas' => $Citas
-            );
+            'Horas' => $horas, 
+            'Citas' => $Citas
+        );
         return $data;
     }
     /**
@@ -261,7 +261,7 @@ class AgendaController extends Controller
             $id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
             $id_per=$data_user[0]->id_pe;
             return Empleado::with("persona","cargo")
-                        ->whereRaw("id_pe=".$id_per)->get();
+            ->whereRaw("id_pe=".$id_per)->get();
         }else{
             Session::forget('user_data');
             return redirect('/');
@@ -273,15 +273,15 @@ class AgendaController extends Controller
      * Numero de citas por mes
      *
      */
-    public function data_numbercitas()
-    {
+     public function data_numbercitas()
+     {
         $data_user=Session::get('user_data');
         $id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
         $tomonth="20".date("y-m");
         return Agenda::selectRaw("agenda.fecha")
-                    ->selectRaw("(SELECT  COUNT(*) FROM agenda aux WHERE aux.fecha=agenda.fecha) AS numero")
-                    ->whereRaw(" agenda.fecha LIKE '%".$tomonth."%' AND agenda.id_em=".$id_emp."")
-                    ->groupBy("agenda.fecha")
-                    ->get();
+        ->selectRaw("(SELECT  COUNT(*) FROM agenda aux WHERE aux.fecha=agenda.fecha) AS numero")
+        ->whereRaw(" agenda.fecha LIKE '%".$tomonth."%' AND agenda.id_em=".$id_emp."")
+        ->groupBy("agenda.fecha")
+        ->get();
     }
 }

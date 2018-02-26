@@ -174,5 +174,16 @@ Route::get('Historia/get_paciente_historia', 'LSysMedico\HistoriaClinica\Histori
 Route::resource('Historia', 'LSysMedico\HistoriaClinica\HistoriaClinicaController');
 /*-----------------Logica historia clinica --------------*/
 
+/*-----------------Logica historia odontologica --------------*/
+
+Route::get('TratamientoOdont/get_all_tratamientos', 'LSysMedico\Odontologia\Tratamiento@get_list_tratamiento_odontologico');
+Route::resource('TratamientoOdont', 'LSysMedico\Odontologia\Tratamiento');
+
+Route::get('Odontograma/print_anamnesisodontograma/{texto}', 'LSysMedico\Odontologia\OdontogramaController@print_anamnesisodontograma');
+Route::get('Odontograma/ultimo_odontograma/{texto}', 'LSysMedico\Odontologia\OdontogramaController@get_odontograma');
+Route::resource('Odontograma', 'LSysMedico\Odontologia\OdontogramaController');
+
+/*-----------------Logica historia odontologica --------------*/
+
 
 

@@ -924,6 +924,8 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
 
         $scope.control_panel2($scope.tipo_calendar);
 
+        $scope.odontograma=[];
+
     };
     ///--- guardar agenda
 
@@ -1695,6 +1697,12 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
             $scope.aux_temp_cinta_consulta=item;
             console.log($scope.aux_temp_cinta_consulta.consultageneral[0].id_cone)
             
+            var filro={
+                id_cli: $scope.aux_temp_cinta_consulta.id_cli,
+                id_cone: $scope.aux_temp_cinta_consulta.consultageneral[0].id_cone,
+                id_em: $scope.aux_temp_cinta_consulta.id_em
+            };
+            $scope.get_last_odontograma(filro);
         }else{
             sms("btn-info","Ingrese la Anamnesis ");
         }
@@ -1707,8 +1715,13 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
                 arriba: '',
                 abajo: '',
                 izquierda:'',
-                diferente:'',
+                derecha:'',
                 centro:'',
+                arriba_color:'',
+                abajo_color:'',
+                izquierda_color:'',
+                derecha_color:'',
+                centro_color:'',
                 text1:'',
                 text2:'',
                 tratamiento:[]
@@ -1723,9 +1736,14 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
                 arriba: '',
                 abajo: '',
                 izquierda:'',
-                diferente:'',
+                derecha:'',
                 centro:'',
-                text1:'11',
+                arriba_color:'',
+                abajo_color:'',
+                izquierda_color:'',
+                derecha_color:'',
+                centro_color:'',
+                text1:'',
                 text2:'',
                 tratamiento:[]
             };
@@ -1739,8 +1757,13 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
                 arriba: '',
                 abajo: '',
                 izquierda:'',
-                diferente:'',
+                derecha:'',
                 centro:'',
+                arriba_color:'',
+                abajo_color:'',
+                izquierda_color:'',
+                derecha_color:'',
+                centro_color:'',
                 tratamiento:[]
             };
             lingual5551.push(diente);
@@ -1753,8 +1776,13 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
                 arriba: '',
                 abajo: '',
                 izquierda:'',
-                diferente:'',
+                derecha:'',
                 centro:'',
+                arriba_color:'',
+                abajo_color:'',
+                izquierda_color:'',
+                derecha_color:'',
+                centro_color:'',
                 tratamiento:[]
             };
             lingual6165.push(diente);
@@ -1767,8 +1795,13 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
                 arriba: '',
                 abajo: '',
                 izquierda:'',
-                diferente:'',
+                derecha:'',
                 centro:'',
+                arriba_color:'',
+                abajo_color:'',
+                izquierda_color:'',
+                derecha_color:'',
+                centro_color:'',
                 tratamiento:[]
             };
             lingual8581.push(diente);
@@ -1780,8 +1813,13 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
                 arriba: '',
                 abajo: '',
                 izquierda:'',
-                diferente:'',
+                derecha:'',
                 centro:'',
+                arriba_color:'',
+                abajo_color:'',
+                izquierda_color:'',
+                derecha_color:'',
+                centro_color:'',
                 tratamiento:[]
             };
             lingual7175.push(diente);
@@ -1795,8 +1833,13 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
                 arriba: '',
                 abajo: '',
                 izquierda:'',
-                diferente:'',
+                derecha:'',
                 centro:'',
+                arriba_color:'',
+                abajo_color:'',
+                izquierda_color:'',
+                derecha_color:'',
+                centro_color:'',
                 text1:'',
                 text2:'',
                 tratamiento:[]
@@ -1811,8 +1854,13 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
                 arriba: '',
                 abajo: '',
                 izquierda:'',
-                diferente:'',
+                derecha:'',
                 centro:'',
+                arriba_color:'',
+                abajo_color:'',
+                izquierda_color:'',
+                derecha_color:'',
+                centro_color:'',
                 text1:'',
                 text2:'',
                 tratamiento:[]
@@ -1832,6 +1880,164 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
         };
 
         console.log($scope.odontograma);
+    };
+
+    $scope.aplicar_tratamiento_up=function(i) {
+        if($scope.tratamiento!=""){
+            i.arriba=$scope.tratamiento;
+            switch($scope.tratamiento){
+                case "15": // caries //rojo
+                    i.arriba_color="rgb(255,0,0)";
+                break;
+                case "16": // obturado // azul
+                    i.arriba_color="rgb(0,0,255)";
+                break;
+                default:
+                i.tratamiento.push($scope.tratamiento);
+                break;
+            }
+            console.log(i);
+        }else{
+            sms("btn-info","Seleccione un tratamiento");
+        }
+    };
+
+    $scope.aplicar_tratamiento_down=function(i) {
+        if($scope.tratamiento!=""){
+            i.abajo=$scope.tratamiento;
+            switch($scope.tratamiento){
+                case "15": // caries //rojo
+                    i.abajo_color="rgb(255,0,0)";
+                break;
+                case "16": // obturado // azul
+                    i.abajo_color="rgb(0,0,255)";
+                break;
+                default:
+                i.tratamiento.push($scope.tratamiento);
+                break;
+            }
+            console.log(i);
+        }else{
+            sms("btn-info","Seleccione un tratamiento");
+        }
+    };
+    $scope.aplicar_tratamiento_left=function(i) {
+        if($scope.tratamiento!=""){
+            i.izquierda=$scope.tratamiento;
+            switch($scope.tratamiento){
+                case "15": // caries //rojo
+                    i.izquierda_color="rgb(255,0,0)";
+                break;
+                case "16": // obturado // azul
+                    i.izquierda_color="rgb(0,0,255)";
+                break;
+                default:
+                i.tratamiento.push($scope.tratamiento);
+                break;
+            }
+            console.log(i);
+        }else{
+            sms("btn-info","Seleccione un tratamiento");
+        }
+    };
+    $scope.aplicar_tratamiento_right=function(i) {
+        if($scope.tratamiento!=""){
+            i.derecha=$scope.tratamiento;
+            switch($scope.tratamiento){
+                case "15": // caries //rojo
+                    i.derecha_color="rgb(255,0,0)";
+                break;
+                case "16": // obturado // azul
+                    i.derecha_color="rgb(0,0,255)";
+                break;
+                default:
+                i.tratamiento.push($scope.tratamiento);
+                break;
+            }
+            console.log(i);
+        }else{
+            sms("btn-info","Seleccione un tratamiento");
+        }
+    };
+    $scope.aplicar_tratamiento_center=function(i) {
+        if($scope.tratamiento!=""){
+            i.centro=$scope.tratamiento;
+            switch($scope.tratamiento){
+                case "15": // caries //rojo
+                    i.centro_color="rgb(255,0,0)";
+                break;
+                case "16": // obturado // azul
+                    i.centro_color="rgb(0,0,255)";
+                break;
+                default:
+                i.tratamiento.push($scope.tratamiento);
+                break;
+            }
+            console.log(i);
+        }else{
+            sms("btn-info","Seleccione un tratamiento");
+        }
+    };
+    $scope.tratamiento="";
+    $scope.list_tratamientos=[];
+    $scope.get_tratamientos=function(){
+        $scope.list_tratamientos=[];
+        $http.get(API_URL + 'TratamientoOdont/get_all_tratamientos')
+        .then(function(response){
+            $scope.list_tratamientos=response.data;
+        });
+    };
+    $scope.get_tratamientos();
+
+    $scope.save_odontograma=function() {
+        $("#progress").modal("show");
+        var fecha =  convertDatetoDB(now());
+        var odontologia={
+            id_cone: $scope.aux_temp_cinta_consulta.consultageneral[0].id_cone,
+            fecha: fecha,
+            odontogramajson: JSON.stringify($scope.odontograma),
+            estado: 1
+        };
+        $http.post(API_URL + 'Odontograma',odontologia)
+        .success(function(response){
+            $("#progress").modal("hide");
+            if(response.success==0){
+                sms("btn-success","Se guardo correctamente los datos..!!");
+                $scope.clear_agenda();
+                $scope.tipo_calendar="DIAG";/// Recetar 
+            }else{
+                sms("btn-danger","Error al guardar los datos..!!");
+                $scope.clear_agenda();
+            }
+        });
+    };
+
+    $scope.get_last_odontograma=function (filtro) {
+      $http.get(API_URL + 'Odontograma/ultimo_odontograma/' + JSON.stringify(filtro))
+      .success(function(data){
+        console.log(data);
+        $scope.odontograma=JSON.parse(data[0].odontogramajson);
+      });   
+    };
+
+    $scope.print_odontograma=function (item) {
+        console.log(item)
+        if(item.consultageneral.length>0){// tiene consulta externa
+            if(item.consultageneral[0].odontograma.length>0){// tiene un odontograma
+                var data={
+                    id_cone:item.consultageneral[0].id_cone,
+                    id_ag:item.consultageneral[0].id_ag
+                };
+                var accion = API_URL + "Odontograma/print_anamnesisodontograma/"+JSON.stringify(data);
+                $("#WPrint_head").html("Odontograma");
+                $("#WPrint").modal("show");
+                $("#bodyprint").html("<object width='100%' height='600' data='"+accion+"'></object>");
+            }else{
+                sms("btn-info","Ingrese una Odontograma para poder imprimir");
+            }
+        }else{
+            sms("btn-info","Ingrese la Anamnesis para poder crear el odontograma");
+        }
     };
     ///---ODONTOGRAMA
 });

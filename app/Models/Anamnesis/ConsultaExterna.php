@@ -56,6 +56,10 @@ class ConsultaExterna extends Model
     {
         return $this->hasMany('App\Models\Receta\Prescripcion',"id_cone");
     }
+    public function odontograma()
+    {
+        return $this->hasMany('App\Models\Odontologia\Odontograma',"id_cone");
+    }
 
 
 }

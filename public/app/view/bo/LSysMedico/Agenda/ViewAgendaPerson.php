@@ -1,4 +1,11 @@
-
+<style type="text/css">
+	.caries{
+		fill:rgb(255,0,0);
+	}
+	.obturado{
+		fill:rgb(0,0,255);
+	}
+</style>
 <div class="row" ng-init="permisos_user();" ng-cloak>
 
 <div class="modal fade" id="sms" style="z-index: 5000;" tabindex="-1" role="dialog">
@@ -329,6 +336,12 @@
                                                 <li ng-click="print_receta(dg)">
                                                     <a href="" >
                                                         <i class="glyphicon glyphicon-print"></i> Receta
+                                                    </a>
+                                                </li>
+
+                                                <li ng-click="print_odontograma(dg)">
+                                                    <a href="" >
+                                                        <i class="glyphicon glyphicon-print"></i> Odontograma
                                                     </a>
                                                 </li>
 
@@ -1047,6 +1060,29 @@
                 <!-- ODONTOGRAMA PARTE DEL FORMULARIO 033-->
                 <div class="row" ng-hide=" tipo_calendar!='ODONT' ">
                 	<h3>Odontograma</h3>
+                	<div class="row">
+                		<div class="col-md-5 col-xs-12">
+                			<div class="input-group ">
+                				<span class="btn btn-sm input-group-addon">Tratamiento</span>
+                				<select class="form-control input-sm "  name="tratamiento" id="tratamiento" ng-model="tratamiento">
+                					<option value="">Seleccione</option>
+                					<option ng-repeat=" tr in list_tratamientos" value="{{tr.id_trod}}">{{tr.descripcion}}</option>
+                				</select>
+                			</div>
+                		</div>
+
+                		<div class="col-md-4 col-xs-12 text-center btn-group">
+                			
+                			<button type="button" class="btn btn-success btn-sm" ng-click="save_odontograma()">
+                				<i class="glyphicon glyphicon-floppy-saved"></i> Guardar
+                			</button>
+                			<button type="button" class="btn btn-default btn-sm" ng-click="control_panel2('D');">
+                				<i class="glyphicon glyphicon-ban-circle"></i> Cancelar
+                			</button>
+                		</div>
+
+                	</div>
+                	
                 	<table class="">
                 		<tr>
                 			<th>Recesión</th>
@@ -1075,23 +1111,36 @@
                 				<svg xmlns="http://www.w3.org/2000/svg"  version="1.1" style="height: 50px; width: 40px;" viewBox="0 0 194 186"  width="150" height="150">  
 								  <polygon points="100,50  150,20  150,20  0,20  50,50"
 								  	class="arriba"
-								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" ng-click="aplicar_tratamiento_up(v1811)" 
+								  
+
+								   ng-style="{'fill': v1811.arriba_color != '' ? v1811.arriba_color : 'rgb(255,255,255)'}"
+
+								   />
 
 								  <rect x="50" y="50" width="50" height="50" 
 								  class="center"
-								  style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" />
+								  style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" ng-click="aplicar_tratamiento_center(v1811)"
+								  ng-style="{'fill': v1811.centro_color != '' ? v1811.centro_color : 'rgb(255,255,255)'}"
+								  />
 
 								  <polygon points="100,100 50,100 0,130  0,130  150,130"
-								  	class="abajo"
-								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+								  	class="abajo" 
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" ng-click="aplicar_tratamiento_down(v1811)" 
+								   	ng-style="{'fill': v1811.abajo_color != '' ? v1811.abajo_color : 'rgb(255,255,255)'}"
+								   />
 
 								   <polygon points="100,100 100,50 150,20 150,130  150,130"
 								  	class="derecha"
-								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" ng-click="aplicar_tratamiento_right(v1811)"
+								   ng-style="{'fill': v1811.derecha_color != '' ? v1811.derecha_color : 'rgb(255,255,255)'}"
+								   />
 
 								   <polygon points="50,100 50,50 0,20 0,130  0,130"
 								  	class="izquierda"
-								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" ng-click="aplicar_tratamiento_left(v1811)"
+								   ng-style="{'fill': v1811.izquierda_color != '' ? v1811.izquierda_color : 'rgb(255,255,255)'}"
+								   />
 								</svg>
                 			</td>
                 			<td style="width: 25px;"></td>
@@ -1099,26 +1148,43 @@
 							<td ng-repeat=" v2128 in odontograma.vestibular2128 " >
                 				<svg xmlns="http://www.w3.org/2000/svg"  version="1.1" style="height: 50px; width: 40px;" viewBox="0 0 194 186"  width="150" height="150">  
 								  <polygon points="100,50  150,20  150,20  0,20  50,50"
-								  	class="arriba"
-								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+								  	class="arriba" 
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"  ng-click="aplicar_tratamiento_up(v2128)" 
+								   ng-style="{'fill': v2128.arriba_color != '' ? v2128.arriba_color : 'rgb(255,255,255)'}"/>
 
 								  <rect x="50" y="50" width="50" height="50" 
 								  class="center"
-								  style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" />
+								  style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" ng-click="aplicar_tratamiento_center(v2128)"
+								  ng-style="{'fill': v2128.centro_color != '' ? v2128.centro_color : 'rgb(255,255,255)'}"/>
 
 								  <polygon points="100,100 50,100 0,130  0,130  150,130"
 								  	class="abajo"
-								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" ng-click="aplicar_tratamiento_down(v2128)" 
+								   	ng-style="{'fill': v2128.abajo_color != '' ? v2128.abajo_color : 'rgb(255,255,255)'}" />
 
 								   <polygon points="100,100 100,50 150,20 150,130  150,130"
 								  	class="derecha"
-								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" ng-click="aplicar_tratamiento_right(v2128)"
+								   ng-style="{'fill': v2128.derecha_color != '' ? v2128.derecha_color : 'rgb(255,255,255)'}" />
 
 								   <polygon points="50,100 50,50 0,20 0,130  0,130"
 								  	class="izquierda"
-								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" ng-click="aplicar_tratamiento_left(v2128)"
+								   ng-style="{'fill': v2128.izquierda_color != '' ? v2128.izquierda_color : 'rgb(255,255,255)'}"/>
 								</svg>
                 			</td>
+                		</tr>
+
+                		<tr>
+                			<td></td>
+                			<td ng-repeat=" v1811 in odontograma.vestibular1811 ">
+                				<img ng-repeat=" tr in v1811.tratamiento track by $index " ng-cloak src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
+                			</td>
+                			<td style="width: 25px;"></td>
+							<td style="width: 25px;"></td>
+							<td ng-repeat=" v2128 in odontograma.vestibular2128 ">
+								<img ng-repeat=" tr in v2128.tratamiento track by $index " ng-cloak src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
+							</td>
                 		</tr>
 
                 		<tr>
@@ -1177,25 +1243,30 @@
 						            <g id="Capa_2">
 						              <path class="arriba" style="fill:rgb(255,255,255);" d="M278.641,90.239c50.277,0,97.564,19.436,133.287,54.757l54.155-54.158
 						                c-48.158-47.764-114.416-77.313-187.442-77.313S139.354,43.074,91.198,90.841l54.156,54.156
-						                C181.076,109.675,228.363,90.239,278.641,90.239z"/>
+						                C181.076,109.675,228.363,90.239,278.641,90.239z" ng-click="aplicar_tratamiento_up(l5551)" 
+								   ng-style="{'fill': l5551.arriba_color != '' ? l5551.arriba_color : 'rgb(255,255,255)'}" />
 						            </g>
 						            <g id="Capa_3">
 						              <path class="derecha" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" d="M468.56,280.161c0,50.275-19.436,97.562-54.757,133.287l54.158,54.154
 						                c47.767-48.156,77.313-114.417,77.313-187.441c0-73.028-29.547-139.289-77.313-187.445l-54.158,54.158
-						                C449.124,182.594,468.56,229.881,468.56,280.161z"/>
+						                C449.124,182.594,468.56,229.881,468.56,280.161z" ng-click="aplicar_tratamiento_right(l5551)"
+								   ng-style="{'fill': l5551.derecha_color != '' ? l5551.derecha_color : 'rgb(255,255,255)'}"/>
 						            </g>
 						            <g id="Capa_4">
 						              <path class="abajo" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"  d="M278.641,470.08c-50.277,0-97.564-19.436-133.287-54.758L91.198,469.48
 						                c48.159,47.765,114.417,77.313,187.443,77.313s139.286-29.549,187.442-77.315l-54.155-54.156
-						                C376.205,450.645,328.918,470.08,278.641,470.08z"/>
+						                C376.205,450.645,328.918,470.08,278.641,470.08z" ng-click="aplicar_tratamiento_down(l5551)" 
+								   	ng-style="{'fill': l5551.abajo_color != '' ? l5551.abajo_color : 'rgb(255,255,255)'}"/>
 						            </g>
 						            <g id="Capa_5">
 						              <path class="izquierda" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" d="M88.72,280.161c0-50.28,19.436-97.567,54.757-133.287L89.32,92.716
 						                c-47.765,48.16-77.314,114.417-77.314,187.445c0,73.024,29.549,139.285,77.316,187.441l54.156-54.154
-						                C108.156,377.723,88.72,330.436,88.72,280.161z"/>
+						                C108.156,377.723,88.72,330.436,88.72,280.161z" ng-click="aplicar_tratamiento_left(l5551)"
+								   ng-style="{'fill': l5551.izquierda_color != '' ? l5551.izquierda_color : 'rgb(255,255,255)'}" />
 						            </g>
 						            <g id="Capa_6">
-						              <circle class='center' style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" cx="278.902" cy="279.699" r="187.352"/>
+						              <circle class='center' style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" cx="278.902" cy="279.699" r="187.352" ng-click="aplicar_tratamiento_center(l5551)"
+								  ng-style="{'fill': l5551.centro_color != '' ? l5551.centro_color : 'rgb(255,255,255)'}"/>
 						            </g>
 						          </g>
 						        </switch>
@@ -1246,25 +1317,30 @@
 						            <g id="Capa_2">
 						              <path class="arriba" style="fill:rgb(255,255,255);" d="M278.641,90.239c50.277,0,97.564,19.436,133.287,54.757l54.155-54.158
 						                c-48.158-47.764-114.416-77.313-187.442-77.313S139.354,43.074,91.198,90.841l54.156,54.156
-						                C181.076,109.675,228.363,90.239,278.641,90.239z"/>
+						                C181.076,109.675,228.363,90.239,278.641,90.239z" ng-click="aplicar_tratamiento_up(l6165)" 
+								   ng-style="{'fill': l6165.arriba_color != '' ? l6165.arriba_color : 'rgb(255,255,255)'}" />
 						            </g>
 						            <g id="Capa_3">
 						              <path class="derecha" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" d="M468.56,280.161c0,50.275-19.436,97.562-54.757,133.287l54.158,54.154
 						                c47.767-48.156,77.313-114.417,77.313-187.441c0-73.028-29.547-139.289-77.313-187.445l-54.158,54.158
-						                C449.124,182.594,468.56,229.881,468.56,280.161z"/>
+						                C449.124,182.594,468.56,229.881,468.56,280.161z" ng-click="aplicar_tratamiento_right(l6165)"
+								   ng-style="{'fill': l6165.derecha_color != '' ? l6165.derecha_color : 'rgb(255,255,255)'}" />
 						            </g>
 						            <g id="Capa_4">
 						              <path class="abajo" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"  d="M278.641,470.08c-50.277,0-97.564-19.436-133.287-54.758L91.198,469.48
 						                c48.159,47.765,114.417,77.313,187.443,77.313s139.286-29.549,187.442-77.315l-54.155-54.156
-						                C376.205,450.645,328.918,470.08,278.641,470.08z"/>
+						                C376.205,450.645,328.918,470.08,278.641,470.08z" ng-click="aplicar_tratamiento_down(l6165)" 
+								   	ng-style="{'fill': l6165.abajo_color != '' ? l6165.abajo_color : 'rgb(255,255,255)'}"/>
 						            </g>
 						            <g id="Capa_5">
 						              <path class="izquierda" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" d="M88.72,280.161c0-50.28,19.436-97.567,54.757-133.287L89.32,92.716
 						                c-47.765,48.16-77.314,114.417-77.314,187.445c0,73.024,29.549,139.285,77.316,187.441l54.156-54.154
-						                C108.156,377.723,88.72,330.436,88.72,280.161z"/>
+						                C108.156,377.723,88.72,330.436,88.72,280.161z" ng-click="aplicar_tratamiento_left(l6165)"
+								   ng-style="{'fill': l6165.izquierda_color != '' ? l6165.izquierda_color : 'rgb(255,255,255)'}"  />
 						            </g>
 						            <g id="Capa_6">
-						              <circle class='center' style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" cx="278.902" cy="279.699" r="187.352"/>
+						              <circle class='center' style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" cx="278.902" cy="279.699" r="187.352"  ng-click="aplicar_tratamiento_center(l6165)"
+								  ng-style="{'fill': l6165.centro_color != '' ? l6165.centro_color : 'rgb(255,255,255)'}"/>
 						            </g>
 						          </g>
 						        </switch>
@@ -1274,6 +1350,40 @@
                 			<td></td>
                 			<td></td>
                 		</tr>
+
+                		<tr>
+                			<td></td>
+                			<td></td>
+                			<td></td>
+                			<td ng-repeat=" l5551 in odontograma.lingual5551 " >
+                				<img ng-repeat=" tr in l5551.tratamiento track by $index " ng-cloak src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
+                			</td>
+                			<td style="width: 25px;"></td>
+							<td style="width: 25px;"></td>
+							<td></td>
+                			<td></td>
+                			<td ng-repeat=" l6165 in odontograma.lingual6165 " >
+                				<img ng-repeat=" tr in l6165.tratamiento track by $index " ng-cloak src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
+                			</td>
+                			<td></td>
+                			<td></td>
+                		</tr>
+
+
+						<tr>
+                			<td></td>
+                			<td></td>
+                			<td></td>
+                			<td ng-repeat=" l8581 in odontograma.lingual8581 " >{{l8581.id_numero}}</td>
+                			<td style="width: 25px;"></td>
+							<td style="width: 25px;"></td>
+							<td></td>
+                			<td></td>
+                			<td ng-repeat=" l7175 in odontograma.lingual7175 " >{{l7175.id_numero}}</td>
+                			<td></td>
+                			<td></td>
+                		</tr>
+
                 		<tr>
                 			<th>Lingual</th>
                 			<td></td>
@@ -1317,25 +1427,30 @@
 						            <g id="Capa_2">
 						              <path class="arriba" style="fill:rgb(255,255,255);" d="M278.641,90.239c50.277,0,97.564,19.436,133.287,54.757l54.155-54.158
 						                c-48.158-47.764-114.416-77.313-187.442-77.313S139.354,43.074,91.198,90.841l54.156,54.156
-						                C181.076,109.675,228.363,90.239,278.641,90.239z"/>
+						                C181.076,109.675,228.363,90.239,278.641,90.239z" ng-click="aplicar_tratamiento_up(l8581)" 
+								   ng-style="{'fill': l8581.arriba_color != '' ? l8581.arriba_color : 'rgb(255,255,255)'}"  />
 						            </g>
 						            <g id="Capa_3">
 						              <path class="derecha" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" d="M468.56,280.161c0,50.275-19.436,97.562-54.757,133.287l54.158,54.154
 						                c47.767-48.156,77.313-114.417,77.313-187.441c0-73.028-29.547-139.289-77.313-187.445l-54.158,54.158
-						                C449.124,182.594,468.56,229.881,468.56,280.161z"/>
+						                C449.124,182.594,468.56,229.881,468.56,280.161z" ng-click="aplicar_tratamiento_right(l8581)"
+								   ng-style="{'fill': l8581.derecha_color != '' ? l8581.derecha_color : 'rgb(255,255,255)'}" />
 						            </g>
 						            <g id="Capa_4">
 						              <path class="abajo" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"  d="M278.641,470.08c-50.277,0-97.564-19.436-133.287-54.758L91.198,469.48
 						                c48.159,47.765,114.417,77.313,187.443,77.313s139.286-29.549,187.442-77.315l-54.155-54.156
-						                C376.205,450.645,328.918,470.08,278.641,470.08z"/>
+						                C376.205,450.645,328.918,470.08,278.641,470.08z" ng-click="aplicar_tratamiento_down(l8581)" 
+								   	ng-style="{'fill': l8581.abajo_color != '' ? l8581.abajo_color : 'rgb(255,255,255)'}" />
 						            </g>
 						            <g id="Capa_5">
 						              <path class="izquierda" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" d="M88.72,280.161c0-50.28,19.436-97.567,54.757-133.287L89.32,92.716
 						                c-47.765,48.16-77.314,114.417-77.314,187.445c0,73.024,29.549,139.285,77.316,187.441l54.156-54.154
-						                C108.156,377.723,88.72,330.436,88.72,280.161z"/>
+						                C108.156,377.723,88.72,330.436,88.72,280.161z" ng-click="aplicar_tratamiento_left(l8581)"
+								   ng-style="{'fill': l8581.izquierda_color != '' ? l8581.izquierda_color : 'rgb(255,255,255)'}"   />
 						            </g>
 						            <g id="Capa_6">
-						              <circle class='center' style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" cx="278.902" cy="279.699" r="187.352"/>
+						              <circle class='center' style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" cx="278.902" cy="279.699" r="187.352" ng-click="aplicar_tratamiento_center(l8581)"
+								  ng-style="{'fill': l8581.centro_color != '' ? l8581.centro_color : 'rgb(255,255,255)'}"/>
 						            </g>
 						          </g>
 						        </switch>
@@ -1385,25 +1500,30 @@
 						            <g id="Capa_2">
 						              <path class="arriba" style="fill:rgb(255,255,255);" d="M278.641,90.239c50.277,0,97.564,19.436,133.287,54.757l54.155-54.158
 						                c-48.158-47.764-114.416-77.313-187.442-77.313S139.354,43.074,91.198,90.841l54.156,54.156
-						                C181.076,109.675,228.363,90.239,278.641,90.239z"/>
+						                C181.076,109.675,228.363,90.239,278.641,90.239z" ng-click="aplicar_tratamiento_up(l7175)" 
+								   ng-style="{'fill': l7175.arriba_color != '' ? l7175.arriba_color : 'rgb(255,255,255)'}"  />
 						            </g>
 						            <g id="Capa_3">
 						              <path class="derecha" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" d="M468.56,280.161c0,50.275-19.436,97.562-54.757,133.287l54.158,54.154
 						                c47.767-48.156,77.313-114.417,77.313-187.441c0-73.028-29.547-139.289-77.313-187.445l-54.158,54.158
-						                C449.124,182.594,468.56,229.881,468.56,280.161z"/>
+						                C449.124,182.594,468.56,229.881,468.56,280.161z" ng-click="aplicar_tratamiento_right(l7175)"
+								   ng-style="{'fill': l7175.derecha_color != '' ? l7175.derecha_color : 'rgb(255,255,255)'}" />
 						            </g>
 						            <g id="Capa_4">
 						              <path class="abajo" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"  d="M278.641,470.08c-50.277,0-97.564-19.436-133.287-54.758L91.198,469.48
 						                c48.159,47.765,114.417,77.313,187.443,77.313s139.286-29.549,187.442-77.315l-54.155-54.156
-						                C376.205,450.645,328.918,470.08,278.641,470.08z"/>
+						                C376.205,450.645,328.918,470.08,278.641,470.08z" ng-click="aplicar_tratamiento_down(l7175)" 
+								   	ng-style="{'fill': l7175.abajo_color != '' ? l7175.abajo_color : 'rgb(255,255,255)'}" />
 						            </g>
 						            <g id="Capa_5">
 						              <path class="izquierda" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" d="M88.72,280.161c0-50.28,19.436-97.567,54.757-133.287L89.32,92.716
 						                c-47.765,48.16-77.314,114.417-77.314,187.445c0,73.024,29.549,139.285,77.316,187.441l54.156-54.154
-						                C108.156,377.723,88.72,330.436,88.72,280.161z"/>
+						                C108.156,377.723,88.72,330.436,88.72,280.161z" ng-click="aplicar_tratamiento_left(l7175)"
+								   ng-style="{'fill': l7175.izquierda_color != '' ? l7175.izquierda_color : 'rgb(255,255,255)'}" />
 						            </g>
 						            <g id="Capa_6">
-						              <circle class='center' style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" cx="278.902" cy="279.699" r="187.352"/>
+						              <circle class='center' style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" cx="278.902" cy="279.699" r="187.352" ng-click="aplicar_tratamiento_center(l7175)"
+								  ng-style="{'fill': l7175.centro_color != '' ? l7175.centro_color : 'rgb(255,255,255)'}" />
 						            </g>
 						          </g>
 						        </switch>
@@ -1418,16 +1538,29 @@
                 			<td></td>
                 			<td></td>
                 			<td></td>
-                			<td ng-repeat=" l8581 in odontograma.lingual8581 " >{{l8581.id_numero}}</td>
+                			<td ng-repeat=" l8581 in odontograma.lingual8581 " >
+                				<img ng-repeat=" tr in l8581.tratamiento track by $index " ng-cloak src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
+                			</td>
                 			<td style="width: 25px;"></td>
 							<td style="width: 25px;"></td>
 							<td></td>
                 			<td></td>
-                			<td ng-repeat=" l7175 in odontograma.lingual7175 " >{{l7175.id_numero}}</td>
+                			<td ng-repeat=" l7175 in odontograma.lingual7175 " >
+                				<img ng-repeat=" tr in l7175.tratamiento track by $index " ng-cloak src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
+                			</td>
                 			<td></td>
                 			<td></td>
                 		</tr>
 
+                		
+
+                		<tr>
+                			<td></td>
+                			<td ng-repeat=" v4841 in odontograma.vestibular4841 ">{{v4841.id_numero}}</td>
+                			<td style="width: 25px;"></td>
+							<td style="width: 25px;"></td>
+							<td ng-repeat=" v3138 in odontograma.vestibular3138 ">{{v3138.id_numero}}</td>
+                		</tr>
 
                 		<tr>
                 			<th>Vestibular</th>
@@ -1435,23 +1568,28 @@
                 				<svg xmlns="http://www.w3.org/2000/svg"  version="1.1" style="height: 50px; width: 40px;" viewBox="0 0 194 186"  width="150" height="150">  
 								  <polygon points="100,50  150,20  150,20  0,20  50,50"
 								  	class="arriba"
-								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" ng-click="aplicar_tratamiento_up(v4841)" 
+								   ng-style="{'fill': v4841.arriba_color != '' ? v4841.arriba_color : 'rgb(255,255,255)'}"  />
 
 								  <rect x="50" y="50" width="50" height="50" 
 								  class="center"
-								  style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" />
+								  style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"  ng-click="aplicar_tratamiento_center(v4841)"
+								  ng-style="{'fill': v4841.centro_color != '' ? v4841.centro_color : 'rgb(255,255,255)'}" />
 
 								  <polygon points="100,100 50,100 0,130  0,130  150,130"
 								  	class="abajo"
-								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" ng-click="aplicar_tratamiento_down(v4841)" 
+								   	ng-style="{'fill': v4841.abajo_color != '' ? v4841.abajo_color : 'rgb(255,255,255)'}"  />
 
 								   <polygon points="100,100 100,50 150,20 150,130  150,130"
 								  	class="derecha"
-								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" ng-click="aplicar_tratamiento_right(v4841)"
+								   ng-style="{'fill': v4841.derecha_color != '' ? v4841.derecha_color : 'rgb(255,255,255)'}" />
 
 								   <polygon points="50,100 50,50 0,20 0,130  0,130"
 								  	class="izquierda"
-								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" ng-click="aplicar_tratamiento_left(v4841)"
+								   ng-style="{'fill': v4841.izquierda_color != '' ? v4841.izquierda_color : 'rgb(255,255,255)'}" />
 								</svg>
                 			</td>
                 			<td style="width: 25px;"></td>
@@ -1460,32 +1598,41 @@
                 				<svg xmlns="http://www.w3.org/2000/svg"  version="1.1" style="height: 50px; width: 40px;" viewBox="0 0 194 186"  width="150" height="150">  
 								  <polygon points="100,50  150,20  150,20  0,20  50,50"
 								  	class="arriba"
-								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" ng-click="aplicar_tratamiento_up(v3138)" 
+								   ng-style="{'fill': v3138.arriba_color != '' ? v3138.arriba_color : 'rgb(255,255,255)'}"  />
 
 								  <rect x="50" y="50" width="50" height="50" 
 								  class="center"
-								  style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" />
+								  style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" ng-click="aplicar_tratamiento_center(v3138)"
+								  ng-style="{'fill': v3138.centro_color != '' ? v3138.centro_color : 'rgb(255,255,255)'}"  />
 
 								  <polygon points="100,100 50,100 0,130  0,130  150,130"
 								  	class="abajo"
-								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" ng-click="aplicar_tratamiento_down(v3138)" 
+								   	ng-style="{'fill': v3138.abajo_color != '' ? v3138.abajo_color : 'rgb(255,255,255)'}" />
 
 								   <polygon points="100,100 100,50 150,20 150,130  150,130"
 								  	class="derecha"
-								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" ng-click="aplicar_tratamiento_right(v3138)"
+								   ng-style="{'fill': v3138.derecha_color != '' ? v3138.derecha_color : 'rgb(255,255,255)'}"  />
 
 								   <polygon points="50,100 50,50 0,20 0,130  0,130"
 								  	class="izquierda"
-								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)"/>
+								   style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(0,0,0)" ng-click="aplicar_tratamiento_left(v3138)"
+								   ng-style="{'fill': v3138.izquierda_color != '' ? v3138.izquierda_color : 'rgb(255,255,255)'}"/>
 								</svg>
                 			</td>
                 		</tr>
                 		<tr>
                 			<td></td>
-                			<td ng-repeat=" v4841 in odontograma.vestibular4841 ">{{v4841.id_numero}}</td>
+                			<td ng-repeat=" v4841 in odontograma.vestibular4841 ">
+                				<img ng-repeat=" tr in v4841.tratamiento track by $index " ng-cloak src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
+                			</td>
                 			<td style="width: 25px;"></td>
 							<td style="width: 25px;"></td>
-							<td ng-repeat=" v3138 in odontograma.vestibular3138 ">{{v3138.id_numero}}</td>
+							<td ng-repeat=" v3138 in odontograma.vestibular3138 ">
+								<img ng-repeat=" tr in v3138.tratamiento track by $index " ng-cloak src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
+							</td>
                 		</tr>
                 		<tr>
                 			<th>Movilidad</th>
