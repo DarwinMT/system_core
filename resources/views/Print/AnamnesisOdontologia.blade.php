@@ -491,7 +491,7 @@
                                 foreach ($odontograma->vestibular2128 as $diente) {
                                     echo "<td>";
                                     foreach ($diente->tratamiento as $t) {
-                                        echo "<img src=''  height='10' width='10'/>";
+                                        echo "<img src='http://athan.developerandsystem.com/upload/Odontologia/Tratamientos/".$t.".png'  height='10' width='10'/>";
                                     }
                                     echo "</td>";
                                 }
@@ -502,7 +502,7 @@
                                 foreach ($odontograma->vestibular2128 as $diente) {
                                     echo "<td>";
                                     foreach ($diente->tratamiento as $t) {
-                                        echo "<img src=''  height='10' width='10'/>";
+                                        echo "<img src='http://athan.developerandsystem.com/upload/Odontologia/Tratamientos/".$t.".png'  height='10' width='10'/>";
                                     }
                                     echo "</td>";
                                 }
@@ -658,7 +658,7 @@
                                 foreach ($odontograma->lingual5551 as $diente) {
                                     echo "<td>";
                                     foreach ($diente->tratamiento as $t) {
-                                        echo "<img src=''  height='10' width='10'/>";
+                                        echo "<img src='http://athan.developerandsystem.com/upload/Odontologia/Tratamientos/".$t.".png'  height='10' width='10'/>";
                                     }
                                     echo "</td>";
                                 }
@@ -671,7 +671,7 @@
                                 foreach ($odontograma->lingual6165 as $diente) {
                                     echo "<td>";
                                     foreach ($diente->tratamiento as $t) {
-                                        echo "<img src=''  height='10' width='10'/>";
+                                        echo "<img src='http://athan.developerandsystem.com/upload/Odontologia/Tratamientos/".$t.".png'  height='10' width='10'/>";
                                     }
                                     echo "</td>";
                                 }
@@ -825,6 +825,38 @@
                             <td></td>
                             <td></td>
                         </tr>
+
+
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <?php
+                                foreach ($odontograma->lingual8581 as $diente) {
+                                    echo "<td>";
+                                    foreach ($diente->tratamiento as $t) {
+                                        echo "<img src='http://athan.developerandsystem.com/upload/Odontologia/Tratamientos/".$t.".png'  height='10' width='10'/>";
+                                    }
+                                    echo "</td>";
+                                }
+                            ?>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <?php
+                                foreach ($odontograma->lingual7175 as $diente) {
+                                    echo "<td>";
+                                    foreach ($diente->tratamiento as $t) {
+                                        echo "<img src='http://athan.developerandsystem.com/upload/Odontologia/Tratamientos/".$t.".png'  height='10' width='10'/>";
+                                    }
+                                    echo "</td>";
+                                }
+                            ?>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        
                              
                         <tr>
                             <td></td>
@@ -965,7 +997,7 @@
                                 foreach ($odontograma->vestibular4841 as $diente) {
                                     echo "<td>";
                                     foreach ($diente->tratamiento as $t) {
-                                        echo "<img src=''  height='10' width='10'/>";
+                                        echo "<img src='http://athan.developerandsystem.com/upload/Odontologia/Tratamientos/".$t.".png'  height='10' width='10'/>";
                                     }
                                     echo "</td>";
                                 }
@@ -976,7 +1008,7 @@
                                 foreach ($odontograma->vestibular3138 as $diente) {
                                     echo "<td>";
                                     foreach ($diente->tratamiento as $t) {
-                                        echo "<img src=''  height='10' width='10'/>";
+                                        echo "<img src='http://athan.developerandsystem.com/upload/Odontologia/Tratamientos/".$t.".png'  height='10' width='10'/>";
                                     }
                                     echo "</td>";
                                 }
