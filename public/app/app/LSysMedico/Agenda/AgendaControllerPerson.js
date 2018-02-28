@@ -1685,6 +1685,7 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
 
     ///---ODONTOGRAMA
     $scope.odontograma={};
+    $scope.delete_tratamiento=false;
     $scope.ready_odontograma=function (item) {
         console.log(item);
         $scope.odontograma={};
@@ -1883,99 +1884,125 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
     };
 
     $scope.aplicar_tratamiento_up=function(i) {
-        if($scope.tratamiento!=""){
-            i.arriba=$scope.tratamiento;
-            switch($scope.tratamiento){
-                case "15": // caries //rojo
-                    i.arriba_color="rgb(255,0,0)";
-                break;
-                case "16": // obturado // azul
-                    i.arriba_color="rgb(0,0,255)";
-                break;
-                default:
-                i.tratamiento.push($scope.tratamiento);
-                break;
-            }
-            console.log(i);
+        if($scope.delete_tratamiento==true){
+            i.arriba='';
+            i.arriba_color="";
         }else{
-            sms("btn-info","Seleccione un tratamiento");
+            if($scope.tratamiento!=""){
+                i.arriba=$scope.tratamiento;
+                switch($scope.tratamiento){
+                    case "15": // caries //rojo
+                    i.arriba_color="rgb(255,0,0)";
+                    break;
+                    case "16": // obturado // azul
+                    i.arriba_color="rgb(0,0,255)";
+                    break;
+                    default:
+                    i.tratamiento.push($scope.tratamiento);
+                    break;
+                }
+                console.log(i);
+            }else{
+                sms("btn-info","Seleccione un tratamiento");
+            }
         }
     };
 
     $scope.aplicar_tratamiento_down=function(i) {
-        if($scope.tratamiento!=""){
-            i.abajo=$scope.tratamiento;
-            switch($scope.tratamiento){
-                case "15": // caries //rojo
-                    i.abajo_color="rgb(255,0,0)";
-                break;
-                case "16": // obturado // azul
-                    i.abajo_color="rgb(0,0,255)";
-                break;
-                default:
-                i.tratamiento.push($scope.tratamiento);
-                break;
-            }
-            console.log(i);
+        if($scope.delete_tratamiento==true){
+            i.abajo='';
+            i.abajo_color='';
         }else{
-            sms("btn-info","Seleccione un tratamiento");
+           if($scope.tratamiento!=""){
+                i.abajo=$scope.tratamiento;
+                switch($scope.tratamiento){
+                    case "15": // caries //rojo
+                        i.abajo_color="rgb(255,0,0)";
+                    break;
+                    case "16": // obturado // azul
+                        i.abajo_color="rgb(0,0,255)";
+                    break;
+                    default:
+                    i.tratamiento.push($scope.tratamiento);
+                    break;
+                }
+                console.log(i);
+            }else{
+                sms("btn-info","Seleccione un tratamiento");
+            } 
         }
+        
     };
     $scope.aplicar_tratamiento_left=function(i) {
-        if($scope.tratamiento!=""){
-            i.izquierda=$scope.tratamiento;
-            switch($scope.tratamiento){
-                case "15": // caries //rojo
-                    i.izquierda_color="rgb(255,0,0)";
-                break;
-                case "16": // obturado // azul
-                    i.izquierda_color="rgb(0,0,255)";
-                break;
-                default:
-                i.tratamiento.push($scope.tratamiento);
-                break;
-            }
-            console.log(i);
+        if($scope.delete_tratamiento==true){
+            i.izquierda='';
+            i.izquierda_color='';
         }else{
-            sms("btn-info","Seleccione un tratamiento");
+            if($scope.tratamiento!=""){
+                i.izquierda=$scope.tratamiento;
+                switch($scope.tratamiento){
+                    case "15": // caries //rojo
+                        i.izquierda_color="rgb(255,0,0)";
+                    break;
+                    case "16": // obturado // azul
+                        i.izquierda_color="rgb(0,0,255)";
+                    break;
+                    default:
+                    i.tratamiento.push($scope.tratamiento);
+                    break;
+                }
+                console.log(i);
+            }else{
+                sms("btn-info","Seleccione un tratamiento");
+            }
         }
     };
     $scope.aplicar_tratamiento_right=function(i) {
-        if($scope.tratamiento!=""){
-            i.derecha=$scope.tratamiento;
-            switch($scope.tratamiento){
-                case "15": // caries //rojo
-                    i.derecha_color="rgb(255,0,0)";
-                break;
-                case "16": // obturado // azul
-                    i.derecha_color="rgb(0,0,255)";
-                break;
-                default:
-                i.tratamiento.push($scope.tratamiento);
-                break;
-            }
-            console.log(i);
+        if($scope.delete_tratamiento==true){
+            i.derecha='';
+            i.derecha_color='';
         }else{
-            sms("btn-info","Seleccione un tratamiento");
+            if($scope.tratamiento!=""){
+                i.derecha=$scope.tratamiento;
+                switch($scope.tratamiento){
+                    case "15": // caries //rojo
+                        i.derecha_color="rgb(255,0,0)";
+                    break;
+                    case "16": // obturado // azul
+                        i.derecha_color="rgb(0,0,255)";
+                    break;
+                    default:
+                    i.tratamiento.push($scope.tratamiento);
+                    break;
+                }
+                console.log(i);
+            }else{
+                sms("btn-info","Seleccione un tratamiento");
+            }
         }
     };
     $scope.aplicar_tratamiento_center=function(i) {
-        if($scope.tratamiento!=""){
-            i.centro=$scope.tratamiento;
-            switch($scope.tratamiento){
-                case "15": // caries //rojo
-                    i.centro_color="rgb(255,0,0)";
-                break;
-                case "16": // obturado // azul
-                    i.centro_color="rgb(0,0,255)";
-                break;
-                default:
-                i.tratamiento.push($scope.tratamiento);
-                break;
-            }
-            console.log(i);
+        if($scope.delete_tratamiento==true){
+            i.centro='';
+            i.centro_color='';
         }else{
-            sms("btn-info","Seleccione un tratamiento");
+            if($scope.tratamiento!=""){
+                i.centro=$scope.tratamiento;
+                switch($scope.tratamiento){
+                    case "15": // caries //rojo
+                        i.centro_color="rgb(255,0,0)";
+                    break;
+                    case "16": // obturado // azul
+                        i.centro_color="rgb(0,0,255)";
+                    break;
+                    default:
+                    i.tratamiento.push($scope.tratamiento);
+                    break;
+                }
+                console.log(i);
+            }else{
+                sms("btn-info","Seleccione un tratamiento");
+            }
         }
     };
     $scope.tratamiento="";

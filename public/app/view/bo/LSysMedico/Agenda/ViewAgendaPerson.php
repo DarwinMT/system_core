@@ -1071,7 +1071,7 @@
                 			</div>
                 		</div>
 
-                		<div class="col-md-4 col-xs-12 text-center btn-group">
+                		<div class="col-md-6 col-xs-12 text-center btn-group">
                 			
                 			<button type="button" class="btn btn-success btn-sm" ng-click="save_odontograma()">
                 				<i class="glyphicon glyphicon-floppy-saved"></i> Guardar
@@ -1079,6 +1079,13 @@
                 			<button type="button" class="btn btn-default btn-sm" ng-click="control_panel2('D');">
                 				<i class="glyphicon glyphicon-ban-circle"></i> Cancelar
                 			</button>
+
+                			<div class="checkbox">
+                				<label>
+                					<input type="checkbox" ng-model="delete_tratamiento" id="delete_tratamiento">
+                					Eliminar tratamiento
+                				</label>
+                			</div>
                 		</div>
 
                 	</div>
