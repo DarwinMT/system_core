@@ -600,6 +600,7 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
                 $scope.crear_fechas_control(action,f);
             break;
         };
+        $scope.aux_temp_cinta_consulta=null;
     };
     //$scope.control_panel($scope.tipo_calendar, $scope.fecha_referencial_angular);
     $scope.control_panel2=function (action) {
@@ -1060,6 +1061,7 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
         $scope.datos_cita={};
         $scope.tipo_calendar="CIT"; //ESTA DE  QUE INICIA LA CITA MEDICA
         $scope.datos_cita=item;
+        $scope.aux_temp_cinta_consulta=item; // variable temporal para almacenar los datos de la cita esta variable esta en todos los metodos de inicio
         console.log(item);
 
 
@@ -1882,7 +1884,12 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
 
         console.log($scope.odontograma);
     };
-
+    $scope.quitar_tratamiento=function(objeto, item) {
+        if($scope.delete_tratamiento==true){
+            var posicion= objeto.indexOf(item);
+            objeto.splice(posicion,1);
+        }
+    };
     $scope.aplicar_tratamiento_up=function(i) {
         if($scope.delete_tratamiento==true){
             i.arriba='';

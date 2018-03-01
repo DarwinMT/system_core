@@ -1,11 +1,3 @@
-<style type="text/css">
-	.caries{
-		fill:rgb(255,0,0);
-	}
-	.obturado{
-		fill:rgb(0,0,255);
-	}
-</style>
 <div class="row" ng-init="permisos_user();" ng-cloak>
 
 <div class="modal fade" id="sms" style="z-index: 5000;" tabindex="-1" role="dialog">
@@ -113,12 +105,43 @@
 						</div>
 					</div>
 				</div>
+
+				<br>
+				<div class="row" ng-cloak ng-hide="aux_temp_cinta_consulta==null ">
+					<div class="col-md-12 col-xs-12">
+
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title">Info. Cliente</h3>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-md-12 col-xs-12">
+										<strong>Nombre: </strong> {{aux_temp_cinta_consulta.cliente.persona.apellido+' '+aux_temp_cinta_consulta.cliente.persona.nombre}}
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 col-xs-12">
+										<strong>Edad: </strong> {{calcular_edad(aux_temp_cinta_consulta.cliente.persona.fechan)}}
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 col-xs-12">
+										<strong>Dirección: </strong> {{aux_temp_cinta_consulta.cliente.persona.direccion}}
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
 			</div>
 
 			<!--work-->
 			<div class="col-md-9 col-xs-12">
 
-				<div class="row" ng-hide=" tipo_calendar=='CIT' || tipo_calendar=='DIAG' ">
+				<div class="row" ng-hide=" tipo_calendar=='CIT' || tipo_calendar=='DIAG' ||  tipo_calendar=='ODONT' ">
 					<div class="col-md-2 col-xs-6" >
 						<div class="btn-group">
 						  <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -1089,6 +1112,7 @@
                 		</div>
 
                 	</div>
+
                 	
                 	<table class="">
                 		<tr>
@@ -1185,12 +1209,12 @@
                 		<tr>
                 			<td></td>
                 			<td ng-repeat=" v1811 in odontograma.vestibular1811 ">
-                				<img ng-repeat=" tr in v1811.tratamiento track by $index " ng-cloak src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
+                				<img ng-repeat=" tr in v1811.tratamiento track by $index " ng-cloak ng-click="quitar_tratamiento(v1811.tratamiento,tr)" src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
                 			</td>
                 			<td style="width: 25px;"></td>
 							<td style="width: 25px;"></td>
 							<td ng-repeat=" v2128 in odontograma.vestibular2128 ">
-								<img ng-repeat=" tr in v2128.tratamiento track by $index " ng-cloak src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
+								<img ng-repeat=" tr in v2128.tratamiento track by $index " ng-cloak ng-click="quitar_tratamiento(v2128.tratamiento,tr)" src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
 							</td>
                 		</tr>
 
@@ -1363,14 +1387,14 @@
                 			<td></td>
                 			<td></td>
                 			<td ng-repeat=" l5551 in odontograma.lingual5551 " >
-                				<img ng-repeat=" tr in l5551.tratamiento track by $index " ng-cloak src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
+                				<img ng-repeat=" tr in l5551.tratamiento track by $index " ng-cloak ng-cloak ng-click="quitar_tratamiento(l5551.tratamiento,tr)" src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
                 			</td>
                 			<td style="width: 25px;"></td>
 							<td style="width: 25px;"></td>
 							<td></td>
                 			<td></td>
                 			<td ng-repeat=" l6165 in odontograma.lingual6165 " >
-                				<img ng-repeat=" tr in l6165.tratamiento track by $index " ng-cloak src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
+                				<img ng-repeat=" tr in l6165.tratamiento track by $index " ng-cloak ng-cloak ng-click="quitar_tratamiento(l6165.tratamiento,tr)" src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
                 			</td>
                 			<td></td>
                 			<td></td>
@@ -1546,14 +1570,14 @@
                 			<td></td>
                 			<td></td>
                 			<td ng-repeat=" l8581 in odontograma.lingual8581 " >
-                				<img ng-repeat=" tr in l8581.tratamiento track by $index " ng-cloak src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
+                				<img ng-repeat=" tr in l8581.tratamiento track by $index " ng-cloak ng-click="quitar_tratamiento(l8581.tratamiento,tr)" src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
                 			</td>
                 			<td style="width: 25px;"></td>
 							<td style="width: 25px;"></td>
 							<td></td>
                 			<td></td>
                 			<td ng-repeat=" l7175 in odontograma.lingual7175 " >
-                				<img ng-repeat=" tr in l7175.tratamiento track by $index " ng-cloak src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
+                				<img ng-repeat=" tr in l7175.tratamiento track by $index " ng-cloak ng-click="quitar_tratamiento(l7175.tratamiento,tr)" src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
                 			</td>
                 			<td></td>
                 			<td></td>
@@ -1633,12 +1657,12 @@
                 		<tr>
                 			<td></td>
                 			<td ng-repeat=" v4841 in odontograma.vestibular4841 ">
-                				<img ng-repeat=" tr in v4841.tratamiento track by $index " ng-cloak src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
+                				<img ng-repeat=" tr in v4841.tratamiento track by $index " ng-cloak ng-click="quitar_tratamiento(v4841.tratamiento,tr)" src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
                 			</td>
                 			<td style="width: 25px;"></td>
 							<td style="width: 25px;"></td>
 							<td ng-repeat=" v3138 in odontograma.vestibular3138 ">
-								<img ng-repeat=" tr in v3138.tratamiento track by $index " ng-cloak src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
+								<img ng-repeat=" tr in v3138.tratamiento track by $index " ng-cloak ng-click="quitar_tratamiento(v3138.tratamiento,tr)" src="/upload/Odontologia/Tratamientos/{{tr}}.png" />
 							</td>
                 		</tr>
                 		<tr>
