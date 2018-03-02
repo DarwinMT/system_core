@@ -814,11 +814,19 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
     ///--- end crear agenda 
 
     ///--- buscar horas disponibles 
+
     $('#fechacita').on('dp.change', function(e){
+        console.log($(this).val());
         $scope.make_time();
         $scope.fechacita=$(this).val(); 
         $scope.buscar_horas_libres_empleado();
     });
+    $('#fechacita').blur(function(){
+        $scope.make_time();
+        $scope.fechacita=$(this).val(); 
+        $scope.buscar_horas_libres_empleado();
+    });
+
 
     $scope.buscar_horas_libres_empleado=function () {
         
@@ -904,6 +912,7 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
             if(response.success==0){
                 sms("btn-success","Se guardo correctamente los datos..!!");
                 $scope.clear_agenda();
+                $('#fechacita').blur();
             }else{
                 sms("btn-danger","Error al guardar los datos..!!");
                 $scope.clear_agenda();
@@ -2050,7 +2059,7 @@ app.controller('LogicaAgendaPerson', function($scope, $http, API_URL,Upload) {
       $http.get(API_URL + 'Odontograma/ultimo_odontograma/' + JSON.stringify(filtro))
       .success(function(data){
         console.log(data);
-        $scope.odontograma=JSON.parse(data[0].odontogramajson);
+        if(data.length>0) $scope.odontograma=JSON.parse(data[0].odontogramajson);
       });   
     };
 

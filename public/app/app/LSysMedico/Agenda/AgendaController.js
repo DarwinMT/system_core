@@ -794,6 +794,11 @@ app.controller('LogicaAgenda', function($scope, $http, API_URL,Upload) {
         $scope.fechacita=$(this).val(); 
         $scope.buscar_horas_libres_empleado();
     });
+    $('#fechacita').blur(function(){
+        $scope.make_time();
+        $scope.fechacita=$(this).val(); 
+        $scope.buscar_horas_libres_empleado();
+    });
 
     $scope.buscar_horas_libres_empleado=function () {
         

@@ -251,59 +251,11 @@
             <!--5 revision de organas se va no pertenece a el odontograma-->
             
 
-            <tr>
-                <th colspan="6">6. Signos Vitales Y Antropometria</th>
-            </tr>
+            <!--6. Signos Vitales Y Antropometria  se va no pertenece a el odontograma-->
 
-            <tr>
-                <td colspan="6">
+            
 
-                	
-                	<table class="table">
-                		<tr>
-                			<th style="font-size: 9px !important;">Fecha De Mediciòn</th>
-                			<td colspan="2">
-                				<?php  echo $anamnesis[0]->signosvitales[0]->fechamedicion; ?> 
-                			</td>
-
-                			<th style="font-size: 9px !important;">Pulso min</th>
-                			<td><?php  echo $anamnesis[0]->signosvitales[0]->pulso; ?> </td>
-
-                		</tr>
-
-                		<tr>
-                			<th style="font-size: 9px !important;">Temperatura °C</th>
-                			<td colspan="2">
-                				<?php  echo $anamnesis[0]->signosvitales[0]->temperatura; ?> 
-                			</td>
-
-                			<th style="font-size: 9px !important;">Frecuencia Respiratoria</th>
-                			<td>
-                				<?php  echo $anamnesis[0]->signosvitales[0]->frerespiratoria; ?> 
-                			</td>
-                		</tr>
-                		<tr>
-                			<th style="font-size: 9px !important;">Presiòn Arterial</th>
-                			<td>
-                				<?php  echo $anamnesis[0]->signosvitales[0]->presionarterial; ?>  
-                			</td>
-                			<td>
-                				<!--campo pendiente-->
-                			</td>
-
-                			<th style="font-size: 9px !important;">Peso kg</th>
-                			<td><?php  echo $anamnesis[0]->signosvitales[0]->peso; ?> </td>
-                		</tr>
-                		<tr>
-                			<th style="font-size: 9px !important;">Talla cm</th>
-                			<td colspan="4"><?php  echo $anamnesis[0]->signosvitales[0]->talla; ?> </td>
-                		</tr>
-                	</table>
-                    
-
-                </th>
-            </tr>
-
+            
 
             
             <!--Examen regianal se va -->
@@ -312,7 +264,7 @@
             <!--Se remplaza por el odontograma-->
 
             <tr>
-                <th colspan="6">7. Odontograma</th>
+                <th colspan="6">5. Odontograma</th>
             </tr>
 
             <tr>
