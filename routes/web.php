@@ -87,6 +87,7 @@ Route::resource('CargoE', 'Personas\CargoController');
 
 	/*-----------------Datos grafico --------------*/	
 	Route::get('Agenda/get_numbercitas', 'LSysMedico\Agenda\AgendaController@data_numbercitas');
+	Route::get('Agenda/get_numbercitas_filtro/{texto}', 'LSysMedico\Agenda\AgendaController@data_numbercitas_filtro');
 	/*-----------------Datos grafico --------------*/	
 
 Route::get('Agenda/get_info_agenda_fechas_empleado/{texto}', 'LSysMedico\Agenda\AgendaController@get_info_agenda_fechas_empleado');
@@ -109,6 +110,8 @@ Route::resource('Cie', 'LSysMedico\HistoriaClinica\Cie10');
 
 /*-----------------Logica Anamnesis --------------*/
 	/*-----------------Datos grafico --------------*/	
+	Route::get('Anamnesis/get_diagnosticos_filtro/{texto}', 'LSysMedico\HistoriaClinica\Anamnesis@data_diagnosticos_filtro');
+	Route::get('Anamnesis/get_enfermedadesfamiliares_filtro/{texto}', 'LSysMedico\HistoriaClinica\Anamnesis@data_enfermedadesfamiliares_filtro');
 	Route::get('Anamnesis/get_enfermedadesfamiliares', 'LSysMedico\HistoriaClinica\Anamnesis@data_enfermedadesfamiliares');
 	Route::get('Anamnesis/get_diagnosticos', 'LSysMedico\HistoriaClinica\Anamnesis@data_diagnosticos');
 	/*-----------------Datos grafico --------------*/	
@@ -122,6 +125,7 @@ Route::resource('Anamnesis', 'LSysMedico\HistoriaClinica\Anamnesis');
 
 /*-----------------Logica Prescripcion Medica --------------*/
 	/*-----------------Datos grafico --------------*/	
+	Route::get('Prescripcion/get_datavademecum_filtro/{texto}', 'LSysMedico\HistoriaClinica\PrescripcionMedica@data_vademecum_filtro');
 	Route::get('Prescripcion/get_datavademecum', 'LSysMedico\HistoriaClinica\PrescripcionMedica@data_vademecum');
 	/*-----------------Datos grafico --------------*/	
 Route::get('Prescripcion/print_receta/{texto}', 'LSysMedico\HistoriaClinica\PrescripcionMedica@print_receta');
@@ -186,4 +190,8 @@ Route::resource('Odontograma', 'LSysMedico\Odontologia\OdontogramaController');
 /*-----------------Logica historia odontologica --------------*/
 
 
-
+/*-----------------Logica registro historia odontologica --------------*/
+Route::get('RegOdontologia/get_listanamnesis_cliente_odontologia', 'LSysMedico\Registros\ReportOdontologicoController@get_list_anamnesisodontograma_id');
+Route::get('RegOdontologia/get_paciente_historia_odontologica', 'LSysMedico\Registros\ReportOdontologicoController@get_pacientehistorias');
+Route::resource('RegOdontologia', 'LSysMedico\Registros\ReportOdontologicoController');
+/*-----------------Logica registro historia odontologica --------------*/

@@ -106,7 +106,7 @@ class Main extends Controller
 
      				$nav.=" <li class='dropdown'> "; // menu padre
      				$nav.="  <a href='#' class='dropdown-toggle' id='drop3' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='true'> ";
-     				if($m["id_men"]==15){ // se cambia el titulo por los datos del usuario
+     				if($m["id_men"]==100){ // se cambia el titulo por los datos del usuario
      					$nav.=" ".$data_user[0]->username." <span class='caret'></span>  </a> ";
      				}else{
      					$nav.=" ".$m["titulo"]." <span class='caret'></span>  </a> ";	
@@ -147,11 +147,11 @@ class Main extends Controller
      	foreach ($menupadre as $m) {
      		$encontrar=0;
      		foreach ($permisos as $p) {
-     			if($m["id_men"]==$p->id_nodmen && $encontrar==0 &  ($m["id_men"]==15 || $m["id_men"]==7)  ){
+     			if($m["id_men"]==$p->id_nodmen && $encontrar==0 &  ($m["id_men"]==100 || $m["id_men"]==7)  ){
 
      				$nav.=" <li > "; // menu padre
      				$nav.="  <a href='#' class='dropdown-button' href='#!' data-activates='dropdown".$m["id_men"]."'> ";
-     				if($m["id_men"]==15){ // se cambia el titulo por los datos del usuario
+     				if($m["id_men"]==100){ // se cambia el titulo por los datos del usuario
      					$nav.=" <i class='material-icons prefix'>".$m["html"]."</i> ".$data_user[0]->username."";
      					$nav.=" <i class='material-icons right'>arrow_drop_down</i> </a> ";
      				}else{

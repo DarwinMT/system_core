@@ -56,6 +56,12 @@ app.config(function($routeProvider,API_URL){
     }).when("/EmpresaInit",{ //----------------------------------------------2018-01-08
         templateUrl : "app/view/bo/Basico/ViewEmpresaInit.php",
         controller : "LogicaEmpresaInit"
+    }).when("/HistorialOdontologia",{ // ya esta echo toca empezar el de ododntograma 
+        templateUrl : "app/view/bo/LSysMedico/Reportes/ViewReporteOdontologia.php",
+        controller : "LogicaHistorialOdontologico"
+    }).when("/Graficos",{ // ya esta echo toca empezar el de ododntograma 
+        templateUrl : "app/view/bo/LSysMedico/Graficos/ViewGraficosBasico2.php",
+        controller : "GraficosDefault2"
     }).when("/Perfil",{
         templateUrl : "app/view/bo/Usuario/ViewPerfilUsuario.php",
         controller : "LogicaPerfil"

@@ -161,6 +161,27 @@ class PrescripcionMedica extends Controller
                             ->groupBy("prescripcion_item.id_item")
                             ->get();
     }
+         /**
+     *
+     * estadistica de vademecum por fechas
+     *
+     */
+    public function data_vademecum_filtro($texto)
+    {
+        $data_user=Session::get('user_data');
+        $id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
+        $filtro = json_decode($texto);
+
+        
+        $sql=" IN (SELECT prescripcion.id_pres FROM prescripcion WHERE prescripcion.id_cone IN (SELECT consulta_externa.id_cone FROM consulta_externa  WHERE consulta_externa.id_ag  IN ( ";
+        $sql.=" SELECT agenda.id_ag FROM agenda WHERE agenda.fecha BETWEEN '".$filtro->fechai."' AND '".$filtro->fechaf."' AND agenda.id_em=".$id_emp.")) )";
+
+        return PrescripcionItem::selectRaw(" (SELECT item.descripcion FROM item WHERE item.id_item=prescripcion_item.id_item) AS Medicamento ")
+                            ->selectRaw(" (SELECT  COUNT(*) FROM prescripcion_item aux WHERE aux.id_item=prescripcion_item.id_item AND aux.id_pres ".$sql." )  AS Cantidad ")
+                            ->whereRaw(" prescripcion_item.id_pres ".$sql." ")
+                            ->groupBy("prescripcion_item.id_item")
+                            ->get();
+    }
     /**
      * Imprimir anamanesis
      * 

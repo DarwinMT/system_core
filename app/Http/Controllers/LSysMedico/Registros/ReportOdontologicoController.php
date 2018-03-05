@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\LSysMedico\HistoriaClinica;
+namespace App\Http\Controllers\LSysMedico\Registros;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,21 +11,22 @@ use Illuminate\Support\Facades\Session;
 
 use App\Models\Agenda\Agenda;
 
-class HistoriaClinicaController extends Controller
+class ReportOdontologicoController extends Controller
 {
-     /*
-     * Cargar los permisos de empresa
+    /**
      *
+     * Cargar los permisos de usuario
+     * 
      */
     public function index()
     {
         if(Session::has('user_data')){
             $data_user=Session::get('user_data');
             $permisos=json_decode($data_user[0]->permisos[0]->acceso);
-            //id_men =12 = historial clinico del paciente
+            //id_men =24 = agendar citas general
             $aux_permiso=array();
             foreach ($permisos as $p) {
-                if($p->id_men==12){
+                if($p->id_men==24){
                     array_push($aux_permiso, $p);
                 }
             }
@@ -33,12 +34,12 @@ class HistoriaClinicaController extends Controller
                 return $aux_permiso;
             }else{
                 Session::forget('user_data');
-                return redirect('/');
+                return redirect('/');   
             }
         }else{
             Session::forget('user_data');
             return redirect('/');
-        }
+        }    	
     }
     /**
      *
@@ -65,14 +66,14 @@ class HistoriaClinicaController extends Controller
                     ->orderBy("agenda.fecha","ASC")
                     ->groupBy("agenda.id_cli");
         return $data->paginate(5);
-    }
-    /**
+    } 
+     /**
      *
-     *
+     * 
      * Lista de anamnesis de cliente 
      *
      */
-    public function get_list_anamnesis_id(Request $request)
+    public function get_list_anamnesisodontograma_id(Request $request)
     {
 
         $filter = json_decode($request->get('filter'));
@@ -81,46 +82,12 @@ class HistoriaClinicaController extends Controller
         $id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
 
         $sql =" agenda.estado='1' AND agenda.id_em='".$id_emp."' AND  agenda.id_cli='".$filter->id_cli."'";
-        $data=Agenda::with("cliente.persona","empleado.persona","empresa","consultageneral.prescripcion")
+        $data=Agenda::with("cliente.persona","empleado.persona","empresa","consultageneral.prescripcion","consultageneral.odontograma")
+        			->join("consulta_externa","consulta_externa.id_ag","=","agenda.id_ag")
+        			->join("odontogramajson","odontogramajson.id_cone","=","consulta_externa.id_cone")
         			->whereRaw($sql)
                     ->orderBy("agenda.fecha","DESC");
         return $data->paginate(5);
-    }
-    /**
-     *
-     * Webservices 
-     *
-     */
-    public function get_pacientehistorias_id($texto)
-    {
-        $filtro = json_decode($texto);
-        $sql="";
-        if($filtro->buscar!=""){
-            $sql=" AND agenda.id_cli IN(SELECT cl.id_cli FROM cliente cl  ";
-            $sql.=" WHERE cl.id_pe IN(SELECT per.id_pe  FROM persona per WHERE per.ci LIKE '%".$filtro->buscar."%'  OR  CONCAT(apellido,' ',nombre) LIKE '%".$filtro->buscar."%' ) ";
-            $sql.=" OR cl.numerohistoria LIKE '%".$filtro->buscar."%') ";
-        }
-        //->whereRaw("  agenda.fecha BETWEEN '".$filter->fechai."' AND '".$filter->fechaf."' AND agenda.estado='1'  ".$sql)
-        return Agenda::with("cliente.persona")
-                    ->whereRaw(" agenda.estado='1'  ".$sql)
-                    ->orderBy("agenda.fecha","ASC")
-                    ->groupBy("agenda.id_cli")
-                    ->get();
+    }   
 
-    }
-    /**
-     *
-     *
-     * Lista de anamnesis de cliente 
-     *
-     */
-    public function get_list_anamnesis_id_webservice($texto)
-    {
-        $filter = json_decode($texto);
-        $sql =" agenda.estado='1' AND  agenda.id_cli='".$filter->id_cli."'";
-        return Agenda::with("cliente.persona","empleado.persona","empresa","consultageneral.prescripcion")
-                    ->whereRaw($sql)
-                    ->orderBy("agenda.fecha","DESC")
-                    ->get();
-    }
 }

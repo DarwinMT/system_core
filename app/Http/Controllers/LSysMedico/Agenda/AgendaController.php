@@ -284,4 +284,24 @@ class AgendaController extends Controller
         ->groupBy("agenda.fecha")
         ->get();
     }
+
+      /**
+     *
+     * Numero de citas por fechas
+     *
+     */
+     public function data_numbercitas_filtro($texto)
+     {
+        $data_user=Session::get('user_data');
+        $id_emp=$data_user[0]->persona->personaempresa[0]->id_emp;
+        $filtro = json_decode($texto);
+
+        
+        return Agenda::selectRaw("agenda.fecha")
+        ->selectRaw("(SELECT  COUNT(*) FROM agenda aux WHERE aux.fecha=agenda.fecha) AS numero")
+        ->whereRaw(" agenda.fecha  BETWEEN '".$filtro->fechai."' AND '".$filtro->fechaf."' AND agenda.id_em=".$id_emp."")
+        ->groupBy("agenda.fecha")
+        ->get();
+    }
+
 }
