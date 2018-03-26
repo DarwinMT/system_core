@@ -13,6 +13,7 @@ use App\Models\Agenda\Agenda;
 use App\Models\Anamnesis\ConsultaExterna;
 use App\Models\Odontologia\TratamientoOdontologico;
 use App\Models\Odontologia\Odontograma;
+use App\Models\Odontologia\ConsultaTratamientoOdontologico;
 
 class OdontogramaController extends Controller
 {
@@ -57,8 +58,19 @@ class OdontogramaController extends Controller
 		$data = $request->all();
 		$buscar_odontograma=Odontograma::whereRaw("id_cone=".$data["id_cone"])->get();
 		if(count($buscar_odontograma)==0){
-			$aux=Odontograma::create($data);
+            $aux=Odontograma::create($data);
 			if($aux->id_odonj>0){
+
+                $tratamiento=json_decode($data["tratamientoaplicados"]);
+                foreach ($tratamiento as $t) {
+                    $consulta = new ConsultaTratamientoOdontologico;
+                    $consulta->id_cone=$data["id_cone"];
+                    $consulta->id_trod=$t->Tratamiento;
+                    $consulta->diente=$t->Diente;
+                    $consulta->fecha=$data["fecha"];
+                    $consulta->estado=1;
+                    $aux=$consulta->save();
+                }
 	            return response()->json(['success' => 0]); //ok
 	        }else{
 	            return response()->json(['success' => 1]); //error al guardar los datos del odontograma
@@ -67,6 +79,18 @@ class OdontogramaController extends Controller
 	    	$ant_odont= Odontograma::find($buscar_odontograma[0]->id_odonj);
 	    	$ant_odont->odontogramajson=$data["odontogramajson"];
 	    	if($ant_odont->save()){
+
+                $tratamiento=json_decode($data["tratamientoaplicados"]);
+                foreach ($tratamiento as $t) {
+                    $consulta = new ConsultaTratamientoOdontologico;
+                    $consulta->id_cone=$data["id_cone"];
+                    $consulta->id_trod=$t->Tratamiento;
+                    $consulta->diente=$t->Diente;
+                    $consulta->fecha=$data["fecha"];
+                    $consulta->estado=1;
+                    $aux=$consulta->save();
+                }
+                
  				return response()->json(['success' => 0]); //ok
 	    	}else{
 				return response()->json(['success' => 1]); //error al guardar los datos del odontograma

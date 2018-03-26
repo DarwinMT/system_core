@@ -195,3 +195,8 @@ Route::get('RegOdontologia/get_listanamnesis_cliente_odontologia', 'LSysMedico\R
 Route::get('RegOdontologia/get_paciente_historia_odontologica', 'LSysMedico\Registros\ReportOdontologicoController@get_pacientehistorias');
 Route::resource('RegOdontologia', 'LSysMedico\Registros\ReportOdontologicoController');
 /*-----------------Logica registro historia odontologica --------------*/
+
+/*-----------------Logica prefactura proforma odontologica --------------*/
+Route::get('Prefactura/registro_pagosxid/{texto}', 'LSysMedico\Odontologia\PrefacturaController@registro_pagosxid');
+Route::resource('Prefactura', 'LSysMedico\Odontologia\PrefacturaController');
+/*-----------------Logica prefactura proforma odontologica --------------*/
