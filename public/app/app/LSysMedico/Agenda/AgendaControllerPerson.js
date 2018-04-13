@@ -2795,6 +2795,7 @@ app.controller('LogicaAgendaPerson', function ($scope, $http, API_URL, Upload) {
     $scope.descuento=0;
     $scope.total_prefactura=0;
     $scope.descripcion_prefactura = "";
+    $scope.descripcion_cobro="";
     $scope.calcula_totales=function () {
         
         $scope.subtotal=0;
@@ -2848,6 +2849,51 @@ app.controller('LogicaAgendaPerson', function ($scope, $http, API_URL, Upload) {
             $scope.dineropago = "";   
         }
     };
+    $scope.valida_pago2 = function () {
+        if ($scope.tipopago != "") {
+            if ($scope.dineropago != "" && isNaN($scope.dineropago) == false) {
+                var aux = parseFloat($scope.dineropago);
+                aux = aux.toFixed(2);
+                if (parseFloat(aux) > parseFloat($scope.total_cobrar)) {
+                    sms("btn-danger", "El dinero a pagar tiene que ser menor o igual a la   Cantidad a Cobrar");
+                    $scope.dineropago = "";
+                }
+            }
+        } else {
+            sms("btn-danger", "Seleccione una forma de pago");
+            $scope.dineropago = "";
+        }
+    };
+
+    $scope.cobrar_prefactura=function () {
+        var pago_proforma = {};
+        if ($scope.dineropago != "" && isNaN($scope.dineropago) == false) {
+            pago_proforma = {
+                id_tipp: $scope.tipopago,
+                id_prof:$scope.list_cobros_prefactura[0].proforma.id_prof,
+                fecha: convertDatetoDB(now()),
+                descripcion: $scope.descripcion_cobro,
+                dinero: $scope.dineropago,
+                estado:1
+            };
+            $http.post(API_URL + 'CobroPrefactura', pago_proforma)
+                .success(function (response) {
+                    console.log(response);
+                    $("#progress").modal("hide");
+                    if (response.success == 0) {
+                        sms("btn-success", "Se guardo correctamente los datos..!!");
+                        $scope.clear_proforma();
+                        $("#cobro_prefactura").modal("hide");
+                    } else {
+                        sms("btn-danger", "Error al guardar los datos..!!");
+                        $scope.clear_proforma();
+                        $("#cobro_prefactura").modal("hide");
+                    }
+                    $scope.historial_prefactura_pagos();
+                });
+        }
+    };
+
     $scope.clear_proforma=function() {
         $scope.val_descuento = 0;
         $scope.val_iva = 12;
@@ -2858,6 +2904,7 @@ app.controller('LogicaAgendaPerson', function ($scope, $http, API_URL, Upload) {
         $scope.descripcion_prefactura = "";
         $scope.tipopago="";
         $scope.dineropago="";
+        $scope.descripcion_cobro="";
 
         $scope.lista_tratamientos_aplicados=[];
     };
@@ -2866,7 +2913,8 @@ app.controller('LogicaAgendaPerson', function ($scope, $http, API_URL, Upload) {
         if ($scope.dineropago != "" && isNaN($scope.dineropago) == false) {
             pago_proforma ={
                 id_tipopago: $scope.tipopago,
-                pago: $scope.dineropago
+                pago: $scope.dineropago,
+                descripcion: $scope.descripcion_cobro
             }
         }
         var proforma_prefactura_pago={
@@ -2921,6 +2969,35 @@ app.controller('LogicaAgendaPerson', function ($scope, $http, API_URL, Upload) {
                 }
             });
 
+    };
+
+    $scope.list_cobros_prefactura=[];
+    $scope.total_cobrado=0;
+    $scope.total_cobrar =0;
+    $scope.pagar_prefactura=function(item) {
+        console.log(item);
+        $scope.list_cobros_prefactura = [];
+        $scope.total_cobrado = 0;
+        var registro_pagos = {
+            id_prof: item.id_prof,
+            total: item.total
+        };
+        $http.get(API_URL + 'Prefactura/registro_pagos_prefacturaxid/' + JSON.stringify(registro_pagos))
+            .success(function (response) {
+                console.log(response);
+                $scope.list_cobros_prefactura = response;
+                $("#cobro_prefactura").modal("show");
+                if(response.length>0){
+                    $scope.total_cobrado = response[0].SumaTotalPagada;
+
+                    $scope.total_cobrar=(parseFloat($scope.list_cobros_prefactura[0].proforma.total) - parseFloat($scope.total_cobrado));
+                    $scope.total_cobrar = $scope.total_cobrar.toFixed(2);
+                }
+                    
+                
+            });
+
+        
     };
     $scope.save_odontograma = function () {
         console.log($scope.odontograma); console.log($scope.aux_odontograma_proforma);

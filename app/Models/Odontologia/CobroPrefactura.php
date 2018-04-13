@@ -19,6 +19,7 @@ class CobroPrefactura extends Model
         'id_tipp',
         'id_prof',
         'fecha',
+        'descripcion',
         'dinero',
         'estado',
     ];

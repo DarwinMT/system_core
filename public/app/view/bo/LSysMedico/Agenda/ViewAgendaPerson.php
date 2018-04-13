@@ -1952,6 +1952,15 @@
 									</div>
 								</div>
 
+								<div class="row">
+									<div class="col-xs-12">
+										<div class="input-group">
+											<span class="input-group-addon" id="basic-addon1"> <i class="glyphicon glyphicon-list"></i>  Descripción Cobro: </span>
+											<input type="text" class="form-control input-sm" ng-keyup=""  placeholder="Descripción Del Cobro"  name="descripcion_cobro" id="descripcion_cobro" ng-model="descripcion_cobro" />
+										</div>
+									</div>
+								</div>
+
 							</th>
 							<th class="text-right">Descuento %</th>
 							<td ><input type="text" ng-keyup="calcula_totales();" class="form-control input-sm" ng-model="val_descuento" /></td>
@@ -2062,6 +2071,124 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="glyphicon glyphicon-glyphicon-ban-circle"></i> Cancelar</button>
         <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade" id="cobro_prefactura" tabindex="-1" role="dialog"  role="dialog" data-backdrop="static" data-keyboard="false"  >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Información</h4>
+      </div>
+      <div class="modal-body">
+	  	
+
+			<div class="row">
+				<div class="col-xs-12 col-md-12">
+					<table class="table table-bordered table-condensed">
+						<thead class="bg-primary">
+							<tr  >
+								<th colspan="6" class="text-center">Datos Prefactura</th>
+							</tr>
+							<tr>
+								<th>#</th>
+								<th>Fecha</th>
+								<th>Descripción</th>
+								<th>Subtotal</th>
+								<th>Descuento</th>
+								<th>Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>{{list_cobros_prefactura[0].proforma.id_prof}}</td>
+								<td>{{list_cobros_prefactura[0].proforma.fecha}}</td>
+								<td>{{list_cobros_prefactura[0].proforma.descripcion}}</td>
+								<td>{{list_cobros_prefactura[0].proforma.subtotal}}</td>
+								<td>{{list_cobros_prefactura[0].proforma.descuento}}</td>
+								<td>{{list_cobros_prefactura[0].proforma.total}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+
+		  <div class="row">
+		  	<div class="col-md-12 col-xs-12">
+			  	<table class="table table-table-condensed table-bordered">
+				  <thead class="bg-primary">
+				  	<tr>
+					  <th colspan="4" class="text-center">Historial Pagos | Total Cobrado: {{total_cobrado}}</th>
+					</tr>
+				  	<tr>
+					  <th></td>
+					  <th>Descripción</td>
+					  <th>Fecha</td>
+					  <th>Cobro</td>
+					</tr>
+				  </thead>
+				  <tbody >
+				  	<tr ng-repeat="c in list_cobros_prefactura">
+					  <td>{{$index+1}}</td>
+					  <td>{{c.descripcion}}</td>
+					  <td>{{c.fecha}}</td>
+					  <td>{{c.dinero}}</td>
+					</tr>
+				  </tbody>
+				</table>
+			  </div>
+		  </div>
+
+		 <div class="row">
+		 	<div class="col-xs-12 col-md-12 text-center">
+			 	<button class="btn btn-primary" type="button">
+				Cantidad a cobrar <span class="badge">{{ total_cobrar  }}</span>
+				</button>
+			 </div>
+		 </div>
+		<br/>
+		  <div class="row">
+			<div class="col-xs-12">
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1"> <i class="glyphicon glyphicon-list"></i> Tipo Pago: </span>
+					<select class="form-control input-sm"   name="tipopago" id="tipopago" ng-model="tipopago" >
+						<option value="">Seleccione</option>
+						<option value="1">Efectivo</option>
+						<option value="2">Tarjeta</option>
+						<option value="3">Cheque</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1"> <i class="glyphicon glyphicon-list"></i>  Pago: </span>
+					<input type="text" class="form-control input-sm" ng-keyup="valida_pago2()"  placeholder="Valor A Pagar"  name="dineropago" id="dineropago" ng-model="dineropago" />
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1"> <i class="glyphicon glyphicon-list"></i>  Descripción Cobro: </span>
+					<input type="text" class="form-control input-sm" ng-keyup=""  placeholder="Descripción Del Cobro"  name="descripcion_cobro" id="descripcion_cobro" ng-model="descripcion_cobro" />
+				</div>
+			</div>
+		</div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="glyphicon glyphicon-ban-circle"></i> Cancelar </button>
+        <button type="button" class="btn btn-primary btn-sm" ng-click="cobrar_prefactura();" ><i class="glyphicon glyphicon-usd "></i> Pagar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -2199,7 +2326,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="modalestado" tabindex="-1" role="dialog">
+<div class="modal fade" id="modalestado"  style="z-index:999999999;" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
 	<div class="modal-content">
 	  <div class="modal-header bg-primary">
@@ -2288,7 +2415,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="progress" tabindex="-1" role="dialog">
+<div class="modal fade" id="progress" style="z-index:999999999;" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
 	<div class="modal-content">
 	  <div class="modal-body">

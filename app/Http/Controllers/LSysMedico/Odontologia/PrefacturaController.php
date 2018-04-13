@@ -51,7 +51,7 @@ class PrefacturaController extends Controller
     	/**
      *
      *
-     * Guardar odontograma del paciente
+     * Guardar prefactura y cobro
      *
      */
 	public function store(Request $request)
@@ -75,6 +75,7 @@ class PrefacturaController extends Controller
                     $aux_cobro->id_tipp=$data["pago"]["id_tipopago"];
                     $aux_cobro->id_prof=$aux_prefactura->id_prof;
                     $aux_cobro->fecha=$data["fecha"];
+                    $aux_cobro->descripcion=$data["pago"]["descripcion"];
                     $aux_cobro->dinero=$data["pago"]["pago"];
                     $aux_cobro->estado="1";
                     if($aux_cobro->save()){
@@ -111,6 +112,7 @@ class PrefacturaController extends Controller
                     $aux_cobro->id_tipp=$data["pago"]["id_tipopago"];
                     $aux_cobro->id_prof=$ant_proforma->id_prof;
                     $aux_cobro->fecha=$data["fecha"];
+                    $aux_cobro->descripcion=$data["pago"]["descripcion"];
                     $aux_cobro->dinero=$data["pago"]["pago"];
                     $aux_cobro->estado="1";
                     if($aux_cobro->save()){
@@ -146,5 +148,22 @@ class PrefacturaController extends Controller
                                         ->whereRaw("agenda.id_cli='".$datos->id_cli."' AND agenda.id_em=".$datos->id_em." ")
                                         ->orderBy("proforma_prefactura_consulta.fecha","DESC")
                                         ->get();
+    }
+
+     /**
+     *
+     *
+     * registro pagos de la prefactura seleccionada
+     *
+     */
+    public function registro_pagos_prefacturaxid($texto)
+    {
+        $datos = json_decode($texto);
+        return CobroPrefactura::with("proforma")
+                                ->selectRaw("*")
+                                ->selectRaw(" (SELECT IFNULL(SUM(aux.dinero),0) FROM  cobro_prefactura aux WHERE  aux.id_prof=".$datos->id_prof.") as SumaTotalPagada ")
+                                ->whereRaw("id_prof=".$datos->id_prof."")
+                                ->orderBy("fecha","DESC")
+                                ->get();
     }
 }

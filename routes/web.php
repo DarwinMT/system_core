@@ -197,6 +197,11 @@ Route::resource('RegOdontologia', 'LSysMedico\Registros\ReportOdontologicoContro
 /*-----------------Logica registro historia odontologica --------------*/
 
 /*-----------------Logica prefactura proforma odontologica --------------*/
+Route::get('Prefactura/registro_pagos_prefacturaxid/{texto}', 'LSysMedico\Odontologia\PrefacturaController@registro_pagos_prefacturaxid');
 Route::get('Prefactura/registro_pagosxid/{texto}', 'LSysMedico\Odontologia\PrefacturaController@registro_pagosxid');
 Route::resource('Prefactura', 'LSysMedico\Odontologia\PrefacturaController');
 /*-----------------Logica prefactura proforma odontologica --------------*/
+
+/*-----------------Logica cobro prefactura proforma odontologica --------------*/
+Route::resource('CobroPrefactura', 'LSysMedico\Odontologia\CobroPrefacturaController');
+/*-----------------Logica cobro prefactura proforma odontologica --------------*/
