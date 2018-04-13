@@ -134,8 +134,55 @@
 						</div>
 
 					</div>
+
+					<div class="col-md-12 col-xs-12">
+						<div class="btn-group btn-group-justified " role="group" >
+							<div class="btn-group">
+								<button type="button" class="btn btn-sm btn-default" ng-click="see_ananmnesis();" ><i class="glyphicon glyphicon-list-alt"></i> Anamnesis</button>
+							</div>
+
+							<div class="btn-group">
+								<button type="button" class="btn btn-sm btn-info" ng-click="see_print_ananmnesis();" ><i class="glyphicon glyphicon-print"></i> Anamnesis</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-12 col-xs-12">
+						<div class="btn-group btn-group-justified " role="group" >
+							<div class="btn-group">
+								<button type="button" class="btn btn-sm btn-default" ng-click="see_receta();" ><i class="glyphicon glyphicon-list-alt"></i> Receta</button>
+							</div>
+							<div class="btn-group">
+								<button type="button" class="btn btn-sm btn-info"  ng-click="see_print_receta();" ><i class="glyphicon glyphicon-print"></i> Receta</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-12 col-xs-12">
+						<div class="btn-group btn-group-justified " role="group" >
+							<div class="btn-group">
+								<button type="button" class="btn btn-sm btn-default" ng-click="see_odontograma();"      ><i class="glyphicon glyphicon-list-alt"></i> Odontograma</button>
+							</div>
+							<div class="btn-group">
+								<button type="button" class="btn btn-sm btn-info"    ng-click="see_print_odontograma();"   ><i class="glyphicon glyphicon-print"></i> Odontograma</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-12 col-xs-12">
+						<div class="btn-group btn-group-justified " role="group" >
+							<div class="btn-group">
+								<button type="button" class="btn btn-sm btn-default" ng-click="historial_prefactura_pagos();" ><i class="glyphicon glyphicon-list-alt"></i> Cobros</button>
+							</div>
+							<div class="btn-group">
+								<button type="button" class="btn btn-sm btn-warning" ng-click="see_end_consulta();"><i class="glyphicon glyphicon-ok-circle"></i> Finalizar Consulta</button>
+							</div>
+						</div>
+					</div>
 				</div>
 
+
+				
 			</div>
 
 			<!--work-->

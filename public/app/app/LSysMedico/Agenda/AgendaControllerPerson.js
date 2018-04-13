@@ -3053,6 +3053,30 @@ app.controller('LogicaAgendaPerson', function ($scope, $http, API_URL, Upload) {
         }
     };
     ///---ODONTOGRAMA
+
+    ///--- ACCESOS DIRECTOS 
+    $scope.see_ananmnesis = function () {
+        $scope.ready_cita($scope.aux_temp_cinta_consulta);
+    };
+    $scope.see_print_ananmnesis = function () {
+        $scope.print_anamnesis($scope.aux_temp_cinta_consulta);
+    };
+    $scope.see_receta = function () {
+        $scope.ready_receta($scope.aux_temp_cinta_consulta);
+    };
+    $scope.see_print_receta = function () {
+        $scope.print_receta($scope.aux_temp_cinta_consulta);
+    };
+    $scope.see_odontograma = function () {
+        $scope.ready_odontograma($scope.aux_temp_cinta_consulta);
+    };
+    $scope.see_print_odontograma = function () {
+        $scope.print_odontograma($scope.aux_temp_cinta_consulta);
+    };
+    $scope.see_end_consulta = function () {
+        $scope.end_consulta($scope.aux_temp_cinta_consulta);  
+    };
+    ///--- ACCESOS DIRECTOS 
 });
 
 function sms(color, mensaje) {
