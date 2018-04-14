@@ -604,7 +604,7 @@ app.controller('LogicaAgendaPerson', function ($scope, $http, API_URL, Upload) {
     };
     //$scope.control_panel($scope.tipo_calendar, $scope.fecha_referencial_angular);
     $scope.control_panel2 = function (action) {
-        $scope.control_panel(action, $scope.fecha_referencial_angular);
+        $scope.control_panel(action, $scope.fecha_referencial_angular); $scope.titulo_fecha();
     };
 
     $scope.control_panel3 = function () {

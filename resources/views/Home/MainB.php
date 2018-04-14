@@ -130,10 +130,11 @@ $(document).ready(function(){
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">SystemCore</a>
+          <!--<a class="navbar-brand" href="#">SystemCore</a>--> <!--Nombre dinamico dependiendo de la empresa creada-->
+          <a class="navbar-brand" href="#"><?php echo $data_user[0]->persona->personaempresa[0]->empresa->nombre; ?> (Athan)</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-            <?php  echo $acees; ?>          
+            <?php  echo $acees; ?>
         </div>
     </div>
 </nav>
@@ -146,7 +147,6 @@ $(document).ready(function(){
     </div>
   </div>
 </div>
-
 
 
 <footer class="navbar-fixed-bottom">
