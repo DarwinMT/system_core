@@ -6,6 +6,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="description" content="ATHAN es un sistema médico vía web orientado a los médicos  para mejorar la calidad y atención a los pacientes mediante la utilización de la tecnología." />
 	<meta name="robots" content="index, follow">
+	<meta name="google-site-verification" content="isema4eyNQo0TCE8_oGOcmRu6y-EL4wovCnBNVuMFdU" />
+	
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <!--Jquery-->
